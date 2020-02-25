@@ -2,9 +2,19 @@ package mychess.domain;
 
 public class ChessGame {
 
+    private final Player playerWhite;
+    private final Player playerBlack;
+    private int turn = 1;
+    private Board board;
+
+    public ChessGame(Player playerWhite, Player playerBlack) {
+        this.playerWhite = playerWhite;
+        this.playerBlack = playerBlack;
+    }
+
     public void processCommand(String userCommand) {
         if (userCommand.equals("end")) end();
-        if (userCommand.equals("start")) start();
+        if (userCommand.equals("start")) createBoard();
         else throw new IllegalArgumentException("잘못된 명령어를 입력했습니다");
     }
 
@@ -12,7 +22,7 @@ public class ChessGame {
         System.exit(0);
     }
 
-    private void start() {
-        System.out.println("시작");
+    private void createBoard() {
+        this.board = new Board();
     }
 }

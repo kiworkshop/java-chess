@@ -1,6 +1,7 @@
 package mychess.controller;
 
 import mychess.domain.ChessGame;
+import mychess.domain.Player;
 import mychess.view.InputView;
 
 public class ChessController {
@@ -16,8 +17,15 @@ public class ChessController {
     public void run() {
         String userCommand = inputView.getUserCommand();
 
-        ChessGame chessGame = new ChessGame();
+        ChessGame chessGame = new ChessGame(playerWhite(), playerBlack());
         chessGame.processCommand(userCommand);
+    }
 
+    private Player playerWhite() {
+        return new Player(true);
+    }
+
+    private Player playerBlack() {
+        return new Player(false);
     }
 }
