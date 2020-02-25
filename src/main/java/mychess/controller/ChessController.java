@@ -1,5 +1,6 @@
 package mychess.controller;
 
+import mychess.domain.ChessGame;
 import mychess.view.InputView;
 
 public class ChessController {
@@ -13,6 +14,10 @@ public class ChessController {
     }
 
     public void run() {
+        String userCommand = inputView.getUserCommand();
+
+        ChessGame chessGame = new ChessGame();
+        chessGame.processCommand(userCommand);
 
     }
 }
