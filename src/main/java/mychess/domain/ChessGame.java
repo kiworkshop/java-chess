@@ -16,6 +16,7 @@ public class ChessGame {
     public void processCommand(AbstractCommand command) {
         if (command.isEndCommand()) end();
         if (command.isStartCommand()) createBoard();
+        //if (command.isMoveCommand()) board.movePiece(command);
     }
 
     private void end() {

@@ -1,5 +1,7 @@
 package mychess.domain;
 
+import java.util.Arrays;
+
 public enum Position {
 
     A8("a8"), B8("b8"), C8("c8"), D8("d8"), E8("e8"), F8("f8"), G8("g8"), H8("h8"),
@@ -21,6 +23,15 @@ public enum Position {
 
     Position(String position) {
         this.position = position;
+    }
+
+    public static boolean hasPosition(String position) {
+        return Arrays.stream(Position.values())
+                .anyMatch(value -> value.getPosition().equals(position));
+    }
+
+    public String getPosition() {
+        return position;
     }
 
     public boolean isEndOfLine() {

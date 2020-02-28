@@ -12,7 +12,7 @@ public abstract class AbstractCommand {
         this.command = command;
     }
 
-    protected boolean isValid(String command) {
+    protected boolean validate(String command) {
         return command.equals(COMMAND_END_GAME) || command.equals(COMMAND_START_GAME);
     }
 
