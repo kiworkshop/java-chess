@@ -17,7 +17,12 @@ public class ChessController {
 
     public void run() {
         ChessGame chessGame = new ChessGame(new Player(true), new Player(false));
-        chessGame.processCommand(inputView.getUserCommand());
+        chessGame.processCommand(inputView.getInitialCommand());
         outputView.printBoard(chessGame.getBoard());
+
+        while (true) {
+            chessGame.processCommand(inputView.getPlayerCommand());
+            outputView.printBoard(chessGame.getBoard());
+        }
     }
 }

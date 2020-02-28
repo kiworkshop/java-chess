@@ -9,8 +9,9 @@ import java.util.Map;
 public class OutputView {
 
     public void printBoard(Board board) {
-        Map<Position, Piece> pieces = board.getPieces();
+        System.out.println();
 
+        Map<Position, Piece> pieces = board.getPieces();
         for (Map.Entry<Position, Piece> entry : pieces.entrySet()) {
             Position position = entry.getKey();
             Piece piece = entry.getValue();

@@ -1,5 +1,7 @@
 package mychess.domain;
 
+import mychess.domain.command.AbstractCommand;
+
 public class ChessGame {
 
     private final Player playerWhite;
@@ -11,10 +13,9 @@ public class ChessGame {
         this.playerBlack = playerBlack;
     }
 
-    public void processCommand(String userCommand) {
-        if (userCommand.equals("end")) end();
-        if (userCommand.equals("start")) createBoard();
-        else throw new IllegalArgumentException("잘못된 명령어를 입력했습니다");
+    public void processCommand(AbstractCommand command) {
+        if (command.isEndCommand()) end();
+        if (command.isStartCommand()) createBoard();
     }
 
     private void end() {
