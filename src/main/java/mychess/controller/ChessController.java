@@ -3,6 +3,7 @@ package mychess.controller;
 import mychess.domain.ChessGame;
 import mychess.domain.Player;
 import mychess.view.InputView;
+import mychess.view.OutputView;
 
 public class ChessController {
 
@@ -15,17 +16,8 @@ public class ChessController {
     }
 
     public void run() {
-        String userCommand = inputView.getUserCommand();
-
-        ChessGame chessGame = new ChessGame(playerWhite(), playerBlack());
-        chessGame.processCommand(userCommand);
-    }
-
-    private Player playerWhite() {
-        return new Player(true);
-    }
-
-    private Player playerBlack() {
-        return new Player(false);
+        ChessGame chessGame = new ChessGame(new Player(true), new Player(false));
+        chessGame.processCommand(inputView.getUserCommand());
+        outputView.printBoard(chessGame.getBoard());
     }
 }

@@ -4,7 +4,6 @@ public class ChessGame {
 
     private final Player playerWhite;
     private final Player playerBlack;
-    private int turn = 1;
     private Board board;
 
     public ChessGame(Player playerWhite, Player playerBlack) {
@@ -23,6 +22,10 @@ public class ChessGame {
     }
 
     private void createBoard() {
-        this.board = new Board();
+        //this.board = new Board();
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

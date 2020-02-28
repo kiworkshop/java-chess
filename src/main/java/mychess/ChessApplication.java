@@ -1,7 +1,7 @@
 package mychess;
 
 import mychess.controller.ChessController;
-import mychess.controller.OutputView;
+import mychess.view.OutputView;
 import mychess.view.InputView;
 
 public class ChessApplication {
