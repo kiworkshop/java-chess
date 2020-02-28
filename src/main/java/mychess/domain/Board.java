@@ -14,8 +14,12 @@ public class Board {
     private void initialize() {
         pieces = new EnumMap<>(Position.class);
 
-        for (Position p : Position.values()) {
-            pieces.put(p, new Piece());
+        for (Position position : Position.values()) {
+            pieces.put(position, new Piece());
         }
+    }
+
+    public Map<Position, Piece> getPieces() {
+        return pieces;
     }
 }

@@ -11,9 +11,15 @@ public enum Position {
     G1("g1"), G2("g2"), G3("g3"), G4("g4"), G5("g5"), G6("g6"), G7("g7"), G8("g8"),
     H1("h1"), H2("h2"), H3("h3"), H4("h4"), H5("h5"), H6("h6"), H7("h7"), H8("h8");
 
+    private static final int MAX_WIDTH_INDEX = 8;
+
     private final String position;
 
     Position(String position) {
         this.position = position;
+    }
+
+    public boolean isEndOfRank() {
+        return position.contains(Integer.toString(MAX_WIDTH_INDEX));
     }
 }
