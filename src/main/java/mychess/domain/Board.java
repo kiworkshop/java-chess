@@ -1,8 +1,6 @@
 package mychess.domain;
 
-import mychess.domain.piece.EmptyPiece;
-import mychess.domain.piece.Pawn;
-import mychess.domain.piece.Piece;
+import mychess.domain.piece.*;
 
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -30,20 +28,27 @@ public class Board {
     }
 
     private Piece initialBlackPiece(Position position) {
-        switch (position) {
-            case A1: return new Rook();
-            case A2: return new Knight();
-            case A3: return new Bishop();
-            case A4: return new Queen();
-            case A5: return new King();
-            case A6: return new Bishop();
-            case A7: return new Knight();
-            case A8: return new Rook();
-        }
+        if (position == Position.A8) return new Rook();
+        if (position == Position.B8) return new Knight();
+        if (position == Position.C8) return new Bishop();
+        if (position == Position.D8) return new Queen();
+        if (position == Position.E8) return new King();
+        if (position == Position.F8) return new Bishop();
+        if (position == Position.G8) return new Knight();
+        if (position == Position.H8) return new Rook();
+        throw new IllegalStateException("Unexpected value: " + position);
     }
 
     private Piece initialWhitePiece(Position position) {
-        return new Pawn();
+        if (position == Position.A1) return new Rook();
+        if (position == Position.B1) return new Knight();
+        if (position == Position.C1) return new Bishop();
+        if (position == Position.D1) return new Queen();
+        if (position == Position.E1) return new King();
+        if (position == Position.F1) return new Bishop();
+        if (position == Position.G1) return new Knight();
+        if (position == Position.H1) return new Rook();
+        throw new IllegalStateException("Unexpected value: " + position);
     }
 
     public Map<Position, Piece> getPieces() {
