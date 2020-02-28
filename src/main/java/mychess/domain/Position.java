@@ -12,6 +12,10 @@ public enum Position {
     H1("h1"), H2("h2"), H3("h3"), H4("h4"), H5("h5"), H6("h6"), H7("h7"), H8("h8");
 
     private static final int MAX_WIDTH_INDEX = 8;
+    private static final String FRONT_LINE_INDEX_OF_BLACK = "b";
+    private static final String BACK_LINE_INDEX_OF_BLACK = "a";
+    private static final String FRONT_LINE_INDEX_OF_WHITE = "g";
+    private static final String BACK_LINE_INDEX_OF_WHITE = "h";
 
     private final String position;
 
@@ -19,7 +23,23 @@ public enum Position {
         this.position = position;
     }
 
-    public boolean isEndOfRank() {
+    public boolean isEndOfLine() {
         return position.contains(Integer.toString(MAX_WIDTH_INDEX));
+    }
+
+    public boolean isFrontLineOfBlack() {
+        return position.contains(FRONT_LINE_INDEX_OF_BLACK);
+    }
+
+    public boolean isBackLineOfBlack() {
+        return position.contains(BACK_LINE_INDEX_OF_BLACK);
+    }
+
+    public boolean isFrontLineOfWhite() {
+        return position.contains(FRONT_LINE_INDEX_OF_WHITE);
+    }
+
+    public boolean isBackLineOfWhite() {
+        return position.contains(BACK_LINE_INDEX_OF_WHITE);
     }
 }
