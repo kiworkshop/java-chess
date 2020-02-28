@@ -1,6 +1,7 @@
 package mychess.domain;
 
 import mychess.domain.command.AbstractCommand;
+import mychess.domain.command.Command;
 
 public class ChessGame {
 
@@ -16,7 +17,7 @@ public class ChessGame {
     public void processCommand(AbstractCommand command) {
         if (command.isEndCommand()) end();
         if (command.isStartCommand()) createBoard();
-        //if (command.isMoveCommand()) board.movePiece(command);
+        if (command.isMoveCommand()) board.movePiece((Command) command);
     }
 
     private void end() {

@@ -1,5 +1,6 @@
 package mychess.domain;
 
+import mychess.domain.command.Command;
 import mychess.domain.piece.*;
 
 import java.util.Arrays;
@@ -53,5 +54,15 @@ public class Board {
 
     public Map<Position, Piece> getPieces() {
         return pieces;
+    }
+
+    public void movePiece(Command command) {
+        Position sourcePosition = Position.toPosition(command.getSourcePosition());
+        Position targetPosition = Position.toPosition(command.getTargetPosition());
+
+        Piece sourcePiece = pieces.get(sourcePosition);
+
+        pieces.put(targetPosition, sourcePiece);
+        pieces.put(sourcePosition, new EmptyPiece());
     }
 }

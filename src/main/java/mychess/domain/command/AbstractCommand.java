@@ -12,10 +12,6 @@ public abstract class AbstractCommand {
         this.command = command;
     }
 
-    protected boolean validate(String command) {
-        return command.equals(COMMAND_END_GAME) || command.equals(COMMAND_START_GAME);
-    }
-
     public boolean isEndCommand() {
         return command.equals(COMMAND_END_GAME);
     }
@@ -26,5 +22,9 @@ public abstract class AbstractCommand {
 
     public boolean isMoveCommand() {
         return command.equals(COMMAND_MOVE_PIECE);
+    }
+
+    protected boolean validate(String command) {
+        return command.equals(COMMAND_END_GAME) || command.equals(COMMAND_START_GAME);
     }
 }

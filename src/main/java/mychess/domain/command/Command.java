@@ -2,8 +2,6 @@ package mychess.domain.command;
 
 import mychess.domain.Position;
 
-import java.util.EnumMap;
-
 public class Command extends AbstractCommand{
 
     private static final String COMMAND_DELIMETER = " ";

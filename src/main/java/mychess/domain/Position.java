@@ -13,6 +13,8 @@ public enum Position {
     A2("a2"), B2("b2"), C2("c2"), D2("d2"), E2("e2"), F2("f2"), G2("g2"), H2("h2"),
     A1("a1"), B1("b1"), C1("c1"), D1("d1"), E1("e1"), F1("f1"), G1("g1"), H1("h1");
 
+    public static final int MAX_HEIGHT_INDEX = 8;
+
     private static final String MAX_WIDTH_INDEX = "h";
     private static final String FRONT_LINE_INDEX_OF_BLACK = "7";
     private static final String BACK_LINE_INDEX_OF_BLACK = "8";
@@ -28,6 +30,15 @@ public enum Position {
     public static boolean hasPosition(String position) {
         return Arrays.stream(Position.values())
                 .anyMatch(value -> value.getPosition().equals(position));
+    }
+
+    public static Position toPosition(String position) {
+        for (Position value : Position.values()) {
+            if (value.getPosition().equals(position)) {
+                return value;
+            }
+        }
+        return Position.A8;
     }
 
     public String getPosition() {
