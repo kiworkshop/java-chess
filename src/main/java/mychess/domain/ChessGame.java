@@ -22,7 +22,7 @@ public class ChessGame {
     }
 
     private void createBoard() {
-        //this.board = new Board();
+        this.board = new Board();
     }
 
     public Board getBoard() {
