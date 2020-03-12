@@ -35,15 +35,18 @@ public class Pawn implements ChessPiece {
         return position;
     }
 
+    @Override
     public void move(ChessPiecePosition toPosition) {
-        if (this.playerNumber == 1) {
-            if (toPosition.getX() + 1 ==) {    //TODO .get으로 가져오지 말고  position의 객체를 만들어서 가져오자 ㅠ
-
-
+        if (this.playerNumber == 1) {   // TODO Depth를 1로 만들 수 있으나 그러지 않는 것이 가독성이 좋음.
+            if (position.getX() == toPosition.getX() && position.getY() + 1 == toPosition.getY()) {
+                this.position = toPosition;
             }
-            if (toPosition.get(1).equals()) {
-
+        }
+        if (this.playerNumber == 2) {
+            if (position.getX() == toPosition.getX() && position.getY() - 1 == toPosition.getY()) {
+                this.position = toPosition;
             }
-
         }
     }
+}
+
