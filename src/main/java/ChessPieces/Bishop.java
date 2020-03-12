@@ -1,22 +1,20 @@
 package ChessPieces;
 
-import java.util.List;
-
 public class Bishop implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♗";
     public static final String PRINT_CODE_BLACK = "♝";
 
     int playerNumber;
     String printCode;
-    List<Integer> position;
+    ChessPiecePosition position;
 
-    public Bishop(int playerNumber, List<Integer> position) {
+    public Bishop(int playerNumber, ChessPiecePosition position) {
         this.playerNumber = playerNumber;
         this.position = position;
         setPrintCode();
     }
 
-    public static Bishop setPiece(int playerNumber, List<Integer> position) {
+    public static Bishop setPiece(int playerNumber, ChessPiecePosition position) {
         return new Bishop(playerNumber, position);
     }
 
@@ -34,7 +32,7 @@ public class Bishop implements ChessPiece {
     }
 
     @Override
-    public List<Integer> getPosition() {
+    public ChessPiecePosition getPosition() {
         return position;
     }
 }

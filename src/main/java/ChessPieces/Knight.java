@@ -1,21 +1,19 @@
 package ChessPieces;
 
-import java.util.List;
-
 public class Knight implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♘";
     public static final String PRINT_CODE_BLACK = "♞";
     int playerNumber;
     String printCode;
-    List<Integer> position;
+    ChessPiecePosition position;
 
-    public Knight(int playerNumber, List<Integer> position) {
+    public Knight(int playerNumber, ChessPiecePosition position) {
         this.playerNumber = playerNumber;
         this.position = position;
         setPrintCode();
     }
 
-    public static Knight setPiece(int playerNumber, List<Integer> position) {
+    public static Knight setPiece(int playerNumber, ChessPiecePosition position) {
         return new Knight(playerNumber, position);
     }
 
@@ -33,7 +31,7 @@ public class Knight implements ChessPiece {
     }
 
     @Override
-    public List<Integer> getPosition() {
+    public ChessPiecePosition getPosition() {
         return position;
     }
 }

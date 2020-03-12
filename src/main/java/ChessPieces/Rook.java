@@ -1,21 +1,19 @@
 package ChessPieces;
 
-import java.util.List;
-
 public class Rook implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♖";
     public static final String PRINT_CODE_BLACK = "♜";
     int playerNumber;
     String printCode;
-    List<Integer> position;
+    ChessPiecePosition position;
 
-    public Rook(int playerNumber, List<Integer> position) {
+    public Rook(int playerNumber, ChessPiecePosition position) {
         this.playerNumber = playerNumber;
         this.position = position;
         setPrintCode();
     }
 
-    public static Rook setPiece(int playerNumber, List<Integer> position) {
+    public static Rook setPiece(int playerNumber, ChessPiecePosition position) {
         return new Rook(playerNumber, position);
     }
 
@@ -33,7 +31,7 @@ public class Rook implements ChessPiece {
     }
 
     @Override
-    public List<Integer> getPosition() {
+    public ChessPiecePosition getPosition() {
         return position;
     }
 }

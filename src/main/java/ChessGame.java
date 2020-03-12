@@ -23,7 +23,6 @@ public class ChessGame {
         if (gameMessage.equals("start")) {    //TODO 더 명료하게
             chessPieces = ChessPieces.makeInitialSetting();
             ConsoleOutput.printChessBoard(chessPieces);
-            return;
         }
         if (gameMessage.split(" ")[0].equals("move")) {
             ConsoleOutput.printChessBoard(chessPieces);
