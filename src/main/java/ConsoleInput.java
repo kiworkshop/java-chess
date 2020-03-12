@@ -5,7 +5,7 @@ public class ConsoleInput {
 
     public static String inputGameMessage() {
         System.out.print("입력> ");
-        scanner.next();
-        return "dd";
+        System.out.println();
+        return scanner.next();
     }
 }
