@@ -3,6 +3,7 @@ package ChessPieces;
 import java.util.HashMap;
 
 public class ChessPieces {
+    public static final int CHESS_BOARD_SIZE = 8;
     public HashMap<ChessPiecePosition, ChessPiece> chessPieces ;
 
     public ChessPieces(HashMap<ChessPiecePosition, ChessPiece> chessPieces) {
@@ -20,8 +21,8 @@ public class ChessPieces {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 8; i > 0; i--) {
-            for (int j = 1; j < 9; j++) {
+        for (int i = CHESS_BOARD_SIZE; i >= 1; i--) {
+            for (int j = 1; j <= CHESS_BOARD_SIZE; j++) {
                 ChessPiece chessPiece = chessPieces.get(ChessPiecePosition.getPositionByArray(j, i));
                 if (chessPiece != null) {
                     sb.append(chessPiece.getPrintCode());

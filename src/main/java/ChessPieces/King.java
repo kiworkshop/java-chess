@@ -30,18 +30,13 @@ public class King implements ChessPiece {
     }
 
     @Override
-    public ChessPiecePosition getPosition() {
-        return position;
-    }
-
-    @Override
     public boolean isMovable(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
-        if (this.playerNumber == 1) {   // TODO Depth를 1로 만들 수 있으나 그러지 않는 것이 가독성이 좋음.
+        if (this.playerNumber == PLAYER_NUMBER_ONE) {   // TODO Depth를 1로 만들 수 있으나 그러지 않는 것이 가독성이 좋음.
             if (fromPosition.getX() == toPosition.getX() && fromPosition.getY() + 1 == toPosition.getY()) {
                 return true;
             }
         }
-        if (this.playerNumber == 2) {
+        if (this.playerNumber == PLAYER_NUMBER_TWO) {
             return fromPosition.getX() == toPosition.getX() && fromPosition.getY() + 1 == toPosition.getY();
         }
         return false;
