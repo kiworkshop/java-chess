@@ -7,14 +7,13 @@ public class Rook implements ChessPiece {
     String printCode;
     ChessPiecePosition position;
 
-    public Rook(int playerNumber, ChessPiecePosition position) {
+    public Rook(int playerNumber) {
         this.playerNumber = playerNumber;
-        this.position = position;
         setPrintCode();
     }
 
-    public static Rook setPiece(int playerNumber, ChessPiecePosition position) {
-        return new Rook(playerNumber, position);
+    public static Rook setPiece(int playerNumber) {
+        return new Rook(playerNumber);
     }
 
     private void setPrintCode() {

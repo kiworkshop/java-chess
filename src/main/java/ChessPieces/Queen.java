@@ -7,14 +7,13 @@ public class Queen implements ChessPiece {
     String printCode;
     ChessPiecePosition position;
 
-    public Queen(int playerNumber, ChessPiecePosition position) {
+    public Queen(int playerNumber) {
         this.playerNumber = playerNumber;
-        this.position = position;
         setPrintCode();
     }
 
-    public static Queen setPiece(int playerNumber, ChessPiecePosition position) {
-        return new Queen(playerNumber, position);
+    public static Queen setPiece(int playerNumber) {
+        return new Queen(playerNumber);
     }
 
     private void setPrintCode() {

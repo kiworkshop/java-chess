@@ -7,14 +7,13 @@ public class Pawn implements ChessPiece {
     String printCode;
     ChessPiecePosition position;
 
-    public Pawn(int playerNumber, ChessPiecePosition position) {
+    public Pawn(int playerNumber) {
         this.playerNumber = playerNumber;
-        this.position = position;
         setPrintCode();
     }
 
-    public static Pawn setPiece(int playerNumber, ChessPiecePosition position) {
-        return new Pawn(playerNumber, position);
+    public static Pawn setPiece(int playerNumber) {
+        return new Pawn(playerNumber);
     }
 
     private void setPrintCode() {

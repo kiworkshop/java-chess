@@ -7,14 +7,13 @@ public class King implements ChessPiece {
     String printCode;
     ChessPiecePosition position;
 
-    public King(int playerNumber, ChessPiecePosition position) {
+    public King(int playerNumber) {
         this.playerNumber = playerNumber;
-        this.position = position;
         setPrintCode();
     }
 
-    public static King setPiece(int playerNumber, ChessPiecePosition position) {
-        return new King(playerNumber, position);
+    public static King setPiece(int playerNumber) {
+        return new King(playerNumber);
     }
 
     private void setPrintCode() {

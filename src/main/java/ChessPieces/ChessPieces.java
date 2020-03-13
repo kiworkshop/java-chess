@@ -1,12 +1,11 @@
 package ChessPieces;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ChessPieces {
-    private ArrayList<ChessPiece> chessPieces;
+    public HashMap<ChessPiecePosition, ChessPiece> chessPieces ;
 
-    public ChessPieces(ArrayList<ChessPiece> chessPieces) {
+    public ChessPieces(HashMap<ChessPiecePosition, ChessPiece> chessPieces) {
         this.chessPieces = chessPieces;
     }
 
@@ -16,14 +15,10 @@ public class ChessPieces {
 
     @Override
     public String toString() {
-        HashMap<ChessPiecePosition, ChessPiece> positionToPiece = new HashMap<ChessPiecePosition, ChessPiece>();
-        for (ChessPiece chessPiece : chessPieces) {
-            positionToPiece.put(chessPiece.getPosition(), chessPiece);
-        }
         StringBuilder sb = new StringBuilder();
         for (int i = 8; i > 0; i--) {
             for (int j = 1; j < 9; j++) {
-                ChessPiece chessPiece = positionToPiece.get(ChessPiecePosition.getPositionByArray(j, i));
+                ChessPiece chessPiece = chessPieces.get(ChessPiecePosition.getPositionByArray(j, i));
                 if (chessPiece != null) {
                     sb.append(chessPiece.getPrintCode());
                 }

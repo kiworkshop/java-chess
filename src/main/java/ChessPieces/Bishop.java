@@ -8,14 +8,13 @@ public class Bishop implements ChessPiece {
     String printCode;
     ChessPiecePosition position;
 
-    public Bishop(int playerNumber, ChessPiecePosition position) {
+    public Bishop(int playerNumber) {
         this.playerNumber = playerNumber;
-        this.position = position;
         setPrintCode();
     }
 
-    public static Bishop setPiece(int playerNumber, ChessPiecePosition position) {
-        return new Bishop(playerNumber, position);
+    public static Bishop setPiece(int playerNumber) {
+        return new Bishop(playerNumber);
     }
 
     private void setPrintCode() {

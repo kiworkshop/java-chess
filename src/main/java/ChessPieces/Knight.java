@@ -7,14 +7,13 @@ public class Knight implements ChessPiece {
     String printCode;
     ChessPiecePosition position;
 
-    public Knight(int playerNumber, ChessPiecePosition position) {
+    public Knight(int playerNumber) {
         this.playerNumber = playerNumber;
-        this.position = position;
         setPrintCode();
     }
 
-    public static Knight setPiece(int playerNumber, ChessPiecePosition position) {
-        return new Knight(playerNumber, position);
+    public static Knight setPiece(int playerNumber) {
+        return new Knight(playerNumber);
     }
 
     private void setPrintCode() {
