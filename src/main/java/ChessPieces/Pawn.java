@@ -24,6 +24,11 @@ public class Pawn implements ChessPiece {
     }
 
     @Override
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    @Override
     public String getPrintCode() {
         return printCode;
     }
@@ -36,7 +41,7 @@ public class Pawn implements ChessPiece {
             }
         }
         if (this.playerNumber == PLAYER_NUMBER_TWO) {
-            return fromPosition.getX() == toPosition.getX() && fromPosition.getY() + 1 == toPosition.getY();
+            return fromPosition.getX() == toPosition.getX() && fromPosition.getY() - 1 == toPosition.getY();
         }
         return false;
     }

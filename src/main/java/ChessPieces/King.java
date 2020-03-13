@@ -25,6 +25,11 @@ public class King implements ChessPiece {
     }
 
     @Override
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    @Override
     public String getPrintCode() {
         return printCode;
     }

@@ -16,6 +16,11 @@ public class Bishop implements ChessPiece {
         return new Bishop(playerNumber);
     }
 
+    @Override
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
     private void setPrintCode() {
         if (playerNumber == ChessPiece.PLAYER_NUMBER_ONE) {
             printCode = PRINT_CODE_WHITE;

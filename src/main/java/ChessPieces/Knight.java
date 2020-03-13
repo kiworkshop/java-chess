@@ -24,6 +24,12 @@ public class Knight implements ChessPiece {
     }
 
     @Override
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+
+    @Override
     public String getPrintCode() {
         return printCode;
     }
