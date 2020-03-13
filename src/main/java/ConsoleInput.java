@@ -6,6 +6,6 @@ public class ConsoleInput {
     public static String inputGameMessage() {
         System.out.print("입력> ");
         System.out.println();
-        return scanner.next();
+        return scanner.nextLine();
     }
 }

@@ -30,6 +30,14 @@ public class ChessPiecePosition {
         return new ChessPiecePosition(x, y);
     }
 
+    public static ChessPiecePosition getPositionByString(String inputPosition) {
+        String UppercaseInputPosition = inputPosition.toUpperCase();
+        char a = 'A';
+        int x = (int) inputPosition.charAt(0) - (int) a + 1;
+        int y = Integer.parseInt(String.valueOf(inputPosition.charAt(1)));
+        return getPositionByArray(x, y);
+    }
+
     public int getY() {
         return y;
     }

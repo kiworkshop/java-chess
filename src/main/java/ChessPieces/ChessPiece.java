@@ -5,5 +5,5 @@ public interface ChessPiece {
 
     ChessPiecePosition getPosition();
 
-    void move(ChessPiecePosition toPosition);
+    boolean isMovable(ChessPiecePosition fromPosition, ChessPiecePosition toPosition);
 }

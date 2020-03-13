@@ -13,6 +13,10 @@ public class ChessPieces {
         return new ChessPieces(InitialSetting.makeInitialSettings());
     }
 
+    public ChessPiece getPieceByPosition(ChessPiecePosition position) {
+        return chessPieces.get(position);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -36,4 +40,13 @@ public class ChessPieces {
         return sb.toString();
     }
 
+    public void move(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
+        if (chessPieces.get(toPosition) != null) {
+            chessPieces.remove(toPosition);
+        }
+        if (chessPieces.get(fromPosition).isMovable(fromPosition, toPosition)) {
+            chessPieces.put(toPosition, chessPieces.get(fromPosition));
+            chessPieces.remove(fromPosition);
+        }
+    }
 }

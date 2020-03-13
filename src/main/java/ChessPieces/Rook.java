@@ -35,16 +35,15 @@ public class Rook implements ChessPiece {
     }
 
     @Override
-    public void move(ChessPiecePosition toPosition) {
+    public boolean isMovable(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
         if (this.playerNumber == 1) {   // TODO Depth를 1로 만들 수 있으나 그러지 않는 것이 가독성이 좋음.
-            if (position.getX() == toPosition.getX() && position.getY() + 1 == toPosition.getY()) {
-                this.position = toPosition;
+            if (fromPosition.getX() == toPosition.getX() && fromPosition.getY() + 1 == toPosition.getY()) {
+                return true;
             }
         }
         if (this.playerNumber == 2) {
-            if (position.getX() == toPosition.getX() && position.getY() - 1 == toPosition.getY()) {
-                this.position = toPosition;
-            }
+            return fromPosition.getX() == toPosition.getX() && fromPosition.getY() + 1 == toPosition.getY();
         }
+        return false;
     }
 }
