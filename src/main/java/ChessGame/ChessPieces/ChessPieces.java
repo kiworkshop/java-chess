@@ -1,6 +1,9 @@
 package ChessGame.ChessPieces;
 
 import ChessGame.ConsoleOutput;
+import ChessGame.Exception.NotYourTurnException;
+import ChessGame.Exception.SamePositionException;
+import ChessGame.Exception.TakenPositionException;
 import ChessGame.PlayerNumber;
 
 import java.util.HashMap;
@@ -16,6 +19,10 @@ public class ChessPieces {
 
     public static ChessPieces makeInitialSetting() {
         return new ChessPieces(InitialSetting.makeInitialSettings());
+    }
+
+    public static ChessPieces makeTestSetting() {
+        return new ChessPieces(TestSetting.makeInitialSettings());
     }
 
     public ChessPiece getPieceByPosition(ChessPiecePosition position) {
@@ -45,24 +52,37 @@ public class ChessPieces {
         return sb.toString();
     }
 
-    public void move(PlayerNumber playerNumber, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {    //TODO 검증들이 지저분하니 함수로 빼버리기
-        if (chessPieces.get(fromPosition).getPlayerNumber() != playerNumber.getPlayerNumber()) {
-            ConsoleOutput.printNotYourTurnError();
-            return;
-        }
-        if (fromPosition.equals(toPosition)) {
-            ConsoleOutput.printSamePositionErrorMessage();
-            return;
-        }
-        if (chessPieces.get(toPosition) != null && chessPieces.get(toPosition).getPlayerNumber() == playerNumber.getPlayerNumber()) {
-            return;    //TODO Playernumber를 없애고, 아예 Player로 가야할듯..
-        }
-        if (chessPieces.get(fromPosition).isMovable(fromPosition, toPosition)) {
-            if (chessPieces.get(toPosition) != null) {
-                chessPieces.remove(toPosition);
-            }
+    public void move(PlayerNumber playerNumber, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws Exception {    //TODO 검증들이 지저분하니 함수로 빼버리기
+        validateMovePosition(playerNumber, fromPosition, toPosition);
+        if (chessPieces.get(fromPosition).isMovable(chessPieces, fromPosition, toPosition)) {
             chessPieces.put(toPosition, chessPieces.get(fromPosition));
             chessPieces.remove(fromPosition);
+        }
+    }
+
+    private void validateMovePosition(PlayerNumber playerNumber, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws Exception {
+        validateTurn(playerNumber, fromPosition);
+        validateSamePosition(fromPosition, toPosition);
+        validateTakenPosition(playerNumber, toPosition);
+    }
+
+    private void validateTakenPosition(PlayerNumber playerNumber, ChessPiecePosition toPosition) throws TakenPositionException {
+        if (chessPieces.get(toPosition) != null && chessPieces.get(toPosition).getPlayerNumber() == playerNumber.getPlayerNumber()) {
+            throw new TakenPositionException();
+        }
+    }
+
+    private void validateSamePosition(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws SamePositionException {
+        if (fromPosition.equals(toPosition)) {
+            ConsoleOutput.printSamePositionErrorMessage();
+            throw new SamePositionException();
+        }
+    }
+
+    private void validateTurn(PlayerNumber playerNumber, ChessPiecePosition fromPosition) throws Exception {
+        if (chessPieces.get(fromPosition).getPlayerNumber() != playerNumber.getPlayerNumber()) {
+            ConsoleOutput.printNotYourTurnErrorMessage();
+            throw new NotYourTurnException();
         }
     }
 }

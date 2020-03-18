@@ -1,6 +1,8 @@
 package ChessGame.ChessPieces;
 
 
+import java.util.HashMap;
+
 public class Pawn implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♙";
     public static final String PRINT_CODE_BLACK = "♟";
@@ -35,10 +37,9 @@ public class Pawn implements ChessPiece {
     }
 
     @Override
-    public boolean isMovable(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
+    public boolean isMovable(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
         if (this.playerNumber == PLAYER_NUMBER_ONE) {   // TODO Depth를 1로 만들 수 있으나 그러지 않는 것이 가독성이 좋음.
             if (fromPosition.getX() == toPosition.getX() && fromPosition.getY() + 1 == toPosition.getY()) {
-//                ConsoleOutput
                 return true;
             }
         }

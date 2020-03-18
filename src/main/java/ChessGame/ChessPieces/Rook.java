@@ -1,5 +1,7 @@
 package ChessGame.ChessPieces;
 
+import java.util.HashMap;
+
 public class Rook implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♖";
     public static final String PRINT_CODE_BLACK = "♜";
@@ -35,7 +37,7 @@ public class Rook implements ChessPiece {
     }
 
     @Override
-    public boolean isMovable(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
+    public boolean isMovable(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
         return fromPosition.getX() == toPosition.getX() || fromPosition.getY() == toPosition.getY();
     }
 }

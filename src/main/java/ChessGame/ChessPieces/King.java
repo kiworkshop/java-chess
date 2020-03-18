@@ -1,6 +1,6 @@
 package ChessGame.ChessPieces;
 
-import ChessGame.ConsoleOutput;
+import java.util.HashMap;
 
 public class King implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♔";
@@ -37,7 +37,7 @@ public class King implements ChessPiece {
     }
 
     @Override
-    public boolean isMovable(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
+    public boolean isMovable(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
         return Math.sqrt((fromPosition.getX() - toPosition.getX()) ^ 2 + (fromPosition.getY() - toPosition.getY()) ^ 2) < 2;
     }
 }

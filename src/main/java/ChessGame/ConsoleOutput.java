@@ -19,7 +19,7 @@ public class ConsoleOutput {
         System.out.println("같은 위치로 이동할 수 없습니다.");
     }
 
-    public static void printNotYourTurnError() {
+    public static void printNotYourTurnErrorMessage() {
         System.out.println("당신 차례가 아닙니다.");
     }
 }

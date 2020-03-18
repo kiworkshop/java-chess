@@ -35,8 +35,11 @@ public class ChessGame {
         if (splitedMessage.get(0).equals("move")) {
             String fromPosition = splitedMessage.get(1);
             String toPosition = splitedMessage.get(2);
-            chessPieces.move(playerNumber, ChessPiecePosition.getPositionByString(fromPosition), ChessPiecePosition.getPositionByString(toPosition));
-            playerNumber = playerNumber.next();
+            try {
+                chessPieces.move(playerNumber, ChessPiecePosition.getPositionByString(fromPosition), ChessPiecePosition.getPositionByString(toPosition));
+                playerNumber = playerNumber.next();
+            } catch (Exception ignored) {
+            }
         }
         ConsoleOutput.printChessBoard(chessPieces);
     }
