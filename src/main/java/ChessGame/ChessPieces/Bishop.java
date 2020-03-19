@@ -1,5 +1,8 @@
 package ChessGame.ChessPieces;
 
+import ChessGame.Exception.CannotJumptException;
+import ChessGame.Exception.NotRightMoveException;
+
 import java.util.HashMap;
 
 public class Bishop implements ChessPiece {
@@ -37,7 +40,14 @@ public class Bishop implements ChessPiece {
     }
 
     @Override
-    public boolean isMovable(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
-        return Math.abs(toPosition.getX() - fromPosition.getX()) == Math.abs(toPosition.getY() - fromPosition.getY());
+    public void validateEachPieceMove(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws NotRightMoveException, CannotJumptException {
+        validateBishopMove(fromPosition, toPosition);
+        ChessPieceMoveValidateService.validateDiagonalJumpMove(chessPieces, fromPosition, toPosition);
+    }
+
+    private void validateBishopMove(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws NotRightMoveException {
+        if (Math.abs(toPosition.getX() - fromPosition.getX()) != Math.abs(toPosition.getY() - fromPosition.getY())) {
+            throw new NotRightMoveException();
+        }
     }
 }

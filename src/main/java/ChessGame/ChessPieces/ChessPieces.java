@@ -54,10 +54,10 @@ public class ChessPieces {
 
     public void move(PlayerNumber playerNumber, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws Exception {    //TODO 검증들이 지저분하니 함수로 빼버리기
         validateMovePosition(playerNumber, fromPosition, toPosition);
-        if (chessPieces.get(fromPosition).isMovable(chessPieces, fromPosition, toPosition)) {
-            chessPieces.put(toPosition, chessPieces.get(fromPosition));
-            chessPieces.remove(fromPosition);
-        }
+        chessPieces.get(fromPosition).validateEachPieceMove(chessPieces, fromPosition, toPosition);
+
+        chessPieces.put(toPosition, chessPieces.get(fromPosition));
+        chessPieces.remove(fromPosition);
     }
 
     private void validateMovePosition(PlayerNumber playerNumber, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws Exception {
@@ -74,14 +74,14 @@ public class ChessPieces {
 
     private void validateSamePosition(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws SamePositionException {
         if (fromPosition.equals(toPosition)) {
-            ConsoleOutput.printSamePositionErrorMessage();
+            ConsoleOutput.printSamePositionExceptionMessage();
             throw new SamePositionException();
         }
     }
 
     private void validateTurn(PlayerNumber playerNumber, ChessPiecePosition fromPosition) throws Exception {
         if (chessPieces.get(fromPosition).getPlayerNumber() != playerNumber.getPlayerNumber()) {
-            ConsoleOutput.printNotYourTurnErrorMessage();
+            ConsoleOutput.printNotYourTurnExceptionMessage();
             throw new NotYourTurnException();
         }
     }

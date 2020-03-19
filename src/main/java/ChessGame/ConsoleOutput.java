@@ -15,11 +15,23 @@ public class ConsoleOutput {
         System.out.println(chessPieces.toString());
     }
 
-    public static void printSamePositionErrorMessage() {
+    public static void printSamePositionExceptionMessage() {
         System.out.println("같은 위치로 이동할 수 없습니다.");
     }
 
-    public static void printNotYourTurnErrorMessage() {
+    public static void printNotYourTurnExceptionMessage() {
         System.out.println("당신 차례가 아닙니다.");
+    }
+
+    public static void printCannotJumpExceptionMessage() {
+        System.out.println("말을 뛰어넘을 수 없습니다.");
+    }
+
+    public static void printNotRightMoveExceptionMessage() {
+        System.out.println("해당 말의 이동규칙과 다릅니다.");
+    }
+
+    public static void printTakenPositionExceptionMessage() {
+        System.out.println("다른 말이 놓여있습니다.");
     }
 }

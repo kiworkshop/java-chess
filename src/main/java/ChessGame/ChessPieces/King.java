@@ -1,5 +1,7 @@
 package ChessGame.ChessPieces;
 
+import ChessGame.Exception.NotRightMoveException;
+
 import java.util.HashMap;
 
 public class King implements ChessPiece {
@@ -37,7 +39,13 @@ public class King implements ChessPiece {
     }
 
     @Override
-    public boolean isMovable(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
-        return Math.sqrt((fromPosition.getX() - toPosition.getX()) ^ 2 + (fromPosition.getY() - toPosition.getY()) ^ 2) < 2;
+    public void validateEachPieceMove(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws NotRightMoveException {
+        validateKingMove(fromPosition, toPosition);
+    }
+
+    private void validateKingMove(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws NotRightMoveException {
+        if (Math.sqrt((fromPosition.getX() - toPosition.getX()) ^ 2 + (fromPosition.getY() - toPosition.getY()) ^ 2) >= 2) {
+            throw new NotRightMoveException();
+        }
     }
 }

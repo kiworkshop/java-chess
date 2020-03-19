@@ -12,5 +12,5 @@ public interface ChessPiece {
 
     String getPrintCode();
 
-    boolean isMovable(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws CannotJumptException;
+    void validateEachPieceMove(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws CannotJumptException, Exception;
 }

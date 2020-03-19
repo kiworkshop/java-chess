@@ -1,6 +1,8 @@
 package ChessGame.ChessPieces;
 
 
+import ChessGame.Exception.NotRightMoveException;
+
 import java.util.HashMap;
 
 public class Pawn implements ChessPiece {
@@ -37,16 +39,17 @@ public class Pawn implements ChessPiece {
     }
 
     @Override
-    public boolean isMovable(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
+    public void validateEachPieceMove(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws NotRightMoveException {
         if (this.playerNumber == PLAYER_NUMBER_ONE) {   // TODO Depth를 1로 만들 수 있으나 그러지 않는 것이 가독성이 좋음.
-            if (fromPosition.getX() == toPosition.getX() && fromPosition.getY() + 1 == toPosition.getY()) {
-                return true;
+            if (fromPosition.getX() == toPosition.getX() && fromPosition.getY() + 1 != toPosition.getY()) {
+                throw new NotRightMoveException();
             }
         }
         if (this.playerNumber == PLAYER_NUMBER_TWO) {
-            return fromPosition.getX() == toPosition.getX() && fromPosition.getY() - 1 == toPosition.getY();
+            if (fromPosition.getX() == toPosition.getX() && fromPosition.getY() - 1 != toPosition.getY()) {
+                throw new NotRightMoveException();
+            }
         }
-        return false;
     }
 }
 

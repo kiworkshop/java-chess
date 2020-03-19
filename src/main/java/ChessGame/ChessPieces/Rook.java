@@ -1,5 +1,8 @@
 package ChessGame.ChessPieces;
 
+import ChessGame.Exception.CannotJumptException;
+import ChessGame.Exception.NotRightMoveException;
+
 import java.util.HashMap;
 
 public class Rook implements ChessPiece {
@@ -37,7 +40,15 @@ public class Rook implements ChessPiece {
     }
 
     @Override
-    public boolean isMovable(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
-        return fromPosition.getX() == toPosition.getX() || fromPosition.getY() == toPosition.getY();
+    public void validateEachPieceMove(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws NotRightMoveException, CannotJumptException {
+        validateRookMove(fromPosition, toPosition);
+        ChessPieceMoveValidateService.validateVerticalJumpMove(chessPieces, fromPosition, toPosition);
+        ChessPieceMoveValidateService.validateHorizontalJumpMove(chessPieces, fromPosition, toPosition);
+    }
+
+    private void validateRookMove(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws NotRightMoveException {
+        if (!(fromPosition.getX() == toPosition.getX() || fromPosition.getY() == toPosition.getY())) {
+            throw new NotRightMoveException();
+        }
     }
 }

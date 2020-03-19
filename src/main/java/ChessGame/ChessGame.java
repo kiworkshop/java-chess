@@ -2,6 +2,7 @@ package ChessGame;
 
 import ChessGame.ChessPieces.ChessPiecePosition;
 import ChessGame.ChessPieces.ChessPieces;
+import ChessGame.Exception.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +39,18 @@ public class ChessGame {
             try {
                 chessPieces.move(playerNumber, ChessPiecePosition.getPositionByString(fromPosition), ChessPiecePosition.getPositionByString(toPosition));
                 playerNumber = playerNumber.next();
-            } catch (Exception ignored) {
+            } catch (CannotJumptException e) {    //TODO 못배운 놈이라 예외처리 어떻게하는지 모르겠음 좋은 practice가 있나?
+                ConsoleOutput.printCannotJumpExceptionMessage();
+            } catch (NotRightMoveException e) {
+                ConsoleOutput.printNotRightMoveExceptionMessage();
+            } catch (NotYourTurnException e) {
+                ConsoleOutput.printNotYourTurnExceptionMessage();
+            } catch (SamePositionException e) {
+                ConsoleOutput.printSamePositionExceptionMessage();
+            } catch (TakenPositionException e) {
+                ConsoleOutput.printTakenPositionExceptionMessage();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         ConsoleOutput.printChessBoard(chessPieces);

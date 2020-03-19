@@ -1,9 +1,9 @@
 package ChessGame.ChessPieces;
 
 import ChessGame.Exception.CannotJumptException;
+import ChessGame.Exception.NotRightMoveException;
 
 import java.util.HashMap;
-import java.util.stream.Collectors;
 
 public class Queen implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♕";
@@ -40,16 +40,18 @@ public class Queen implements ChessPiece {
     }
 
     @Override
-    public boolean isMovable(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws CannotJumptException {
-        if (fromPosition.getX() == toPosition.getX()) {    //종이동
-            if (chessPieces.entrySet().stream().anyMatch(e -> e.getKey().getX() == fromPosition.getX() && isBetween(fromPosition.getY(), toPosition.getY(), e.getKey().getY()))) {
-                throw new CannotJumptException();
-            }
-        }
-        return fromPosition.getX() == toPosition.getX() || fromPosition.getY() == toPosition.getY() || Math.abs(toPosition.getX() - fromPosition.getX()) == Math.abs(toPosition.getY() - fromPosition.getY());
+    public void validateEachPieceMove(HashMap<ChessPiecePosition, ChessPiece> chessPieces, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws Exception {
+        validateQueenMove(fromPosition, toPosition);
+        ChessPieceMoveValidateService.validateVerticalJumpMove(chessPieces, fromPosition, toPosition);
+        ChessPieceMoveValidateService.validateHorizontalJumpMove(chessPieces, fromPosition, toPosition);
+        ChessPieceMoveValidateService.validateDiagonalJumpMove(chessPieces, fromPosition, toPosition);
     }
 
-    public static boolean isBetween(int a, int b, int c) {
-        return b > a ? c > a && c < b : c > b && c < a;
+    private void validateQueenMove(ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws NotRightMoveException {
+        if (!(fromPosition.getX() == toPosition.getX() || fromPosition.getY() == toPosition.getY() || Math.abs(toPosition.getX() - fromPosition.getX()) == Math.abs(toPosition.getY() - fromPosition.getY()))) {
+            throw new NotRightMoveException();
+        }
     }
+
+
 }
