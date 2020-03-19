@@ -1,14 +1,12 @@
 package ChessGame.ChessPieces;
 
 import ChessGame.Exception.CannotJumptException;
+import ChessGame.PlayerNumber;
 
 import java.util.HashMap;
 
 public interface ChessPiece {
-    int PLAYER_NUMBER_ONE = 1;
-    int PLAYER_NUMBER_TWO = 2;
-
-    int getPlayerNumber();
+    PlayerNumber getPlayerNumber();
 
     String getPrintCode();
 

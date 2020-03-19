@@ -1,27 +1,27 @@
 package ChessGame.ChessPieces;
 
 import ChessGame.Exception.NotRightMoveException;
+import ChessGame.PlayerNumber;
 
 import java.util.HashMap;
 
 public class King implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♔";
     public static final String PRINT_CODE_BLACK = "♚";
-    int playerNumber;
+    PlayerNumber playerNumber;
     String printCode;
-    ChessPiecePosition position;
 
-    public King(int playerNumber) {
+    public King(PlayerNumber playerNumber) {
         this.playerNumber = playerNumber;
         setPrintCode();
     }
 
-    public static King setPiece(int playerNumber) {
+    public static King setPiece(PlayerNumber playerNumber) {
         return new King(playerNumber);
     }
 
     private void setPrintCode() {
-        if (playerNumber == 1) {
+        if (playerNumber == PlayerNumber.PLAYER_NUMBER_ONE) {
             printCode = PRINT_CODE_WHITE;
         } else {
             printCode = PRINT_CODE_BLACK;
@@ -29,7 +29,7 @@ public class King implements ChessPiece {
     }
 
     @Override
-    public int getPlayerNumber() {
+    public PlayerNumber getPlayerNumber() {
         return playerNumber;
     }
 

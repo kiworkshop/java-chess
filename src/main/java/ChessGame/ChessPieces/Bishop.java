@@ -2,27 +2,30 @@ package ChessGame.ChessPieces;
 
 import ChessGame.Exception.CannotJumptException;
 import ChessGame.Exception.NotRightMoveException;
+import ChessGame.PlayerNumber;
 
 import java.util.HashMap;
+
+import static ChessGame.PlayerNumber.PLAYER_NUMBER_ONE;
 
 public class Bishop implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♗";
     public static final String PRINT_CODE_BLACK = "♝";
 
-    int playerNumber;
+    PlayerNumber playerNumber;
     String printCode;
 
-    public Bishop(int playerNumber) {
+    public Bishop(PlayerNumber playerNumber) {
         this.playerNumber = playerNumber;
         setPrintCode();
     }
 
-    public static Bishop setPiece(int playerNumber) {
+    public static Bishop setPiece(PlayerNumber playerNumber) {
         return new Bishop(playerNumber);
     }
 
     @Override
-    public int getPlayerNumber() {
+    public PlayerNumber getPlayerNumber() {
         return playerNumber;
     }
 

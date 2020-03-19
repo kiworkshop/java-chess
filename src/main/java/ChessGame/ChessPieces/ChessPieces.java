@@ -50,7 +50,7 @@ public class ChessPieces {
         return sb.toString();
     }
 
-    public void move(PlayerNumber playerNumber, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws Exception {    //TODO 검증들이 지저분하니 함수로 빼버리기
+    public void move(PlayerNumber playerNumber, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws Exception {
         validateMovePosition(playerNumber, fromPosition, toPosition);
         chessPieces.get(fromPosition).validateEachPieceMove(chessPieces, fromPosition, toPosition);
         checkKingCaptured(toPosition);
@@ -60,7 +60,7 @@ public class ChessPieces {
     }
 
     private void checkKingCaptured(ChessPiecePosition toPosition) throws GameOverException {
-        if (chessPieces.get(toPosition).getClass() == King.class) {
+        if (chessPieces.get(toPosition) != null && chessPieces.get(toPosition).getClass() == King.class) {
             throw new GameOverException();
         }
     }
@@ -79,7 +79,7 @@ public class ChessPieces {
     }
 
     private void validateTakenPosition(PlayerNumber playerNumber, ChessPiecePosition toPosition) throws TakenPositionException {
-        if (chessPieces.get(toPosition) != null && chessPieces.get(toPosition).getPlayerNumber() == playerNumber.getPlayerNumber()) {
+        if (chessPieces.get(toPosition) != null && chessPieces.get(toPosition).getPlayerNumber().equals(playerNumber.getPlayerNumber())) {
             throw new TakenPositionException();
         }
     }
@@ -92,7 +92,7 @@ public class ChessPieces {
     }
 
     private void validateTurn(PlayerNumber playerNumber, ChessPiecePosition fromPosition) throws Exception {
-        if (chessPieces.get(fromPosition).getPlayerNumber() != playerNumber.getPlayerNumber()) {
+        if (!chessPieces.get(fromPosition).getPlayerNumber().equals(playerNumber)) {
             ConsoleOutput.printNotYourTurnExceptionMessage();
             throw new NotYourTurnException();
         }

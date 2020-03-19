@@ -1,23 +1,25 @@
 package ChessGame.ChessPieces;
 
-import ChessGame.Exception.CannotJumptException;
 import ChessGame.Exception.NotRightMoveException;
+import ChessGame.PlayerNumber;
 
 import java.util.HashMap;
+
+import static ChessGame.PlayerNumber.PLAYER_NUMBER_ONE;
 
 public class Queen implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♕";
     public static final String PRINT_CODE_BLACK = "♛";
-    int playerNumber;
+    PlayerNumber playerNumber;
     String printCode;
     ChessPiecePosition position;
 
-    public Queen(int playerNumber) {
+    public Queen(PlayerNumber playerNumber) {
         this.playerNumber = playerNumber;
         setPrintCode();
     }
 
-    public static Queen setPiece(int playerNumber) {
+    public static Queen setPiece(PlayerNumber playerNumber) {
         return new Queen(playerNumber);
     }
 
@@ -30,7 +32,7 @@ public class Queen implements ChessPiece {
     }
 
     @Override
-    public int getPlayerNumber() {
+    public PlayerNumber getPlayerNumber() {
         return playerNumber;
     }
 

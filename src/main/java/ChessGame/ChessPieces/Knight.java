@@ -1,21 +1,24 @@
 package ChessGame.ChessPieces;
 
 import ChessGame.Exception.NotRightMoveException;
+import ChessGame.PlayerNumber;
 
 import java.util.HashMap;
+
+import static ChessGame.PlayerNumber.PLAYER_NUMBER_ONE;
 
 public class Knight implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♘";
     public static final String PRINT_CODE_BLACK = "♞";
-    int playerNumber;
+    PlayerNumber playerNumber;
     String printCode;
 
-    public Knight(int playerNumber) {
+    public Knight(PlayerNumber playerNumber) {
         this.playerNumber = playerNumber;
         setPrintCode();
     }
 
-    public static Knight setPiece(int playerNumber) {
+    public static Knight setPiece(PlayerNumber playerNumber) {
         return new Knight(playerNumber);
     }
 
@@ -28,7 +31,7 @@ public class Knight implements ChessPiece {
     }
 
     @Override
-    public int getPlayerNumber() {
+    public PlayerNumber getPlayerNumber() {
         return playerNumber;
     }
 

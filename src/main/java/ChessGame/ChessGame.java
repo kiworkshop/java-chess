@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ChessGame {
     private ChessPieces chessPieces;
-    private PlayerNumber playerNumber;
+    private PlayerNumber playerNumber = PlayerNumber.PLAYER_NUMBER_ONE;
 
     public ChessGame() {
     }

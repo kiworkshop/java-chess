@@ -2,22 +2,25 @@ package ChessGame.ChessPieces;
 
 import ChessGame.Exception.CannotJumptException;
 import ChessGame.Exception.NotRightMoveException;
+import ChessGame.PlayerNumber;
 
 import java.util.HashMap;
+
+import static ChessGame.PlayerNumber.PLAYER_NUMBER_ONE;
 
 public class Rook implements ChessPiece {
     public static final String PRINT_CODE_WHITE = "♖";
     public static final String PRINT_CODE_BLACK = "♜";
-    int playerNumber;
+    PlayerNumber playerNumber;
     String printCode;
     ChessPiecePosition position;
 
-    public Rook(int playerNumber) {
+    public Rook(PlayerNumber playerNumber) {
         this.playerNumber = playerNumber;
         setPrintCode();
     }
 
-    public static Rook setPiece(int playerNumber) {
+    public static Rook setPiece(PlayerNumber playerNumber) {
         return new Rook(playerNumber);
     }
 
@@ -30,7 +33,7 @@ public class Rook implements ChessPiece {
     }
 
     @Override
-    public int getPlayerNumber() {
+    public PlayerNumber getPlayerNumber() {
         return playerNumber;
     }
 
