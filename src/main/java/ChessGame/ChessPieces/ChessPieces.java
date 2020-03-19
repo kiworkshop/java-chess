@@ -1,9 +1,7 @@
 package ChessGame.ChessPieces;
 
 import ChessGame.ConsoleOutput;
-import ChessGame.Exception.NotYourTurnException;
-import ChessGame.Exception.SamePositionException;
-import ChessGame.Exception.TakenPositionException;
+import ChessGame.Exception.*;
 import ChessGame.PlayerNumber;
 
 import java.util.HashMap;
@@ -55,15 +53,29 @@ public class ChessPieces {
     public void move(PlayerNumber playerNumber, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws Exception {    //TODO 검증들이 지저분하니 함수로 빼버리기
         validateMovePosition(playerNumber, fromPosition, toPosition);
         chessPieces.get(fromPosition).validateEachPieceMove(chessPieces, fromPosition, toPosition);
+        checkKingCaptured(toPosition);
 
         chessPieces.put(toPosition, chessPieces.get(fromPosition));
         chessPieces.remove(fromPosition);
     }
 
+    private void checkKingCaptured(ChessPiecePosition toPosition) throws GameOverException {
+        if (chessPieces.get(toPosition).getClass() == King.class) {
+            throw new GameOverException();
+        }
+    }
+
     private void validateMovePosition(PlayerNumber playerNumber, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws Exception {
+        validateNoPieceToMove(fromPosition);
         validateTurn(playerNumber, fromPosition);
         validateSamePosition(fromPosition, toPosition);
         validateTakenPosition(playerNumber, toPosition);
+    }
+
+    private void validateNoPieceToMove(ChessPiecePosition fromPosition) throws NoPieceToMoveException {
+        if (chessPieces.get(fromPosition) == null) {
+            throw new NoPieceToMoveException();
+        }
     }
 
     private void validateTakenPosition(PlayerNumber playerNumber, ChessPiecePosition toPosition) throws TakenPositionException {

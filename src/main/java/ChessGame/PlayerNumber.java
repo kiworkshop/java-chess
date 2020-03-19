@@ -1,13 +1,20 @@
 package ChessGame;
 
 public enum PlayerNumber {
-    PLAYER_NUMBER_ONE(1),
-    PLAYER_NUMBER_TWO(2);
+    PLAYER_NUMBER_ONE(1, "백"),
+    PLAYER_NUMBER_TWO(2, "흑");
 
     private int playerNumber;
 
-    PlayerNumber(int playerNumber) {
+    public String getPlayerColorName() {
+        return playerColorName;
+    }
+
+    private String playerColorName;
+
+    PlayerNumber(int playerNumber, String playerColorName) {
         this.playerNumber = playerNumber;
+        this.playerColorName = playerColorName;
     }
 
     public int getPlayerNumber() {

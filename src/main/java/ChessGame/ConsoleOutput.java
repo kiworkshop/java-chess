@@ -34,4 +34,16 @@ public class ConsoleOutput {
     public static void printTakenPositionExceptionMessage() {
         System.out.println("다른 말이 놓여있습니다.");
     }
+
+    public static void printChessGameTurn(PlayerNumber playerNumber) {
+        System.out.println(playerNumber.getPlayerColorName() + "이 둘 차례입니다.");
+    }
+
+    public static void printNoPieceToMoveException() {
+        System.out.println("해당 위치에 움직일 말이 없습니다");
+    }
+
+    public static void printGameOverMessage(PlayerNumber playerNumber) {
+        System.out.println(playerNumber.getPlayerColorName() + "이 이겼습니다!");
+    }
 }
