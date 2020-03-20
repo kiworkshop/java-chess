@@ -1,6 +1,7 @@
 package mychess.domain;
 
-import mychess.domain.command.Command;
+//import mychess.domain.command.Command;
+import mychess.controller.dto.MoveParams;
 import mychess.domain.piece.*;
 
 import java.util.Arrays;
@@ -56,13 +57,13 @@ public class Board {
         return pieces;
     }
 
-    public void movePiece(Command command) {
-        Position sourcePosition = Position.toPosition(command.getSourcePosition());
-        Position targetPosition = Position.toPosition(command.getTargetPosition());
+    public void movePiece(MoveParams params) {
+        Position source = Position.toPosition(params.getSource());
+        Position destination = Position.toPosition(params.getDestination());
 
-        Piece sourcePiece = pieces.get(sourcePosition);
+        Piece sourcePiece = pieces.get(source);
 
-        pieces.put(targetPosition, sourcePiece);
-        pieces.put(sourcePosition, new EmptyPiece());
+        pieces.put(destination, sourcePiece);
+        pieces.put(source, new EmptyPiece());
     }
 }

@@ -1,18 +1,28 @@
-package mychess.view;
+package mychess.view.console;
 
-import mychess.domain.Board;
+import mychess.controller.dto.ChessResponse;
 import mychess.domain.Position;
 import mychess.domain.piece.Piece;
+import mychess.view.ChessOutput;
 
 import java.util.Map;
 
-public class OutputView {
+public class ConsoleChessOutput implements ChessOutput {
 
-    public void printBoard(Board board) {
+    @Override
+    public void write(ChessResponse chessResponse) {
         System.out.println();
+        printBoard(chessResponse);
+        System.out.println();
+    }
+
+    private void printBoard(ChessResponse chessResponse) {
+        if (chessResponse.getBoard() == null) {
+            return;
+        }
 
         int lineNumber = Position.MAX_HEIGHT_INDEX;
-        Map<Position, Piece> pieces = board.getPieces();
+        Map<Position, Piece> pieces = chessResponse.getBoard().getPieces();
         for (Map.Entry<Position, Piece> entry : pieces.entrySet()) {
             Position position = entry.getKey();
             Piece piece = entry.getValue();
@@ -23,8 +33,6 @@ public class OutputView {
                 lineNumber--;
             }
         }
-
-        System.out.println();
         System.out.println("A B C D E F G H");
     }
 }

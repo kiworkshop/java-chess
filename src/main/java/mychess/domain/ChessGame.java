@@ -1,12 +1,11 @@
 package mychess.domain;
 
-import mychess.domain.command.AbstractCommand;
-import mychess.domain.command.Command;
+import mychess.controller.dto.MoveParams;
 
 public class ChessGame {
 
-    private final Player playerWhite;
-    private final Player playerBlack;
+    private Player playerWhite;
+    private Player playerBlack;
     private Board board;
 
     public ChessGame(Player playerWhite, Player playerBlack) {
@@ -14,18 +13,16 @@ public class ChessGame {
         this.playerBlack = playerBlack;
     }
 
-    public void processCommand(AbstractCommand command) {
-        if (command.isEndCommand()) end();
-        if (command.isStartCommand()) createBoard();
-        if (command.isMoveCommand()) board.movePiece((Command) command);
+    public void createBoard() {
+        this.board = new Board();
+    }
+
+    public void move(MoveParams params) {
+        board.movePiece(params);
     }
 
     private void end() {
         System.exit(0);
-    }
-
-    private void createBoard() {
-        this.board = new Board();
     }
 
     public Board getBoard() {
