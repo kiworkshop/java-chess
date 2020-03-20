@@ -1,13 +1,11 @@
 package chess.domain.piece;
 
-import chess.domain.board.Position;
-
-public abstract class Piece implements Movable{
+public abstract class ChessPiece implements Movable {
 
     protected final boolean white;
     protected char name;
 
-    protected Piece(boolean white) {
+    protected ChessPiece(boolean white) {
         this.white = white;
     }
 }

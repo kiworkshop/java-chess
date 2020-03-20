@@ -26,7 +26,7 @@ class PositionTest {
     void columnDistanceBetweenTwoPositions() {
         Position positionA1 = Position.from("A1");
         Position positionH1 = Position.from("H1");
-        assertThat(positionA1.colDistance(positionH1)).isEqualTo(7);
+        assertThat(positionA1.columnDistance(positionH1)).isEqualTo(7);
     }
 
     @Test
@@ -35,23 +35,5 @@ class PositionTest {
         Position positionA1 = Position.from("A1");
         Position positionA8 = Position.from("A8");
         assertThat(positionA1.rowDistance(positionA8)).isEqualTo(7);
-    }
-
-    @Test
-    @DisplayName("해당 포지션이 starting position인지 확인")
-    void checkStartingPosition() {
-        Position positionA1 = Position.from("A1");
-        Position positionA3 = Position.from("A3");
-        assertThat(positionA1.isStartingPosition()).isTrue();
-        assertThat(positionA3.isStartingPosition()).isFalse();
-    }
-
-    @Test
-    @DisplayName("해당 포지션이 white의 starting position인지 확인")
-    void checkWhiteStartingPosition() {
-        Position positionA8 = Position.from("A8");
-        Position positionA6 = Position.from("A6");
-        assertThat(positionA8.isWhiteStartingPosition()).isTrue();
-        assertThat(positionA6.isWhiteStartingPosition()).isFalse();
     }
 }

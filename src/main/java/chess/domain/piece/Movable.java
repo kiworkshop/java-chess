@@ -4,7 +4,7 @@ import chess.domain.board.Position;
 
 public interface Movable {
 
-    boolean canMove(Position prev, Position next);
+    boolean canMove(Position source, Position destination);
 
     String getMovingPolicy();
 

@@ -1,5 +1,5 @@
-import chess.Command;
-import chess.controller.ChessRequest;
+import chess.controller.Command;
+import chess.controller.dto.ChessRequest;
 import chess.view.console.ConsoleQueryProcessor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

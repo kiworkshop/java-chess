@@ -6,8 +6,6 @@ import chess.controller.dto.MoveParams;
 import chess.service.ChessService;
 import chess.support.ChessMessageQueue;
 
-import javax.crypto.spec.PSource;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 // 바로 체스 컨트롤러가 나와서 그렇지, 사실은 더 높은 준위에 있고, dispatcher 역할
@@ -30,6 +28,8 @@ public class ChessController implements Runnable {
                 responseQueue.put(response);
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -50,7 +50,8 @@ public class ChessController implements Runnable {
 
     public ChessResponse start() {
         chessService.start();
-        return new ChessResponse(null, "게임 시작");
+        String board = chessService.parseBoardToString();
+        return new ChessResponse(board, "게임 시작");
     }
 
     public ChessResponse end() {
@@ -60,7 +61,8 @@ public class ChessController implements Runnable {
 
     public ChessResponse move(ChessRequest chessRequest) {
         chessService.move(MoveParams.of(chessRequest.getParameters()));
-        return new ChessResponse(null, "이동");
+        String board = chessService.parseBoardToString();
+        return new ChessResponse(board, "이동");
     }
 
 }

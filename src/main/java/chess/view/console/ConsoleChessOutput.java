@@ -14,7 +14,7 @@ public class ConsoleChessOutput implements ChessOutput {
         if (chessResponse.getBoard() == null) {
             return;
         }
-        System.out.println("대충 보드라 하자");
+        System.out.print(chessResponse.getBoard());
     }
 
 }

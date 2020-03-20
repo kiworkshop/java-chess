@@ -4,10 +4,18 @@ import chess.domain.board.Position;
 
 public class Empty implements Movable {
 
-    public static final String MOVING_POLICY = "비어있는 체스판입니다";
+    private static final String MOVING_POLICY = "비어있는 체스판입니다";
+    private static Movable empty = new Empty();
+
+    private Empty() {
+    }
+
+    public static Movable create() {
+        return empty;
+    }
 
     @Override
-    public boolean canMove(Position prev, Position next) {
+    public boolean canMove(Position source, Position destination) {
         return false;
     }
 

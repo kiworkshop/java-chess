@@ -13,7 +13,7 @@ class EmptyTest {
 
     @BeforeEach
     void setUp() {
-        empty = new Empty();
+        empty = Empty.create();
     }
 
     @Test

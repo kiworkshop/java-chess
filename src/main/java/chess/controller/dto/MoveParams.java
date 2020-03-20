@@ -1,5 +1,7 @@
 package chess.controller.dto;
 
+import chess.domain.board.Position;
+
 import java.util.List;
 
 public class MoveParams {
@@ -12,6 +14,16 @@ public class MoveParams {
     }
 
     public static MoveParams of(List<String> parameters) {
-        //validation
+        Position source = Position.from(parameters.get(0));
+        Position destination = Position.from(parameters.get(1));
+        return new MoveParams(source, destination);
+    }
+
+    public Position getSource() {
+        return source;
+    }
+
+    public Position getDestination() {
+        return destination;
     }
 }

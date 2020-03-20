@@ -2,19 +2,23 @@ package chess.domain.piece;
 
 import chess.domain.board.Position;
 
-public class Pawn extends Piece {
+public class Pawn extends ChessPiece {
 
     private final char name;
 
-    public Pawn(boolean isWhite) {
+    private Pawn(boolean isWhite) {
         super(isWhite);
         this.name = getName(isWhite);
     }
 
+    public static Pawn from(boolean isWhite) {
+        return new Pawn(isWhite);
+    }
+
     @Override
-    public boolean canMove(Position prev, Position next) {
-        int rowDifference = prev.rowDistance(next);
-        int colDifference = prev.colDistance(next);
+    public boolean canMove(Position source, Position destination) {
+        int rowDifference = source.rowDistance(destination);
+        int colDifference = source.columnDistance(destination);
         if (rowDifference == 1 && colDifference == 0) {
             return true;
         }

@@ -14,8 +14,8 @@ class PawnTest {
 
     @BeforeEach
     void setUp() {
-        whitePawn = new Pawn(true);
-        blackPawn = new Pawn(false);
+        whitePawn = Pawn.from(true);
+        blackPawn = Pawn.from(false);
     }
 
     @Test
