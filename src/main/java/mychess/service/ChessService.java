@@ -3,11 +3,12 @@ package mychess.service;
 import mychess.controller.dto.ChessResponse;
 import mychess.controller.dto.MoveParams;
 import mychess.domain.ChessGame;
+import mychess.domain.Color;
 import mychess.domain.Player;
 
 public class ChessService {
 
-    private ChessGame chessGame = new ChessGame(new Player(true), new Player(false));
+    private ChessGame chessGame = new ChessGame(new Player(Color.WHITE), new Player(Color.BLACK));
 
     public ChessResponse start() {
         chessGame.createBoard();

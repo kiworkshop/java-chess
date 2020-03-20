@@ -2,9 +2,9 @@ package mychess.domain;
 
 public class Player {
 
-    private boolean isWhite;
+    private Color color;
 
-    public Player(boolean isWhite) {
-        this.isWhite = isWhite;
+    public Player(Color color) {
+        this.color = color;
     }
 }
