@@ -2,13 +2,12 @@ package chess.domain.piece;
 
 import chess.domain.board.Position;
 
-public class Pawn implements Movable {
+public class Pawn extends Piece {
 
-    private final boolean isWhite;
     private final char name;
 
     public Pawn(boolean isWhite) {
-        this.isWhite = isWhite;
+        super(isWhite);
         this.name = getName(isWhite);
     }
 

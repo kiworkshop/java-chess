@@ -24,3 +24,10 @@ black chess knight	♞	U+265E	&#9822;	&#x265E;
 black chess movable	♟	U+265F	&#9823;	&#x265F;  
 
 grey board U+2B1C / board U+1F9F8
+
+To-do  
+start를 하지 않고 move하는 것에 대해 방어 코드
+checkStartingPoint 이름 확인
+하드하게 말의 위치를 박아 놓는 것도 좋다
+MovableFactory와 BoardInitializer를 분리해보자
+
