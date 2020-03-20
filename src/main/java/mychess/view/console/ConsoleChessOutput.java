@@ -12,8 +12,14 @@ public class ConsoleChessOutput implements ChessOutput {
     @Override
     public void write(ChessResponse chessResponse) {
         System.out.println();
+        System.out.println(chessResponse.getMessage());
         printBoard(chessResponse);
+        printCurrentPlayer(chessResponse);
         System.out.println();
+    }
+
+    private void printCurrentPlayer(ChessResponse chessResponse) {
+        System.out.println(chessResponse.getCurrentPlayer().getColor() + "의 차례입니다.");
     }
 
     private void printBoard(ChessResponse chessResponse) {

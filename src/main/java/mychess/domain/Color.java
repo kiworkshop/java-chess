@@ -5,9 +5,13 @@ public enum Color {
     WHITE("White"),
     BLACK("Black");
 
-    private final String color;
+    private final String colorName;
 
-    Color(String color) {
-        this.color = color;
+    Color(String colorName) {
+        this.colorName = colorName;
+    }
+
+    public String getColorName() {
+        return colorName;
     }
 }

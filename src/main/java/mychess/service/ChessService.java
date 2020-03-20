@@ -8,11 +8,11 @@ import mychess.domain.Player;
 
 public class ChessService {
 
-    private ChessGame chessGame = new ChessGame(new Player(Color.WHITE), new Player(Color.BLACK));
+    private ChessGame chessGame = new ChessGame();
 
     public ChessResponse start() {
-        chessGame.createBoard();
-        return new ChessResponse(chessGame.getBoard(), "게임 시작");
+        chessGame.initialize();
+        return new ChessResponse(chessGame, "게임 시작");
     }
 
     public ChessResponse end() {
@@ -21,6 +21,6 @@ public class ChessService {
 
     public ChessResponse move(MoveParams params) {
         chessGame.move(params);
-        return new ChessResponse(chessGame.getBoard(), "이동");
+        return new ChessResponse(chessGame, "이동");
     }
 }
