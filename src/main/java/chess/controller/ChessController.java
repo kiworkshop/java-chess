@@ -6,7 +6,6 @@ import chess.controller.dto.MoveParams;
 import chess.service.ChessService;
 import chess.support.ChessMessageQueue;
 
-import javax.crypto.spec.PSource;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
@@ -42,24 +41,27 @@ public class ChessController implements Runnable {
             case END:
                 return end();
             case MOVE:
-                return move(chessRequest);
+                return move(chessRequest.getParameters());
             default:
                 return new ChessResponse(null, "몰라여");
         }
     }
 
     public ChessResponse start() {
-        chessService.start();
-        return new ChessResponse(null, "게임 시작");
+        return chessService.start();
     }
 
     public ChessResponse end() {
-        chessService.end();
-        return new ChessResponse(null, "게임 종료");
+        return chessService.end();
     }
 
-    public ChessResponse move(ChessRequest chessRequest) {
-        chessService.move(MoveParams.of(chessRequest.getParameters()));
+    public ChessResponse move(List<String> parameters) {
+        try {
+            MoveParams moveParams = MoveParams.of(parameters);
+            chessService.move(moveParams.getSource(), moveParams.getDestination());
+        } catch (IllegalArgumentException e) {
+            return new ChessResponse(null, "니 잘못입력했다. 못움직임");
+        }
         return new ChessResponse(null, "이동");
     }
 
