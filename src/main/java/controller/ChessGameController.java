@@ -15,10 +15,12 @@ public class ChessGameController {
     }
 
     public void run() {
-        chessOutput.printStartChessGame();
+        chessOutput.outputStartChessGameNotice();
 
         while(true) {
-            String userInput = chessInput.requestUserInput();
+            String userInput = chessInput.inputUserAction();
+            ChessErrorMessage errorMessage = ChessErrorMessage.SUCCESS;
+
             if (userInput.equalsIgnoreCase("start")) {
                 chessGame.start();
 
@@ -26,13 +28,13 @@ public class ChessGameController {
                 break;
 
             } else if (userInput.startsWith("move")) {
-                chessGame.move(userInput.split(" ")[1], userInput.split(" ")[2]);
+                errorMessage = chessGame.move(userInput.split(" ")[1], userInput.split(" ")[2]);
 
             } else {
                 // invalid input
             }
 
-            chessOutput.printChessBoard(chessGame.getChessBoard());
+            chessOutput.outputChessBoard(chessGame, errorMessage);
         }
     }
 }

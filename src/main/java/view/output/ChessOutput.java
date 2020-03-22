@@ -1,8 +1,9 @@
 package view.output;
 
-import model.chessDomain.ChessBoard;
+import controller.ChessErrorMessage;
+import model.chessDomain.ChessGame;
 
 public interface ChessOutput {
-    void printStartChessGame();
-    void printChessBoard(ChessBoard chessBoard);
+    void outputStartChessGameNotice();
+    void outputChessBoard(ChessGame chessGame, ChessErrorMessage errorMessage);
 }
