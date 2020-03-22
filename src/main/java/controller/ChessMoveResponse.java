@@ -1,5 +1,5 @@
 package controller;
 
-public enum ChessErrorMessage {
+public enum ChessMoveResponse {
     SUCCESS, BLACK_TURN, WHITE_TURN, WRONG_MOVE, INPUT_OUT_OF_BOUND, WHITE_WIN, BLACK_WIN, SOURCE_NOT_VALID
 }

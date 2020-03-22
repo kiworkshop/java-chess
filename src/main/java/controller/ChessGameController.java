@@ -19,7 +19,7 @@ public class ChessGameController {
 
         while(true) {
             String userInput = chessInput.inputUserAction();
-            ChessErrorMessage errorMessage = ChessErrorMessage.SUCCESS;
+            ChessMoveResponse errorMessage = ChessMoveResponse.SUCCESS;
 
             if (userInput.equalsIgnoreCase("start")) {
                 chessGame.start();

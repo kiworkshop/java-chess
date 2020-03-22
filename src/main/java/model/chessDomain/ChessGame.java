@@ -1,6 +1,6 @@
 package model.chessDomain;
 
-import controller.ChessErrorMessage;
+import controller.ChessMoveResponse;
 import model.chessDomain.pieces.PieceColor;
 import model.chessDomain.pieces.PieceType;
 
@@ -13,8 +13,8 @@ public class ChessGame {
         turn = PieceColor.WHITE;
     }
 
-    public ChessErrorMessage move(String source, String destination) {
-        ChessErrorMessage errorMessage;
+    public ChessMoveResponse move(String source, String destination) {
+        ChessMoveResponse errorMessage;
 
         int sourceX = Character.toLowerCase(source.charAt(0)) - 'a';
         int sourceY = 8 - (source.charAt(1) - '0');
@@ -24,14 +24,14 @@ public class ChessGame {
         Position sourcePosition = Position.of(sourceX, sourceY);
         Position destinationPosition = Position.of(destinationX, destinationY);
 
-        if ((errorMessage = isValidMove(sourcePosition, destinationPosition)) == ChessErrorMessage.SUCCESS) {
+        if ((errorMessage = isValidMove(sourcePosition, destinationPosition)) == ChessMoveResponse.SUCCESS) {
             // king dead
             if (chessBoard.get(destinationPosition) != null
                     && chessBoard.get(destinationPosition).getType() == PieceType.KING) {
                 if (chessBoard.get(destinationPosition).getColor() == PieceColor.WHITE) {
-                    errorMessage = ChessErrorMessage.WHITE_WIN;
+                    errorMessage = ChessMoveResponse.WHITE_WIN;
                 } else if (chessBoard.get(destinationPosition).getColor() == PieceColor.BLACK) {
-                    errorMessage = ChessErrorMessage.BLACK_WIN;
+                    errorMessage = ChessMoveResponse.BLACK_WIN;
                 }
             }
 
@@ -42,46 +42,46 @@ public class ChessGame {
         return errorMessage;
     }
 
-    private ChessErrorMessage isValidMove(Position source, Position destination) {
+    private ChessMoveResponse isValidMove(Position source, Position destination) {
         // out of bound
         if (source.getX() < 0 || source.getX() >= ChessBoard.GRID_SIZE
                 || source.getY() < 0 || source.getY() >= ChessBoard.GRID_SIZE
                 || destination.getX() < 0 || destination.getX() >= ChessBoard.GRID_SIZE
                 || destination.getY() < 0 || destination.getY() >= ChessBoard.GRID_SIZE) {
-            return ChessErrorMessage.INPUT_OUT_OF_BOUND;
+            return ChessMoveResponse.INPUT_OUT_OF_BOUND;
         }
 
         // source == destination
         if (source.getX() == destination.getX() && source.getY() == destination.getY()) {
-            return ChessErrorMessage.WRONG_MOVE;
+            return ChessMoveResponse.WRONG_MOVE;
         }
 
         // no piece at the source
         if (chessBoard.get(source) == null) {
-            return ChessErrorMessage.SOURCE_NOT_VALID;
+            return ChessMoveResponse.SOURCE_NOT_VALID;
         }
 
         // check turn
         if (chessBoard.get(source).getColor() != turn) {
             if (turn == PieceColor.WHITE) {
-                return ChessErrorMessage.WHITE_TURN;
+                return ChessMoveResponse.WHITE_TURN;
             } else if (turn == PieceColor.BLACK) {
-                return ChessErrorMessage.BLACK_TURN;
+                return ChessMoveResponse.BLACK_TURN;
             }
         }
 
         // if piece at the destination, check same color
         if (chessBoard.get(destination) != null
                 && chessBoard.get(source).getColor() == chessBoard.get(destination).getColor()) {
-            return ChessErrorMessage.WRONG_MOVE;
+            return ChessMoveResponse.WRONG_MOVE;
         }
 
         // check valid move
         if (!chessBoard.get(source).isValidMove(source, destination, chessBoard.getBoardSnapshot())) {
-            return ChessErrorMessage.WRONG_MOVE;
+            return ChessMoveResponse.WRONG_MOVE;
         }
 
-        return ChessErrorMessage.SUCCESS;
+        return ChessMoveResponse.SUCCESS;
     }
 
     private void takeTurn() {
