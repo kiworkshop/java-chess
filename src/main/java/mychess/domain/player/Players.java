@@ -1,4 +1,4 @@
-package mychess.domain;
+package mychess.domain.player;
 
 public class Players {
 

@@ -2,10 +2,10 @@ package mychess.controller;
 
 import mychess.controller.dto.ChessRequest;
 import mychess.controller.dto.ChessResponse;
-import mychess.controller.dto.MoveParams;
 import mychess.service.ChessService;
 import mychess.support.ChessMessageQueue;
 
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 // 바로 체스 컨트롤러가 나와서 그렇지, 사실은 더 높은 준위에 있고, dispatcher 역할
@@ -40,7 +40,7 @@ public class ChessController implements Runnable {
             case END:
                 return end();
             case MOVE:
-                return move(chessRequest);
+                return move(chessRequest.getParameters());
             default:
                 return new ChessResponse(null, "몰라여");
         }
@@ -54,8 +54,14 @@ public class ChessController implements Runnable {
         return chessService.end();
     }
 
-    public ChessResponse move(ChessRequest chessRequest) {
-        return chessService.move(MoveParams.of(chessRequest.getParameters()));
+    public ChessResponse move(List<String> parameters) {
+        try {
+            chess.controller.dto.MoveParams moveParams = chess.controller.dto.MoveParams.of(parameters);
+            chessService.move(moveParams.getSource(), moveParams.getDestination());
+        } catch (IllegalArgumentException e) {
+            return new ChessResponse(null, "니 잘못입력했다. 못움직임");
+        }
+        return new ChessResponse(null, "이동");
     }
 }
 

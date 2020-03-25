@@ -2,7 +2,7 @@ package mychess.controller.dto;
 
 import mychess.domain.Board;
 import mychess.domain.ChessGame;
-import mychess.domain.Player;
+import mychess.domain.player.Player;
 
 public class ChessResponse {
     private ChessGame chessGame;

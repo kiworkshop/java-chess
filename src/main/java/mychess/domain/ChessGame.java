@@ -1,6 +1,8 @@
 package mychess.domain;
 
-import mychess.controller.dto.MoveParams;
+import mychess.domain.player.Player;
+import mychess.domain.player.Players;
+import mychess.domain.position.Position;
 
 public class ChessGame {
 
@@ -12,8 +14,8 @@ public class ChessGame {
         this.board = new Board();
     }
 
-    public void move(MoveParams params) {
-        board.movePiece(params);
+    public void move(Position source, Position destination) {
+        board.movePiece(source, destination);
         players.changeCurrentPlayer();
     }
 

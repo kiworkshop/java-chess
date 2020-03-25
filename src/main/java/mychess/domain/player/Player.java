@@ -1,4 +1,6 @@
-package mychess.domain;
+package mychess.domain.player;
+
+import mychess.domain.Color;
 
 public class Player {
 

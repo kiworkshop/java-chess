@@ -1,10 +1,8 @@
 package mychess.service;
 
 import mychess.controller.dto.ChessResponse;
-import mychess.controller.dto.MoveParams;
 import mychess.domain.ChessGame;
-import mychess.domain.Color;
-import mychess.domain.Player;
+import mychess.domain.position.Position;
 
 public class ChessService {
 
@@ -19,8 +17,7 @@ public class ChessService {
         return new ChessResponse(null, "게임 종료");
     }
 
-    public ChessResponse move(MoveParams params) {
-        chessGame.move(params);
-        return new ChessResponse(chessGame, "이동");
+    public void move(Position source, Position destination) {
+        chessGame.move(source, destination);
     }
 }

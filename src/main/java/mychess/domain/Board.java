@@ -1,68 +1,68 @@
 package mychess.domain;
 
-import mychess.controller.dto.MoveParams;
 import mychess.domain.piece.*;
+import mychess.domain.position.Coordinate;
+import mychess.domain.position.Position;
 
-import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Board {
 
-    private Map<Position, Piece> pieces;
+    private Map<Position, Piece> pieces = new TreeMap<>();
 
     public Board() {
-        initialize();
+        initializeBlackPieces();
+        initializeWhitePieces();
+        initializeEmptyPieces();
     }
 
-    private void initialize() {
-        pieces = new EnumMap<>(Position.class);
-        Arrays.stream(Position.values()).forEach(position -> pieces.put(position, initialPiece(position)));
+    private void initializeWhitePieces() {
+        for (int x = 0; x < Coordinate.BOARD_SIZE; x++) {
+            pieces.put(Position.of(x, 1), new Pawn(Color.WHITE));
+        }
+
+        pieces.put(Position.of(0, 0), new Rook(Color.WHITE));
+        pieces.put(Position.of(1, 0), new Knight(Color.WHITE));
+        pieces.put(Position.of(2, 0), new Bishop(Color.WHITE));
+        pieces.put(Position.of(3, 0), new Queen(Color.WHITE));
+        pieces.put(Position.of(4, 0), new King(Color.WHITE));
+        pieces.put(Position.of(5, 0), new Bishop(Color.WHITE));
+        pieces.put(Position.of(6, 0), new Knight(Color.WHITE));
+        pieces.put(Position.of(7, 0), new Rook(Color.WHITE));
     }
 
-    private Piece initialPiece(Position position) {
-        if (position.isFrontLineOfBlack()) return new Pawn(Color.BLACK);
-        if (position.isBackLineOfBlack()) return initialBlackPiece(position);
-        if (position.isFrontLineOfWhite()) return new Pawn(Color.WHITE);
-        if (position.isBackLineOfWhite()) return initialWhitePiece(position);
-        return new EmptyPiece();
+    private void initializeBlackPieces() {
+        for (int x = 0; x < Coordinate.BOARD_SIZE; x++) {
+            pieces.put(Position.of(x, 6), new Pawn(Color.BLACK));
+        }
+
+        pieces.put(Position.of(0, 7), new Rook(Color.BLACK));
+        pieces.put(Position.of(1, 7), new Knight(Color.BLACK));
+        pieces.put(Position.of(2, 7), new Bishop(Color.BLACK));
+        pieces.put(Position.of(3, 7), new Queen(Color.BLACK));
+        pieces.put(Position.of(4, 7), new King(Color.BLACK));
+        pieces.put(Position.of(5, 7), new Bishop(Color.BLACK));
+        pieces.put(Position.of(6, 7), new Knight(Color.BLACK));
+        pieces.put(Position.of(7, 7), new Rook(Color.BLACK));
     }
 
-    private Piece initialBlackPiece(Position position) {
-        if (position == Position.A8) return new Rook(Color.BLACK);
-        if (position == Position.B8) return new Knight(Color.BLACK);
-        if (position == Position.C8) return new Bishop(Color.BLACK);
-        if (position == Position.D8) return new Queen(Color.BLACK);
-        if (position == Position.E8) return new King(Color.BLACK);
-        if (position == Position.F8) return new Bishop((Color.BLACK));
-        if (position == Position.G8) return new Knight(Color.BLACK);
-        if (position == Position.H8) return new Rook(Color.BLACK);
-        throw new IllegalStateException("Unexpected value: " + position);
+    private void initializeEmptyPieces() {
+        for (int x = 0; x < Coordinate.BOARD_SIZE; x++) {
+            for (int y = 2; y <= 5; y++) {
+                pieces.put(Position.of(x, y), new EmptyPiece());
+            }
+        }
     }
 
-    private Piece initialWhitePiece(Position position) {
-        if (position == Position.A1) return new Rook(Color.WHITE);
-        if (position == Position.B1) return new Knight(Color.WHITE);
-        if (position == Position.C1) return new Bishop(Color.WHITE);
-        if (position == Position.D1) return new Queen(Color.WHITE);
-        if (position == Position.E1) return new King(Color.WHITE);
-        if (position == Position.F1) return new Bishop(Color.WHITE);
-        if (position == Position.G1) return new Knight(Color.WHITE);
-        if (position == Position.H1) return new Rook(Color.WHITE);
-        throw new IllegalStateException("Unexpected value: " + position);
-    }
-
-    public Map<Position, Piece> getPieces() {
-        return pieces;
-    }
-
-    public void movePiece(MoveParams params) {
-        Position source = Position.toPosition(params.getSource());
-        Position destination = Position.toPosition(params.getDestination());
-
+    public void movePiece(Position source, Position destination) {
         Piece sourcePiece = pieces.get(source);
 
         pieces.put(destination, sourcePiece);
         pieces.put(source, new EmptyPiece());
+    }
+
+    public Map<Position, Piece> getPieces() {
+        return pieces;
     }
 }
