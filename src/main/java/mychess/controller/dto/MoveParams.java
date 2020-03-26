@@ -1,4 +1,4 @@
-package chess.controller.dto;
+package mychess.controller.dto;
 
 import mychess.domain.position.Coordinate;
 import mychess.domain.position.Position;
@@ -36,11 +36,10 @@ public class MoveParams {
         return parameters.size() == 2;
     }
 
-    //A1 A1 B7
     private static Position toPosition(String naked) {
         String upperCased = naked.toUpperCase();
         Coordinate x = Coordinate.of(upperCased.toCharArray()[0] - 'A');
-        Coordinate y = Coordinate.of(upperCased.toCharArray()[1] - '0');
+        Coordinate y = Coordinate.of(upperCased.toCharArray()[1] - '1');
         return Position.of(x, y);
     }
 

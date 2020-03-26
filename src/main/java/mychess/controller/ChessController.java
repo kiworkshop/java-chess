@@ -2,6 +2,7 @@ package mychess.controller;
 
 import mychess.controller.dto.ChessRequest;
 import mychess.controller.dto.ChessResponse;
+import mychess.controller.dto.MoveParams;
 import mychess.service.ChessService;
 import mychess.support.ChessMessageQueue;
 
@@ -56,7 +57,7 @@ public class ChessController implements Runnable {
 
     public ChessResponse move(List<String> parameters) {
         try {
-            chess.controller.dto.MoveParams moveParams = chess.controller.dto.MoveParams.of(parameters);
+            MoveParams moveParams = MoveParams.of(parameters);
             chessService.move(moveParams.getSource(), moveParams.getDestination());
         } catch (IllegalArgumentException e) {
             return new ChessResponse(null, "니 잘못입력했다. 못움직임");

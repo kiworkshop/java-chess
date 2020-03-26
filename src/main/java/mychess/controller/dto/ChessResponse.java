@@ -8,8 +8,8 @@ public class ChessResponse {
     private ChessGame chessGame;
     private String message;
 
-    public ChessResponse(ChessGame ChessGame, String message) {
-        this.chessGame = ChessGame;
+    public ChessResponse(ChessGame chessGame, String message) {
+        this.chessGame = chessGame;
         this.message = message;
     }
 

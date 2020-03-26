@@ -32,6 +32,7 @@ public class ConsoleChessOutput implements ChessOutput {
             Position position = entry.getKey();
             Piece piece = entry.getValue();
             System.out.print(piece.getSymbol());
+            if (position.isEndOfBoard()) { System.out.println(); }
         }
         System.out.println("A B C D E F G H");
     }

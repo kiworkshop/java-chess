@@ -1,13 +1,14 @@
 package mychess.domain;
 
 import mychess.domain.piece.*;
-import mychess.domain.position.Coordinate;
 import mychess.domain.position.Position;
 
 import java.util.Map;
 import java.util.TreeMap;
 
 public class Board {
+
+    public static final int BOARD_SIZE = 8;
 
     private Map<Position, Piece> pieces = new TreeMap<>();
 
@@ -18,7 +19,7 @@ public class Board {
     }
 
     private void initializeWhitePieces() {
-        for (int x = 0; x < Coordinate.BOARD_SIZE; x++) {
+        for (int x = 0; x < BOARD_SIZE; x++) {
             pieces.put(Position.of(x, 1), new Pawn(Color.WHITE));
         }
 
@@ -33,7 +34,7 @@ public class Board {
     }
 
     private void initializeBlackPieces() {
-        for (int x = 0; x < Coordinate.BOARD_SIZE; x++) {
+        for (int x = 0; x < BOARD_SIZE; x++) {
             pieces.put(Position.of(x, 6), new Pawn(Color.BLACK));
         }
 
@@ -48,7 +49,7 @@ public class Board {
     }
 
     private void initializeEmptyPieces() {
-        for (int x = 0; x < Coordinate.BOARD_SIZE; x++) {
+        for (int x = 0; x < BOARD_SIZE; x++) {
             for (int y = 2; y <= 5; y++) {
                 pieces.put(Position.of(x, y), new EmptyPiece());
             }
