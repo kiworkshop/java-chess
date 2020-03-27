@@ -44,7 +44,7 @@ public class ChessController implements Runnable {
             case MOVE:
                 return move(chessRequest.getParameters());
             default:
-                return new ChessResponse(null, "몰라여");
+                return new ChessResponse(null, "시스템: 잘못된 명령어입니다.");
         }
     }
 

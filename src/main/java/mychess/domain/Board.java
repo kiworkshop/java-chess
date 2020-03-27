@@ -59,13 +59,15 @@ public class Board {
 
     public void movePiece(Player player, Position source, Position destination) {
         Piece sourcePiece = pieces.get(source);
+        Piece destinationPiece = pieces.get(destination);
         if (isValidPiece(sourcePiece)
-                && hasSameColor(player, sourcePiece)) {
+                && hasSameColor(player, sourcePiece)
+                && !hasSameColor(player, destinationPiece)) {
             pieces.put(destination, sourcePiece);
             pieces.put(source, new EmptyPiece());
             return;
         }
-        throw new IllegalArgumentException("잘못된 위치를 선택했습니다.");
+        throw new IllegalArgumentException();
     }
 
     private boolean isValidPiece(Piece sourcePiece) {
