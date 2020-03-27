@@ -6,6 +6,7 @@ import chess.controller.dto.MoveParams;
 import chess.service.ChessService;
 import chess.support.ChessMessageQueue;
 
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 // 바로 체스 컨트롤러가 나와서 그렇지, 사실은 더 높은 준위에 있고, dispatcher 역할
@@ -28,8 +29,6 @@ public class ChessController implements Runnable {
                 responseQueue.put(response);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
             }
         }
     }
@@ -42,27 +41,29 @@ public class ChessController implements Runnable {
             case END:
                 return end();
             case MOVE:
-                return move(chessRequest);
+                return move(chessRequest.getParameters());
             default:
                 return new ChessResponse(null, "몰라여");
         }
     }
 
     public ChessResponse start() {
-        chessService.start();
-        String board = chessService.parseBoardToString();
-        return new ChessResponse(board, "게임 시작");
+        return chessService.start();
     }
 
     public ChessResponse end() {
-        chessService.end();
-        return new ChessResponse(null, "게임 종료");
+        return chessService.end();
     }
 
-    public ChessResponse move(ChessRequest chessRequest) {
-        chessService.move(MoveParams.of(chessRequest.getParameters()));
-        String board = chessService.parseBoardToString();
-        return new ChessResponse(board, "이동");
+    public ChessResponse move(List<String> parameters) {
+        try {
+            MoveParams moveParams = MoveParams.of(parameters);
+            chessService.move(moveParams);
+        } catch (IllegalArgumentException ie) {
+            return new ChessResponse(null, ie.getMessage());
+        }
+//        String board = chessService.parseBoardToString();
+        return new ChessResponse(null, "이동");
     }
 
 }

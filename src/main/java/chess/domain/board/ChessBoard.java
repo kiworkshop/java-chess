@@ -1,28 +1,26 @@
 package chess.domain.board;
 
-import chess.domain.piece.Empty;
-import chess.domain.piece.Movable;
+import chess.model.board.Board;
+import chess.model.board.BoardInitializer;
+import chess.model.piece.PieceState;
+import chess.model.postiion.Position;
 
 import java.util.Map;
 
-public class ChessBoard {
+public class ChessBoard implements Board {
 
-    private Map<Position, Movable> positionMovableMap;
+    private Map<Position, PieceState> board;
 
-    public ChessBoard() {
-        positionMovableMap = MovableFactory.initializeBoard();
+    private ChessBoard(Map<Position, PieceState> board) {
+        this.board = board;
     }
 
-    public Movable getMovable(String position) {
-        return positionMovableMap.get(Position.from(position));
+    public static Board of(BoardInitializer boardInitializer) {
+        return new ChessBoard(boardInitializer.create());
     }
 
-    public void move(Position source, Position destination) {
-        Movable currentPiece = positionMovableMap.get(source);
-        if (!currentPiece.canMove(source, destination)) {
-            throw new IllegalArgumentException(currentPiece.getMovingPolicy());
-        }
-        positionMovableMap.replace(destination, currentPiece);
-        positionMovableMap.replace(source, Empty.create());
+    @Override
+    public void move(Position source, Position target) {
+
     }
 }

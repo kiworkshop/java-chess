@@ -1,41 +1,42 @@
 package chess.domain.piece;
 
-import chess.domain.board.Position;
+import chess.domain.direction.EnumDirection;
+import chess.model.MovingDirection;
+import chess.model.Team;
+import chess.model.piece.PieceState;
+import chess.model.postiion.Position;
 
-public class Bishop extends ChessPiece {
+import java.util.Arrays;
+import java.util.List;
 
-    private final char name;
+public class Bishop extends MoveByDirectionPiece {
 
-    private Bishop(boolean isWhite) {
-        super(isWhite);
-        this.name = getName(isWhite);
+    private static final List<MovingDirection> MOVING_DIRECTIONS;
+
+    static {
+        MOVING_DIRECTIONS = Arrays.asList(
+                EnumDirection.NORTH_EAST,
+                EnumDirection.NORTH_WEST,
+                EnumDirection.SOUTH_EAST,
+                EnumDirection.SOUTH_WEST
+        );
     }
 
-    public static Bishop from(boolean isWhite) {
-        return new Bishop(isWhite);
+    private Bishop(Position position, Team team) {
+        super(EnumPieceType.BISHOP, position, team);
     }
 
-    @Override
-    public boolean canMove(Position source, Position destination) {
-        int rowDistance = source.rowDistance(destination);
-        int columnDistance = source.columnDistance(destination);
-        return rowDistance == columnDistance;
-    }
-
-    @Override
-    public String getMovingPolicy() {
-        return null;
-    }
-
-    private char getName(boolean isWhite) {
-        if (isWhite) {
-            return '\u2657';
-        }
-        return '\u265D';
+    public static Bishop of(Position position, Team team) {
+        return new Bishop(position, team);
     }
 
     @Override
-    public String toString() {
-        return "[" + name + "]";
+    protected List<MovingDirection> getMovingDirections() {
+        return MOVING_DIRECTIONS;
+    }
+
+    @Override
+    protected PieceState movedPieceState(Position target) {
+        return new Bishop(target, team);
     }
 }
