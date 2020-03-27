@@ -1,6 +1,8 @@
-package chess.domain.piece;
+package chess.domain.piece.implementation;
 
 import chess.domain.direction.EnumDirection;
+import chess.domain.piece.EnumPieceType;
+import chess.domain.piece.MoveByDirectionPiece;
 import chess.model.MovingDirection;
 import chess.model.Team;
 import chess.model.piece.PieceState;

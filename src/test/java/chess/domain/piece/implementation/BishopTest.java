@@ -1,6 +1,8 @@
-package chess.domain.piece;
+package chess.domain.piece.implementation;
 
 import chess.domain.board.BoardStateImpl;
+import chess.domain.piece.EnumPieceType;
+import chess.domain.piece.PieceDto;
 import chess.domain.player.EnumTeam;
 import chess.domain.position.EnumPosition;
 import chess.model.board.BoardState;

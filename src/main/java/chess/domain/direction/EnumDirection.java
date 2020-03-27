@@ -1,8 +1,8 @@
 package chess.domain.direction;
 
 import chess.exception.MovingDirectionException;
-import chess.model.postiion.Position;
 import chess.model.MovingDirection;
+import chess.model.postiion.Position;
 
 import java.util.Arrays;
 

@@ -1,7 +1,7 @@
 package chess.domain.position;
 
-import chess.model.postiion.File;
 import chess.model.MovingDirection;
+import chess.model.postiion.File;
 import chess.model.postiion.Position;
 import chess.model.postiion.Rank;
 
