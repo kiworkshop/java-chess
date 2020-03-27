@@ -18,41 +18,29 @@ public class ChessGame {
         ConsoleOutput.printChessGameNotice();
         UserMessage userMessage;
         do {
-            userMessage = makeUserMessage();
+            userMessage = UserMessage.processInput(ConsoleInput.inputGameMessage());
             playChessGameTurn(userMessage);
-
         } while (true);
     }
 
-    private UserMessage makeUserMessage() {
-        UserMessage userMessage = new UserMessage();
-        do {
-            userMessage = UserMessage.processInput((ConsoleInput.inputGameMessage()));
-        } while (userMessage != null)
-
-    }
-
-    private void playChessGameTurn(String gameMessage) {
-        if (gameMessage.equals("end")) {
+    private void playChessGameTurn(UserMessage userMessage) {
+        if (userMessage.getCommand().equals("end")) {
             System.exit(0);
         }
-        if (gameMessage.equals("start")) {    //TODO 더 명료하게
+        if (userMessage.getCommand().equals("start")) {    //TODO 더 명료하게
             chessPieces = ChessPieces.makeInitialSetting();
             playerNumber = PlayerNumber.PLAYER_NUMBER_ONE;
         }
-        List<String> splitedMessage = Arrays.asList(gameMessage.split("\\s"));
-        if (splitedMessage.get(0).equals("move")) {
-            tryMove(splitedMessage);
+        if (userMessage.getCommand().equals("move")) {
+            tryMove(userMessage);
         }
         ConsoleOutput.printChessGameTurn(playerNumber);
         ConsoleOutput.printChessBoard(chessPieces);
     }
 
-    private void tryMove(List<String> splitedMessage) {
-        String fromPosition = splitedMessage.get(1);
-        String toPosition = splitedMessage.get(2);
+    private void tryMove(UserMessage userMessage) {
         try {
-            chessPieces.move(playerNumber, ChessPiecePosition.getPositionByString(fromPosition), ChessPiecePosition.getPositionByString(toPosition));
+            chessPieces.move(playerNumber, userMessage.getFromPosition(), userMessage.getToPosition());
             playerNumber = playerNumber.next();
         } catch (CannotJumptException e) {    //TODO 못배운 놈이라 예외처리 어떻게하는지 모르겠음 좋은 practice가 있나?
             ConsoleOutput.printCannotJumpExceptionMessage();

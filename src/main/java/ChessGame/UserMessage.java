@@ -10,6 +10,18 @@ public class UserMessage {
     ChessPiecePosition fromPosition;
     ChessPiecePosition toPosition;
 
+    public ChessPiecePosition getFromPosition() {
+        return fromPosition;
+    }
+
+    public ChessPiecePosition getToPosition() {
+        return toPosition;
+    }
+
+    public String getCommand() {
+        return command;
+    }
+
     public UserMessage(String command, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
         this.command = command;
         this.fromPosition = fromPosition;
@@ -18,10 +30,6 @@ public class UserMessage {
 
     public static UserMessage processInput(String inputGameMessage) {
         List<String> splitedInputGameMessage = Arrays.asList(inputGameMessage.split(" "));
-        ChessPiecePosition fromPosition = ChessPiecePosition.getPositionByArray()
-        return new UserMessage(splitedInputGameMessage.get(0), splitedInputGameMessage.get(1), splitedInputGameMessage.get(2));
-
-
-
+        return new UserMessage(splitedInputGameMessage.get(0), ChessPiecePosition.getPositionByString(splitedInputGameMessage.get(1)), ChessPiecePosition.getPositionByString(splitedInputGameMessage.get(2)));
     }
 }
