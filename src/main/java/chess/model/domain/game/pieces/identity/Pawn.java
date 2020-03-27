@@ -1,6 +1,6 @@
 package chess.model.domain.game.pieces;
 
-import chess.model.domain.game.ChessBoardSnapshot;
+import chess.model.domain.game.board.ChessBoardSnapshot;
 import chess.model.domain.game.Position;
 
 public class Pawn extends ChessPiece {
@@ -9,7 +9,7 @@ public class Pawn extends ChessPiece {
     }
 
     @Override
-    public boolean isValidMove(Position source, Position destination, ChessBoardSnapshot boardSnapshot) {
+    public boolean isValidMove(ChessBoardSnapshot boardSnapshot, Position source, Position destination) {
         // 2 steps at the first move for WHITE
         if (boardSnapshot.get(source).getColor() == PieceColor.WHITE && source.getY() == 1
                 && source.getX() == destination.getX() && destination.getY() == 3

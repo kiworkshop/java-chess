@@ -21,7 +21,7 @@ public class ChessPiece implements Movable{
     }
 
     @Override
-    public boolean isValidMove(Position source, Position destination, ChessBoardSnapshot boardSnapshot) {
+    public boolean isValidMove(ChessBoardSnapshot boardSnapshot, Position source, Position destination) {
         return true;
     }
 }

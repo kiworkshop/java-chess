@@ -1,6 +1,6 @@
 package chess.model.domain.game.pieces;
 
-import chess.model.domain.game.ChessBoardSnapshot;
+import chess.model.domain.game.board.ChessBoardSnapshot;
 import chess.model.domain.game.Position;
 
 public class Bishop extends ChessPiece {
@@ -9,7 +9,7 @@ public class Bishop extends ChessPiece {
     }
 
     @Override
-    public boolean isValidMove(Position source, Position destination, ChessBoardSnapshot boardSnapshot) {
+    public boolean isValidMove(ChessBoardSnapshot boardSnapshot, Position source, Position destination) {
         // check if move is valid
         if (Math.abs(source.getX() - destination.getX()) == Math.abs(source.getY() - destination.getY())) {
             // check if piece is on the way

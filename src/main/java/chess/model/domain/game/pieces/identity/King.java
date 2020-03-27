@@ -1,6 +1,6 @@
 package chess.model.domain.game.pieces;
 
-import chess.model.domain.game.ChessBoardSnapshot;
+import chess.model.domain.game.board.ChessBoardSnapshot;
 import chess.model.domain.game.Position;
 
 public class King extends ChessPiece {
@@ -9,7 +9,7 @@ public class King extends ChessPiece {
     }
 
     @Override
-    public boolean isValidMove(Position source, Position destination, ChessBoardSnapshot boardSnapshot) {
+    public boolean isValidMove(ChessBoardSnapshot boardSnapshot, Position source, Position destination) {
         if (Math.abs(source.getX() - destination.getX()) > 1
                 || Math.abs(source.getY() - destination.getY()) > 1) {
             return false;
