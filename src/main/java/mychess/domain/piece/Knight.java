@@ -4,7 +4,7 @@ import mychess.domain.Color;
 
 public class Knight extends AbstractPiece {
 
-    private static final String name = "pawn";
+    private static final String name = "knight";
     private static final char whiteSymbol = '\u2658';
     private static final char blackSymbol = '\u265E';
 

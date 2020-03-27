@@ -39,7 +39,7 @@ public class MoveParams {
     private static Position toPosition(String naked) {
         String upperCased = naked.toUpperCase();
         Coordinate x = Coordinate.of(upperCased.toCharArray()[0] - 'A');
-        Coordinate y = Coordinate.of(upperCased.toCharArray()[1] - '1');
+        Coordinate y = Coordinate.of('8' - upperCased.toCharArray()[1]);
         return Position.of(x, y);
     }
 

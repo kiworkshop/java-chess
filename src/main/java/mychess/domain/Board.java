@@ -1,6 +1,7 @@
 package mychess.domain;
 
 import mychess.domain.piece.*;
+import mychess.domain.player.Player;
 import mychess.domain.position.Position;
 
 import java.util.Map;
@@ -56,11 +57,23 @@ public class Board {
         }
     }
 
-    public void movePiece(Position source, Position destination) {
+    public void movePiece(Player player, Position source, Position destination) {
         Piece sourcePiece = pieces.get(source);
+        if (isValidPiece(sourcePiece)
+                && hasSameColor(player, sourcePiece)) {
+            pieces.put(destination, sourcePiece);
+            pieces.put(source, new EmptyPiece());
+            return;
+        }
+        throw new IllegalArgumentException("잘못된 위치를 선택했습니다.");
+    }
 
-        pieces.put(destination, sourcePiece);
-        pieces.put(source, new EmptyPiece());
+    private boolean isValidPiece(Piece sourcePiece) {
+        return sourcePiece.getClass() != EmptyPiece.class;
+    }
+
+    private boolean hasSameColor(Player player, Piece sourcePiece) {
+        return player.getColor().equals(sourcePiece.getColor());
     }
 
     public Map<Position, Piece> getPieces() {

@@ -12,8 +12,8 @@ public class ConsoleChessOutput implements ChessOutput {
     @Override
     public void write(ChessResponse chessResponse) {
         System.out.println();
-        System.out.println(chessResponse.getMessage());
         printBoard(chessResponse);
+        System.out.println(chessResponse.getMessage());
         printCurrentPlayer(chessResponse);
         System.out.println();
     }
@@ -28,12 +28,17 @@ public class ConsoleChessOutput implements ChessOutput {
         }
 
         Map<Position, Piece> pieces = chessResponse.getBoard().getPieces();
+        int i = 8;
         for (Map.Entry<Position, Piece> entry : pieces.entrySet()) {
             Position position = entry.getKey();
             Piece piece = entry.getValue();
             System.out.print(piece.getSymbol());
-            if (position.isEndOfBoard()) { System.out.println(); }
+            if (position.isEndOfBoard()) {
+                System.out.print(" " + i--);
+                System.out.println();
+            }
         }
         System.out.println("A B C D E F G H");
+        System.out.println();
     }
 }

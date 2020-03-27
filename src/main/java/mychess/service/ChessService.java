@@ -17,7 +17,12 @@ public class ChessService {
         return new ChessResponse(null, "게임 종료");
     }
 
-    public void move(Position source, Position destination) {
-        chessGame.move(source, destination);
+    public ChessResponse move(Position source, Position destination) {
+        try {
+            chessGame.move(source, destination);
+            return new ChessResponse(chessGame, "이동 완료");
+        } catch (IllegalArgumentException e) {
+            return new ChessResponse(chessGame, "니 잘못입력했다. 못움직임");
+        }
     }
 }

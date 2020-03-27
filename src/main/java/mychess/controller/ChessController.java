@@ -11,6 +11,7 @@ import java.util.concurrent.BlockingQueue;
 
 // 바로 체스 컨트롤러가 나와서 그렇지, 사실은 더 높은 준위에 있고, dispatcher 역할
 public class ChessController implements Runnable {
+
     private BlockingQueue<ChessRequest> requestQueue;
     private BlockingQueue<ChessResponse> responseQueue;
     private ChessService chessService = new ChessService();
@@ -56,13 +57,8 @@ public class ChessController implements Runnable {
     }
 
     public ChessResponse move(List<String> parameters) {
-        try {
-            MoveParams moveParams = MoveParams.of(parameters);
-            chessService.move(moveParams.getSource(), moveParams.getDestination());
-        } catch (IllegalArgumentException e) {
-            return new ChessResponse(null, "니 잘못입력했다. 못움직임");
-        }
-        return new ChessResponse(null, "이동");
+        MoveParams moveParams = MoveParams.of(parameters);
+        return chessService.move(moveParams.getSource(), moveParams.getDestination());
     }
 }
 

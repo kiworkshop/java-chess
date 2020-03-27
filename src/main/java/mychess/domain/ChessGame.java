@@ -14,8 +14,8 @@ public class ChessGame {
         this.board = new Board();
     }
 
-    public void move(Position source, Position destination) {
-        board.movePiece(source, destination);
+    public void move(Position source, Position destination) throws IllegalArgumentException {
+        board.movePiece(players.getCurrentPlayer(), source, destination);
         players.changeCurrentPlayer();
     }
 

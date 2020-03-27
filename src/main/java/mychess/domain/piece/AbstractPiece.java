@@ -20,8 +20,8 @@ public abstract class AbstractPiece implements Piece {
         return name;
     }
 
-    public Color getColor() {
-        return color;
+    public String getColor() {
+        return color.getColorName();
     }
 
     public char getSymbol() {
