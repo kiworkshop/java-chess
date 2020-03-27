@@ -2,7 +2,9 @@ package chess.model;
 
 public interface Team {
 
-    boolean isSameTeam(Team team);
+    boolean isAlly(Team team);
+
+    boolean isEnemy(Team team);
 
     boolean isWhite();
 

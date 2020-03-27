@@ -8,8 +8,13 @@ public enum EnumTeam implements Team {
     BLACK;
 
     @Override
-    public boolean isSameTeam(Team team) {
-        return this == team;
+    public boolean isAlly(Team team) {
+        return equals(team);
+    }
+
+    @Override
+    public boolean isEnemy(Team team) {
+        return !equals(team);
     }
 
     @Override

@@ -9,6 +9,6 @@ public interface PieceState {
 
     PieceState move(Position target, BoardState boardState);
 
-    Set<Position> movablePosition(BoardState boardState);
+    Set<Position> movablePositions(BoardState boardState);
 
 }

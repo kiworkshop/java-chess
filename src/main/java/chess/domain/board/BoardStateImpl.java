@@ -21,8 +21,13 @@ public class BoardStateImpl implements BoardState {
     }
 
     @Override
-    public boolean isSameTeam(Position target, Team team) {
-        return Objects.nonNull(getPiece(target)) && team.isSameTeam(getTeam(target));
+    public boolean isAlly(Position target, Team team) {
+        return Objects.nonNull(getPiece(target)) && team.isAlly(getTeam(target));
+    }
+
+    @Override
+    public boolean isEnemy(Position target, Team team) {
+        return Objects.nonNull(getPiece(target)) && team.isEnemy(getTeam(target));
     }
 
     @Override

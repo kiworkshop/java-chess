@@ -22,7 +22,7 @@ public abstract class MoveByDirectionPiece extends AttackMoveSameDirectionPiece 
     }
 
     @Override
-    public Set<Position> movablePosition(BoardState boardState) {
+    public Set<Position> movablePositions(BoardState boardState) {
         Set<Position> positions = new HashSet<>();
         for (MovingDirection movingDirection : getMovingDirections()) {
             Position startPathPosition = position.moveByDirection(movingDirection);

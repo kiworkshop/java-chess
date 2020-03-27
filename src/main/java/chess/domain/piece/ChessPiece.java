@@ -27,7 +27,7 @@ public abstract class ChessPiece implements PieceState {
     }
 
     private void validateTarget(Position target, BoardState boardState) {
-        if (boardState.isSameTeam(target, team)) {
+        if (boardState.isAlly(target, team)) {
             throw new MovingToAllyException();
         }
     }

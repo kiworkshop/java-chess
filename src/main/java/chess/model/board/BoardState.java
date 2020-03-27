@@ -5,7 +5,9 @@ import chess.model.postiion.Position;
 
 public interface BoardState {
 
-    boolean isSameTeam(Position target, Team team);
+    boolean isAlly(Position target, Team team);
+
+    boolean isEnemy(Position target, Team team);
 
     boolean isEmpty(Position target);
 
