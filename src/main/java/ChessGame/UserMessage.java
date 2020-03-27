@@ -1,5 +1,6 @@
 package ChessGame;
 
+import ChessGame.ChessPieces.ChessPiece;
 import ChessGame.ChessPieces.ChessPiecePosition;
 
 import java.util.Arrays;
@@ -30,6 +31,13 @@ public class UserMessage {
 
     public static UserMessage processInput(String inputGameMessage) {
         List<String> splitedInputGameMessage = Arrays.asList(inputGameMessage.split(" "));
-        return new UserMessage(splitedInputGameMessage.get(0), ChessPiecePosition.getPositionByString(splitedInputGameMessage.get(1)), ChessPiecePosition.getPositionByString(splitedInputGameMessage.get(2)));
+        ChessPiecePosition fromPosition = null;
+        ChessPiecePosition toPosition = null;
+        if (splitedInputGameMessage.get(0).equals("move")) {
+            fromPosition = ChessPiecePosition.getPositionByString(splitedInputGameMessage.get(1));
+            toPosition = ChessPiecePosition.getPositionByString(splitedInputGameMessage.get(2));
+
+        }
+        return new UserMessage(splitedInputGameMessage.get(0), fromPosition, toPosition);
     }
 }
