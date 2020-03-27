@@ -36,6 +36,14 @@ public abstract class ChessPiece implements PieceState {
 
     protected abstract PieceState movedPieceState(Position target);
 
+    public PieceType getPieceType() {
+        return pieceType;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
     public String getFigure() {
         return pieceType.getFigure(team);
     }

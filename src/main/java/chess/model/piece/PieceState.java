@@ -1,5 +1,6 @@
 package chess.model.piece;
 
+import chess.model.Team;
 import chess.model.board.BoardState;
 import chess.model.postiion.Position;
 
@@ -11,4 +12,9 @@ public interface PieceState {
 
     Set<Position> movablePositions(BoardState boardState);
 
+    PieceType getPieceType();
+
+    Team getTeam();
+
+    String getFigure();
 }

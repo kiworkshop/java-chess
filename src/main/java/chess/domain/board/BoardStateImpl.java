@@ -16,7 +16,7 @@ public class BoardStateImpl implements BoardState {
         this.boardState = boardState;
     }
 
-    public static BoardState from(Map<Position, PieceDto> boardState) {
+    public static BoardStateImpl from(Map<Position, PieceDto> boardState) {
         return new BoardStateImpl(boardState);
     }
 

@@ -58,12 +58,10 @@ public class ChessController implements Runnable {
     public ChessResponse move(List<String> parameters) {
         try {
             MoveParams moveParams = MoveParams.of(parameters);
-            chessService.move(moveParams);
+            return chessService.move(moveParams);
         } catch (IllegalArgumentException ie) {
             return new ChessResponse(null, ie.getMessage());
         }
-//        String board = chessService.parseBoardToString();
-        return new ChessResponse(null, "이동");
     }
 
 }

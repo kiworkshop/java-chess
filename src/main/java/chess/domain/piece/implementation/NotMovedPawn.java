@@ -31,7 +31,9 @@ public class NotMovedPawn extends AttackablePawn {
     }
 
     private void validateMoveDistance(Position target, MovingDirection movingDirection) {
-        if (position.rankDifference(target) > movingDirection.getRankDirection() * 2) {
+        int rankDifference = position.rankDifference(target);
+        if (rankDifference != movingDirection.getRankDirection() &&
+                rankDifference != movingDirection.getRankDirection() * 2) {
             throw new MovingDistanceException();
         }
     }

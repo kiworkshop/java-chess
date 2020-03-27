@@ -11,13 +11,13 @@ import java.util.Optional;
 
 public class EnumPosition implements Position {
 
-    static final Map<String, Position> positionMap;
+    static final Map<String, Position> POSITIONS;
 
     File file;
     Rank rank;
 
     static {
-        positionMap = new HashMap<>();
+        POSITIONS = new HashMap<>();
 
         for (EnumFile file : EnumFile.values()) {
             addPosition(file);
@@ -30,15 +30,19 @@ public class EnumPosition implements Position {
     }
 
     public static Position from(String positionName) {
-        Optional<Position> position = Optional.ofNullable(positionMap.get(positionName.toUpperCase()));
+        Optional<Position> position = Optional.ofNullable(POSITIONS.get(positionName.toUpperCase()));
         return position.orElseThrow(() -> new IllegalArgumentException("잘못된 위치를 선택했습니다"));
+    }
+
+    public static Position from(EnumFile file, EnumRank rank) {
+        return POSITIONS.get(key(file, rank));
     }
 
     @Override
     public Position moveByDirection(MovingDirection movingDirection) {
         File movedFile = file.add(movingDirection.getFileDirection());
         Rank movedRank = rank.add(movingDirection.getRankDirection());
-        return positionMap.get(key(movedFile, movedRank));
+        return POSITIONS.get(key(movedFile, movedRank));
     }
 
     @Override
@@ -68,7 +72,7 @@ public class EnumPosition implements Position {
 
     private static void addPosition(EnumFile file) {
         for (EnumRank rank : EnumRank.values()) {
-            positionMap.put(key(file, rank), new EnumPosition(file, rank));
+            POSITIONS.put(key(file, rank), new EnumPosition(file, rank));
         }
     }
 

@@ -2,23 +2,25 @@ package chess.domain;
 
 import chess.controller.dto.MoveParams;
 import chess.domain.board.ChessBoard;
+import chess.domain.player.EnumTeam;
+import chess.model.Turn;
+import chess.model.board.Board;
+import chess.model.board.BoardInitializer;
 
 public class ChessGame {
 
-    private ChessBoard chessBoard;
-    private boolean turn = true;
+    private Board chessBoard;
+    private Turn turn = new TurnImpl(EnumTeam.WHITE);
 
-    public ChessBoard getChessBoard() {
+    public ChessGame(BoardInitializer boardInitializer) {
+        chessBoard = ChessBoard.of(boardInitializer);
+    }
+
+    public Board getChessBoard() {
         return chessBoard;
     }
 
     public void move(MoveParams moveParams) {
-        chessBoard.move(moveParams.getSource(), moveParams.getDestination());
+        chessBoard.move(moveParams.getSource(), moveParams.getDestination(), turn);
     }
-//
-//    private player1
-//    private player2
-//    private turn
-//    private startAt
-//    private endAt
 }
