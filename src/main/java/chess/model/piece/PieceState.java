@@ -1,0 +1,20 @@
+package chess.model.piece;
+
+import chess.model.Team;
+import chess.model.board.BoardState;
+import chess.model.postiion.Position;
+
+import java.util.Set;
+
+public interface PieceState {
+
+    PieceState move(Position target, BoardState boardState);
+
+    Set<Position> movablePositions(BoardState boardState);
+
+    PieceType getPieceType();
+
+    Team getTeam();
+
+    String getFigure();
+}
