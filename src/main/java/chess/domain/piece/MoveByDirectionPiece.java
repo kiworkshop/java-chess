@@ -1,7 +1,5 @@
 package chess.domain.piece;
 
-import chess.domain.direction.EnumDirection;
-import chess.exception.MovingDirectionException;
 import chess.exception.ObstacleOnPathException;
 import chess.model.MovingDirection;
 import chess.model.Team;
@@ -10,19 +8,16 @@ import chess.model.piece.PieceType;
 import chess.model.postiion.Position;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public abstract class MoveByDirectionPiece extends ChessPiece {
+public abstract class MoveByDirectionPiece extends AttackMoveSameDirectionPiece {
 
     protected MoveByDirectionPiece(PieceType pieceType, Position position, Team team) {
         super(pieceType, position, team);
     }
 
     @Override
-    protected void validateMovingPolicy(Position target, BoardState boardState) {
-        MovingDirection movingDirection = EnumDirection.of(position, target);
-        validateDirection(movingDirection);
+    protected void validatePolicy(MovingDirection movingDirection, Position target, BoardState boardState) {
         validateObstacle(movingDirection, target, boardState);
     }
 
@@ -41,12 +36,6 @@ public abstract class MoveByDirectionPiece extends ChessPiece {
         return positions;
     }
 
-    private void validateDirection(MovingDirection movingDirection) {
-        if (!getMovingDirections().contains(movingDirection)) {
-            throw new MovingDirectionException();
-        }
-    }
-
     private void validateObstacle(MovingDirection movingDirection, Position target, BoardState boardState) {
         Position startPathPosition = position.moveByDirection(movingDirection);
         while (!startPathPosition.equals(target)) {
@@ -56,6 +45,4 @@ public abstract class MoveByDirectionPiece extends ChessPiece {
             startPathPosition = startPathPosition.moveByDirection(movingDirection);
         }
     }
-
-    protected abstract List<MovingDirection> getMovingDirections();
 }

@@ -20,88 +20,88 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-class RookTest {
+class QueenTest {
 
-    private PieceState whiteRook;
+    private PieceState whiteQueen;
     private BoardState boardState;
     private Map<Position, PieceDto> boardDto;
-    private PieceDto blackPieceDto = new PieceDto(EnumPieceType.ROOK, EnumTeam.BLACK);
-    private PieceDto whitePieceDto = new PieceDto(EnumPieceType.ROOK, EnumTeam.WHITE);
+    private PieceDto blackPieceDto = new PieceDto(EnumPieceType.QUEEN, EnumTeam.BLACK);
+    private PieceDto whitePieceDto = new PieceDto(EnumPieceType.QUEEN, EnumTeam.WHITE);
 
     @BeforeEach
     void setUp() {
-        whiteRook = Rook.of(EnumPosition.from("C4"), EnumTeam.WHITE);
+        whiteQueen = Queen.of(EnumPosition.from("C4"), EnumTeam.WHITE);
         boardDto = new HashMap<>();
         boardState = BoardStateImpl.from(boardDto);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"C8", "C1", "A4", "H4"})
+    @ValueSource(strings = {"A2", "A4", "A6", "C6", "E6", "E4", "E2", "C2"})
     @DisplayName("진행 경로에 아무것도 없는 경우 이동 가능")
     void moveToEmpty(String target) {
-        assertThat(whiteRook.move(EnumPosition.from(target), boardState))
-                .isInstanceOf(Rook.class);
+        assertThat(whiteQueen.move(EnumPosition.from(target), boardState))
+                .isInstanceOf(Queen.class);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"C8", "C1", "A4", "H4"})
+    @ValueSource(strings = {"A2", "A4", "A6", "C6", "E6", "E4", "E2", "C2"})
     @DisplayName("진행 타겟에 우리편이 있는 경우 예외 발생")
     void moveToAlly(String target) {
         boardDto.put(EnumPosition.from(target), whitePieceDto);
         boardState = BoardStateImpl.from(boardDto);
-        assertThatThrownBy(() -> whiteRook.move(EnumPosition.from(target), boardState))
+        assertThatThrownBy(() -> whiteQueen.move(EnumPosition.from(target), boardState))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("아군의 말 위치로는 이동할 수 없습니다.");
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"A4:B4", "C6:C5", "E4:D4", "C2:C3"}, delimiter = ':')
+    @CsvSource(value = {"A2:B3", "A4:B4", "A6:B5", "C6:C5", "E6:D5", "E4:D4", "E2:D3", "C2:C3"}, delimiter = ':')
     @DisplayName("진행 경로에 우리편이 있는 경우 예외 발생")
     void allyOnPath(String target, String path) {
         boardDto.put(EnumPosition.from(path), whitePieceDto);
         boardState = BoardStateImpl.from(boardDto);
-        assertThatThrownBy(() -> whiteRook.move(EnumPosition.from(target), boardState))
+        assertThatThrownBy(() -> whiteQueen.move(EnumPosition.from(target), boardState))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("이동 경로에 장애물이 있습니다.");
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"C8", "C1", "A4", "H4"})
+    @ValueSource(strings = {"A2", "A4", "A6", "C6", "E6", "E4", "E2", "C2"})
     @DisplayName("진행 타겟에 적군이 있는 경우 이동 가능")
     void moveToEnemy(String target) {
         boardDto.put(EnumPosition.from(target), blackPieceDto);
         boardState = BoardStateImpl.from(boardDto);
-        assertThat(whiteRook.move(EnumPosition.from(target), boardState))
-                .isInstanceOf(Rook.class);
+        assertThat(whiteQueen.move(EnumPosition.from(target), boardState))
+                .isInstanceOf(Queen.class);
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"A4:B4", "C6:C5", "E4:D4", "C2:C3"}, delimiter = ':')
+    @CsvSource(value = {"A2:B3", "A4:B4", "A6:B5", "C6:C5", "E6:D5", "E4:D4", "E2:D3", "C2:C3"}, delimiter = ':')
     @DisplayName("진행 경로에 적군이 있는 경우 예외 발생")
     void enemyOnPath(String target, String path) {
         boardDto.put(EnumPosition.from(path), blackPieceDto);
         boardState = BoardStateImpl.from(boardDto);
-        assertThatThrownBy(() -> whiteRook.move(EnumPosition.from(target), boardState))
+        assertThatThrownBy(() -> whiteQueen.move(EnumPosition.from(target), boardState))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("이동 경로에 장애물이 있습니다.");
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"A3", "B3", "D5", "E6"})
+    @ValueSource(strings = {"A1", "A3", "A5", "B2", "E5"})
     @DisplayName("진행 규칙에 어긋나는 경우 예외 발생")
     void movePolicyException(String input) {
-        assertThatThrownBy(() -> whiteRook.move(EnumPosition.from(input), boardState))
+        assertThatThrownBy(() -> whiteQueen.move(EnumPosition.from(input), boardState))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("잘못된 이동 방향입니다.");
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"D8", "E8", "B5", "D5"})
+    @ValueSource(strings = {"A1", "A3", "A5", "B2", "E5"})
     @DisplayName("진행 타겟에 적군이 있지만 진행 규칙에 어긋나는 경우 예외 발생")
     void moveToEnemyException(String target) {
         boardDto.put(EnumPosition.from(target), blackPieceDto);
         boardState = BoardStateImpl.from(boardDto);
-        assertThatThrownBy(() -> whiteRook.move(EnumPosition.from(target), boardState))
+        assertThatThrownBy(() -> whiteQueen.move(EnumPosition.from(target), boardState))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("잘못된 이동 방향입니다.");
     }
