@@ -1,4 +1,4 @@
-package model.chessDomain;
+package chess.model.domain.game.pieces;
 
 public enum PieceColor {
     WHITE, BLACK
