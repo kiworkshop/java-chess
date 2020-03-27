@@ -16,12 +16,20 @@ public class ChessGame {
 
     public void run() {
         ConsoleOutput.printChessGameNotice();
-        String gameMessage;
+        UserMessage userMessage;
         do {
-            gameMessage = ConsoleInput.inputGameMessage();
-            playChessGameTurn(gameMessage);
+            userMessage = makeUserMessage();
+            playChessGameTurn(userMessage);
 
         } while (true);
+    }
+
+    private UserMessage makeUserMessage() {
+        UserMessage userMessage = new UserMessage();
+        do {
+            userMessage = UserMessage.processInput((ConsoleInput.inputGameMessage()));
+        } while (userMessage != null)
+
     }
 
     private void playChessGameTurn(String gameMessage) {
