@@ -1,6 +1,6 @@
-package model.chessDomain;
+package chess.model.domain.game;
 
-import model.chessDomain.pieces.*;
+import chess.model.domain.game.pieces.*;
 
 public class ChessBoard {
     public static final int GRID_SIZE = 8;

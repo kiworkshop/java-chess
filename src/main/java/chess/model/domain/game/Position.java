@@ -1,6 +1,4 @@
-package model.chessDomain;
-
-import javafx.geometry.Pos;
+package chess.model.domain.game;
 
 public class Position {
     private int x, y;

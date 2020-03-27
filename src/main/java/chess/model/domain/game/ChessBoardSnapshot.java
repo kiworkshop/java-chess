@@ -1,8 +1,6 @@
-package model.chessDomain;
+package chess.model.domain.game;
 
-import model.chessDomain.ChessBoard;
-import model.chessDomain.Position;
-import model.chessDomain.pieces.ChessPiece;
+import chess.model.domain.game.pieces.ChessPiece;
 
 public class ChessBoardSnapshot {
     private ChessPiece grid[][];

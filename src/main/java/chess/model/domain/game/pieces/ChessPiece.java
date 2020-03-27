@@ -1,7 +1,7 @@
-package model.chessDomain.pieces;
+package chess.model.domain.game.pieces;
 
-import model.chessDomain.ChessBoardSnapshot;
-import model.chessDomain.Position;
+import chess.model.domain.game.ChessBoardSnapshot;
+import chess.model.domain.game.Position;
 
 public class ChessPiece implements Movable{
     private final PieceColor color;
