@@ -2,8 +2,8 @@ package chess.domain;
 
 public abstract class ChessPiece {
 
-    public ChessTeam chessTeam;
-    public ChessBoardPosition chessBoardPosition;
+    private ChessTeam chessTeam;
+    private ChessBoardPosition chessBoardPosition;
 
     public ChessPiece(ChessTeam chessTeam, ChessBoardPosition chessBoardPosition) {
         this.chessTeam = chessTeam;
@@ -27,7 +27,11 @@ public abstract class ChessPiece {
     }
 
     public ChessBoardPosition getChessBoardPosition() {
-        return this.chessBoardPosition;
+        return chessBoardPosition;
     }
 
+    // todo abstract method
+    public String getUnicode() {
+        return chessTeam.getPawnUnicode();
+    }
 }

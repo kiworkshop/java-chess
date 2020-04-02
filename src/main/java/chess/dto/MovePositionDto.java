@@ -1,26 +1,26 @@
 package chess.dto;
 
-import chess.domain.ChessBoardPosition;
+import chess.domain.ChessBoardSquare;
 
 public class MovePositionDto {
 
-    private ChessBoardPosition sourcePosition;
-    private ChessBoardPosition targetPosition;
+    private ChessBoardSquare sourcePosition;
+    private ChessBoardSquare targetPosition;
 
-    private MovePositionDto(ChessBoardPosition sourcePosition, ChessBoardPosition targetPosition) {
+    private MovePositionDto(ChessBoardSquare sourcePosition, ChessBoardSquare targetPosition) {
         this.sourcePosition = sourcePosition;
         this.targetPosition = targetPosition;
     }
 
-    public static MovePositionDto of(ChessBoardPosition sourcePosition, ChessBoardPosition targetPosition) {
+    public static MovePositionDto of(ChessBoardSquare sourcePosition, ChessBoardSquare targetPosition) {
         return new MovePositionDto(sourcePosition, targetPosition);
     }
 
-    public ChessBoardPosition getSourcePosition() {
+    public ChessBoardSquare getSourcePosition() {
         return sourcePosition;
     }
 
-    public ChessBoardPosition getTargetPosition() {
+    public ChessBoardSquare getTargetPosition() {
         return targetPosition;
     }
 }

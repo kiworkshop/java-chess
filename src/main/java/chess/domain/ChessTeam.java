@@ -1,18 +1,17 @@
 package chess.domain;
 
 public enum ChessTeam {
-    BLACK(7, 8),
-    WHITE(2, 1);
+    WHITE("\u2659"),
+    BLACK("\u265F");
 
-    private static ChessTeam currentTurn = ChessTeam.BLACK;
+    private static ChessTeam currentTurn = ChessTeam.WHITE;
 
-    private int pawnNthColumn;
-    private int specialPiecesNthColumn;
+    private String pawnUnicode;
 
-    ChessTeam(int pawnNthColumn, int specialPiecesNthColumn) {
-        this.pawnNthColumn = pawnNthColumn;
-        this.specialPiecesNthColumn = specialPiecesNthColumn;
+    ChessTeam(String pawnUnicode) {
+        this.pawnUnicode = pawnUnicode;
     }
+
 
     public static void changeTurn() {
         if (currentTurn.equals(ChessTeam.BLACK)) {
@@ -22,15 +21,11 @@ public enum ChessTeam {
         currentTurn = ChessTeam.BLACK;
     }
 
-    public int getPawnNthColumn() {
-        return pawnNthColumn;
-    }
-
-    public int getSpecialPiecesNthColumn() {
-        return specialPiecesNthColumn;
-    }
-
     public static boolean isTurn(ChessTeam chessTeam) {
         return currentTurn.equals(chessTeam);
+    }
+
+    public String getPawnUnicode() {
+        return pawnUnicode;
     }
 }
