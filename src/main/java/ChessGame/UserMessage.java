@@ -1,6 +1,5 @@
 package ChessGame;
 
-import ChessGame.ChessPieces.ChessPiece;
 import ChessGame.ChessPieces.ChessPiecePosition;
 
 import java.util.Arrays;
@@ -10,18 +9,6 @@ public class UserMessage {
     String command;
     ChessPiecePosition fromPosition;
     ChessPiecePosition toPosition;
-
-    public ChessPiecePosition getFromPosition() {
-        return fromPosition;
-    }
-
-    public ChessPiecePosition getToPosition() {
-        return toPosition;
-    }
-
-    public String getCommand() {
-        return command;
-    }
 
     public UserMessage(String command, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) {
         this.command = command;
@@ -39,5 +26,17 @@ public class UserMessage {
 
         }
         return new UserMessage(splitedInputGameMessage.get(0), fromPosition, toPosition);
+    }
+
+    public ChessPiecePosition getFromPosition() {
+        return fromPosition;
+    }
+
+    public ChessPiecePosition getToPosition() {
+        return toPosition;
+    }
+
+    public String getCommand() {
+        return command;
     }
 }

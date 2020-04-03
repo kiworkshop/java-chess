@@ -1,4 +1,4 @@
 package ChessGame.Exception;
 
-public class TakenPositionException extends Exception{
+public class TakenPositionException extends Exception {
 }

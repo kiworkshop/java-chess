@@ -1,4 +1,4 @@
 package ChessGame.Exception;
 
-public class NotYourTurnException extends Exception{
+public class NotYourTurnException extends Exception {
 }

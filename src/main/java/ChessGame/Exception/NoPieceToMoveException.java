@@ -1,4 +1,4 @@
 package ChessGame.Exception;
 
-public class NoPieceToMoveException extends Exception{
+public class NoPieceToMoveException extends Exception {
 }

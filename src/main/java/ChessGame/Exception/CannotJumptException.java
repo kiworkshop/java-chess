@@ -1,4 +1,4 @@
 package ChessGame.Exception;
 
-public class CannotJumptException extends Exception{
+public class CannotJumptException extends Exception {
 }

@@ -1,11 +1,7 @@
 package ChessGame;
 
-import ChessGame.ChessPieces.ChessPiecePosition;
 import ChessGame.ChessPieces.ChessPieces;
 import ChessGame.Exception.*;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class ChessGame {
     private ChessPieces chessPieces;
@@ -52,7 +48,7 @@ public class ChessGame {
             ConsoleOutput.printSamePositionExceptionMessage();
         } catch (TakenPositionException e) {
             ConsoleOutput.printTakenPositionExceptionMessage();
-        } catch(NoPieceToMoveException e) {
+        } catch (NoPieceToMoveException e) {
             ConsoleOutput.printNoPieceToMoveException();
         } catch (GameOverException e) {
             ConsoleOutput.printGameOverMessage(playerNumber);

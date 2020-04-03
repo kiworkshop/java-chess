@@ -5,16 +5,15 @@ public enum PlayerNumber {
     PLAYER_NUMBER_TWO(2, "흑");
 
     private int playerNumber;
-
-    public String getPlayerColorName() {
-        return playerColorName;
-    }
-
     private String playerColorName;
 
     PlayerNumber(int playerNumber, String playerColorName) {
         this.playerNumber = playerNumber;
         this.playerColorName = playerColorName;
+    }
+
+    public String getPlayerColorName() {
+        return playerColorName;
     }
 
     public int getPlayerNumber() {

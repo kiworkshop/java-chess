@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class ChessPieces {
     public static final int CHESS_BOARD_SIZE = 8;
-    public HashMap<ChessPiecePosition, ChessPiece> chessPieces ;
+    public HashMap<ChessPiecePosition, ChessPiece> chessPieces;
 
 
     public ChessPieces(HashMap<ChessPiecePosition, ChessPiece> chessPieces) {
@@ -52,7 +52,7 @@ public class ChessPieces {
 
     public void move(PlayerNumber playerNumber, ChessPiecePosition fromPosition, ChessPiecePosition toPosition) throws Exception {
         validateMovePosition(playerNumber, fromPosition, toPosition);
-        chessPieces.get(fromPosition).validateEachPieceMove(chessPieces, fromPosition, toPosition);
+        chessPieces.get(fromPosition).validateEachPieceMove(chessPieces, fromPosition, toPosition);    // TODO chessPieces를 DTO로 만들기
         checkKingCaptured(toPosition);
 
         chessPieces.put(toPosition, chessPieces.get(fromPosition));
