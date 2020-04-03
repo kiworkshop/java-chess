@@ -1,14 +1,19 @@
 package mychess.domain.piece;
 
-import mychess.domain.Color;
+import mychess.domain.board.BoardDto;
+import mychess.domain.player.Player;
+import mychess.domain.position.Position;
 
-public class Bishop extends AbstractPiece {
+import java.util.Observer;
 
-    private static final String name = "bishop";
-    private static final char whiteSymbol = '\u2657';
-    private static final char blackSymbol = '\u265D';
+public class Bishop extends Piece {
 
-    public Bishop(Color color) {
-        super(name, color, whiteSymbol, blackSymbol);
+    public Bishop(Position position, Player owner, Observer observer) {
+        super(PieceType.BISHOP, position, owner, observer);
+    }
+
+    @Override
+    protected void moveImpl(Position destination, BoardDto boardDto) {
+        this.position = destination;
     }
 }

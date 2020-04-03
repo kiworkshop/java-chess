@@ -1,16 +1,18 @@
 package mychess.domain.player;
 
-import mychess.domain.Color;
+public enum Player {
 
-public class Player {
+    BLACK("Black"),
+    WHITE("White"),
+    NONE("None");
 
-    private Color color;
+    private String name;
 
-    public Player(Color color) {
-        this.color = color;
+    Player(String name) {
+        this.name = name;
     }
 
-    public String getColor() {
-        return color.getColorName();
+    public String getName() {
+        return name;
     }
 }

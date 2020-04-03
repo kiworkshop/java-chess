@@ -14,6 +14,7 @@ public class ChessService {
     }
 
     public ChessResponse end() {
+        chessGame.end();
         return new ChessResponse(null, "시스템: 게임 종료");
     }
 

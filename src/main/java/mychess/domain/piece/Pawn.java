@@ -1,14 +1,19 @@
 package mychess.domain.piece;
 
-import mychess.domain.Color;
+import mychess.domain.board.BoardDto;
+import mychess.domain.player.Player;
+import mychess.domain.position.Position;
 
-public class Pawn extends AbstractPiece {
+import java.util.Observer;
 
-    private static final String name = "pawn";
-    private static final char whiteSymbol = '\u2659';
-    private static final char blackSymbol = '\u265F';
+public class Pawn extends Piece {
 
-    public Pawn(Color color) {
-        super(name, color, whiteSymbol, blackSymbol);
+    public Pawn(Position position, Player owner, Observer observer) {
+        super(PieceType.PAWN, position, owner, observer);
+    }
+
+    @Override
+    protected void moveImpl(Position destination, BoardDto boardDto) {
+        this.position = destination;
     }
 }

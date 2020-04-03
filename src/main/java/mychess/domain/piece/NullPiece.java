@@ -6,10 +6,10 @@ import mychess.domain.position.Position;
 
 import java.util.Observer;
 
-public class Rook extends Piece {
+public class NullPiece extends Piece {
 
-    public Rook(Position position, Player owner, Observer observer) {
-        super(PieceType.ROOK, position, owner, observer);
+    public NullPiece(Position position, Player owner, Observer observer) {
+        super(PieceType.NULL, position, owner, observer);
     }
 
     @Override

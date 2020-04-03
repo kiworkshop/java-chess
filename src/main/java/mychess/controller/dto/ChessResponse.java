@@ -1,6 +1,6 @@
 package mychess.controller.dto;
 
-import mychess.domain.Board;
+import mychess.domain.board.Board;
 import mychess.domain.ChessGame;
 import mychess.domain.player.Player;
 

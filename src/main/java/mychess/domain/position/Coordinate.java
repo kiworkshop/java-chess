@@ -3,7 +3,6 @@ package mychess.domain.position;
 public class Coordinate implements ICoordinate {
 
     public static final int BOARD_SIZE = 8;
-
     private int value;
 
     private Coordinate(int value) {

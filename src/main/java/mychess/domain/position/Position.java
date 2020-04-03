@@ -1,9 +1,8 @@
 package mychess.domain.position;
 
-import mychess.domain.Board;
-
 public class Position implements Comparable<Position> {
 
+    private static final int BOARD_SIZE = 8;
     private ICoordinate x;
     private ICoordinate y;
 
@@ -25,7 +24,7 @@ public class Position implements Comparable<Position> {
     }
 
     public boolean isEndOfBoard() {
-        return x.getValue() == Board.BOARD_SIZE - 1;
+        return x.getValue() == BOARD_SIZE - 1;
     }
 
     public int getX() {

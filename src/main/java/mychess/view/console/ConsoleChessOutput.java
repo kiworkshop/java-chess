@@ -19,7 +19,7 @@ public class ConsoleChessOutput implements ChessOutput {
     }
 
     private void printCurrentPlayer(ChessResponse chessResponse) {
-        System.out.println(chessResponse.getCurrentPlayer().getColor() + "의 차례입니다.");
+        System.out.println(chessResponse.getCurrentPlayer().getName() + "의 차례입니다.");
     }
 
     private void printBoard(ChessResponse chessResponse) {
