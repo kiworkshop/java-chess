@@ -12,8 +12,8 @@ public class KingTest {
   void testKingCreation() {
 
     //given
-    King king1 = new King(Team.BLACK);
-    King king2 = new King(Team.WHITE);
+    King king1 = new King(Team.BLACK, new PiecePosition(File.E, Rank.ONE));
+    King king2 = new King(Team.WHITE, new PiecePosition(File.E, Rank.EIGHT));
 
     //when // given
     assertThat(king1.getPiecePosition()).isEqualTo(new PiecePosition(File.E, Rank.ONE));
