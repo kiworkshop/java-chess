@@ -1,19 +1,17 @@
 package chess.domain.plate;
 
-import chess.domain.piece.Piece;
-import chess.domain.piece.Team;
+import chess.domain.RankComparator;
+import chess.domain.piece.*;
 import chess.domain.team.Camp;
 import lombok.Getter;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Getter
 public class ChessPlate {
     private static final String BLANK =".";
-    private String[][] plate = new String[8][8];
-
-    List<Piece> allPieces = new LinkedList<>();
+    private Map<PiecePosition, Piece> plate = new HashMap<>();
+    private List<Piece> allPieces = new LinkedList<>();
 
     public ChessPlate() {
         Camp black = new Camp(Team.BLACK);
@@ -22,20 +20,18 @@ public class ChessPlate {
         allPieces.addAll(white.getPieces());
     }
 
-    public String[][] getPlate() {
+    public Map<PiecePosition, Piece> getPlate() {
+        RankComparator rankComparator = new RankComparator();
 
-        for (int i = 0; i < plate.length; i++) {
-            for (int j = 0; j < plate.length; j++) {
-                plate[i][j] = ".";
+        for (Rank rank: Rank.values()) {
+            for (File file : File.values()) {
+              plate.put(new PiecePosition(file, rank), new Piece(".",Team.BLACK, new PiecePosition(file,rank)));
             }
         }
-
         allPieces.forEach(piece -> {
-            int x = piece.getPiecePosition().getRank().getRankPosition()-1;
-            int y = piece.getPiecePosition().getFile().getFilePosition()-1;
-            plate[x][y] = piece.getDisplayName();
+            plate.put(piece.getPiecePosition(), piece);
         });
+
         return plate;
     }
-
 }
