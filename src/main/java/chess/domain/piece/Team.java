@@ -2,6 +2,8 @@ package chess.domain.piece;
 
 import lombok.Getter;
 
+import java.util.Locale;
+
 @Getter
 public enum Team {
     BLACK(1),
@@ -15,5 +17,15 @@ public enum Team {
 
     public int getMarker() {
         return marker;
+    }
+
+    public String displayName(String name) {
+        if (this.equals(BLACK)) {
+            return name.toLowerCase();
+        }
+        if (this.equals(WHITE)) {
+            return name.toUpperCase();
+        }
+        return name;
     }
 }

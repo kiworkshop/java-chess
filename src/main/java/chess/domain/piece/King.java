@@ -4,19 +4,18 @@ import lombok.Getter;
 
 @Getter
 public class King {
+    private String name = "K";
     private Team team;
-    private String position;
+    private PiecePosition piecePosition;
     private String displayName;
     public King(Team team) {
         this.team = team;
+        this.displayName = team.displayName(name);
         if(team.equals(Team.BLACK)) {
-            this.position = "E1";
-            this.displayName = "k";
+            this.piecePosition = new PiecePosition(File.E, Rank.ONE);
         }
-
         if(team.equals(Team.WHITE)) {
-            this.position = "E8";
-            this.displayName = "K";
+            this.piecePosition = new PiecePosition(File.E, Rank.EIGHT);
         }
     }
 }
