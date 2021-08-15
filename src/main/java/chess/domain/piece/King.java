@@ -1,5 +1,8 @@
 package chess.domain.piece;
 
+import lombok.Getter;
+
+@Getter
 public class King {
     private Team team;
     private String position;
@@ -15,13 +18,5 @@ public class King {
             this.position = "E8";
             this.displayName = "K";
         }
-
-
-    }
-
-    public String getPosition() {
-    }
-
-    public String getDisplayName() {
     }
 }
