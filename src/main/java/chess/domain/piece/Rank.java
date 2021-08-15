@@ -1,5 +1,8 @@
 package chess.domain.piece;
 
+import lombok.Getter;
+
+@Getter
 public enum Rank {
     ONE(1),
     TWO(2),
