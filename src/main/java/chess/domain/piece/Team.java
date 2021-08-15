@@ -2,21 +2,19 @@ package chess.domain.piece;
 
 import lombok.Getter;
 
-import java.util.Locale;
-
 @Getter
 public enum Team {
-    BLACK(1),
-    WHITE(2);
+BLACK(1, Rank.EIGHT, Rank.SEVEN),
+    WHITE(2, Rank.ONE, Rank.TWO);
 
     private int marker;
+    private Rank piecesRank;
+    private Rank pawnRank;
 
-    Team(int marker) {
+    Team(int marker, Rank piecesRank, Rank pawnRank) {
         this.marker = marker;
-    }
-
-    public int getMarker() {
-        return marker;
+        this.piecesRank = piecesRank;
+        this.pawnRank = pawnRank;
     }
 
     public String displayName(String name) {
