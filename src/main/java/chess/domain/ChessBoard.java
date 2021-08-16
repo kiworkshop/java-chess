@@ -1,4 +1,8 @@
-package chess;
+package chess.domain;
+
+import chess.domain.position.File;
+import chess.domain.position.Position;
+import chess.domain.position.Rank;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,15 +1,18 @@
-package chess;
+package chess.domain;
 
+import chess.domain.position.File;
+import chess.domain.position.Position;
+import chess.domain.position.Rank;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class ChessBoardTest {
+
     @Test
     @DisplayName("초기 체스판을 세팅한다.")
     void initialize() {
         //given
-
         //when
         ChessBoard chessBoard = new ChessBoard();
 

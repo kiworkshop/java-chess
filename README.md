@@ -48,10 +48,10 @@
   - [ ] 상대편 King이 잡히는 경우 게임이 종료된다.
   - [ ] 현재 남아 있는 말에 대한 점수를 계산한다.
 
-- [ ] 체스판 - ChessBoard
+- [ ] 체스판 - ChessBoard Map<Position,Piece>
   - [ ] 초기 체스판을 세팅한다.
     - [x] 64개의 체스 위치를 생성한다.
-    - [ ] 기물을 초기 위치에 놓는다.
+    - [ ] 기물을 초기 위치에 놓는다. Piece -> position, player
 
 - [ ] 위치 - Position
   - [x] 8개의 세로 줄인 file(열)
