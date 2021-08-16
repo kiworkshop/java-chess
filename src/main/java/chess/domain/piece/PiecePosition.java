@@ -3,6 +3,8 @@ package chess.domain.piece;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Objects;
+
 @Getter
 @RequiredArgsConstructor
 public class PiecePosition {
@@ -10,11 +12,20 @@ public class PiecePosition {
     private final Rank rank;
 
     @Override
-    public boolean equals(Object object) {
-        if (object instanceof PiecePosition) {
-            PiecePosition position = (PiecePosition) object;
-            return this.getFile().equals(position.getFile()) && this.getRank().equals(position.getRank());
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
         }
-        return false;
+        if (!(o instanceof PiecePosition)) {
+            return false;
+        }
+        PiecePosition that = (PiecePosition) o;
+        return getFile() == that.getFile() &&
+                getRank() == that.getRank();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFile(), getRank());
     }
 }

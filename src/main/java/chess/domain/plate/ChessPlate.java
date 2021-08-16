@@ -18,9 +18,10 @@ public class ChessPlate {
         Camp white = new Camp(Team.WHITE);
         allPieces.addAll(black.getPieces());
         allPieces.addAll(white.getPieces());
+        arrangePieces();
     }
 
-    public Map<PiecePosition, Piece> getPlate() {
+    public Map<PiecePosition, Piece> arrangePieces() {
         RankComparator rankComparator = new RankComparator();
 
         for (Rank rank: Rank.values()) {
