@@ -35,4 +35,9 @@ public class ChessPlate {
 
         return plate;
     }
+    public void move(PiecePosition sposition, PiecePosition targPiecePosition){
+        //TO-DO 기물별 허용 움직임 범위인지 체크
+        // 가려는 곳이 상대편 말이거나, 비어있는지 체크
+
+    }
 }
