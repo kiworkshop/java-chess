@@ -3,7 +3,7 @@ package chess.domain.piece;
 import lombok.Getter;
 
 @Getter
-public class Piece {
+public abstract class Piece {
     protected String name;
     protected Team team;
     protected PiecePosition piecePosition;
@@ -15,4 +15,9 @@ public class Piece {
         this.displayName = team.displayName(name);
         this.piecePosition = piecePosition;
     }
+
+    public abstract boolean movable(PiecePosition targetPosition);
+
+    public abstract Piece move(PiecePosition tarPiecePosition);
+
 }

@@ -26,7 +26,8 @@ public class ChessPlate {
 
         for (Rank rank: Rank.values()) {
             for (File file : File.values()) {
-              plate.put(new PiecePosition(file, rank), new Piece(".",Team.BLACK, new PiecePosition(file,rank)));
+//              plate.put(new PiecePosition(file, rank), new Piece(".",Team.BLACK, new PiecePosition(file,rank)));
+              plate.put(new PiecePosition(file, rank), null);
             }
         }
         allPieces.forEach(piece -> {
