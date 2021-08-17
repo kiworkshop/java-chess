@@ -1,5 +1,6 @@
 package chess.domain.board;
 
+import chess.domain.command.MoveParameters;
 import chess.domain.piece.Bishop;
 import chess.domain.piece.Color;
 import chess.domain.piece.King;
@@ -10,7 +11,6 @@ import chess.domain.piece.Queen;
 import chess.domain.piece.Rook;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,19 +42,37 @@ public class Board {
                 });
     }
 
-    public boolean isEmpty(Position position) {
-        return board.get(position) == null;
+    public void move(final MoveParameters moveParameters, final boolean isWhiteTurn) {
+        Position source = moveParameters.getSource();
+        Position target = moveParameters.getTarget();
+        Piece sourcePiece = findBy(source);
+
+        validateColor(isWhiteTurn, sourcePiece.isWhite());
+
+        Piece targetPiece = findBy(target);
+        if (sourcePiece.hasSameColor(targetPiece)) {
+            throw new IllegalArgumentException("같은 색상의 기물은 공격할 수 없습니다.");
+        }
+
+        board.put(target, sourcePiece);
+        board.remove(source);
+    }
+
+    private void validateColor(final boolean expectedColor, final boolean sourcePieceColor) {
+        if (sourcePieceColor != expectedColor) {
+            throw new IllegalArgumentException("같은 색상의 기물만 움직일 수 있습니다.");
+        }
     }
 
     public Piece findBy(final Position position) {
+        if (isEmpty(position)) {
+            throw new IllegalArgumentException("해당 위치에 기물이 존재하지 않습니다.");
+        }
+
         return board.get(position);
     }
 
-    public Collection<Piece> getAllPresentPieces() {
-        return board.values();
-    }
-
-    public Collection<Position> getAllPresentPositions() {
-        return board.keySet();
+    public boolean isEmpty(Position position) {
+        return board.get(position) == null;
     }
 }

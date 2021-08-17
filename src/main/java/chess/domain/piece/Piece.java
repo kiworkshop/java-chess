@@ -12,4 +12,8 @@ public abstract class Piece {
     public boolean isWhite() {
         return WHITE == color;
     }
+
+    public boolean hasSameColor(final Piece target) {
+        return this.color == target.color;
+    }
 }

@@ -7,7 +7,7 @@ public class ConsoleInputView implements InputView {
     private static final String HEADER = "> ";
 
     @Override
-    public String getInitialCommand() {
+    public String getCommand() {
         System.out.println(HEADER + "체스 게임을 시작합니다.");
         System.out.println(HEADER + "게임 시작은 start, 종료는 end 명령을 입력하세요.");
         String input = scanner.nextLine();

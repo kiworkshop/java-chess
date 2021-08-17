@@ -2,6 +2,7 @@ package chess.controller;
 
 import chess.controller.dto.BoardDto;
 import chess.domain.ChessGame;
+import chess.domain.command.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
 
@@ -16,10 +17,11 @@ public class ChessController {
     }
 
     public void run() {
-        String initialCommand = inputView.getInitialCommand();
-        ChessGame chessGame = new ChessGame(initialCommand);
+        ChessGame chessGame = new ChessGame();
 
         while (chessGame.isRunning()) {
+            Command command = new Command(inputView.getCommand());
+            chessGame.run(command);
             BoardDto boardDto = new BoardDto(chessGame.getBoard());
             outputView.printBoard(boardDto);
         }

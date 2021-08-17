@@ -1,28 +1,38 @@
 package chess.domain;
 
 import chess.domain.board.Board;
+import chess.domain.command.Command;
+import chess.domain.command.MoveParameters;
 
 public class ChessGame {
 
-    private static final String START = "start";
-    private static final String END = "end";
-
     private final Board board = new Board();
-    private boolean isRunning = false;
+    private boolean isRunning = true;
+    private boolean isWhiteTurn = true;
 
-    public ChessGame(final String initialCommand) {
-        if (initialCommand.equals(START)) {
-            isRunning = true;
+    public ChessGame() {
+    }
+
+    public void run(final Command command) {
+        if (command.isStart()) {
             return;
         }
 
-        if (initialCommand.equals(END)) {
+        if (command.isEnd()) {
+            isRunning = false;
             return;
+        }
+
+        if (command.isMove()) {
+            move(command.getMoveParameters());
         }
 
         throw new UnsupportedOperationException("유효하지 않은 명령어입니다.");
     }
 
+    private void move(final MoveParameters moveParameters) {
+        board.move(moveParameters, isWhiteTurn);
+    }
 
     public boolean isRunning() {
         return isRunning;
