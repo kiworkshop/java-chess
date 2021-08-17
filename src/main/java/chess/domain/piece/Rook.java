@@ -8,6 +8,12 @@ public class Rook extends Piece {
 
     @Override
     public boolean movable(PiecePosition targetPosition) {
-        return false;
+        int originFile = super.piecePosition.getFile().getFilePosition();
+        int originRank = super.piecePosition.getRank().getRankPosition();
+        int targetFile = targetPosition.getFile().getFilePosition();
+        int targetRank = targetPosition.getRank().getRankPosition();
+        int fileGap = Math.abs(originFile - targetFile);
+        int rankGap = Math.abs(originRank - targetRank);
+        return fileGap == 0 || rankGap == 0;
     }
 }
