@@ -28,7 +28,7 @@ public abstract class Piece {
     public Set<Position> findPaths(final Position source, final Position target) {
         int fileGap = target.calculateFileGap(source);
         int rankGap = target.calculateRankGap(source);
-        validatePattern(fileGap, rankGap);
+        validatePattern(abs(fileGap), abs(rankGap));
 
         Direction direction = Direction.of(fileGap, rankGap);
         return collectPositions(source, target, direction);
@@ -39,11 +39,15 @@ public abstract class Piece {
     }
 
     protected boolean isFiniteStraight(final int fileGap, final int rankGap) {
-        return (abs(fileGap) + abs(rankGap)) == 1;
+        return (fileGap + rankGap) == 1;
     }
 
     protected boolean isDiagonal(final int fileGap, final int rankGap) {
-        return abs(fileGap) == abs(rankGap);
+        return fileGap == rankGap;
+    }
+
+    protected boolean isFiniteDiagonal(final int fileGap, final int rankGap) {
+        return (fileGap == 1) && (rankGap == 1);
     }
 
     public Set<Position> collectPositions(final Position source, final Position target, final Direction direction) {
