@@ -14,9 +14,6 @@ public class King extends Piece {
         //상하좌우 한칸씩
         int fileGap = Math.abs(originFile - targetFile);
         int rankGap = Math.abs(originRank - targetRank);
-        if(fileGap == 1 && rankGap == 1) {
-            return false;
-        }
         return fileGap + rankGap == 1;
     }
 }

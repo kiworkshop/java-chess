@@ -28,9 +28,7 @@ public class KingTest {
       //given
       King king = new King(Team.BLACK, new PiecePosition(File.E, Rank.EIGHT));
 
-      //when
-
-      //then
+      //when//then
       assertThat(king.movable(new PiecePosition(File.D, Rank.EIGHT))).isTrue();
       assertThat(king.movable(new PiecePosition(File.C, Rank.EIGHT))).isFalse();
       assertThat(king.movable(new PiecePosition(File.E, Rank.SEVEN))).isTrue();
