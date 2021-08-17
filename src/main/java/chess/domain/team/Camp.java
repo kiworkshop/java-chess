@@ -23,31 +23,31 @@ public class Camp {
     }
 
     private void createKing() {
-        pieces.add(new King(team, new PiecePosition(File.E, team.getPiecesRank())));
+        pieces.add(new King(team, new PiecePosition(File.E, team.getPiecesInitRank())));
     }
 
     private void createQueen() {
-        pieces.add(new Queen(team, new PiecePosition(File.D, team.getPiecesRank())));
+        pieces.add(new Queen(team, new PiecePosition(File.D, team.getPiecesInitRank())));
     }
 
     private void createBishop() {
-        pieces.add(new Bishop(team, new PiecePosition(File.C, team.getPiecesRank())));
-        pieces.add(new Bishop(team, new PiecePosition(File.F, team.getPiecesRank())));
+        pieces.add(new Bishop(team, new PiecePosition(File.C, team.getPiecesInitRank())));
+        pieces.add(new Bishop(team, new PiecePosition(File.F, team.getPiecesInitRank())));
     }
 
     private void creatKnight() {
-        pieces.add(new Knight(team, new PiecePosition(File.B, team.getPiecesRank())));
-        pieces.add(new Knight(team, new PiecePosition(File.G, team.getPiecesRank())));
+        pieces.add(new Knight(team, new PiecePosition(File.B, team.getPiecesInitRank())));
+        pieces.add(new Knight(team, new PiecePosition(File.G, team.getPiecesInitRank())));
     }
 
     private void createRook() {
-        pieces.add(new Rook(team, new PiecePosition(File.A, team.getPiecesRank())));
-        pieces.add(new Rook(team, new PiecePosition(File.H, team.getPiecesRank())));
+        pieces.add(new Rook(team, new PiecePosition(File.A, team.getPiecesInitRank())));
+        pieces.add(new Rook(team, new PiecePosition(File.H, team.getPiecesInitRank())));
     }
 
     private void createPawn() {
         for(File file : File.values()) {
-            pieces.add(new Pawn(team, new PiecePosition(file, team.getPawnRank())));
+            pieces.add(new Pawn(team, new PiecePosition(file, team.getPawnInitRank())));
         }
     }
 }

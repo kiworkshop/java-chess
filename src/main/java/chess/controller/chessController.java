@@ -7,6 +7,6 @@ public class chessController {
     public static void main(String[] args) {
         OutputView outputView = new OutputView();
         ChessPlate chessPlate = new ChessPlate();
-        outputView.printChessPlate(chessPlate);
+        outputView.initPrint();
     }
 }
