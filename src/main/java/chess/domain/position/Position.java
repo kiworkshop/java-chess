@@ -28,7 +28,7 @@ public class Position {
         return position.getFile() + position.getRank();
     }
 
-    public static Position of(String position) {
+    public static Position from(String position) {
         return POSITION_CACHE.get(position);
     }
 

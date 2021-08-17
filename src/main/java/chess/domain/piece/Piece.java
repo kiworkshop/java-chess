@@ -13,8 +13,8 @@ public abstract class Piece extends Movement {
         this.position = position;
     }
 
-    protected Piece() {
-
+    public void move(Position target) {
+        this.position = target;
     }
 
     public Position position() {

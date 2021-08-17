@@ -16,7 +16,7 @@ class PositionTest {
     @DisplayName("체스 판의 위치를 반환한다.")
     void create(String inputPosition, File file, Rank rank) {
         //given //when
-        Position position = Position.of(inputPosition);
+        Position position = Position.from(inputPosition);
 
         //then
         assertThat(position.getFile()).isEqualTo(file.value());

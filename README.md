@@ -88,7 +88,7 @@ rnbqkbnr
 - [x] 체스판 - Board
     - [x] 초기 체스판을 세팅한다.
         - [x] 64개의 체스 위치를 생성한다.
-        - [x] 기물을 초기 위치에 놓는다. Piece -> position, tea,
+        - [x] 기물을 초기 위치에 놓는다. Piece -> position, team
 
 - [x] 위치 - Position
     - [x] 8개의 세로 줄인 file(열)
