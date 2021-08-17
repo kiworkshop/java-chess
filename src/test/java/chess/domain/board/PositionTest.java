@@ -31,7 +31,7 @@ class PositionTest {
         String key = file.name() + rank.getIndex();
 
         //when
-        Position position = Position.from(key);
+        Position position = Position.of(key);
 
         //then
         assertThat(position).extracting("file", "rank")

@@ -13,7 +13,7 @@ public class MoveParameters {
     private final Position target;
 
     public MoveParameters(final List<String> parameters) {
-        this(Position.from(parameters.get(SOURCE_INDEX)), Position.from(parameters.get(TARGET_INDEX)));
+        this(Position.of(parameters.get(SOURCE_INDEX)), Position.of(parameters.get(TARGET_INDEX)));
     }
 
     public MoveParameters(final Position source, final Position target) {

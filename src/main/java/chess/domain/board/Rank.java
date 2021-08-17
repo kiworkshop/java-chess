@@ -1,5 +1,7 @@
 package chess.domain.board;
 
+import java.util.Arrays;
+
 public enum Rank {
     R8(8),
     R7(7),
@@ -16,10 +18,27 @@ public enum Rank {
         this.index = index;
     }
 
+    public static Rank of(final int rankIndex) {
+        return Arrays.stream(Rank.values())
+                .filter(rank -> hasSameIndex(rankIndex, rank))
+                .findAny()
+                .orElseThrow(IllegalArgumentException::new);
+    }
+
+    private static boolean hasSameIndex(final int rankIndex, final Rank rank) {
+        return rank.index == rankIndex;
+    }
+
     public int getIndex() {
         return index;
     }
 
+    public int calculateGap(final Rank rank) {
+        return this.index - rank.index;
+    }
 
+    public Rank add(final int amount) {
+        return Rank.of(this.index + amount);
+    }
 }
 

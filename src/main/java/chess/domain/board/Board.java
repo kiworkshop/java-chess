@@ -13,6 +13,7 @@ import chess.domain.piece.Rook;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Board {
     private final Map<Position, Piece> board = new HashMap<>();
@@ -45,6 +46,11 @@ public class Board {
     public void move(final MoveParameters moveParameters, final boolean isWhiteTurn) {
         Position source = moveParameters.getSource();
         Position target = moveParameters.getTarget();
+
+        if (source.equals(target)) {
+            throw new IllegalArgumentException("출발 위치와 도착 위치가 같을 수 없습니다.");
+        }
+
         Piece sourcePiece = findBy(source);
 
         validateColor(isWhiteTurn, sourcePiece.isWhite());
@@ -54,6 +60,7 @@ public class Board {
             throw new IllegalArgumentException("같은 색상의 기물은 공격할 수 없습니다.");
         }
 
+        Set<Position> passingPositions = sourcePiece.findPaths(source, target);
         board.put(target, sourcePiece);
         board.remove(source);
     }

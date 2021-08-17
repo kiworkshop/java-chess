@@ -16,7 +16,7 @@ public class BoardTest {
     @DisplayName("객체를 생성한다.")
     void create(String key, boolean expected) {
         //given
-        Position position = Position.from(key);
+        Position position = Position.of(key);
 
         //when
         Board board = new Board();
@@ -30,8 +30,8 @@ public class BoardTest {
     void move_invalid_source_position() {
         //given
         Board board = new Board();
-        Position source = Position.from("b3");
-        Position target = Position.from("b4");
+        Position source = Position.of("b3");
+        Position target = Position.of("b4");
         MoveParameters moveParameters = new MoveParameters(source, target);
 
         //when, then
@@ -43,8 +43,8 @@ public class BoardTest {
     void move_different_color() {
         //given
         Board board = new Board();
-        Position source = Position.from("b2");
-        Position target = Position.from("b3");
+        Position source = Position.of("b2");
+        Position target = Position.of("b3");
         MoveParameters moveParameters = new MoveParameters(source, target);
 
         //when, then
@@ -56,8 +56,8 @@ public class BoardTest {
     void move_source_and_destination_same_color() {
         //given
         Board board = new Board();
-        Position source = Position.from("a1");
-        Position target = Position.from("a2");
+        Position source = Position.of("a1");
+        Position target = Position.of("a2");
         MoveParameters moveParameters = new MoveParameters(source, target);
 
         //when, then

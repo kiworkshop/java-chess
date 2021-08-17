@@ -1,5 +1,7 @@
 package chess.domain.board;
 
+import chess.domain.piece.Direction;
+
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,12 +22,12 @@ public class Position {
         return file.name() + rank.getIndex();
     }
 
-    public static Position from(final String key) {
+    public static Position of(final String key) {
         return POSITIONS.get(key);
     }
 
     public static Position from(final File file, final Rank rank) {
-        return POSITIONS.get(createKey(file, rank));
+        return of(createKey(file, rank));
     }
 
     private final File file;
@@ -38,5 +40,23 @@ public class Position {
 
     public File getFile() {
         return file;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public int calculateFileGap(final Position source) {
+        return file.calculateGap(source.getFile());
+    }
+
+    public int calculateRankGap(final Position source) {
+        return rank.calculateGap(source.getRank());
+    }
+
+    public Position move(final Direction direction) {
+        File file = this.file.add(direction.getFile());
+        Rank rank = this.rank.add(direction.getRank());
+        return Position.from(file, rank);
     }
 }

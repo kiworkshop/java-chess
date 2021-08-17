@@ -1,5 +1,9 @@
 package chess.domain.piece;
 
+import chess.domain.board.Position;
+
+import java.util.Set;
+
 import static chess.domain.piece.Color.WHITE;
 
 public abstract class Piece {
@@ -16,4 +20,6 @@ public abstract class Piece {
     public boolean hasSameColor(final Piece target) {
         return this.color == target.color;
     }
+
+    public abstract Set<Position> findPaths(final Position source, final Position target);
 }
