@@ -10,6 +10,7 @@ import chess.domain.piece.Queen;
 import chess.domain.piece.Rook;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,5 +44,17 @@ public class Board {
 
     public boolean isEmpty(Position position) {
         return board.get(position) == null;
+    }
+
+    public Piece findBy(final Position position) {
+        return board.get(position);
+    }
+
+    public Collection<Piece> getAllPresentPieces() {
+        return board.values();
+    }
+
+    public Collection<Position> getAllPresentPositions() {
+        return board.keySet();
     }
 }

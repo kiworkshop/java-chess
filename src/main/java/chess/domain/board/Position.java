@@ -1,14 +1,14 @@
 package chess.domain.board;
 
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Position {
     private static final Map<String, Position> POSITIONS = createPositions();
 
     private static Map<String, Position> createPositions() {
-        Map<String, Position> positions = new HashMap<>();
+        Map<String, Position> positions = new LinkedHashMap<>();
 
         Arrays.stream(File.values())
                 .forEach(file -> Arrays.stream(Rank.values()).forEach(rank -> positions.put(createKey(file, rank), new Position(file, rank))));
@@ -17,7 +17,7 @@ public class Position {
     }
 
     private static String createKey(final File file, final Rank rank) {
-        return file.name() + rank.getRank();
+        return file.name() + rank.getIndex();
     }
 
     public static Position from(final String key) {
@@ -34,5 +34,9 @@ public class Position {
     private Position(final File file, final Rank rank) {
         this.file = file;
         this.rank = rank;
+    }
+
+    public File getFile() {
+        return file;
     }
 }

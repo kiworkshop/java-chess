@@ -28,7 +28,7 @@ class PositionTest {
         //given
         File file = File.a;
         Rank rank = Rank.R1;
-        String key = file.name() + rank.getRank();
+        String key = file.name() + rank.getIndex();
 
         //when
         Position position = Position.from(key);
