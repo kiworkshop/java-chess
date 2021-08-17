@@ -1,9 +1,5 @@
 package chess.domain.piece;
 
-import chess.domain.board.Position;
-
-import java.util.Set;
-
 public class Rook extends Piece {
 
     public Rook(final Color color) {
@@ -11,7 +7,9 @@ public class Rook extends Piece {
     }
 
     @Override
-    public Set<Position> findPaths(final Position source, final Position target) {
-        return null;
+    protected void validatePattern(final int fileGap, final int rankGap) {
+        if (!isStraight(fileGap, rankGap)) {
+            throw new IllegalArgumentException("룩이 이동할 수 없는 위치입니다.");
+        }
     }
 }

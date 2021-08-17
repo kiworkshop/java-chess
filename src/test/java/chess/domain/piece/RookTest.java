@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.groups.Tuple.tuple;
 
-class BishopTest {
+public class RookTest {
 
     @ParameterizedTest
     @MethodSource("createParameters")
@@ -26,7 +26,7 @@ class BishopTest {
         //given
         Position source = Position.of("d4");
         Position target = Position.of(targetPosition);
-        Piece piece = new Bishop(Color.WHITE);
+        Piece piece = new Rook(Color.WHITE);
 
         //when
         Set<Position> paths = piece.findPaths(source, target);
@@ -42,7 +42,7 @@ class BishopTest {
         //given
         Position source = Position.of("c1");
         Position target = Position.of("f5");
-        Piece piece = new Bishop(Color.WHITE);
+        Piece piece = new Rook(Color.WHITE);
 
         //when //then
         assertThatIllegalArgumentException().isThrownBy(() -> piece.findPaths(source, target));
@@ -50,10 +50,10 @@ class BishopTest {
 
     private static Stream<Arguments> createParameters() {
         return Stream.of(
-                Arguments.of("b6", tuple(File.c, Rank.R5)),
-                Arguments.of("b2", tuple(File.c, Rank.R3)),
-                Arguments.of("f2", tuple(File.e, Rank.R3)),
-                Arguments.of("f6", tuple(File.e, Rank.R5))
+                Arguments.of("d2", tuple(File.d, Rank.R3)),
+                Arguments.of("d6", tuple(File.d, Rank.R5)),
+                Arguments.of("b4", tuple(File.c, Rank.R4)),
+                Arguments.of("f4", tuple(File.e, Rank.R4))
         );
     }
 }

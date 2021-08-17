@@ -1,9 +1,5 @@
 package chess.domain.piece;
 
-import chess.domain.board.Position;
-
-import java.util.Set;
-
 public class King extends Piece {
 
     public King(final Color color) {
@@ -11,7 +7,7 @@ public class King extends Piece {
     }
 
     @Override
-    public Set<Position> findPaths(final Position source, final Position target) {
-        return null;
+    protected void validatePattern(final int fileGap, final int rankGap) {
+
     }
 }
