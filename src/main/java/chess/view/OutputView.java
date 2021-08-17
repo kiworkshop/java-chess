@@ -2,13 +2,11 @@ package chess.view;
 
 import chess.domain.RankComparator;
 import chess.domain.piece.File;
-import chess.domain.piece.Piece;
 import chess.domain.piece.PiecePosition;
 import chess.domain.piece.Rank;
 import chess.domain.plate.ChessPlate;
 
 import java.util.Arrays;
-import java.util.Map;
 
 public class OutputView {
 
@@ -29,6 +27,10 @@ public class OutputView {
         System.out.println(">게임 시작 : start");
         System.out.println(">게임 종료 : end");
         System.out.println(">게임 이동 : move source 위치 target 위치 - 예. move b2 b3");
+    }
+
+    public void printInCorrectCommandMessage(){
+        System.out.println("start/end/move 중 하나를 입력해주세요");
     }
 
 
