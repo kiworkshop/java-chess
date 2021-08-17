@@ -10,9 +10,4 @@ public class Rook extends Piece {
     public boolean movable(PiecePosition targetPosition) {
         return false;
     }
-
-    @Override
-    public Piece move(PiecePosition tarPiecePosition) {
-        return null;
-    }
 }

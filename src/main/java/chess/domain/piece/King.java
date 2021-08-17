@@ -19,9 +19,4 @@ public class King extends Piece {
         }
         return fileGap + rankGap == 1;
     }
-
-    @Override
-    public Piece move(PiecePosition tarPiecePosition) {
-        return null;
-    }
 }
