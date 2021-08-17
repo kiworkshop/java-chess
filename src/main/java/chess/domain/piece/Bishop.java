@@ -1,15 +1,14 @@
 package chess.domain.piece;
 
-import chess.domain.player.Player;
+import chess.domain.board.Team;
 import chess.domain.position.Position;
 
 public class Bishop extends Piece {
-
-    private Bishop(Position position, Player player) {
-        super(position, player);
+    private Bishop(Team team, Position position) {
+        super(team, position);
     }
 
-    public static Piece of(Position position, Player player) {
-        return new Bishop(position, player);
+    public static Bishop of(Team team, Position position) {
+        return new Bishop(team, position);
     }
 }

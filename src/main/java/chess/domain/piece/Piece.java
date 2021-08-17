@@ -1,19 +1,23 @@
 package chess.domain.piece;
 
-import chess.domain.player.Player;
+import chess.domain.board.Team;
+import chess.domain.movement.Movement;
 import chess.domain.position.Position;
 
-public abstract class Piece {
-
+public abstract class Piece extends Movement {
+    protected Team team;
     protected Position position;
-    protected Player player;
 
-    protected Piece(Position position, Player player) {
+    protected Piece(Team team, Position position) {
+        this.team = team;
         this.position = position;
-        this.player = player;
     }
 
-    public Position getPosition() {
+    protected Piece() {
+
+    }
+
+    public Position position() {
         return position;
     }
 }

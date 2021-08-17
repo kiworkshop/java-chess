@@ -1,15 +1,14 @@
 package chess.domain.piece;
 
-import chess.domain.player.Player;
+import chess.domain.board.Team;
 import chess.domain.position.Position;
 
 public class King extends Piece {
-
-    private King(Position position, Player player) {
-        super(position, player);
+    private King(Team team, Position position) {
+        super(team, position);
     }
 
-    public static Piece of(Position position, Player player) {
-        return new King(position, player);
+    public static King of(Team team, Position position) {
+        return new King(team, position);
     }
 }

@@ -1,15 +1,14 @@
 package chess.domain.piece;
 
-import chess.domain.player.Player;
+import chess.domain.board.Team;
 import chess.domain.position.Position;
 
 public class Rook extends Piece {
-
-    private Rook(Position position, Player player) {
-        super(position, player);
+    private Rook(Team team, Position position) {
+        super(team, position);
     }
 
-    public static Piece of(Position position, Player player) {
-        return new Rook(position, player);
+    public static Rook of(Team team, Position position) {
+        return new Rook(team, position);
     }
 }

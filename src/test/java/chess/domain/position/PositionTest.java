@@ -1,23 +1,30 @@
 package chess.domain.position;
 
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PositionTest {
 
-    @Test
-    @DisplayName("체스 위치를 생성한다.")
-    void create() {
-        //given
-        String input = "a1";
-
-        //when
-        Position position = new Position(File.A, Rank.ONE);
+    @ParameterizedTest
+    @MethodSource({"generatePosition"})
+    @DisplayName("체스 판의 위치를 반환한다.")
+    void create(String inputPosition, File file, Rank rank) {
+        //given //when
+        Position position = Position.of(inputPosition);
 
         //then
-        assertThat(position.getFile()).isEqualTo("a");
-        assertThat(position.getRank()).isEqualTo(1);
+        assertThat(position.getFile()).isEqualTo(file.value());
+        assertThat(position.getRank()).isEqualTo(rank.value());
     }
+
+    private static Stream<Arguments> generatePosition() {
+        return TestPositions.generate();
+    }
+
 }

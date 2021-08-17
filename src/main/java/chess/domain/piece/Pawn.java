@@ -1,15 +1,14 @@
 package chess.domain.piece;
 
-import chess.domain.player.Player;
+import chess.domain.board.Team;
 import chess.domain.position.Position;
 
 public class Pawn extends Piece {
-
-    private Pawn(Position position, Player player) {
-        super(position, player);
+    private Pawn(Team team, Position position) {
+        super(team, position);
     }
 
-    public static Piece of(Position position, Player player) {
-        return new Pawn(position, player);
+    public static Pawn of(Team team, Position position) {
+        return new Pawn(team, position);
     }
 }
