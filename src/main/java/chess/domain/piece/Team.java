@@ -5,7 +5,8 @@ import lombok.Getter;
 @Getter
 public enum Team {
     BLACK(1, Rank.EIGHT, Rank.SEVEN),
-    WHITE(2, Rank.ONE, Rank.TWO);
+    WHITE(2, Rank.ONE, Rank.TWO),
+    NEUTRAL(0);
 
     private int marker;
     private Rank piecesInitRank;
@@ -16,7 +17,9 @@ public enum Team {
         this.piecesInitRank = piecesRank;
         this.pawnInitRank = pawnInitRank;
     }
-
+    Team(int marker) {
+        this.marker = marker;
+    }
     public String displayName(String name) {
         if (this.equals(BLACK)) {
             return name.toUpperCase();

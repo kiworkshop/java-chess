@@ -22,4 +22,19 @@ public class KingTest {
     assertThat(king2.getDisplayName()).isEqualTo("K");
   }
 
+  @Test
+  @DisplayName("King의 이동 가능한 좌표를 확인한다")
+  void checkKingMovable() {
+      //given
+      King king = new King(Team.BLACK, new PiecePosition(File.E, Rank.EIGHT));
+
+      //when
+
+      //then
+      assertThat(king.movable(new PiecePosition(File.D, Rank.EIGHT))).isTrue();
+      assertThat(king.movable(new PiecePosition(File.C, Rank.EIGHT))).isFalse();
+      assertThat(king.movable(new PiecePosition(File.E, Rank.SEVEN))).isTrue();
+      assertThat(king.movable(new PiecePosition(File.E, Rank.SIX))).isFalse();
+  }
+
 }
