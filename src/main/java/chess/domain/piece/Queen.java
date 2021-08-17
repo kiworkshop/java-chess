@@ -8,6 +8,8 @@ public class Queen extends Piece {
 
     @Override
     protected void validatePattern(final int fileGap, final int rankGap) {
-
+        if (!isDiagonal(fileGap, rankGap) && !isFiniteStraight(fileGap, rankGap)) {
+            throw new IllegalArgumentException("퀸이 이동할 수 없는 위치입니다.");
+        }
     }
 }

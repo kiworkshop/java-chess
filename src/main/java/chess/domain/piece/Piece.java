@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static chess.domain.piece.Color.WHITE;
+import static java.lang.Math.abs;
 
 public abstract class Piece {
     private final Color color;
@@ -37,8 +38,12 @@ public abstract class Piece {
         return fileGap == 0 || rankGap == 0;
     }
 
+    protected boolean isFiniteStraight(final int fileGap, final int rankGap) {
+        return (abs(fileGap) + abs(rankGap)) == 1;
+    }
+
     protected boolean isDiagonal(final int fileGap, final int rankGap) {
-        return Math.abs(fileGap) == Math.abs(rankGap);
+        return abs(fileGap) == abs(rankGap);
     }
 
     public Set<Position> collectPositions(final Position source, final Position target, final Direction direction) {
