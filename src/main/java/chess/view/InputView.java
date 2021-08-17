@@ -8,4 +8,6 @@ public class InputView {
         String input = SCANNER.nextLine();
         return input.trim().toLowerCase();
     }
+
+
 }

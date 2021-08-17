@@ -2,6 +2,8 @@ package chess.domain.piece;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @Getter
 public enum Rank {
     ONE(1),
@@ -17,5 +19,12 @@ public enum Rank {
 
     Rank(int rankPosition) {
         this.rankPosition = rankPosition;
+    }
+
+    public static Rank findBy(String rankPosition) {
+        return Arrays.stream(Rank.values())
+                .filter(r -> r.rankPosition == Integer.parseInt(rankPosition))
+                .findFirst()
+                .orElseThrow(()->new IllegalAccessError("해당되는 위치가 없습니다."));
     }
 }

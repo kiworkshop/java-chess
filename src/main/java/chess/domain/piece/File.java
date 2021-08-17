@@ -2,6 +2,8 @@ package chess.domain.piece;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @Getter
 public enum File {
     A("a",1),
@@ -19,5 +21,12 @@ public enum File {
     File(String fileMarker, int filePosition) {
         this.fileMarker = fileMarker;
         this.filePosition = filePosition;
+    }
+
+    public static File valueOfString(String fileMarker) {
+        return Arrays.stream(File.values())
+                .filter(v -> v.fileMarker.equals(fileMarker))
+                .findFirst()
+                .orElseThrow(()->new IllegalAccessError("해당되는 위치가 없습니다."));
     }
 }
