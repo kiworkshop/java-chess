@@ -15,18 +15,18 @@ public class Pawn extends Piece {
         if (checkFirstMove()) {
             if (this.getTeam().equals(Team.BLACK)) {
                 return ((originFile == targetFile) && (originRank - targetRank <= 2))
-                        || isDiagonal(originFile, originRank, targetFile, targetRank);
+                        || canMoveDiagonalAndOneBlock(originFile, originRank, targetFile, targetRank);
             }
             if (this.getTeam().equals(Team.WHITE)) {
                 return (originFile == targetFile) && (originRank - targetRank >= -2)
-                        || isDiagonal(originFile, originRank, targetFile, targetRank);
+                        || canMoveDiagonalAndOneBlock(originFile, originRank, targetFile, targetRank);
             }
         }
         //한칸
-        return isDiagonal(originFile, originRank, targetFile, targetRank);
+        return canMoveDiagonalAndOneBlock(originFile, originRank, targetFile, targetRank);
     }
 
-    private boolean isDiagonal(int originFile, int originRank, int targetFile, int targetRank) {
+    private boolean canMoveDiagonalAndOneBlock(int originFile, int originRank, int targetFile, int targetRank) {
         return (originRank - targetRank == 1*this.getTeam().getPawnDirection()) && Math.abs(originFile - targetFile) <= 1;
     }
 
