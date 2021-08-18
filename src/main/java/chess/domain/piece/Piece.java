@@ -13,11 +13,19 @@ public abstract class Piece extends Movement {
         this.position = position;
     }
 
+    public abstract String symbol();
+
     public void move(Position target) {
         this.position = target;
+    }
+
+    public Team team() {
+        return team;
     }
 
     public Position position() {
         return position;
     }
+
+
 }

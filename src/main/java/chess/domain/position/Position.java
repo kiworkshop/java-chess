@@ -1,8 +1,6 @@
 package chess.domain.position;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class Position {
     private static final Map<String, Position> POSITION_CACHE = init();
@@ -16,27 +14,35 @@ public class Position {
     }
 
     private static Map<String, Position> init() {
-        return Arrays.stream(File.values())
-                .flatMap(file -> Arrays.stream(Rank.values())
-                        .map(rank -> new Position(file, rank))
-                ).collect(Collectors.toMap(
-                        Position::key, position -> position
-                ));
+        Map<String, Position> positionMap = new LinkedHashMap<>();
+        Arrays.stream(Rank.values())
+                .flatMap(rank -> Arrays.stream(File.values())
+                        .map(file -> new Position(file, rank))
+                ).forEach(position -> positionMap.put(key(position), position));
+        return positionMap;
     }
 
     private static String key(Position position) {
-        return position.getFile() + position.getRank();
+        return position.getFileName() + position.getRankName();
+    }
+
+    public static Collection<Position> all() {
+        return POSITION_CACHE.values();
     }
 
     public static Position from(String position) {
         return POSITION_CACHE.get(position);
     }
 
-    public String getFile() {
+    public String getFileName() {
         return file.value();
     }
 
-    public int getRank() {
+    public int getFileNumber() {
+        return file.number();
+    }
+
+    public int getRankName() {
         return rank.value();
     }
 }

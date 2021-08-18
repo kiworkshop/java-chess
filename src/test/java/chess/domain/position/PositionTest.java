@@ -19,8 +19,8 @@ class PositionTest {
         Position position = Position.from(inputPosition);
 
         //then
-        assertThat(position.getFile()).isEqualTo(file.value());
-        assertThat(position.getRank()).isEqualTo(rank.value());
+        assertThat(position.getFileName()).isEqualTo(file.value());
+        assertThat(position.getRankName()).isEqualTo(rank.value());
     }
 
     private static Stream<Arguments> generatePosition() {
