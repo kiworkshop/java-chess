@@ -4,18 +4,20 @@ import lombok.Getter;
 
 @Getter
 public enum Team {
-    BLACK(1, Rank.EIGHT, Rank.SEVEN),
-    WHITE(2, Rank.ONE, Rank.TWO),
+    BLACK(1, Rank.EIGHT, Rank.SEVEN, 1),
+    WHITE(2, Rank.ONE, Rank.TWO,-1),
     NEUTRAL(0);
 
     private int marker;
     private Rank piecesInitRank;
     private Rank pawnInitRank;
+    private int pawnDirection;
 
-    Team(int marker, Rank piecesRank, Rank pawnInitRank) {
+    Team(int marker, Rank piecesRank, Rank pawnInitRank, int pawnDirection) {
         this.marker = marker;
         this.piecesInitRank = piecesRank;
         this.pawnInitRank = pawnInitRank;
+        this.pawnDirection = pawnDirection;
     }
     Team(int marker) {
         this.marker = marker;

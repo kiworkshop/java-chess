@@ -17,9 +17,9 @@ public class KingTest {
 
     //when // given
     assertThat(king1.getPiecePosition()).isEqualTo(new PiecePosition(File.E, Rank.ONE));
-    assertThat(king1.getDisplayName()).isEqualTo("k");
+    assertThat(king1.getDisplayName()).isEqualTo("K");
     assertThat(king2.getPiecePosition()).isEqualTo(new PiecePosition(File.E, Rank.EIGHT));
-    assertThat(king2.getDisplayName()).isEqualTo("K");
+    assertThat(king2.getDisplayName()).isEqualTo("k");
   }
 
   @Test
