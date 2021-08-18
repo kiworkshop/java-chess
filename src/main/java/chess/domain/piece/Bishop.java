@@ -14,6 +14,6 @@ public class Bishop extends Piece {
         int targetRank = targetPosition.getRank().getRankPosition();
         int fileGap = Math.abs(originFile - targetFile);
         int rankGap = Math.abs(originRank - targetRank);
-        return fileGap == rankGap;
+        return (fileGap == rankGap);
     }
 }
