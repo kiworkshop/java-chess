@@ -6,8 +6,6 @@ import chess.domain.piece.PiecePosition;
 import chess.domain.piece.Rank;
 import chess.domain.plate.ChessPlate;
 
-import java.util.Optional;
-
 public class ChessService {
     private static ChessPlate chessPlate= new ChessPlate();
     public ChessPlate start() {
@@ -17,7 +15,7 @@ public class ChessService {
 
     public void move(String sourcePosition, String targetPosition) {
         String fileString = sourcePosition.substring(0,1);
-        File sourceFile = File.valueOfString(fileString);
+        File sourceFile = File.findBy(fileString);
         String rankString = sourcePosition.substring(1);
         Rank sourceRank = Rank.findBy(rankString);
         PiecePosition sourcePiecePosition = new PiecePosition(sourceFile, sourceRank);

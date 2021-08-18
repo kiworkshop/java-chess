@@ -41,4 +41,51 @@ public class ChessPlate {
         // 가려는 곳이 상대편 말이거나, 비어있는지 체크
 
     }
+
+    public boolean havePieceOnStraightPath(PiecePosition piecePosition, PiecePosition targetPosition) {
+        if(plate.get(piecePosition) instanceof Knight) {
+            return true;
+        }
+        int originFile = piecePosition.getFile().getFilePosition();
+        int originRank = piecePosition.getRank().getRankPosition();
+        int targetFile = targetPosition.getFile().getFilePosition();
+        int targetRank = targetPosition.getRank().getRankPosition();
+        int fileGap = Math.abs(originFile - targetFile);
+        int rankGap = Math.abs(originRank - targetRank);
+
+        if(fileGap == 0) {
+            if(originRank < targetRank) {
+                for (int i = 1; i < rankGap -1; i++) {
+                    Piece piece = plate.get(new PiecePosition(piecePosition.getFile(), Rank.findBy(String.valueOf(piecePosition.getRank().getRankPosition() + i))));
+                    return piece != null;
+                }
+            }
+
+            if(originRank > targetRank) {
+                for (int i = 1; i < rankGap -1; i--) {
+                    Piece piece = plate.get(new PiecePosition(piecePosition.getFile(), Rank.findBy(String.valueOf(piecePosition.getRank().getRankPosition() + i))));
+                    return piece != null;
+                }
+            }
+        }
+
+        if(rankGap == 0) {
+            if(originFile < targetFile) {
+                for (int i = 1; i < fileGap -1; i++) {
+                    Piece piece = plate.get(new PiecePosition(File.findBy(String.valueOf(piecePosition.getFile().getFilePosition() + i)), piecePosition.getRank()));
+                    return piece != null;
+                }
+            }
+
+            if(originFile > targetFile) {
+                for (int i = 1; i < fileGap -1; i--) {
+                    Piece piece = plate.get(new PiecePosition(File.findBy(String.valueOf(piecePosition.getFile().getFilePosition() + i)), piecePosition.getRank()));
+                    return piece != null;
+                }
+            }
+        }
+
+
+        return false;
+    }
 }

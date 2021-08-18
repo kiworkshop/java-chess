@@ -23,7 +23,7 @@ public enum File {
         this.filePosition = filePosition;
     }
 
-    public static File valueOfString(String fileMarker) {
+    public static File findBy(String fileMarker) {
         return Arrays.stream(File.values())
                 .filter(v -> v.fileMarker.equals(fileMarker))
                 .findFirst()

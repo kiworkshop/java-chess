@@ -5,14 +5,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ChessServiceTest {
     @Test
     @DisplayName("File 생성 테스트")
     void generateFileWithString() {
         //given
-        File a = File.valueOfString("b");
+        File a = File.findBy("b");
 
         //when
 
