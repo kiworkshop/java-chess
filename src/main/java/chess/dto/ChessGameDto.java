@@ -23,9 +23,4 @@ public class ChessGameDto {
     public Map<Position, Piece> getBoard() {
         return Collections.unmodifiableMap(board);
     }
-
-    public Piece from(Position position) {
-        return board.get(position);
-    }
-
 }

@@ -1,5 +1,6 @@
 package chess.domain.board;
 
+import chess.domain.piece.Blank;
 import chess.domain.piece.Pawn;
 import chess.domain.position.Position;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +36,7 @@ class BoardTest {
 
         //then
         assertThat(board.from(targetPosition)).isInstanceOf(Pawn.class);
-        assertThat(board.from(sourcePosition)).isNull();
+        assertThat(board.from(sourcePosition)).isInstanceOf(Blank.class);
     }
 
     @Test
@@ -47,14 +48,5 @@ class BoardTest {
         //when //then
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> board.move(Position.from("a5"), Position.from("a6")));
-    }
-
-    @Test
-    @DisplayName("")
-    void canMove() {
-        //given
-
-        //when
-        //then
     }
 }

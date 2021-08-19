@@ -1,4 +1,4 @@
-package chess.domain;
+package chess.domain.game;
 
 import chess.domain.position.Position;
 import chess.domain.state.Finish;
@@ -19,7 +19,7 @@ class ChessGameTest {
     @BeforeEach
     void before() {
         chessGame = new ChessGame();
-        chessGameDto = chessGame.startGame();
+        chessGameDto = chessGame.startGame(new Ready());
     }
 
     @Test
@@ -44,7 +44,7 @@ class ChessGameTest {
         Position targetPosition = Position.from("b4");
 
         //when
-        chessGame.move(chessGameDto.from(sourcePosition), chessGameDto.from(targetPosition));
+        chessGame.move(sourcePosition, targetPosition);
 
         //then
         assertThat(chessGame.getGameState()).isInstanceOf(Playing.class);

@@ -1,30 +1,24 @@
 package chess.game;
 
 import chess.domain.board.Board;
-import chess.domain.piece.Piece;
+import chess.domain.position.Position;
 import chess.domain.state.Finish;
 import chess.domain.state.GameState;
-import chess.domain.state.Playing;
-import chess.domain.state.Ready;
 import chess.dto.ChessGameDto;
 
 public class ChessGame {
     private GameState gameState;
     private Board board;
 
-    public ChessGameDto startGame() {
-        Ready ready = new Ready();
-        changeChessGame(ready);
-        this.board = ready.getBoard();
-        return new ChessGameDto(ready, board.values());
+    public ChessGameDto startGame(GameState gameState) {
+        this.gameState = gameState;
+        this.board = gameState.getBoard();
+        return new ChessGameDto(gameState, board.values());
     }
 
-    public ChessGameDto move(Piece source, Piece target) {
-        Playing playing = new Playing(Turn.of(source.team()));
-        changeChessGame(playing);
-
-        board.move(source.position(), target.position());
-        playing.toggle();
+    public ChessGameDto move(Position source, Position target) {
+        this.gameState = gameState.start();
+        board.move(source, target);
         return new ChessGameDto(gameState, board.values());
     }
 

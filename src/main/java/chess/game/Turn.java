@@ -13,12 +13,14 @@ public class Turn {
         return new Turn(team);
     }
 
-    public Team toggle() {
+    public Turn toggle() {
         if (turn.equals(Team.BLACK)) {
-            this.turn = Team.WHITE;
-            return turn;
+            return Turn.of(Team.WHITE);
         }
-        this.turn = Team.BLACK;
+        return Turn.of(Team.BLACK);
+    }
+
+    public Team getTeam() {
         return turn;
     }
 }

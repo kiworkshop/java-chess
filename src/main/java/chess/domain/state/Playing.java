@@ -1,7 +1,7 @@
 package chess.domain.state;
 
 import chess.domain.board.Board;
-import chess.domain.board.Team;
+import chess.domain.position.Position;
 import chess.game.Turn;
 
 public class Playing implements GameState {
@@ -12,11 +12,25 @@ public class Playing implements GameState {
         this.turn = turn;
     }
 
-    public Team toggle() {
-        return turn.toggle();
+    @Override
+    public GameState start() {
+        throw new UnsupportedOperationException("게임이 이미 시작되었습니다.");
     }
 
-    public Turn getTurn() {
+    @Override
+    public GameState move(Position source, Position target) {
+        board.move(source, target);
+        turn = turn.toggle();
+        return this;
+    }
+
+    @Override
+    public GameState end() {
+        return null;
+    }
+
+    @Override
+    public Turn turn() {
         return turn;
     }
 
