@@ -58,7 +58,18 @@ public class ChessPlateTest {
         //then
         assertThat(result).isFalse();
         assertThat(result2).isTrue();
+    }
 
-
+    @Test
+    @DisplayName("폰이 이동 가능하면 이동 후 true를 리턴한다")
+    void testPawnMove() {
+        //given
+        ChessPlate chessPlate = new ChessPlate();
+        //when
+        boolean result = chessPlate.move(new PiecePosition(File.B, Rank.SEVEN), new PiecePosition(File.C, Rank.SIX));
+//        boolean result2 = chessPlate.move(new PiecePosition(File.G, Rank.EIGHT), new PiecePosition(File.F, Rank.SIX));
+        //then
+        assertThat(result).isFalse();
+//        assertThat(result2).isTrue();
     }
 }

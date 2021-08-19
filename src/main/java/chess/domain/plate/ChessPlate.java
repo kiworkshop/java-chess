@@ -39,10 +39,30 @@ public class ChessPlate {
     public boolean move(PiecePosition sourcePosition, PiecePosition targetPosition){
         //TO-DO 기물별 허용 움직임 범위인지 체크
         Piece piece = plate.get(sourcePosition);
+        Boolean isPawn = plate.get(sourcePosition) instanceof Pawn;
         if(piece.movable(targetPosition) && !havePieceOnStraightPath(sourcePosition, targetPosition) && !havePieceOnDiagonalPath(sourcePosition, targetPosition)){
             //이동 위치에 상대 말인지 /내말이 아닐 경우에만 이동한다
             Piece targetPiece = plate.get(targetPosition);
             if (targetPiece != null && targetPiece.getTeam().equals(piece.getTeam())){
+                return false;
+            }
+
+            if(isPawn) {
+                // 직선 이동
+                if(sourcePosition.getFile().equals(targetPosition.getFile())) {
+                    plate.remove(sourcePosition);
+                    piece.move(targetPosition);
+                    return plate.get(targetPosition) == null;
+                }
+
+                // 대각선 이동
+                if((Math.abs(sourcePosition.getFile().getFilePosition() - targetPosition.getFile().getFilePosition())
+                == Math.abs(sourcePosition.getRank().getRankPosition() - targetPosition.getRank().getRankPosition()))
+                && (plate.get(targetPosition) != null && (plate.get(sourcePosition).getTeam() != plate.get(targetPosition).getTeam()))) {
+                    plate.remove(sourcePosition);
+                    piece.move(targetPosition);
+                    return true;
+                } // end of if
                 return false;
             }
             plate.remove(sourcePosition);
