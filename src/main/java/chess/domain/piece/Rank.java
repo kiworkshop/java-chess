@@ -27,4 +27,11 @@ public enum Rank {
                 .findFirst()
                 .orElseThrow(()->new IllegalAccessError("해당되는 위치가 없습니다."));
     }
+
+    public static Rank findBy(int rankPosition) {
+        return Arrays.stream(Rank.values())
+                .filter(r -> r.rankPosition == rankPosition)
+                .findFirst()
+                .orElseThrow(()->new IllegalAccessError("해당되는 위치가 없습니다."));
+    }
 }
