@@ -16,7 +16,11 @@ public class OutputView {
                 .sorted(rankComparator::compare)
                 .forEach(rank -> {
                     for (File file : File.values()) {
-                        System.out.print(chessPlate.getPlate().get(new PiecePosition(file, rank)).getDisplayName());
+                        if(chessPlate.getPlate().get(new PiecePosition(file, rank)) == null) {
+                            System.out.print(".");
+                        }else{
+                            System.out.print(chessPlate.getPlate().get(new PiecePosition(file, rank)).getDisplayName());
+                        }
                     }
                     System.out.println();
                 });

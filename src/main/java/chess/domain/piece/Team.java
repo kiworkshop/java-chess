@@ -5,8 +5,7 @@ import lombok.Getter;
 @Getter
 public enum Team {
     BLACK(1, Rank.EIGHT, Rank.SEVEN, 1),
-    WHITE(2, Rank.ONE, Rank.TWO,-1),
-    NEUTRAL(0);
+    WHITE(2, Rank.ONE, Rank.TWO,-1);
 
     private int marker;
     private Rank piecesInitRank;
@@ -18,9 +17,6 @@ public enum Team {
         this.piecesInitRank = piecesRank;
         this.pawnInitRank = pawnInitRank;
         this.pawnDirection = pawnDirection;
-    }
-    Team(int marker) {
-        this.marker = marker;
     }
     public String displayName(String name) {
         if (this.equals(BLACK)) {

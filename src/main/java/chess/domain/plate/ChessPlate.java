@@ -57,14 +57,14 @@ public class ChessPlate {
             if(originRank < targetRank) {
                 for (int i = 1; i < rankGap -1; i++) {
                     Piece piece = plate.get(new PiecePosition(piecePosition.getFile(), Rank.findBy(String.valueOf(piecePosition.getRank().getRankPosition() + i))));
-                    return piece != null;
+                    return piece !=null;
                 }
             }
 
             if(originRank > targetRank) {
                 for (int i = 1; i < rankGap -1; i--) {
                     Piece piece = plate.get(new PiecePosition(piecePosition.getFile(), Rank.findBy(String.valueOf(piecePosition.getRank().getRankPosition() + i))));
-                    return piece != null;
+                    return piece !=null;
                 }
             }
         }
