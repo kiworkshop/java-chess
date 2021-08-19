@@ -26,6 +26,4 @@ public abstract class Piece extends Movement {
     public Position position() {
         return position;
     }
-
-
 }

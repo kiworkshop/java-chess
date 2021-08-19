@@ -11,11 +11,14 @@ public class Knight extends Piece {
     }
 
     public static Knight of(Team team, Position position) {
-        return new Knight(team, position);
+        return new Knight(team, position);˚
     }
 
     @Override
     public String symbol() {
+        if (team.equals(Team.BLACK)) {
+            return symbol.toUpperCase();
+        }
         return symbol;
     }
 }

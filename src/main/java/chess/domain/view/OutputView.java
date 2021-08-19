@@ -2,7 +2,7 @@ package chess.domain.view;
 
 import chess.domain.piece.Piece;
 import chess.domain.position.Position;
-import chess.dto.BoardDto;
+import chess.dto.ChessGameDto;
 
 import java.util.Map;
 
@@ -20,14 +20,17 @@ public class OutputView {
                 "> 게임 이동 : move source위치 target위치 - 예. move b2 b3");
     }
 
-    public static void printChessBoard(BoardDto boardDto) {
-        Map<Position, Piece> board = boardDto.getBoard();
-        for (Position position : board.keySet()) {
-            if (position.getFileNumber() % FILE_SIZE == 1) {
-                System.out.println();
-            }
+    public static void printChessBoard(ChessGameDto chessGameDto) {
+        Map<Position, Piece> board = chessGameDto.getBoard();
+        board.keySet().forEach(position -> {
             System.out.print(board.get(position).symbol());
-        }
+            separateLine(position);
+        });
     }
 
+    private static void separateLine(Position position) {
+        if (position.getFileNumber() / FILE_SIZE == 1) {
+            System.out.println();
+        }
+    }
 }

@@ -16,6 +16,9 @@ public class Rook extends Piece {
 
     @Override
     public String symbol() {
+        if (team.equals(Team.BLACK)) {
+            return symbol.toUpperCase();
+        }
         return symbol;
     }
 }

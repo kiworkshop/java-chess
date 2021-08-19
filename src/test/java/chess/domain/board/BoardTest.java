@@ -48,4 +48,13 @@ class BoardTest {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> board.move(Position.from("a5"), Position.from("a6")));
     }
+
+    @Test
+    @DisplayName("")
+    void canMove() {
+        //given
+
+        //when
+        //then
+    }
 }

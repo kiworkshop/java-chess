@@ -1,5 +1,6 @@
 package chess.domain.board;
 
+import chess.domain.piece.Blank;
 import chess.domain.piece.Piece;
 import chess.domain.position.Position;
 
@@ -7,7 +8,7 @@ import java.util.Collections;
 import java.util.Map;
 
 public class Board {
-    public static Map<Position, Piece> board;
+    private static Map<Position, Piece> board;
 
     private Board(Map<Position, Piece> board) {
         this.board = board;
@@ -17,13 +18,14 @@ public class Board {
         return new Board(board);
     }
 
-    public void move(Position source, Position target) {
+    public Map<Position, Piece> move(Position source, Position target) {
         Piece sourcePiece = board.get(source);
         validateSource(sourcePiece);
         sourcePiece.move(target);
 
-        board.remove(source);
+        board.put(source, Blank.of(source));
         board.put(target, sourcePiece);
+        return board;
     }
 
     private void validateSource(Piece sourcePiece) {
@@ -32,7 +34,7 @@ public class Board {
         }
     }
 
-    public Map<Position, Piece> getBoard() {
+    public Map<Position, Piece> values() {
         return Collections.unmodifiableMap(board);
     }
 
