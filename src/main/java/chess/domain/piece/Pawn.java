@@ -4,9 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class Pawn extends Piece {
-    private final double score = 1;
     public Pawn(Team team, PiecePosition piecePosition) {
-        super("P", team, piecePosition);
+        super("P", team, piecePosition,1);
     }
 
     @Override

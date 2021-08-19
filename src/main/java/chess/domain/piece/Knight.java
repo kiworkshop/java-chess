@@ -4,10 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class Knight extends Piece {
-    private final double score = 2.5;
-
     public Knight(Team team, PiecePosition piecePosition) {
-        super("N", team, piecePosition);
+        super("N", team, piecePosition, 2.5);
     }
 
     @Override

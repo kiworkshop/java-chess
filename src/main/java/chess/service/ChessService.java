@@ -1,11 +1,10 @@
 package chess.service;
 
-import chess.domain.piece.File;
-import chess.domain.piece.Piece;
-import chess.domain.piece.PiecePosition;
-import chess.domain.piece.Rank;
+import chess.domain.piece.*;
 import chess.domain.plate.ChessPlate;
 import lombok.Getter;
+
+import java.util.ArrayList;
 
 @Getter
 public class ChessService {
@@ -35,4 +34,20 @@ public class ChessService {
 
         return chessPlate.move(sourcePiecePosition, targetPiecePosition);
     }
+
+    public ArrayList<Double> getGameScore() {
+        ArrayList<Double> result = new ArrayList<>();
+        result.add(chessPlate.getPlate().values().stream()
+                .filter(piece -> piece.getTeam().equals(Team.BLACK))
+                .mapToDouble(piece -> piece.getScore())
+                .sum());
+
+        result.add(chessPlate.getPlate().values().stream()
+                .filter(piece -> piece.getTeam().equals(Team.WHITE))
+                .mapToDouble(piece -> piece.getScore())
+                .sum());
+
+        return result;
+    }
+
 }

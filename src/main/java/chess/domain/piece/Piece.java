@@ -8,12 +8,14 @@ public abstract class Piece {
     protected Team team;
     protected PiecePosition piecePosition;
     protected String displayName;
+    protected double score;
 
-    public Piece(String name, Team team, PiecePosition piecePosition) {
+    public Piece(String name, Team team, PiecePosition piecePosition, double score) {
         this.name = name;
         this.team = team;
         this.displayName = team.displayName(name);
         this.piecePosition = piecePosition;
+        this.score = score;
     }
 
     public abstract boolean movable(PiecePosition targetPosition);

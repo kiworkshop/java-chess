@@ -19,4 +19,14 @@ class ChessServiceTest {
         assertThat(a.getFileMarker()).isEqualTo("b");
         assertThat(a.getFilePosition()).isEqualTo(2);
     }
+
+    @Test
+    @DisplayName("진영별 점수를 계산한다.")
+    void () {
+        //given
+
+        //when
+
+        //then
+    }
 }
