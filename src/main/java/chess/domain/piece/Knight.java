@@ -11,7 +11,7 @@ public class Knight extends Piece {
     }
 
     public static Knight of(Team team, Position position) {
-        return new Knight(team, position);˚
+        return new Knight(team, position);
     }
 
     @Override
