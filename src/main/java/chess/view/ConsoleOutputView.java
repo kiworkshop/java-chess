@@ -4,7 +4,6 @@ import chess.controller.dto.BoardDto;
 
 public class ConsoleOutputView implements OutputView {
 
-
     @Override
     public void printBoard(final BoardDto boardDto) {
         boardDto.getPositionDtos()

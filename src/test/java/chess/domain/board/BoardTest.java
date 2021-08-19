@@ -1,28 +1,30 @@
 package chess.domain.board;
 
 import chess.domain.command.MoveParameters;
+import chess.domain.piece.Pawn;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class BoardTest {
 
-    @ParameterizedTest
-    @CsvSource({"a1, false", "a3, true"})
+    @Test
     @DisplayName("객체를 생성한다.")
-    void create(String key, boolean expected) {
+    void create() {
         //given
-        Position position = Position.of(key);
+        Position pawnPosition = Position.of("b2");
+        Position emptyPosition = Position.of("b3");
 
         //when
         Board board = new Board();
 
         //then
-        assertThat(board.isEmpty(position)).isEqualTo(expected);
+        assertThat(board.findBy(pawnPosition)).isInstanceOf(Pawn.class);
+        assertThat(board.isEmpty(emptyPosition)).isTrue();
     }
 
     @Test
