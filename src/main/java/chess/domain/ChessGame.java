@@ -32,6 +32,7 @@ public class ChessGame {
 
     private void move(final MoveParameters moveParameters) {
         board.move(moveParameters, isWhiteTurn);
+        isWhiteTurn = !isWhiteTurn;
     }
 
     public boolean isRunning() {

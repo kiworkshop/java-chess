@@ -10,6 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -46,6 +48,27 @@ class BishopTest {
 
         //when //then
         assertThatIllegalArgumentException().isThrownBy(() -> piece.findPaths(source, target));
+    }
+
+    @Test
+    @DisplayName("입력받은 위치에서 공격 가능한 위치들을 반환해준다.")
+    void find_available_attack_positions() {
+        //given
+        Position position = Position.of("d4");
+        Piece bishop = new Bishop(Color.WHITE);
+        Collection<Position> expected = Arrays.asList(
+                Position.of("a1"), Position.of("b2"), Position.of("c3"), Position.of("e5"),
+                Position.of("a7"), Position.of("b6"), Position.of("c5"), Position.of("e3"),
+                Position.of("f6"), Position.of("g7"), Position.of("h8"),
+                Position.of("f2"), Position.of("g1")
+        );
+
+        //when
+        Collection<Position> availableAttackPositions = bishop.findAvailableAttackPositions(position);
+
+        //then
+        assertThat(availableAttackPositions)
+                .containsAll(expected);
     }
 
     private static Stream<Arguments> createParameters() {

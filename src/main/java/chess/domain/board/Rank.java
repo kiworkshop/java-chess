@@ -40,5 +40,10 @@ public enum Rank {
     public Rank add(final int amount) {
         return Rank.of(this.index + amount);
     }
+
+    public boolean canMove(final int amount) {
+        int rankIndex = index + amount;
+        return rankIndex >= R1.index && rankIndex <= R8.index;
+    }
 }
 

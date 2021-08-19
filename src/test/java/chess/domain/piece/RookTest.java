@@ -10,6 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -46,6 +48,27 @@ public class RookTest {
 
         //when //then
         assertThatIllegalArgumentException().isThrownBy(() -> piece.findPaths(source, target));
+    }
+
+    @Test
+    @DisplayName("입력받은 위치에서 공격 가능한 위치들을 반환해준다.")
+    void find_available_attack_positions() {
+        //given
+        Position position = Position.of("d4");
+        Piece rook = new Rook(Color.WHITE);
+        Collection<Position> expected = Arrays.asList(
+                Position.of("d1"), Position.of("d2"), Position.of("d3"), Position.of("d5"),
+                Position.of("d6"), Position.of("d7"), Position.of("d8"),
+                Position.of("a4"), Position.of("b4"), Position.of("c4"), Position.of("e4"),
+                Position.of("f4"), Position.of("g4"), Position.of("h4")
+        );
+
+        //when
+        Collection<Position> availableAttackPositions = rook.findAvailableAttackPositions(position);
+
+        //then
+        assertThat(availableAttackPositions)
+                .containsAll(expected);
     }
 
     private static Stream<Arguments> createParameters() {

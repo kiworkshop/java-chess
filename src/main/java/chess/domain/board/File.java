@@ -40,4 +40,9 @@ public enum File {
     public File add(final int amount) {
         return File.of(this.index + amount);
     }
+
+    public boolean canMove(final int amount) {
+        int fileIndex = index + amount;
+        return fileIndex >= a.index && fileIndex <= h.index;
+    }
 }

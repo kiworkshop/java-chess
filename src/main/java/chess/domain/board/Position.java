@@ -3,6 +3,8 @@ package chess.domain.board;
 import chess.domain.piece.Direction;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -62,5 +64,21 @@ public class Position {
 
     public boolean hasSameRank(final Rank rank) {
         return this.rank == rank;
+    }
+
+    public Collection<Position> findAvailablePositions(final Direction direction) {
+        Collection<Position> positions = new HashSet<>();
+
+        Position current = this;
+        while (current.isMovable(direction)) {
+            current = current.move(direction);
+            positions.add(current);
+        }
+
+        return positions;
+    }
+
+    private boolean isMovable(final Direction direction) {
+        return rank.canMove(direction.getRank()) && file.canMove(direction.getFile());
     }
 }

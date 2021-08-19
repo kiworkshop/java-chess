@@ -2,17 +2,21 @@ package chess.domain.piece;
 
 import chess.domain.board.Position;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static chess.domain.piece.Color.BLACK;
 import static chess.domain.piece.Color.WHITE;
 import static java.lang.Math.abs;
 
 public abstract class Piece {
+    private final Collection<Direction> DIRECTIONS;
     private final Color color;
 
-    Piece(final Color color) {
+    Piece(final Collection<Direction> DIRECTIONS, final Color color) {
+        this.DIRECTIONS = DIRECTIONS;
         this.color = color;
     }
 
@@ -24,10 +28,6 @@ public abstract class Piece {
 
     public boolean isBlack() {
         return color == BLACK;
-    }
-
-    public boolean hasSameColor(final Piece target) {
-        return this.color == target.color;
     }
 
     public Set<Position> findPaths(final Position source, final Position target) {
@@ -66,5 +66,12 @@ public abstract class Piece {
 
         positions.remove(target);
         return positions;
+    }
+
+    public Collection<Position> findAvailableAttackPositions(Position position) {
+        return DIRECTIONS.stream()
+                .map(position::findAvailablePositions)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet());
     }
 }
