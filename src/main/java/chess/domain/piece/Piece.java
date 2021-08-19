@@ -18,6 +18,8 @@ public abstract class Piece {
 
     public abstract boolean movable(PiecePosition targetPosition);
 
-//    public abstract Piece move(PiecePosition targetPosition);
+    public void move(PiecePosition targetPosition){
+        piecePosition = targetPosition;
+    }
 
 }

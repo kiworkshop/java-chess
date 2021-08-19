@@ -36,15 +36,20 @@ public class ChessPlate {
 
         return plate;
     }
-    public void move(PiecePosition sourcePosition, PiecePosition targetPosition){
+    public boolean move(PiecePosition sourcePosition, PiecePosition targetPosition){
         //TO-DO 기물별 허용 움직임 범위인지 체크
         Piece piece = plate.get(sourcePosition);
-        if(piece.movable(targetPosition) && !havePieceOnStraightPath(sourcePosition, targetPosition) && havePieceOnDiagonalPath(sourcePosition, targetPosition)){
-//            piece.move(targetPosition);
+        if(piece.movable(targetPosition) && !havePieceOnStraightPath(sourcePosition, targetPosition) && !havePieceOnDiagonalPath(sourcePosition, targetPosition)){
+            //이동 위치에 상대 말인지 /내말이 아닐 경우에만 이동한다
+            Piece targetPiece = plate.get(targetPosition);
+            if (targetPiece != null && targetPiece.getTeam().equals(piece.getTeam())){
+                return false;
+            }
+            plate.remove(sourcePosition);
+            piece.move(targetPosition);
+            return true;
         }
-
-        // 가려는 곳이 상대편 말이거나, 비어있는지 체크
-
+        return false;
     }
 
     public boolean havePieceOnStraightPath(PiecePosition sourcePosition, PiecePosition targetPosition) {

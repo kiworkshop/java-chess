@@ -39,11 +39,26 @@ public class ChessPlateTest {
         ChessPlate chessPlate = new ChessPlate();
 
         boolean result = chessPlate.havePieceOnDiagonalPath(new PiecePosition(File.F, Rank.EIGHT), new PiecePosition(File.D, Rank.SIX));
-//        boolean result2 = chessPlate.havePieceOnDiagonalPath(new PiecePosition(File.A, Rank.TWO), new PiecePosition(File.C, Rank.FOUR));
+        boolean result2 = chessPlate.havePieceOnDiagonalPath(new PiecePosition(File.A, Rank.TWO), new PiecePosition(File.C, Rank.FOUR));
 
 
         //when,then
         assertThat(result).isTrue();
-//        assertThat(result2).isFalse();
+        assertThat(result2).isFalse();
+    }
+
+    @Test
+    @DisplayName("체스말이 이동 가능하면 이동 후 true를 리턴한다")
+    void move() {
+        //given
+        ChessPlate chessPlate = new ChessPlate();
+        //when
+        boolean result = chessPlate.move(new PiecePosition(File.A, Rank.EIGHT), new PiecePosition(File.B, Rank.EIGHT));
+        boolean result2 = chessPlate.move(new PiecePosition(File.G, Rank.EIGHT), new PiecePosition(File.F, Rank.SIX));
+        //then
+        assertThat(result).isFalse();
+        assertThat(result2).isTrue();
+
+
     }
 }
