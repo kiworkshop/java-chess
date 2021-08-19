@@ -1,6 +1,10 @@
 package chess.domain.piece;
 
+import lombok.Getter;
+
+@Getter
 public class Bishop extends Piece {
+    private final double score = 3;
 
     public Bishop(Team team, PiecePosition piecePosition) {
         super("B", team, piecePosition);

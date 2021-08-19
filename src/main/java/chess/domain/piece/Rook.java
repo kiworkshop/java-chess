@@ -1,6 +1,10 @@
 package chess.domain.piece;
 
+import lombok.Getter;
+
+@Getter
 public class Rook extends Piece {
+    private final double score = 5;
 
     public Rook(Team team, PiecePosition piecePosition) {
         super("R", team, piecePosition);
