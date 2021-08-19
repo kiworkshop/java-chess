@@ -46,28 +46,27 @@ public class Board {
     public void move(final MoveParameters moveParameters, final boolean isWhiteTurn) {
         Position source = moveParameters.getSource();
         Position target = moveParameters.getTarget();
-
-        if (source.equals(target)) {
-            throw new IllegalArgumentException("출발 위치와 도착 위치가 같을 수 없습니다.");
-        }
-
         Piece sourcePiece = findBy(source);
 
-        validateColor(isWhiteTurn, sourcePiece.isWhite());
+        validateOwner(isWhiteTurn, sourcePiece.isWhite());
+        validateSamePosition(source, target);
+        validateTarget(target, sourcePiece);
 
-        Piece targetPiece = findBy(target);
-        if (sourcePiece.hasSameColor(targetPiece)) {
-            throw new IllegalArgumentException("같은 색상의 기물은 공격할 수 없습니다.");
-        }
+        Set<Position> paths = sourcePiece.findPaths(source, target);
+        validatePathsEmpty(paths);
 
-        Set<Position> passingPositions = sourcePiece.findPaths(source, target);
         board.put(target, sourcePiece);
         board.remove(source);
     }
 
-    private void validateColor(final boolean expectedColor, final boolean sourcePieceColor) {
-        if (sourcePieceColor != expectedColor) {
-            throw new IllegalArgumentException("같은 색상의 기물만 움직일 수 있습니다.");
+    private void validateTarget(final Position target, final Piece sourcePiece) {
+        if (isEmpty(target)) {
+            return;
+        }
+
+        Piece targetPiece = board.get(target);
+        if (sourcePiece.hasSameColor(targetPiece)) {
+            throw new IllegalArgumentException("같은 색상의 기물은 공격할 수 없습니다.");
         }
     }
 
@@ -80,6 +79,27 @@ public class Board {
     }
 
     public boolean isEmpty(Position position) {
-        return board.get(position) == null;
+        return !board.containsKey(position);
+    }
+
+    private void validateOwner(final boolean expectedColor, final boolean sourcePieceColor) {
+        if (sourcePieceColor != expectedColor) {
+            throw new IllegalArgumentException("자신의 기물만 움직일 수 있습니다.");
+        }
+    }
+
+    private void validateSamePosition(final Position source, final Position target) {
+        if (source.equals(target)) {
+            throw new IllegalArgumentException("출발 위치와 도착 위치가 같을 수 없습니다.");
+        }
+    }
+
+    private void validatePathsEmpty(final Set<Position> paths) {
+        boolean isPresent = paths.stream()
+                .anyMatch(board::containsKey);
+
+        if (isPresent) {
+            throw new IllegalArgumentException("기물을 통과하여 이동할 수 없습니다.");
+        }
     }
 }

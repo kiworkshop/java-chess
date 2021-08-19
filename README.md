@@ -29,8 +29,12 @@
         - [x] ERROR : 다른 색상일 경우
       - [x] 시작과 도착 위치의 기물이 다른 색상인지 확인
         - [x] ERROR : 같은 색상일 경우
-      - [] source 위치에서 target 위치로 기물 이동
-        - [] ERROR : target 위치에 같은 색상의 기물이 있을 경우
+      - [x] source 위치에서 target 위치로 기물 이동
+        - [x] ERROR : source 위치에 기물이 없는 경우
+        - [x] ERROR : 자신의 기물이 아닌 경우
+        - [x] ERROR : source, target 위치의 기물 색상이 같을 경우
+        - [x] ERROR : source, target 위치가 같을 경우
+        - [x] ERROR : 이동 경로에 기물이 존재할 경우
 
 - [x] 기물(Piece)
   - [x] 색상
@@ -85,9 +89,3 @@
     - [x] ERROR : 킹 이동 패턴으로 이동할 수 없는 위치일 경우
   - [ ] 상대의 공격 범위로는 이동 불가능
 
-## Advanced
-
-체스판(Board)
-
-- [] 위치가 체스판 범위 내인지 확인
-  - [] ERROR : 범위 밖일 경우
