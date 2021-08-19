@@ -36,15 +36,20 @@ public class ChessPlate {
 
         return plate;
     }
-    public void move(PiecePosition sposition, PiecePosition targPiecePosition){
+    public void move(PiecePosition sourcePosition, PiecePosition targetPosition){
         //TO-DO 기물별 허용 움직임 범위인지 체크
+        Piece piece = plate.get(sourcePosition);
+        if(piece.movable(targetPosition) && !havePieceOnStraightPath(sourcePosition, targetPosition) && havePieceOnDiagonalPath(sourcePosition, targetPosition)){
+//            piece.move(targetPosition);
+        }
+
         // 가려는 곳이 상대편 말이거나, 비어있는지 체크
 
     }
 
     public boolean havePieceOnStraightPath(PiecePosition sourcePosition, PiecePosition targetPosition) {
         if(plate.get(sourcePosition) instanceof Knight) {
-            return true;
+            return false;
         }
         int originFile = sourcePosition.getFile().getFilePosition();
         int originRank = sourcePosition.getRank().getRankPosition();
@@ -85,12 +90,12 @@ public class ChessPlate {
             }
         }
 
-        return true;
+        return false;
     }
 
     public boolean havePieceOnDiagonalPath(PiecePosition sourcePosition, PiecePosition targetPosition) {
         if(plate.get(sourcePosition) instanceof Knight) {
-            return true;
+            return false;
         }
         int originFile = sourcePosition.getFile().getFilePosition();
         int originRank = sourcePosition.getRank().getRankPosition();
@@ -101,7 +106,7 @@ public class ChessPlate {
 
         //좌상
         if(fileGap == rankGap && (targetFile < originFile && targetRank > originRank)) {
-            for (int i = 1; i < rankGap -1; i++) {
+            for (int i = 1; i < rankGap; i++) {
                 Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() - i), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() + i))));
                 return piece !=null;
             }
@@ -111,16 +116,14 @@ public class ChessPlate {
         if(fileGap == rankGap && (targetFile > originFile && targetRank > originRank)) {
             System.out.println("check right up");
             for (int i = 1; i < rankGap; i++) {
-                System.out.println("enter for loop");
                 Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() + i), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() + i))));
-                System.out.println(piece == null);
                 return piece !=null;
             }
         }
 
         //우하
         if(fileGap == rankGap && (targetFile > originFile && targetRank < originRank)) {
-            for (int i = 1; i < rankGap -1; i++) {
+            for (int i = 1; i < rankGap ; i++) {
                 Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() + i), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() - i))));
                 return piece !=null;
             }
@@ -128,11 +131,11 @@ public class ChessPlate {
 
         //좌하
         if(fileGap == rankGap && (targetFile < originFile && targetRank < originRank)) {
-            for (int i = 1; i < rankGap -1; i++) {
+            for (int i = 1; i < rankGap; i++) {
                 Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() - i), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() - i))));
                 return piece !=null;
             }
         }
-        return true;
+        return false;
     }
 }
