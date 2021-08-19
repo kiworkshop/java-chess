@@ -1,5 +1,6 @@
 package chess.controller;
 
+import chess.domain.plate.ChessPlate;
 import chess.service.ChessService;
 import chess.view.InputView;
 import chess.view.OutputView;
@@ -23,12 +24,18 @@ public class ChessController {
 
     private void checkCommadMessage(ChessService chessService, String command) {
         if(command.equals(START)){
-            chessService.start();
+            ChessPlate chessplate = chessService.start();
+            outputView.printChessPlate(chessplate);
         }
 
         if(command.startsWith(MOVE)) {
             String[] position = command.split(" ");
-            chessService.move(position[1],position[2]);
+            boolean isMoved = chessService.move(position[1],position[2]);
+            if(isMoved) {
+                outputView.printChessPlate(chessService.getChessPlate());
+            }else {
+                outputView.printCannotMoveMessage();
+            }
         }
 
     }

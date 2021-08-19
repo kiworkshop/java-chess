@@ -49,10 +49,11 @@ public class ChessPlate {
 
             if(isPawn) {
                 // 직선 이동
-                if(sourcePosition.getFile().equals(targetPosition.getFile())) {
+                if((sourcePosition.getFile().equals(targetPosition.getFile())) && plate.get(targetPosition) == null) {
                     plate.remove(sourcePosition);
                     piece.move(targetPosition);
-                    return plate.get(targetPosition) == null;
+                    plate.put(piece.getPiecePosition(), piece);
+                    return true;
                 }
 
                 // 대각선 이동
@@ -61,12 +62,14 @@ public class ChessPlate {
                 && (plate.get(targetPosition) != null && (plate.get(sourcePosition).getTeam() != plate.get(targetPosition).getTeam()))) {
                     plate.remove(sourcePosition);
                     piece.move(targetPosition);
+                    plate.put(piece.getPiecePosition(), piece);
                     return true;
                 } // end of if
                 return false;
             }
             plate.remove(sourcePosition);
             piece.move(targetPosition);
+            plate.put(piece.getPiecePosition(), piece);
             return true;
         }
         return false;

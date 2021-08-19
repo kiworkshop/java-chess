@@ -37,5 +37,9 @@ public class OutputView {
         System.out.println("start/end/move 중 하나를 입력해주세요");
     }
 
+    public void printCannotMoveMessage() {
+        System.out.println("기물을 움직일 수 없습니다.");
+    }
+
 
 }
