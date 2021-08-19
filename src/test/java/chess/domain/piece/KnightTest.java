@@ -15,7 +15,7 @@ class KnightTest {
     @ParameterizedTest
     @ValueSource(strings = {"c6", "e6", "c2", "e2", "f5", "f3", "b5", "b3"})
     @DisplayName("출발과 도착 위치가 주어지면 지나가는 경로를 반환한다.")
-    void find_paths_success_diagonal(String targetPosition) {
+    void find_paths_success(String targetPosition) {
         //given
         Position source = Position.of("d4");
         Position target = Position.of(targetPosition);

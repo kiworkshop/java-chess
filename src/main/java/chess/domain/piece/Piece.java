@@ -5,6 +5,7 @@ import chess.domain.board.Position;
 import java.util.HashSet;
 import java.util.Set;
 
+import static chess.domain.piece.Color.BLACK;
 import static chess.domain.piece.Color.WHITE;
 import static java.lang.Math.abs;
 
@@ -18,7 +19,11 @@ public abstract class Piece {
     protected abstract void validatePattern(final int fileGap, final int rankGap);
 
     public boolean isWhite() {
-        return WHITE == color;
+        return color == WHITE;
+    }
+
+    public boolean isBlack() {
+        return color == BLACK;
     }
 
     public boolean hasSameColor(final Piece target) {

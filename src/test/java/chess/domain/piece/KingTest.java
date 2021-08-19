@@ -15,7 +15,7 @@ class KingTest {
     @ParameterizedTest
     @ValueSource(strings = {"c3", "c4", "c5", "e3", "e4", "e5", "d3", "d5"})
     @DisplayName("출발과 도착 위치가 주어지면 지나가는 경로를 반환한다.")
-    void find_paths_success_straight(String targetPosition) {
+    void find_paths_success(String targetPosition) {
         //given
         Position source = Position.of("d4");
         Position target = Position.of(targetPosition);

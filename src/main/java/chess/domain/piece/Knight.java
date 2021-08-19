@@ -18,11 +18,12 @@ public class Knight extends Piece {
         int fileGap = target.calculateFileGap(source);
         int rankGap = target.calculateRankGap(source);
         validatePattern(abs(fileGap), abs(rankGap));
+
         return Collections.emptySet();
     }
 
     @Override
-    protected void validatePattern(final int fileGap, final int rankGap) {
+    protected void validatePattern(int fileGap, int rankGap) {
         if (!isKnightPattern(fileGap, rankGap)) {
             throw new IllegalArgumentException("나이트가 이동할 수 없는 위치입니다.");
         }

@@ -59,4 +59,8 @@ public class Position {
         Rank rank = this.rank.add(direction.getRank());
         return Position.from(file, rank);
     }
+
+    public boolean hasSameRank(final Rank rank) {
+        return this.rank == rank;
+    }
 }
