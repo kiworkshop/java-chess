@@ -104,7 +104,7 @@ public class ChessPlate {
         if (fileGap == 0) {
             if (originRank < targetRank) {
                 for (int i = 1; i < rankGap; i++) {
-                    Piece piece = plate.get(new PiecePosition(sourcePosition.getFile(), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() + i))));
+                    Piece piece = plate.get(new PiecePosition(sourcePosition.getFile(), Rank.findBy(sourcePosition.getRank().getRankPosition() + i)));
                     if (piece != null) {
                         return true;
                     }
@@ -113,7 +113,7 @@ public class ChessPlate {
 
             if (originRank > targetRank) {
                 for (int i = 1; i < rankGap; i++) {
-                    Piece piece = plate.get(new PiecePosition(sourcePosition.getFile(), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() - i))));
+                    Piece piece = plate.get(new PiecePosition(sourcePosition.getFile(), Rank.findBy(sourcePosition.getRank().getRankPosition() - i)));
                     if (piece != null) {
                         return true;
                     }
@@ -124,7 +124,7 @@ public class ChessPlate {
         if (rankGap == 0) {
             if (originFile < targetFile) {
                 for (int i = 1; i < fileGap; i++) {
-                    Piece piece = plate.get(new PiecePosition(File.findBy(String.valueOf(sourcePosition.getFile().getFilePosition() + i)), sourcePosition.getRank()));
+                    Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() + i), sourcePosition.getRank()));
                     if (piece != null) {
                         return true;
                     }
@@ -133,7 +133,7 @@ public class ChessPlate {
 
             if (originFile > targetFile) {
                 for (int i = 1; i < fileGap; i++) {
-                    Piece piece = plate.get(new PiecePosition(File.findBy(String.valueOf(sourcePosition.getFile().getFilePosition() - i)), sourcePosition.getRank()));
+                    Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() - i), sourcePosition.getRank()));
                     if (piece != null) {
                         return true;
                     }
