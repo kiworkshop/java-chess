@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Getter
 public class ChessService {
-    private ChessPlate chessPlate= new ChessPlate();
+    private ChessPlate chessPlate;
     public ChessPlate start() {
         this.chessPlate = new ChessPlate();
         return chessPlate;
@@ -61,6 +61,14 @@ public class ChessService {
             }
         }
         return score * 0.5;
+    }
+
+    public boolean isKingDead(Team team) {
+        long KingCount = chessPlate.getPlate().values().stream()
+                .filter(piece -> piece instanceof King)
+                .filter(piece -> piece.getTeam().equals(team))
+                .count();
+        return KingCount < 1;
     }
 
 }

@@ -57,4 +57,35 @@ class ChessServiceTest {
         assertThat(score).isEqualTo(0);
         assertThat(score2).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("Black King이 잡혔는지 확인하는 메서드 테스트")
+    void testDetectBlackKingIsDead() {
+        //given
+        ChessService service = new ChessService();
+        service.start();
+        service.getChessPlate().getPlate().remove(new PiecePosition(File.E, Rank.EIGHT));
+
+        //when
+
+        //then
+        assertThat(service.isKingDead(Team.BLACK)).isTrue();
+        assertThat(service.isKingDead(Team.WHITE)).isFalse();
+    }
+
+    @Test
+    @DisplayName("White King이 잡혔는지 확인하는 메서드 테스트")
+    void testDetectWhiteKingIsDead() {
+        //given
+        ChessService service = new ChessService();
+        service.start();
+        service.getChessPlate().getPlate().remove(new PiecePosition(File.E, Rank.ONE));
+
+        //when
+
+        //then
+        assertThat(service.isKingDead(Team.BLACK)).isFalse();
+        assertThat(service.isKingDead(Team.WHITE)).isTrue();
+    }
+
 }
