@@ -2,6 +2,7 @@ package chess.controller;
 
 import chess.controller.dto.BoardDto;
 import chess.domain.ChessGame;
+import chess.domain.board.Status;
 import chess.domain.command.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
@@ -22,6 +23,7 @@ public class ChessController {
 
         while (chessGame.isRunning()) {
             try {
+                outputView.printTurn(chessGame.isWhiteTurn());
                 Command command = new Command(inputView.getCommand());
                 runCommand(chessGame, command);
                 printBoard(chessGame);
@@ -29,18 +31,46 @@ public class ChessController {
                 System.out.println(e.getMessage());
             }
         }
+
+        printBoard(chessGame);
+        printStatus(chessGame);
     }
 
-    private void runCommand(ChessGame chessGame, Command command) {
+    private void runCommand(final ChessGame chessGame, final Command command) {
         try {
-            chessGame.run(command);
+            if (command.isStart()) {
+                return;
+            }
+
+            if (command.isEnd()) {
+                chessGame.end();
+                return;
+            }
+
+            if (command.isMove()) {
+                chessGame.move(command.getMoveParameters());
+                return;
+            }
+
+            if (command.isStatus()) {
+                printStatus(chessGame);
+                return;
+            }
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
+            return;
         }
+
+        throw new UnsupportedOperationException("유효하지 않은 명령어입니다.");
     }
 
-    private void printBoard(ChessGame chessGame) {
+    private void printBoard(final ChessGame chessGame) {
         BoardDto boardDto = new BoardDto(chessGame.getBoard());
         outputView.printBoard(boardDto);
+    }
+
+    private void printStatus(final ChessGame chessGame) {
+        Status status = chessGame.getStatus();
+        outputView.printStatus(status);
     }
 }

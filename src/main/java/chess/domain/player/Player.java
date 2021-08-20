@@ -8,11 +8,7 @@ import chess.domain.piece.PieceFactory;
 import chess.domain.piece.mapper.PawnMapper;
 import chess.domain.piece.mapper.PieceMappers;
 
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Player {
@@ -86,6 +82,11 @@ public class Player {
 
     public boolean hasKingOn(Position position) {
         return findPieceBy(position).isKing();
+    }
+
+    public boolean isKingDead() {
+        return pieces.values().stream()
+                .noneMatch(Piece::isKing);
     }
 
     public boolean canAttack(Position position) {

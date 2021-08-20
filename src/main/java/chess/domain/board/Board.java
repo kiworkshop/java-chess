@@ -96,6 +96,10 @@ public class Board {
         double whiteScore = white.sumScores();
         double blackScore = black.sumScores();
 
-        return new Status(whiteScore, blackScore);
+        return new Status(whiteScore, blackScore, white.isKingDead(), black.isKingDead());
+    }
+
+    public boolean isEnd() {
+        return white.isKingDead() || black.isKingDead();
     }
 }

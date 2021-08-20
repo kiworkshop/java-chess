@@ -1,10 +1,13 @@
 package chess.view;
 
 import chess.controller.dto.BoardDto;
+import chess.domain.board.Status;
 
 public class ConsoleOutputView implements OutputView {
 
     private static final String HEADER = "> ";
+    private static final String TURN_FORMAT = HEADER + "%s의 차례입니다.%n";
+    private static final String WINNER_FORMAT = HEADER + "%s의 승리입니다. 축하합니다.%n";
 
     @Override
     public void printGuide() {
@@ -24,5 +27,31 @@ public class ConsoleOutputView implements OutputView {
                     }
                 });
         System.out.println();
+    }
+
+    @Override
+    public void printStatus(final Status status) {
+        if (status.isWhiteKingDead()) {
+            System.out.printf(WINNER_FORMAT, "BLACK");
+            return;
+        }
+
+        if (status.isBlackKingDead()) {
+            System.out.printf(WINNER_FORMAT, "WHITE");
+            return;
+        }
+
+        System.out.println(HEADER + "WHITE 점수: " + status.getWhiteScore());
+        System.out.println(HEADER + "BLACK 점수: " + status.getBlackScore());
+    }
+
+    @Override
+    public void printTurn(boolean isWhiteTurn) {
+        if (isWhiteTurn) {
+            System.out.printf(TURN_FORMAT, "WHITE");
+            return;
+        }
+
+        System.out.printf(TURN_FORMAT, "BLACK");
     }
 }

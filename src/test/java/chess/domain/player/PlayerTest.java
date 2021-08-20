@@ -122,4 +122,18 @@ public class PlayerTest {
         //then
         assertThat(sum).isEqualTo(38);
     }
+
+    @Test
+    @DisplayName("킹이 존재하는지 반환한다.")
+    void is_king_dead() {
+        //given
+        Player player = new Player(Color.WHITE);
+        player.attacked(Position.of("e1"));
+
+        //when
+        boolean kingDead = player.isKingDead();
+
+        //then
+        assertThat(kingDead).isTrue();
+    }
 }

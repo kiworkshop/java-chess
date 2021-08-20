@@ -1,7 +1,7 @@
 package chess.domain;
 
 import chess.domain.board.Board;
-import chess.domain.command.Command;
+import chess.domain.board.Status;
 import chess.domain.command.MoveParameters;
 
 public class ChessGame {
@@ -13,27 +13,21 @@ public class ChessGame {
     public ChessGame() {
     }
 
-    public void run(final Command command) {
-        if (command.isStart()) {
-            return;
-        }
-
-        if (command.isEnd()) {
-            isRunning = false;
-            return;
-        }
-
-        if (command.isMove()) {
-            move(command.getMoveParameters());
-            return;
-        }
-
-        throw new UnsupportedOperationException("유효하지 않은 명령어입니다.");
-    }
-
-    private void move(final MoveParameters moveParameters) {
+    public void move(final MoveParameters moveParameters) {
         board.move(moveParameters, isWhiteTurn);
         isWhiteTurn = !isWhiteTurn;
+
+        if (board.isEnd()) {
+            isRunning = false;
+        }
+    }
+
+    public void end() {
+        isRunning = false;
+    }
+
+    public Status getStatus() {
+        return board.getStatus();
     }
 
     public boolean isRunning() {
@@ -42,5 +36,9 @@ public class ChessGame {
 
     public Board getBoard() {
         return board;
+    }
+
+    public boolean isWhiteTurn() {
+        return isWhiteTurn;
     }
 }

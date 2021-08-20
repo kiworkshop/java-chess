@@ -12,6 +12,7 @@ public class Command {
     private static final String START = "start";
     private static final String END = "end";
     private static final String MOVE = "move";
+    private static final String STATUS = "status";
 
     private final String command;
     private final List<String> parameters;
@@ -40,6 +41,10 @@ public class Command {
 
     public boolean isMove() {
         return command.equals(MOVE);
+    }
+
+    public boolean isStatus() {
+        return command.equals(STATUS);
     }
 
     public MoveParameters getMoveParameters() {
