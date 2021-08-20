@@ -4,6 +4,7 @@ import chess.domain.RankComparator;
 import chess.domain.piece.File;
 import chess.domain.piece.PiecePosition;
 import chess.domain.piece.Rank;
+import chess.domain.piece.Team;
 import chess.domain.plate.ChessPlate;
 
 import java.util.Arrays;
@@ -34,12 +35,30 @@ public class OutputView {
     }
 
     public void printInCorrectCommandMessage(){
-        System.out.println("start/end/move 중 하나를 입력해주세요");
+        System.out.println("start/end/move/status 중 하나를 입력해주세요");
     }
 
     public void printCannotMoveMessage() {
         System.out.println("기물을 움직일 수 없습니다.");
     }
 
+    public void printScoresOfTwoTeams(double blackScore, double whiteScore) {
+        System.out.println("Black 팀 점수 : " + blackScore + "점");
+        System.out.println("White 팀 점수 : " + whiteScore + "점");
+    }
+
+    public void printWinner(double blackScore, double whiteScore) {
+        if(blackScore > whiteScore) {
+            System.out.println("Black 팀 승리");
+            return;
+        }
+
+        if(whiteScore > blackScore) {
+            System.out.println("White 팀 승리");
+            return;
+        }
+
+        System.out.println("무승부");
+    }
 
 }

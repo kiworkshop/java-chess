@@ -1,5 +1,6 @@
 package chess.controller;
 
+import chess.domain.piece.Team;
 import chess.domain.plate.ChessPlate;
 import chess.service.ChessService;
 import chess.view.InputView;
@@ -11,13 +12,14 @@ public class ChessController {
     public static final String START = "start";
     public static final String END = "end";
     public static final String MOVE = "move";
+    public static final String STATUS = "status";
 
     public void play() {
         ChessService chessService = new ChessService();
         outputView.initPrint();
         String command = START;
         while (!command.equals(END)){
-            command = getCommand();
+            command = getUserCommand();
             checkCommadMessage(chessService, command);
         }
     }
@@ -38,14 +40,26 @@ public class ChessController {
             }
         }
 
+        if(command.equals(STATUS)) {
+            printResult(chessService);
+        }
+
     }
 
-    private static String getCommand() {
+    private static String getUserCommand() {
         String command = inputView.getUserCommand();
-        while(!(command.startsWith(START) || command.equals(END) || command.startsWith(MOVE))){
+        while(!(command.startsWith(START) || command.equals(END) || command.startsWith(MOVE) || command.equals(STATUS))){
             outputView.printInCorrectCommandMessage();
             command = inputView.getUserCommand();
         }
         return command;
+    }
+
+    private void printResult(ChessService chessService) {
+        double blackScore = chessService.getGameScore(Team.BLACK);
+        double whiteScore = chessService.getGameScore(Team.WHITE);
+
+        outputView.printScoresOfTwoTeams(blackScore, whiteScore);
+        outputView.printWinner(blackScore, whiteScore);
     }
 }
