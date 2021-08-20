@@ -120,6 +120,29 @@ public class BoardTest {
                 .withMessage("킹은 상대방이 공격 가능한 위치로 이동할 수 없습니다.");
     }
 
+    @Test
+    @DisplayName("모든 플레이어의 점수를 반환한다.")
+    void get_status() {
+        //given
+        Board board = setBoardToGetStatus();
+
+        //when
+        Status status = board.getStatus();
+
+        //then
+        assertThat(status.getWhiteScore()).isEqualTo(37);
+        assertThat(status.getBlackScore()).isEqualTo(37);
+    }
+
+    private Board setBoardToGetStatus() {
+        Board board = new Board();
+        board.move(new MoveParameters(Position.of("e7"), Position.of("e5")), false);
+        board.move(new MoveParameters(Position.of("e5"), Position.of("e4")), false);
+        board.move(new MoveParameters(Position.of("e4"), Position.of("e3")), false);
+        board.move(new MoveParameters(Position.of("d2"), Position.of("e3")), true);
+        return board;
+    }
+
     private Board setBoardToAttackKing() {
         Board board = new Board();
         board.move(new MoveParameters(Position.of("e2"), Position.of("e4")), true);

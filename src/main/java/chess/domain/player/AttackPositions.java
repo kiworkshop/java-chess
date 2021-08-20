@@ -23,25 +23,33 @@ public class AttackPositions {
     }
 
     public void update(final Position source, final Position target, final Piece piece) {
-        Collection<Position> previousAttackPositions = piece.findAvailableAttackPositions(source);
+        remove(source, piece);
+        add(target, piece);
+    }
+
+    public void remove(final Position position, final Piece piece) {
+        Collection<Position> previousAttackPositions = piece.findAvailableAttackPositions(position);
         previousAttackPositions.forEach(this::decrease);
-        Collection<Position> currentAttackPositions = piece.findAvailableAttackPositions(target);
+    }
+
+    private void add(final Position position, final Piece piece) {
+        Collection<Position> currentAttackPositions = piece.findAvailableAttackPositions(position);
         currentAttackPositions.forEach(this::increase);
     }
 
-    private Integer increase(final Position target) {
-        return counts.put(target, counts.getOrDefault(target, 0) + 1);
+    private void decrease(final Position position) {
+        counts.put(position, counts.get(position) - 1);
     }
 
-    private Integer decrease(final Position position) {
-        return counts.put(position, counts.get(position) - 1);
+    private void increase(final Position position) {
+        counts.put(position, counts.getOrDefault(position, 0) + 1);
     }
 
     public boolean isEmpty(final Position position) {
         return !counts.containsKey(position) || (counts.get(position) == EMPTY);
     }
 
-    public boolean contains(Position target) {
-        return counts.containsKey(target);
+    public boolean contains(final Position position) {
+        return counts.containsKey(position);
     }
 }

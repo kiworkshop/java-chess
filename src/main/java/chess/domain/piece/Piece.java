@@ -26,6 +26,10 @@ public abstract class Piece {
         return this instanceof King;
     }
 
+    public boolean isPawn() {
+        return this instanceof Pawn;
+    }
+
     public Set<Position> findPath(final Position source, final Position target) {
         int fileGap = target.calculateFileGap(source);
         int rankGap = target.calculateRankGap(source);
@@ -50,3 +54,4 @@ public abstract class Piece {
         return positions;
     }
 }
+

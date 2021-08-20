@@ -30,6 +30,14 @@ public class PieceMappers {
                 .orElseThrow(() -> new IllegalArgumentException("해당 기물에 해당하는 매퍼가 존재하지 않습니다."));
     }
 
+    public static double findScoreBy(final Piece piece) {
+        return pieceMappers.stream()
+                .filter(mapper -> mapper.supports(piece))
+                .map(PieceMapper::getScore)
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException("해당 기물에 해당하는 매퍼가 존재하지 않습니다."));
+    }
+
     private PieceMappers() {
     }
 }

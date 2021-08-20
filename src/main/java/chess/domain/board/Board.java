@@ -25,11 +25,9 @@ public class Board {
         validateSourceOwner(enemy, source);
         validateSamePosition(source, target);
         validateTarget(player, target);
+        validateKingMovable(player, enemy, source, target);
 
-        if (player.hasKingOn(source) && enemy.canAttack(target)) {
-            throw new IllegalArgumentException("킹은 상대방이 공격 가능한 위치로 이동할 수 없습니다.");
-        }
-
+        enemy.attacked(target);
         movePiece(player, source, target);
     }
 
@@ -55,6 +53,12 @@ public class Board {
     private void validateTarget(final Player player, final Position target) {
         if (player.hasPieceOn(target)) {
             throw new IllegalArgumentException("같은 색상의 기물은 공격할 수 없습니다.");
+        }
+    }
+
+    private void validateKingMovable(final Player player, final Player enemy, final Position source, final Position target) {
+        if (player.hasKingOn(source) && enemy.canAttack(target)) {
+            throw new IllegalArgumentException("킹은 상대방이 공격 가능한 위치로 이동할 수 없습니다.");
         }
     }
 
@@ -84,7 +88,14 @@ public class Board {
         return black.findPieceBy(position);
     }
 
-    public boolean isEmpty(Position position) {
+    public boolean isEmpty(final Position position) {
         return !white.hasPieceOn(position) && !black.hasPieceOn(position);
+    }
+
+    public Status getStatus() {
+        double whiteScore = white.sumScores();
+        double blackScore = black.sumScores();
+
+        return new Status(whiteScore, blackScore);
     }
 }

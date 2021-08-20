@@ -6,9 +6,10 @@ import chess.domain.piece.Piece;
 public class BishopMapper extends PieceMapper {
 
     private static final String NAME = "b";
+    private static final double SCORE = 3;
 
     public BishopMapper() {
-        super(NAME);
+        super(NAME, SCORE);
     }
 
     @Override

@@ -3,6 +3,7 @@ package chess.domain.player;
 import chess.domain.board.Position;
 import chess.domain.piece.Color;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -107,5 +108,18 @@ public class PlayerTest {
         // then
         assertThat(can).isTrue();
         assertThat(cannot).isFalse();
+    }
+
+    @Test
+    @DisplayName("현재 남아있는 피스의 점수 합을 구한다.")
+    void sum_scores() {
+        //given
+        Player player = new Player(Color.WHITE);
+
+        //when
+        double sum = player.sumScores();
+
+        //then
+        assertThat(sum).isEqualTo(38);
     }
 }

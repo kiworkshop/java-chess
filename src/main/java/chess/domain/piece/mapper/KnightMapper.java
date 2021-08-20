@@ -6,9 +6,10 @@ import chess.domain.piece.Piece;
 public class KnightMapper extends PieceMapper {
 
     private static final String NAME = "n";
+    private static final double SCORE = 2.5;
 
     public KnightMapper() {
-        super(NAME);
+        super(NAME, SCORE);
     }
 
     @Override
