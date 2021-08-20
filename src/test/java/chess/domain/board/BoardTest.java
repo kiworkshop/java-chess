@@ -105,4 +105,28 @@ public class BoardTest {
                 .isThrownBy(() -> board.move(moveParameters, isWhiteTurn))
                 .withMessage("기물을 통과하여 이동할 수 없습니다.");
     }
+
+    @ParameterizedTest
+    @CsvSource({"e2, d2", "e2, e1"})
+    @DisplayName("킹 도착지를 상대방이 공격 가능한 경우 예외가 발생한다.")
+    void move_king_invalid_target(String source, String target) {
+        //given
+        Board board = setBoardToAttackKing();
+        MoveParameters moveParameters = new MoveParameters(Position.of(source), Position.of(target));
+
+        //when, then
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> board.move(moveParameters, true))
+                .withMessage("킹은 상대방이 공격 가능한 위치로 이동할 수 없습니다.");
+    }
+
+    private Board setBoardToAttackKing() {
+        Board board = new Board();
+        board.move(new MoveParameters(Position.of("e2"), Position.of("e4")), true);
+        board.move(new MoveParameters(Position.of("d2"), Position.of("d4")), true);
+        board.move(new MoveParameters(Position.of("e1"), Position.of("e2")), true);
+        board.move(new MoveParameters(Position.of("c7"), Position.of("c5")), false);
+        board.move(new MoveParameters(Position.of("d8"), Position.of("a5")), false);
+        return board;
+    }
 }

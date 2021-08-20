@@ -26,6 +26,10 @@ public class Board {
         validateSamePosition(source, target);
         validateTarget(player, target);
 
+        if (player.hasKingOn(source) && enemy.canAttack(target)) {
+            throw new IllegalArgumentException("킹은 상대방이 공격 가능한 위치로 이동할 수 없습니다.");
+        }
+
         movePiece(player, source, target);
     }
 

@@ -17,13 +17,30 @@ public class ChessController {
     }
 
     public void run() {
+        outputView.printGuide();
         ChessGame chessGame = new ChessGame();
 
         while (chessGame.isRunning()) {
-            Command command = new Command(inputView.getCommand());
-            chessGame.run(command);
-            BoardDto boardDto = new BoardDto(chessGame.getBoard());
-            outputView.printBoard(boardDto);
+            try {
+                Command command = new Command(inputView.getCommand());
+                runCommand(chessGame, command);
+                printBoard(chessGame);
+            } catch (UnsupportedOperationException e) {
+                System.out.println(e.getMessage());
+            }
         }
+    }
+
+    private void runCommand(ChessGame chessGame, Command command) {
+        try {
+            chessGame.run(command);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void printBoard(ChessGame chessGame) {
+        BoardDto boardDto = new BoardDto(chessGame.getBoard());
+        outputView.printBoard(boardDto);
     }
 }

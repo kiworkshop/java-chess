@@ -46,4 +46,12 @@ public class Player {
 
         return pieces.get(position);
     }
+
+    public boolean hasKingOn(Position position) {
+        return findPieceBy(position).isKing();
+    }
+
+    public boolean canAttack(Position position) {
+        return attackPositions.contains(position);
+    }
 }

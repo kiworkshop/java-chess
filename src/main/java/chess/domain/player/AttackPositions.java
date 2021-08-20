@@ -40,4 +40,8 @@ public class AttackPositions {
     public boolean isEmpty(final Position position) {
         return !counts.containsKey(position) || (counts.get(position) == EMPTY);
     }
+
+    public boolean contains(Position target) {
+        return counts.containsKey(target);
+    }
 }

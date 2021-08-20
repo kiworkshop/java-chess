@@ -25,6 +25,7 @@ public class ChessGame {
 
         if (command.isMove()) {
             move(command.getMoveParameters());
+            return;
         }
 
         throw new UnsupportedOperationException("유효하지 않은 명령어입니다.");

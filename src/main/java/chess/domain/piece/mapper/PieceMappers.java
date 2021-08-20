@@ -5,7 +5,6 @@ import chess.domain.piece.Piece;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.NoSuchElementException;
 
 public class PieceMappers {
 
@@ -28,7 +27,7 @@ public class PieceMappers {
                 .filter(mapper -> mapper.supports(piece))
                 .map(mapper -> mapper.findNameBy(piece))
                 .findAny()
-                .orElseThrow(() -> new NoSuchElementException("해당 기물에 해당하는 매퍼가 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalArgumentException("해당 기물에 해당하는 매퍼가 존재하지 않습니다."));
     }
 
     private PieceMappers() {

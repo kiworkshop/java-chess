@@ -8,9 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static chess.domain.piece.Color.BLACK;
-import static chess.domain.piece.Color.WHITE;
-
 public abstract class Piece {
 
     protected final MovePattern movePattern;
@@ -22,11 +19,11 @@ public abstract class Piece {
     }
 
     public boolean isWhite() {
-        return color == WHITE;
+        return color.isWhite();
     }
 
-    public boolean isBlack() {
-        return color == BLACK;
+    public boolean isKing() {
+        return this instanceof King;
     }
 
     public Set<Position> findPath(final Position source, final Position target) {

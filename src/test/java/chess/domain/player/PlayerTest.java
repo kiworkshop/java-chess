@@ -76,4 +76,36 @@ public class PlayerTest {
         //then
         assertThat(paths).containsOnly(path);
     }
+
+    @ParameterizedTest
+    @CsvSource({"WHITE, e1, e2", "BLACK, e8, e7"})
+    @DisplayName("주어진 위치에 킹이 있는지 확인한다.")
+    void has_king_on(Color color, String kingPosition, String notKingPosition) {
+        // given
+        Player player = new Player(color);
+
+        // when
+        boolean isKing = player.hasKingOn(Position.of(kingPosition));
+        boolean isNotKing = player.hasKingOn(Position.of(notKingPosition));
+
+        // then
+        assertThat(isKing).isTrue();
+        assertThat(isNotKing).isFalse();
+    }
+
+    @ParameterizedTest
+    @CsvSource({"WHITE, b3, e6", "BLACK, e6, b3"})
+    @DisplayName("주어진 위치를 공격할 수 있는지 확인한다.")
+    void can_attack(Color color, String attackPosition, String notAttackPosition) {
+        // given
+        Player player = new Player(color);
+
+        // when
+        boolean can = player.canAttack(Position.of(attackPosition));
+        boolean cannot = player.canAttack(Position.of(notAttackPosition));
+
+        // then
+        assertThat(can).isTrue();
+        assertThat(cannot).isFalse();
+    }
 }
