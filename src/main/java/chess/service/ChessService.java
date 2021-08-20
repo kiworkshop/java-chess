@@ -5,6 +5,9 @@ import chess.domain.plate.ChessPlate;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter
 public class ChessService {
@@ -48,6 +51,22 @@ public class ChessService {
                 .sum());
 
         return result;
+    }
+
+    public double calculatePawnScore(Team team){
+        Map<File, List<String >> pawnAlign =
+                chessPlate.getPlate().values().stream()
+                        .filter(piece -> piece instanceof Pawn)
+                        .filter(piece -> piece.getTeam().equals(team))
+                        .collect(Collectors.groupingBy(piece -> piece.getPiecePosition().getFile(),
+                                Collectors.mapping(Piece::getName, Collectors.toList())));
+        double score = 0;
+        for (List a : pawnAlign.values()) {
+            if(a.size()>=2){
+                score=+a.size();
+            }
+        }
+        return score*0.5;
     }
 
 }
