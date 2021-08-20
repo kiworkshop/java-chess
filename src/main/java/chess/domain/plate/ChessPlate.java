@@ -1,6 +1,5 @@
 package chess.domain.plate;
 
-import chess.domain.RankComparator;
 import chess.domain.piece.*;
 import chess.domain.team.Camp;
 import lombok.Getter;
@@ -21,24 +20,19 @@ public class ChessPlate {
         arrangePieces();
     }
 
-    public Map<PiecePosition, Piece> arrangePieces() {
-        RankComparator rankComparator = new RankComparator();
-
+    public void arrangePieces() {
         for (Rank rank : Rank.values()) {
             for (File file : File.values()) {
-//              plate.put(new PiecePosition(file, rank), new Piece(".",Team.BLACK, new PiecePosition(file,rank)));
                 plate.put(new PiecePosition(file, rank), null);
             }
         }
         allPieces.forEach(piece -> {
             plate.put(piece.getPiecePosition(), piece);
         });
-
-        return plate;
     }
 
     public boolean move(PiecePosition sourcePosition, PiecePosition targetPosition) {
-        //TO-DO 기물별 허용 움직임 범위인지 체크
+        //기물별 허용 움직임 범위인지 체크
         Piece sourcePiece = plate.get(sourcePosition);
         if (!movable(sourcePosition, targetPosition, sourcePiece)) {
             return false;

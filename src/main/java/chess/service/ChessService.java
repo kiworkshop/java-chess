@@ -48,19 +48,19 @@ public class ChessService {
     }
 
     public double calculatePawnScore(Team team){
-        Map<File, List<String >> pawnAlign =
+        Map<File, List<String>> pawnAlign =
                 chessPlate.getPlate().values().stream()
-                        .filter(piece -> piece instanceof Pawn)
+                        .filter(Pawn.class::isInstance)
                         .filter(piece -> piece.getTeam().equals(team))
                         .collect(Collectors.groupingBy(piece -> piece.getPiecePosition().getFile(),
                                 Collectors.mapping(Piece::getName, Collectors.toList())));
         double score = 0;
-        for (List a : pawnAlign.values()) {
-            if(a.size()>=2){
-                score=+a.size();
+        for (List<String> pawnNumberByFile : pawnAlign.values()) {
+            if(pawnNumberByFile.size() >= 2){
+                score += pawnNumberByFile.size();
             }
         }
-        return score*0.5;
+        return score * 0.5;
     }
 
 }

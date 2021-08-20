@@ -57,13 +57,13 @@ public class ChessPlateTest {
         //given
         ChessPlate chessPlate = new ChessPlate();
         //when
-//        boolean result = chessPlate.move(new PiecePosition(File.A, Rank.EIGHT), new PiecePosition(File.B, Rank.EIGHT));
-//        boolean result2 = chessPlate.move(new PiecePosition(File.G, Rank.EIGHT), new PiecePosition(File.F, Rank.SIX));
+        boolean result = chessPlate.move(new PiecePosition(File.A, Rank.EIGHT), new PiecePosition(File.B, Rank.EIGHT));
+        boolean result2 = chessPlate.move(new PiecePosition(File.G, Rank.EIGHT), new PiecePosition(File.F, Rank.SIX));
         boolean result3 = chessPlate.move(new PiecePosition(File.A, Rank.ONE), new PiecePosition(File.A, Rank.THREE));
 
         //then
-//        assertThat(result).isFalse();
-//        assertThat(result2).isTrue();
+        assertThat(result).isFalse();
+        assertThat(result2).isTrue();
         assertThat(result3).isFalse();
     }
 
@@ -74,9 +74,9 @@ public class ChessPlateTest {
         ChessPlate chessPlate = new ChessPlate();
         //when
         boolean result = chessPlate.move(new PiecePosition(File.B, Rank.SEVEN), new PiecePosition(File.C, Rank.SIX));
-//        boolean result2 = chessPlate.move(new PiecePosition(File.G, Rank.EIGHT), new PiecePosition(File.F, Rank.SIX));
+        boolean result2 = chessPlate.move(new PiecePosition(File.G, Rank.EIGHT), new PiecePosition(File.F, Rank.SIX));
         //then
         assertThat(result).isFalse();
-//        assertThat(result2).isTrue();
+        assertThat(result2).isTrue();
     }
 }
