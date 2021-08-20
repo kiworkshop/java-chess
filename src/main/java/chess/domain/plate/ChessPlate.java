@@ -26,7 +26,6 @@ public class ChessPlate {
 
         for (Rank rank : Rank.values()) {
             for (File file : File.values()) {
-//              plate.put(new PiecePosition(file, rank), new Piece(".",Team.BLACK, new PiecePosition(file,rank)));
                 plate.put(new PiecePosition(file, rank), null);
             }
         }
@@ -38,6 +37,7 @@ public class ChessPlate {
     }
 
     public boolean move(PiecePosition sourcePosition, PiecePosition targetPosition) {
+        Direction direction = getDirection(sourcePosition, targetPosition);
         //TO-DO 기물별 허용 움직임 범위인지 체크
         Piece sourcePiece = plate.get(sourcePosition);
         if (!movable(sourcePosition, targetPosition, sourcePiece)) {
@@ -52,7 +52,7 @@ public class ChessPlate {
 
         if (sourcePiece instanceof Pawn) {
             // 직선 이동
-            if (isStraightMoving(sourcePosition, targetPosition) && targetPiece == null) {
+            if ((direction.equals(Direction.UP) ||  direction.equals(Direction.DOWN)) && targetPiece == null) {
                 executeMove(sourcePosition, targetPosition, sourcePiece);
                 return true;
             }
@@ -68,14 +68,46 @@ public class ChessPlate {
         return true;
     }
 
+    private Direction getDirection(PiecePosition sourcePosition, PiecePosition targetPosition) {
+        int originFile = sourcePosition.getFile().getFilePosition();
+        int originRank = sourcePosition.getRank().getRankPosition();
+        int targetFile = targetPosition.getFile().getFilePosition();
+        int targetRank = targetPosition.getRank().getRankPosition();
+        int fileGap = Math.abs(originFile - targetFile);
+        int rankGap = Math.abs(originRank - targetRank);
+
+        if(fileGap == 0 && originRank > targetRank){
+            return Direction.DOWN;
+        }
+        if(fileGap == 0 && originRank < targetRank) {
+            return Direction.UP;
+        }
+        //좌상
+        if (fileGap == rankGap && (targetFile < originFile && targetRank > originRank)) {
+            return Direction.LEFTUP;
+        }
+
+        //우상
+        if (fileGap == rankGap && (targetFile > originFile && targetRank > originRank)) {
+            return Direction.RIGHTUP;
+        }
+
+        //우하
+        if (fileGap == rankGap && (targetFile > originFile && targetRank < originRank)) {
+            return Direction.RIGHTDOWUN;
+        }
+
+        //좌하
+        if (fileGap == rankGap && (targetFile < originFile && targetRank < originRank)) {
+            return Direction.LEFTDOWUN;
+        }
+        return Direction.OTHERS;
+    }
+
     private void executeMove(PiecePosition sourcePosition, PiecePosition targetPosition, Piece sourcePiece) {
         plate.remove(sourcePosition);
         sourcePiece.move(targetPosition);
         plate.put(sourcePiece.getPiecePosition(), sourcePiece);
-    }
-
-    private boolean isStraightMoving(PiecePosition sourcePosition, PiecePosition targetPosition) {
-        return sourcePosition.getFile().equals(targetPosition.getFile());
     }
 
     private boolean isDiagonalMoving(PiecePosition sourcePosition, PiecePosition targetPosition, Piece sourcePiece, Piece targetPiece) {
@@ -86,113 +118,39 @@ public class ChessPlate {
     }
 
     private boolean movable(PiecePosition sourcePosition, PiecePosition targetPosition, Piece piece) {
-        boolean haveNoPieceOnRoad = !havePieceOnStraightPath(sourcePosition, targetPosition) && !havePieceOnDiagonalPath(sourcePosition, targetPosition);
-        return piece.movable(targetPosition) && haveNoPieceOnRoad;
+        return piece.movable(targetPosition) && havePieceOnPath(sourcePosition, targetPosition);
     }
 
-    public boolean havePieceOnStraightPath(PiecePosition sourcePosition, PiecePosition targetPosition) {
+    public boolean havePieceOnPath(PiecePosition sourcePosition, PiecePosition targetPosition) {
         if (plate.get(sourcePosition) instanceof Knight) {
             return false;
         }
-        int originFile = sourcePosition.getFile().getFilePosition();
-        int originRank = sourcePosition.getRank().getRankPosition();
-        int targetFile = targetPosition.getFile().getFilePosition();
-        int targetRank = targetPosition.getRank().getRankPosition();
-        int fileGap = Math.abs(originFile - targetFile);
-        int rankGap = Math.abs(originRank - targetRank);
 
-        if (fileGap == 0) {
-            if (originRank < targetRank) {
-                for (int i = 1; i < rankGap; i++) {
-                    Piece piece = plate.get(new PiecePosition(sourcePosition.getFile(), Rank.findBy(sourcePosition.getRank().getRankPosition() + i)));
-                    if (piece != null) {
-                        return true;
-                    }
-                }
-            }
+        Direction direction = getDirection(sourcePosition, targetPosition);
+        int fileGap = Math.abs(sourcePosition.getFile().getFilePosition() - targetPosition.getFile().getFilePosition());
+        int rankGap = Math.abs(sourcePosition.getRank().getRankPosition() - targetPosition.getRank().getRankPosition());
 
-            if (originRank > targetRank) {
-                for (int i = 1; i < rankGap; i++) {
-                    Piece piece = plate.get(new PiecePosition(sourcePosition.getFile(), Rank.findBy(sourcePosition.getRank().getRankPosition() - i)));
-                    if (piece != null) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        if (rankGap == 0) {
-            if (originFile < targetFile) {
-                for (int i = 1; i < fileGap; i++) {
-                    Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() + i), sourcePosition.getRank()));
-                    if (piece != null) {
-                        return true;
-                    }
-                }
-            }
-
-            if (originFile > targetFile) {
-                for (int i = 1; i < fileGap; i++) {
-                    Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() - i), sourcePosition.getRank()));
-                    if (piece != null) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public boolean havePieceOnDiagonalPath(PiecePosition sourcePosition, PiecePosition targetPosition) {
-        if (plate.get(sourcePosition) instanceof Knight) {
-            return false;
-        }
-        int originFile = sourcePosition.getFile().getFilePosition();
-        int originRank = sourcePosition.getRank().getRankPosition();
-        int targetFile = targetPosition.getFile().getFilePosition();
-        int targetRank = targetPosition.getRank().getRankPosition();
-        int fileGap = Math.abs(originFile - targetFile);
-        int rankGap = Math.abs(originRank - targetRank);
-
-        //좌상
-        if (fileGap == rankGap && (targetFile < originFile && targetRank > originRank)) {
+        if(direction.equals(Direction.UP) || direction.equals(Direction.DOWN)){
             for (int i = 1; i < rankGap; i++) {
-                Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() - i), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() + i))));
+                Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition()+direction.getFileMoveCount()), Rank.findBy(sourcePosition.getRank().getRankPosition() + direction.getRankMoveCount())));
+                if (piece != null) {
+                    return true;
+                }
+            }
+        }
+        if(direction.equals(Direction.RIGHT) || direction.equals(Direction.LEFT)){
+            for (int i = 1; i < fileGap; i++) {
+                Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition()+direction.getFileMoveCount()), Rank.findBy(sourcePosition.getRank().getRankPosition() + direction.getRankMoveCount())));
                 if (piece != null) {
                     return true;
                 }
             }
         }
 
-        //우상
-        if (fileGap == rankGap && (targetFile > originFile && targetRank > originRank)) {
-            System.out.println("check right up");
-            for (int i = 1; i < rankGap; i++) {
-                Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() + i), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() + i))));
-                if (piece != null) {
-                    return true;
-                }
-            }
-        }
-
-        //우하
-        if (fileGap == rankGap && (targetFile > originFile && targetRank < originRank)) {
-            for (int i = 1; i < rankGap; i++) {
-                Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() + i), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() - i))));
-                if (piece != null) {
-                    return true;
-                }
-            }
-        }
-
-        //좌하
-        if (fileGap == rankGap && (targetFile < originFile && targetRank < originRank)) {
-            for (int i = 1; i < rankGap; i++) {
-                Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() - i), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() - i))));
-                if (piece != null) {
-                    return true;
-                }
+        for (int i = 1; i < rankGap; i++) {
+            Piece piece = plate.get(new PiecePosition(File.findBy(sourcePosition.getFile().getFilePosition() + direction.getFileMoveCount()), Rank.findBy(String.valueOf(sourcePosition.getRank().getRankPosition() + direction.getRankMoveCount()))));
+            if (piece != null) {
+                return true;
             }
         }
         return false;

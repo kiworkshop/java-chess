@@ -42,8 +42,8 @@ public class ChessPlateTest {
         //given
         ChessPlate chessPlate = new ChessPlate();
 
-        boolean result = chessPlate.havePieceOnDiagonalPath(new PiecePosition(File.F, Rank.EIGHT), new PiecePosition(File.D, Rank.SIX));
-        boolean result2 = chessPlate.havePieceOnDiagonalPath(new PiecePosition(File.A, Rank.TWO), new PiecePosition(File.C, Rank.FOUR));
+        boolean result = chessPlate.havePieceOnPath(new PiecePosition(File.F, Rank.EIGHT), new PiecePosition(File.D, Rank.SIX));
+        boolean result2 = chessPlate.havePieceOnPath(new PiecePosition(File.A, Rank.TWO), new PiecePosition(File.C, Rank.FOUR));
 
 
         //when,then
