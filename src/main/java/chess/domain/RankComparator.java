@@ -1,4 +1,4 @@
-package chess.domain.plate;
+package chess.domain;
 
 import chess.domain.plate.Rank;
 

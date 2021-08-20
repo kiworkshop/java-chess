@@ -1,6 +1,6 @@
 package chess.domain.team;
 
-import chess.domain.plate.RankComparator;
+import chess.domain.RankComparator;
 import chess.domain.plate.Rank;
 
 import java.util.Arrays;

@@ -1,9 +1,9 @@
 package chess.domain.plate;
 
-import chess.domain.piece.Knight;
-import chess.domain.piece.Pawn;
-import chess.domain.piece.Piece;
-import chess.domain.piece.PiecePosition;
+import chess.controller.ChessController;
+import chess.domain.MovingDirection;
+import chess.domain.RankComparator;
+import chess.domain.piece.*;
 import chess.domain.team.Camp;
 import chess.domain.team.Team;
 import lombok.Getter;
@@ -41,36 +41,39 @@ public class ChessPlate {
         return plate;
     }
 
-    public boolean move(PiecePosition sourcePosition, PiecePosition targetPosition) {
+    public String move(PiecePosition sourcePosition, PiecePosition targetPosition) {
         //TO-DO 기물별 허용 움직임 범위인지 체크
         MovingDirection movingDirection = new MovingDirection(sourcePosition, targetPosition);
         Piece sourcePiece = plate.get(sourcePosition);
+        Piece targetPiece = plate.get(targetPosition);
         if (sourcePiece == null) {
-            return false;
+            return ChessController.REASK;
         }
         //기물별 움직임 범위 체크
         if (!sourcePiece.canMoveTo(targetPosition)) {
-            return false;
+            return ChessController.REASK;
         }
         //가는 길에 기물이 있는지 체크
         if (havePieceOnPath(movingDirection)) {
-            return false;
+            return ChessController.REASK;
         }
         //이동 위치에 상대 말인지 /내말이 아닐 경우에만 이동한다
-        Piece targetPiece = plate.get(targetPosition);
         if (targetPiece != null && targetPiece.getTeam().equals(sourcePiece.getTeam())) {
-            return false;
+            return ChessController.REASK;
         }
         //폰인경우
         if (sourcePiece instanceof Pawn && targetPiece != null && movingDirection.isVertical()) {
-            return false;
+            return ChessController.REASK;
         }
         if (sourcePiece instanceof Pawn && targetPiece == null && movingDirection.isDiagonal()) {
-            return false;
+            return ChessController.REASK;
         }
 
         executeMove(sourcePosition, targetPosition);
-        return true;
+        if(targetPiece instanceof King){
+            return ChessController.END;
+        }
+        return ChessController.MOVE;
     }
 
     private void executeMove(PiecePosition sourcePosition, PiecePosition targetPosition) {

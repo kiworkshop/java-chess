@@ -1,6 +1,6 @@
 package chess.view;
 
-import chess.domain.plate.RankComparator;
+import chess.domain.RankComparator;
 import chess.domain.piece.PiecePosition;
 import chess.domain.plate.ChessPlate;
 import chess.domain.plate.File;

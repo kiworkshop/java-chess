@@ -11,6 +11,7 @@ public class ChessController {
     public static final String START = "start";
     public static final String END = "end";
     public static final String MOVE = "move";
+    public static final String REASK = "reAsk";
 
     public void play() {
         ChessService chessService = new ChessService();
@@ -18,24 +19,40 @@ public class ChessController {
         String command = START;
         while (!command.equals(END)){
             command = getCommand();
-            checkCommadMessage(chessService, command);
+            if(!command.equals(END)){
+                command = checkCommadMessage(chessService, command);
+            }
         }
     }
 
-    private void checkCommadMessage(ChessService chessService, String command) {
+    private String checkCommadMessage(ChessService chessService, String command) {
         if(command.equals(START)){
-            ChessPlate chessplate = chessService.start();
-            outputView.printChessPlate(chessplate);
+            playStart(chessService);
+            return START;
         }
         if(command.startsWith(MOVE)) {
-            String[] position = command.split(" ");
-            boolean isMoved = chessService.move(position[1],position[2]);
-            if (isMoved) {
-                outputView.printChessPlate(chessService.getChessPlate());
-            } else {
-                outputView.printCannotMoveMessage();
-            }
+            return playMove(chessService, command);
         }
+        return REASK;
+    }
+
+    private String playMove(ChessService chessService, String command) {
+        String[] position = command.split(" ");
+        String status = chessService.move(position[1],position[2]);
+        if (status.equals(MOVE)) {
+            outputView.printChessPlate(chessService.getChessPlate());
+            return MOVE;
+        }
+        if(status.equals(REASK)) {
+            outputView.printCannotMoveMessage();
+            return REASK;
+        }
+        return END;
+    }
+
+    private void playStart(ChessService chessService) {
+        ChessPlate chessplate = chessService.start();
+        outputView.printChessPlate(chessplate);
     }
 
     private static String getCommand() {
