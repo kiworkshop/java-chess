@@ -1,9 +1,9 @@
 package chess.view;
 
 import chess.domain.RankComparator;
-import chess.domain.piece.File;
+import chess.domain.plate.File;
 import chess.domain.piece.PiecePosition;
-import chess.domain.piece.Rank;
+import chess.domain.plate.Rank;
 import chess.domain.plate.ChessPlate;
 
 import java.util.Arrays;

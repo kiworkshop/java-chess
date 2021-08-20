@@ -1,5 +1,7 @@
 package chess.domain.piece;
 
+import chess.domain.plate.File;
+import chess.domain.plate.Rank;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

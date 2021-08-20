@@ -1,6 +1,7 @@
 package chess.domain.team;
 
 import chess.domain.piece.*;
+import chess.domain.plate.File;
 import lombok.Getter;
 
 import java.util.LinkedList;

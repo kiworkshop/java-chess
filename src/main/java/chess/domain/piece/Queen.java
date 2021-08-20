@@ -1,5 +1,6 @@
 package chess.domain.piece;
 
+import chess.domain.team.Team;
 import lombok.Getter;
 
 @Getter

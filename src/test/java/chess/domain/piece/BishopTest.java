@@ -1,5 +1,8 @@
 package chess.domain.piece;
 
+import chess.domain.plate.File;
+import chess.domain.plate.Rank;
+import chess.domain.team.Team;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

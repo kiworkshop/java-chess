@@ -1,7 +1,6 @@
 package chess.domain;
 
 import chess.domain.piece.PiecePosition;
-import chess.domain.piece.Rank;
 
 import java.util.Comparator;
 

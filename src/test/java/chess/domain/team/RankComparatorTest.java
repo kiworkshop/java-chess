@@ -1,7 +1,7 @@
 package chess.domain.team;
 
 import chess.domain.RankComparator;
-import chess.domain.piece.Rank;
+import chess.domain.plate.Rank;
 
 import java.util.Arrays;
 

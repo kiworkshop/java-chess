@@ -4,6 +4,7 @@ import chess.domain.MovingDirection;
 import chess.domain.RankComparator;
 import chess.domain.piece.*;
 import chess.domain.team.Camp;
+import chess.domain.team.Team;
 import lombok.Getter;
 
 import java.util.HashMap;

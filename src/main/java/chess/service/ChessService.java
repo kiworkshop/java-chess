@@ -2,9 +2,11 @@ package chess.service;
 
 import chess.domain.piece.*;
 import chess.domain.plate.ChessPlate;
+import chess.domain.plate.File;
+import chess.domain.plate.Rank;
+import chess.domain.team.Team;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

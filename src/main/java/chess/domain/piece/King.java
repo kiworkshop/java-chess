@@ -1,5 +1,7 @@
 package chess.domain.piece;
 
+import chess.domain.team.Team;
+
 public class King extends Piece {
     public King(Team team, PiecePosition piecePosition) {
         super("K", team, piecePosition, 0);
