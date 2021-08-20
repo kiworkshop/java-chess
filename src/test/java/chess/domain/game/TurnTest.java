@@ -19,6 +19,6 @@ public class TurnTest {
         turn = turn.toggle();
 
         //then
-        assertThat(turn.getTeam()).isEqualTo(Team.BLACK);
+        assertThat(turn.team()).isEqualTo(Team.BLACK);
     }
 }

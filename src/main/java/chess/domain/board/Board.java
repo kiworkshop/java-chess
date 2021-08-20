@@ -18,21 +18,12 @@ public class Board {
         return new Board(board);
     }
 
-    public Map<Position, Piece> move(Position source, Position target) {
-        Piece sourcePiece = board.get(source);
-        validateSource(sourcePiece);
-        sourcePiece.move(target);
-
-        board.put(source, Blank.of(source));
-        board.put(target, sourcePiece);
+    public Map<Position, Piece> move(Piece source, Piece target) {
+        board.put(source.position(), Blank.of(source.position()));
+        board.put(target.position(), source);
         return board;
     }
 
-    private void validateSource(Piece sourcePiece) {
-        if (sourcePiece.team().equals(Team.NEUTRAL)) {
-            throw new IllegalArgumentException("지정 위치에 체스말이 없습니다.");
-        }
-    }
 
     public Map<Position, Piece> values() {
         return Collections.unmodifiableMap(board);

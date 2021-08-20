@@ -20,7 +20,7 @@ public class Turn {
         return Turn.of(Team.BLACK);
     }
 
-    public Team getTeam() {
+    public Team team() {
         return turn;
     }
 }

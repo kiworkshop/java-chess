@@ -3,7 +3,7 @@ package chess.domain.state;
 import chess.domain.board.Board;
 import chess.domain.board.BoardInitializer;
 import chess.domain.board.Team;
-import chess.domain.position.Position;
+import chess.domain.piece.Piece;
 import chess.game.Turn;
 
 public class Ready implements GameState {
@@ -15,11 +15,11 @@ public class Ready implements GameState {
 
     @Override
     public GameState start() {
-        return new Playing(Turn.of(Team.WHITE));
+        return new Playing(Turn.of(Team.WHITE), board);
     }
 
     @Override
-    public GameState move(Position source, Position target) {
+    public GameState moveAndToggleTurn(Piece source, Piece target) {
         throw new UnsupportedOperationException("게임이 시작되지 않았습니다.");
     }
 
@@ -34,7 +34,7 @@ public class Ready implements GameState {
     }
 
     @Override
-    public Board getBoard() {
+    public Board board() {
         return board;
     }
 }

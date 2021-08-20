@@ -6,7 +6,6 @@ import chess.domain.position.Position;
 
 public abstract class Piece extends Movement {
     protected Team team;
-    protected Position position;
 
     protected Piece(Team team, Position position) {
         this.team = team;
@@ -15,15 +14,7 @@ public abstract class Piece extends Movement {
 
     public abstract String symbol();
 
-    public void move(Position target) {
-        this.position = target;
-    }
-
     public Team team() {
         return team;
-    }
-
-    public Position position() {
-        return position;
     }
 }

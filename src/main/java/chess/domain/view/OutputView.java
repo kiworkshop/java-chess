@@ -1,16 +1,13 @@
 package chess.domain.view;
 
-import chess.domain.piece.Piece;
+import chess.domain.board.Board;
 import chess.domain.position.Position;
 import chess.dto.ChessGameDto;
-
-import java.util.Map;
 
 public class OutputView {
     private static final int FILE_SIZE = 8;
 
     private OutputView() {
-
     }
 
     public static void printStartMessage() {
@@ -21,11 +18,12 @@ public class OutputView {
     }
 
     public static void printChessBoard(ChessGameDto chessGameDto) {
-        Map<Position, Piece> board = chessGameDto.getBoard();
-        board.keySet().forEach(position -> {
-            System.out.print(board.get(position).symbol());
-            separateLine(position);
-        });
+        Board board = chessGameDto.board();
+        board.values().keySet()
+                .forEach(position -> {
+                    System.out.print(board.from(position).symbol());
+                    separateLine(position);
+                });
     }
 
     private static void separateLine(Position position) {

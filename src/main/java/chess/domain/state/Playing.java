@@ -1,15 +1,16 @@
 package chess.domain.state;
 
 import chess.domain.board.Board;
-import chess.domain.position.Position;
+import chess.domain.piece.Piece;
 import chess.game.Turn;
 
 public class Playing implements GameState {
     private Turn turn;
     private Board board;
 
-    public Playing(Turn turn) {
+    public Playing(Turn turn, Board board) {
         this.turn = turn;
+        this.board = board;
     }
 
     @Override
@@ -18,15 +19,17 @@ public class Playing implements GameState {
     }
 
     @Override
-    public GameState move(Position source, Position target) {
-        board.move(source, target);
-        turn = turn.toggle();
+    public GameState moveAndToggleTurn(Piece source, Piece target) {
+        if (source.canMove(source, target)) {
+            source.move(target.position());
+            turn = turn.toggle();
+        }
         return this;
     }
 
     @Override
     public GameState end() {
-        return null;
+        return new Finish();
     }
 
     @Override
@@ -35,7 +38,7 @@ public class Playing implements GameState {
     }
 
     @Override
-    public Board getBoard() {
+    public Board board() {
         return board;
     }
 }

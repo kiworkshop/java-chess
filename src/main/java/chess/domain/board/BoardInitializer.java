@@ -9,6 +9,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BoardInitializer {
+    private BoardInitializer() {
+    }
+
     public static Map<Position, Piece> reset() {
         Map<Position, Piece> initialChessBoard = new LinkedHashMap<>();
         setupBlankPieces(initialChessBoard);
@@ -23,7 +26,7 @@ public class BoardInitializer {
     }
 
     private static void setupBlankPieces(Map<Position, Piece> initialChessBoard) {
-        Position.all().stream()
+        Position.all()
                 .forEach(position -> initialChessBoard.put(position, Blank.of(position)));
     }
 }

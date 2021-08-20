@@ -1,10 +1,8 @@
 package chess.domain.state;
 
 import chess.domain.board.Board;
-import chess.domain.position.Position;
+import chess.domain.piece.Piece;
 import chess.game.Turn;
-
-import java.util.LinkedHashMap;
 
 public class Finish implements GameState {
     @Override
@@ -13,13 +11,13 @@ public class Finish implements GameState {
     }
 
     @Override
-    public GameState move(Position source, Position target) {
+    public GameState moveAndToggleTurn(Piece source, Piece target) {
         throw new UnsupportedOperationException("이미 게임이 종료되었습니다. 체스말을 움직일 수 없습니다.");
     }
 
     @Override
     public GameState end() {
-        return new Finish();
+        throw new UnsupportedOperationException("이미 게임이 종료되었습니다.");
     }
 
     @Override
@@ -28,7 +26,7 @@ public class Finish implements GameState {
     }
 
     @Override
-    public Board getBoard() {
-        return Board.of(new LinkedHashMap<>());
+    public Board board() {
+        throw new UnsupportedOperationException("이미 게임이 종료되었습니다.");
     }
 }

@@ -15,9 +15,11 @@ public class ConsoleChessApplication {
         }
         controller.gameStart();
 
+        // move
+
         String endInput = InputView.getUserInput();
         if (!endInput.equals("end")) {
-            throw new IllegalArgumentException("체스 게임을 시작하려면 end 를 입력해 주세요.");
+            throw new IllegalArgumentException("체스 게임을 시작하려면 end를 입력해 주세요.");
         }
         controller.gameEnd();
     }

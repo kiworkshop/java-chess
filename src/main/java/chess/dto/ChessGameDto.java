@@ -1,26 +1,19 @@
 package chess.dto;
 
-import chess.domain.piece.Piece;
-import chess.domain.position.Position;
+import chess.domain.board.Board;
 import chess.domain.state.GameState;
-
-import java.util.Collections;
-import java.util.Map;
+import chess.game.ChessGame;
 
 public class ChessGameDto {
     private GameState gameState;
-    private Map<Position, Piece> board;
+    private Board board;
 
-    public ChessGameDto(GameState gameState, Map<Position, Piece> board) {
-        this.gameState = gameState;
-        this.board = board;
+    public ChessGameDto(ChessGame chessGame) {
+        this.gameState = chessGame.state();
+        this.board = chessGame.board();
     }
 
-    public GameState getGameState() {
-        return gameState;
-    }
-
-    public Map<Position, Piece> getBoard() {
-        return Collections.unmodifiableMap(board);
+    public Board board() {
+        return board;
     }
 }

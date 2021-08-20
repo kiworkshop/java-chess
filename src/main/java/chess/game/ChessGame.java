@@ -1,42 +1,48 @@
 package chess.game;
 
 import chess.domain.board.Board;
-import chess.domain.position.Position;
-import chess.domain.state.Finish;
+import chess.domain.piece.Piece;
 import chess.domain.state.GameState;
-import chess.dto.ChessGameDto;
+import chess.domain.state.Ready;
 
 public class ChessGame {
     private GameState gameState;
     private Board board;
 
-    public ChessGameDto startGame(GameState gameState) {
+    private ChessGame(GameState gameState, Board board) {
         this.gameState = gameState;
-        this.board = gameState.getBoard();
-        return new ChessGameDto(gameState, board.values());
+        this.board = board;
     }
 
-    public ChessGameDto move(Position source, Position target) {
-        this.gameState = gameState.start();
-        board.move(source, target);
-        return new ChessGameDto(gameState, board.values());
+    public static ChessGame of(GameState gameState, Board board) {
+        return new ChessGame(gameState, board);
     }
 
-    public ChessGameDto endGame() {
-        Finish finish = new Finish();
-        changeChessGame(finish);
-        return new ChessGameDto(gameState, board.values());
+    public ChessGame ready() {
+        Ready ready = new Ready();
+        return new ChessGame(ready, ready.board());
     }
 
-    private void changeChessGame(GameState gameState) {
-        this.gameState = gameState;
+    public ChessGame start() {
+        GameState start = gameState.start();
+        return new ChessGame(start, start.board());
     }
 
-    public GameState getGameState() {
+    public ChessGame move(Piece source, Piece target) {
+        GameState playing = gameState.moveAndToggleTurn(source, target);
+        return new ChessGame(playing, playing.board());
+    }
+
+    public ChessGame end() {
+        GameState end = gameState.end();
+        return new ChessGame(end, end.board());
+    }
+
+    public GameState state() {
         return gameState;
     }
 
-    public Board getBoard() {
+    public Board board() {
         return board;
     }
 }

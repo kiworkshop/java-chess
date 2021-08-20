@@ -1,19 +1,19 @@
 package chess.domain.state;
 
 import chess.domain.board.Board;
-import chess.domain.position.Position;
+import chess.domain.piece.Piece;
 import chess.game.Turn;
 
 public interface GameState {
 
     GameState start();
 
-    GameState move(Position source, Position target);
+    GameState moveAndToggleTurn(Piece source, Piece target);
 
     GameState end();
 
     Turn turn();
 
-    Board getBoard();
+    Board board();
 
 }
