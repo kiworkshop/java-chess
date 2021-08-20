@@ -1,14 +1,9 @@
-package chess.domain.board;
+package chess.domain.player;
 
-import chess.domain.piece.MoveCoordinate;
+import chess.domain.board.File;
+import chess.domain.board.Rank;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Position {
     private static final Map<String, Position> POSITIONS = createPositions();
@@ -17,7 +12,8 @@ public class Position {
         Map<String, Position> positions = new LinkedHashMap<>();
 
         Arrays.stream(File.values())
-                .forEach(file -> Arrays.stream(Rank.values()).forEach(rank -> positions.put(createKey(file, rank), new Position(file, rank))));
+                .forEach(file -> Arrays.stream(Rank.values())
+                        .forEach(rank -> positions.put(createKey(file, rank), new Position(file, rank))));
 
         return positions;
     }
@@ -42,20 +38,12 @@ public class Position {
         this.rank = rank;
     }
 
-    public File getFile() {
-        return file;
+    public int calculateFileGap(final Position position) {
+        return file.calculateGap(position.getFile());
     }
 
-    public Rank getRank() {
-        return rank;
-    }
-
-    public int calculateFileGap(final Position source) {
-        return file.calculateGap(source.getFile());
-    }
-
-    public int calculateRankGap(final Position source) {
-        return rank.calculateGap(source.getRank());
+    public int calculateRankGap(final Position position) {
+        return rank.calculateGap(position.getRank());
     }
 
     public Set<Position> findPassingPositions(Position target, MoveCoordinate moveCoordinate) {
@@ -109,5 +97,13 @@ public class Position {
 
     public boolean hasSameRank(Rank rank) {
         return this.rank == rank;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public Rank getRank() {
+        return rank;
     }
 }

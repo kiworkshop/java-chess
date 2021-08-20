@@ -1,17 +1,15 @@
 package chess.domain.piece;
 
-import chess.domain.board.Position;
 import chess.domain.board.Rank;
-import chess.domain.piece.pattern.MovePattern;
+import chess.domain.piece.type.MovePattern;
+import chess.domain.player.MoveCoordinate;
+import chess.domain.player.Position;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static chess.domain.piece.MoveCoordinate.BLACK_PAWN_INITIAL_SOUTH;
-import static chess.domain.piece.MoveCoordinate.NORTH;
-import static chess.domain.piece.MoveCoordinate.SOUTH;
-import static chess.domain.piece.MoveCoordinate.WHITE_PAWN_INITIAL_NORTH;
+import static chess.domain.player.MoveCoordinate.*;
 
 public class Pawn extends Piece {
 

@@ -2,10 +2,10 @@ package chess.controller.dto;
 
 import chess.domain.board.Board;
 import chess.domain.board.File;
-import chess.domain.board.Position;
 import chess.domain.board.Rank;
 import chess.domain.piece.Piece;
-import chess.domain.piece.mapper.PieceMappers;
+import chess.domain.piece.type.PieceType;
+import chess.domain.player.Position;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +30,7 @@ public class BoardDto {
         }
 
         Piece piece = board.findBy(position);
-        String name = PieceMappers.findNameBy(piece);
+        String name = PieceType.findNameBy(piece);
         PositionDto positionDto = new PositionDto(position.getFile(), name);
         positionDtos.add(positionDto);
     }

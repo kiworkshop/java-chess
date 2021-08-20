@@ -1,8 +1,8 @@
 package chess.domain.piece;
 
 import chess.domain.board.File;
-import chess.domain.board.Position;
 import chess.domain.board.Rank;
+import chess.domain.player.Position;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,7 +42,7 @@ class QueenTest {
     @ParameterizedTest
     @ValueSource(strings = {"d5", "c4", "e4", "d3"})
     @DisplayName("출발과 도착 위치가 주어지면 지나가는 경로를 반환한다.")
-    void find_paths_success_straight(String targetPosition) {
+    void find_paths_success_cardinal(String targetPosition) {
         //given
         Position source = Position.of("d4");
         Position target = Position.of(targetPosition);
@@ -65,7 +65,8 @@ class QueenTest {
         Piece piece = new Queen(Color.WHITE);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> piece.findPath(source, target));
     }
 
     @Test

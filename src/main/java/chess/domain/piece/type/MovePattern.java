@@ -1,32 +1,11 @@
-package chess.domain.piece.pattern;
+package chess.domain.piece.type;
 
 import chess.domain.piece.Color;
-import chess.domain.piece.MoveCoordinate;
+import chess.domain.player.MoveCoordinate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
-import static chess.domain.piece.MoveCoordinate.BLACK_PAWN_INITIAL_SOUTH;
-import static chess.domain.piece.MoveCoordinate.EAST;
-import static chess.domain.piece.MoveCoordinate.NORTH;
-import static chess.domain.piece.MoveCoordinate.NORTH_EAST;
-import static chess.domain.piece.MoveCoordinate.NORTH_EAST_LEFT;
-import static chess.domain.piece.MoveCoordinate.NORTH_EAST_RIGHT;
-import static chess.domain.piece.MoveCoordinate.NORTH_WEST;
-import static chess.domain.piece.MoveCoordinate.NORTH_WEST_LEFT;
-import static chess.domain.piece.MoveCoordinate.NORTH_WEST_RIGHT;
-import static chess.domain.piece.MoveCoordinate.SOUTH;
-import static chess.domain.piece.MoveCoordinate.SOUTH_EAST;
-import static chess.domain.piece.MoveCoordinate.SOUTH_EAST_LEFT;
-import static chess.domain.piece.MoveCoordinate.SOUTH_EAST_RIGHT;
-import static chess.domain.piece.MoveCoordinate.SOUTH_WEST;
-import static chess.domain.piece.MoveCoordinate.SOUTH_WEST_LEFT;
-import static chess.domain.piece.MoveCoordinate.SOUTH_WEST_RIGHT;
-import static chess.domain.piece.MoveCoordinate.WEST;
-import static chess.domain.piece.MoveCoordinate.WHITE_PAWN_INITIAL_NORTH;
+import static chess.domain.player.MoveCoordinate.*;
 
 public class MovePattern {
 

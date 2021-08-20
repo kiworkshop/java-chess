@@ -1,7 +1,8 @@
 package chess.domain.piece;
 
-import chess.domain.board.Position;
-import chess.domain.piece.pattern.MovePattern;
+import chess.domain.piece.type.MovePattern;
+import chess.domain.player.MoveCoordinate;
+import chess.domain.player.Position;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -20,14 +21,6 @@ public abstract class Piece {
 
     public boolean isWhite() {
         return color.isWhite();
-    }
-
-    public boolean isKing() {
-        return this instanceof King;
-    }
-
-    public boolean isPawn() {
-        return this instanceof Pawn;
     }
 
     public Set<Position> findPath(final Position source, final Position target) {

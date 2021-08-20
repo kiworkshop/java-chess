@@ -1,12 +1,10 @@
 package chess.domain.player;
 
 import chess.domain.board.File;
-import chess.domain.board.Position;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceFactory;
-import chess.domain.piece.mapper.PawnMapper;
-import chess.domain.piece.mapper.PieceMappers;
+import chess.domain.piece.type.PieceType;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -22,33 +20,40 @@ public class Player {
     }
 
     public double sumScores() {
-        List<Position> pawnPositions = pieces.keySet()
+        List<Position> pawnPositions = findPawnPositions();
+
+        double pawnScores = calculatePawnScores(pawnPositions);
+        double scoresExceptPawn = calculateScoresExceptPawn();
+        return pawnScores + scoresExceptPawn;
+    }
+
+    private List<Position> findPawnPositions() {
+        return pieces.keySet()
                 .stream()
                 .filter(position -> {
                     Piece piece = pieces.get(position);
-                    return piece.isPawn();
+                    return PieceType.isPawn(piece);
                 })
                 .collect(Collectors.toList());
-
-        double pawnScores = calculatePawnScores(pawnPositions);
-        double sum = pieces.values()
-                .stream()
-                .filter(piece -> !piece.isPawn())
-                .mapToDouble(PieceMappers::findScoreBy)
-                .sum();
-        return pawnScores + sum;
     }
 
     private double calculatePawnScores(final List<Position> pawnPositions) {
         Map<File, Integer> pawnCount = new EnumMap<>(File.class);
-
         pawnPositions.stream()
                 .map(Position::getFile)
                 .forEach(file -> pawnCount.put(file, pawnCount.getOrDefault(file, 0) + 1));
 
         return pawnCount.values()
                 .stream()
-                .mapToDouble(PawnMapper::calculate)
+                .mapToDouble(PieceType::sumPawnScores)
+                .sum();
+    }
+
+    private double calculateScoresExceptPawn() {
+        return pieces.values()
+                .stream()
+                .filter(piece -> !PieceType.isPawn(piece))
+                .mapToDouble(PieceType::findScoreBy)
                 .sum();
     }
 
@@ -81,12 +86,12 @@ public class Player {
     }
 
     public boolean hasKingOn(Position position) {
-        return findPieceBy(position).isKing();
+        return PieceType.isKing(findPieceBy(position));
     }
 
     public boolean isKingDead() {
         return pieces.values().stream()
-                .noneMatch(Piece::isKing);
+                .noneMatch(PieceType::isKing);
     }
 
     public boolean canAttack(Position position) {

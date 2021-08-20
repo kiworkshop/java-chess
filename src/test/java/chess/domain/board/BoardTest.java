@@ -1,7 +1,7 @@
 package chess.domain.board;
 
 import chess.domain.command.MoveParameters;
-import chess.domain.piece.Pawn;
+import chess.domain.player.Position;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,12 +23,12 @@ public class BoardTest {
         Board board = new Board();
 
         //then
-        assertThat(board.findBy(pawnPosition)).isInstanceOf(Pawn.class);
+        assertThat(board.isEmpty(pawnPosition)).isFalse();
         assertThat(board.isEmpty(emptyPosition)).isTrue();
     }
 
     @Test
-    @DisplayName("인자로 받은 시작 위치에 기물이 존재하지 않을 경우 예외가 발생한다.")
+    @DisplayName("시작 위치에 기물이 존재하지 않을 경우 예외가 발생한다.")
     void move_source_position_empty() {
         //given
         Board board = new Board();
@@ -108,7 +108,7 @@ public class BoardTest {
 
     @ParameterizedTest
     @CsvSource({"e2, d2", "e2, e1"})
-    @DisplayName("킹 도착지를 상대방이 공격 가능한 경우 예외가 발생한다.")
+    @DisplayName("상대방이 킹의 목적지를 공격 가능한 경우 예외가 발생한다.")
     void move_king_invalid_target(String source, String target) {
         //given
         Board board = setBoardToAttackKing();

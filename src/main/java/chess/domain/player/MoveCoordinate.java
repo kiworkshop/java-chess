@@ -1,6 +1,4 @@
-package chess.domain.piece;
-
-import static java.lang.Math.abs;
+package chess.domain.player;
 
 public enum MoveCoordinate {
     NORTH_EAST(1, 1),
@@ -62,10 +60,6 @@ public enum MoveCoordinate {
 
     private boolean hasSameSign(final int fileGap, final int rankGap) {
         return (file ^ fileGap) >= 0 && (rank ^ rankGap) >= 0;
-    }
-
-    public int countMove() {
-        return abs(this.file) + abs(this.rank);
     }
 
     public int getFile() {

@@ -1,8 +1,8 @@
 package chess.domain.piece;
 
 import chess.domain.board.File;
-import chess.domain.board.Position;
 import chess.domain.board.Rank;
+import chess.domain.player.Position;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

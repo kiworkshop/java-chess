@@ -4,6 +4,7 @@ import chess.domain.command.MoveParameters;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.player.Player;
+import chess.domain.player.Position;
 
 import java.util.Set;
 

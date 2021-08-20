@@ -1,6 +1,5 @@
 package chess.domain.player;
 
-import chess.domain.board.Position;
 import chess.domain.piece.Color;
 import chess.domain.piece.Knight;
 import chess.domain.piece.Piece;
@@ -18,7 +17,7 @@ class AttackPositionsTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3"})
-    @DisplayName("기물들이 주어지면 공격 가능한 위치들이 초기화된다.")
+    @DisplayName("공격 가능한 위치들을 표시한다.")
     void create(String key) {
         //given
         Map<Position, Piece> pieces = PieceFactory.createPieces(Color.WHITE);
@@ -33,7 +32,7 @@ class AttackPositionsTest {
     }
 
     @Test
-    @DisplayName("시작 위치에서의 공격 가능한 위치들을 없애고, 도착 위치에서의 공격 가능한 위치를 추가한다.")
+    @DisplayName("공격 가능한 위치들을 갱신한다.")
     void update() {
         //given
         Map<Position, Piece> pieces = PieceFactory.createPieces(Color.WHITE);

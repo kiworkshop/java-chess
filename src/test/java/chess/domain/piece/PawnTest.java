@@ -1,6 +1,6 @@
 package chess.domain.piece;
 
-import chess.domain.board.Position;
+import chess.domain.player.Position;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -16,8 +16,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class PawnTest {
 
     @ParameterizedTest
-    @CsvSource({"b2, b3, WHITE", "b2, a3, WHITE", "b2, c3, WHITE",
-            "b7, b6, BLACK", "b7, a6, BLACK", "b7, c6, BLACK"})
+    @CsvSource({"b2, b3, WHITE", "b7, b6, BLACK"})
     @DisplayName("최초 이동 시 1칸 전진한다.")
     void find_paths_success_move_count_one_on_initial_move(String sourcePosition, String targetPosition, Color color) {
         //given
@@ -75,12 +74,12 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> piece.findPath(source, target));
     }
 
     @ParameterizedTest
-    @CsvSource({"d4, d6, WHITE", "d4, c6, WHITE", "d4, e6, WHITE",
-            "d4, d2, BLACK", "d4, c2, BLACK", "d4, e2, BLACK"})
+    @CsvSource({"d4, d6, WHITE", "d4, d2, BLACK"})
     @DisplayName("최초 이동이 아닌 경우 1칸 초과 전진하면 예외가 발생한다.")
     void find_paths_fail_move_invalid_count(String sourcePosition, String targetPosition, Color color) {
         //given
@@ -89,7 +88,8 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> piece.findPath(source, target));
     }
 
     @ParameterizedTest
@@ -102,7 +102,8 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> piece.findPath(source, target));
     }
 
     @Test

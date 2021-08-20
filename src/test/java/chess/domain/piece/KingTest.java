@@ -1,6 +1,6 @@
 package chess.domain.piece;
 
-import chess.domain.board.Position;
+import chess.domain.player.Position;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -41,7 +41,8 @@ class KingTest {
         Piece piece = new King(Color.WHITE);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> piece.findPath(source, target));
     }
 
     @Test
