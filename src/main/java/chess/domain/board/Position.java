@@ -1,12 +1,14 @@
 package chess.domain.board;
 
-import chess.domain.piece.Direction;
+import chess.domain.piece.MoveCoordinate;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Position {
     private static final Map<String, Position> POSITIONS = createPositions();
@@ -56,29 +58,56 @@ public class Position {
         return rank.calculateGap(source.getRank());
     }
 
-    public Position move(final Direction direction) {
-        File file = this.file.add(direction.getFile());
-        Rank rank = this.rank.add(direction.getRank());
-        return Position.from(file, rank);
+    public Set<Position> findPassingPositions(Position target, MoveCoordinate moveCoordinate) {
+        Set<Position> positions = new HashSet<>();
+        Position current = this;
+
+        while (!target.equals(current)) {
+            current = current.move(moveCoordinate);
+            positions.add(current);
+        }
+
+        positions.remove(target);
+        return positions;
     }
 
     public boolean hasSameRank(final Rank rank) {
         return this.rank == rank;
     }
 
-    public Collection<Position> findAvailablePositions(final Direction direction) {
+    public Collection<Position> findAvailablePositions(final MoveCoordinate moveCoordinate, final boolean isFinite) {
+        if (isFinite) {
+            return getFinitePositions(moveCoordinate);
+        }
+        return getInfinitePositions(moveCoordinate);
+    }
+
+    private Collection<Position> getFinitePositions(MoveCoordinate moveCoordinate) {
+        if (isMovable(moveCoordinate)) {
+            return Collections.singleton(move(moveCoordinate));
+        }
+        return Collections.emptySet();
+    }
+
+    private Collection<Position> getInfinitePositions(MoveCoordinate moveCoordinate) {
         Collection<Position> positions = new HashSet<>();
 
         Position current = this;
-        while (current.isMovable(direction)) {
-            current = current.move(direction);
+        while (current.isMovable(moveCoordinate)) {
+            current = current.move(moveCoordinate);
             positions.add(current);
         }
 
         return positions;
     }
 
-    private boolean isMovable(final Direction direction) {
-        return rank.canMove(direction.getRank()) && file.canMove(direction.getFile());
+    private boolean isMovable(final MoveCoordinate moveCoordinate) {
+        return rank.canMove(moveCoordinate.getRank()) && file.canMove(moveCoordinate.getFile());
+    }
+
+    private Position move(final MoveCoordinate moveCoordinate) {
+        File file = this.file.add(moveCoordinate.getFile());
+        Rank rank = this.rank.add(moveCoordinate.getRank());
+        return Position.from(file, rank);
     }
 }

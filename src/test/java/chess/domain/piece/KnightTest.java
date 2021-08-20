@@ -2,9 +2,12 @@ package chess.domain.piece;
 
 import chess.domain.board.Position;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,7 +25,7 @@ class KnightTest {
         Piece piece = new Knight(Color.WHITE);
 
         //when
-        Set<Position> paths = piece.findPaths(source, target);
+        Set<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).isEmpty();
@@ -38,6 +41,26 @@ class KnightTest {
         Piece piece = new Knight(Color.WHITE);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPaths(source, target));
+        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
+    }
+
+    @Test
+    @DisplayName("입력받은 위치에서 공격 가능한 위치들을 반환해준다.")
+    void find_available_attack_positions() {
+        //given
+        Position position = Position.of("d4");
+        Piece knight = new Knight(Color.WHITE);
+        Collection<Position> expected = Arrays.asList(
+                Position.of("c6"), Position.of("c2"), Position.of("e6"), Position.of("e2"),
+                Position.of("b5"), Position.of("b3"), Position.of("f5"), Position.of("f3")
+        );
+
+        //when
+        Collection<Position> availableAttackPositions = knight.findAvailableAttackPositions(position);
+
+        //then
+        assertThat(availableAttackPositions)
+                .hasSize(expected.size())
+                .containsAll(expected);
     }
 }

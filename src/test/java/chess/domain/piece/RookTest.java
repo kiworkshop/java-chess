@@ -31,7 +31,7 @@ public class RookTest {
         Piece piece = new Rook(Color.WHITE);
 
         //when
-        Set<Position> paths = piece.findPaths(source, target);
+        Set<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).extracting("file", "rank")
@@ -47,7 +47,7 @@ public class RookTest {
         Piece piece = new Rook(Color.WHITE);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPaths(source, target));
+        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
     }
 
     @Test

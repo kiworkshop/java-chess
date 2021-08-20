@@ -1,6 +1,7 @@
 package chess.domain.piece;
 
 import chess.domain.board.Position;
+import chess.domain.piece.pattern.MovePattern;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -9,18 +10,16 @@ import java.util.stream.Collectors;
 
 import static chess.domain.piece.Color.BLACK;
 import static chess.domain.piece.Color.WHITE;
-import static java.lang.Math.abs;
 
 public abstract class Piece {
-    private final Collection<Direction> DIRECTIONS;
+
+    protected final MovePattern movePattern;
     private final Color color;
 
-    Piece(final Collection<Direction> DIRECTIONS, final Color color) {
-        this.DIRECTIONS = DIRECTIONS;
+    Piece(final MovePattern movePattern, final Color color) {
+        this.movePattern = movePattern;
         this.color = color;
     }
-
-    protected abstract void validatePattern(final int fileGap, final int rankGap);
 
     public boolean isWhite() {
         return color == WHITE;
@@ -30,48 +29,27 @@ public abstract class Piece {
         return color == BLACK;
     }
 
-    public Set<Position> findPaths(final Position source, final Position target) {
+    public Set<Position> findPath(final Position source, final Position target) {
         int fileGap = target.calculateFileGap(source);
         int rankGap = target.calculateRankGap(source);
-        validatePattern(abs(fileGap), abs(rankGap));
 
-        Direction direction = Direction.of(fileGap, rankGap);
-        return collectPositions(source, target, direction);
+        MoveCoordinate moveCoordinate = movePattern.findMoveCoordinate(fileGap, rankGap);
+        return source.findPassingPositions(target, moveCoordinate);
     }
 
-    protected boolean isStraight(final int fileGap, final int rankGap) {
-        return fileGap == 0 || rankGap == 0;
-    }
-
-    protected boolean isFiniteStraight(final int fileGap, final int rankGap) {
-        return (fileGap + rankGap) == 1;
-    }
-
-    protected boolean isDiagonal(final int fileGap, final int rankGap) {
-        return fileGap == rankGap;
-    }
-
-    protected boolean isFiniteDiagonal(final int fileGap, final int rankGap) {
-        return (fileGap == 1) && (rankGap == 1);
-    }
-
-    public Set<Position> collectPositions(final Position source, final Position target, final Direction direction) {
-        Set<Position> positions = new HashSet<>();
-        Position current = source;
-
-        while (!target.equals(current)) {
-            current = current.move(direction);
-            positions.add(current);
-        }
-
-        positions.remove(target);
-        return positions;
-    }
-
-    public Collection<Position> findAvailableAttackPositions(Position position) {
-        return DIRECTIONS.stream()
-                .map(position::findAvailablePositions)
+    public Collection<Position> findAvailableAttackPositions(final Position position) {
+        Set<Position> finitePositions = movePattern.finiteMoveCoordinates().stream()
+                .map(moveCoordinate -> position.findAvailablePositions(moveCoordinate, true))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
+
+        Set<Position> infinitePositions = movePattern.infiniteMoveCoordinates().stream()
+                .map(moveCoordinate -> position.findAvailablePositions(moveCoordinate, false))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toSet());
+
+        Collection<Position> positions = new HashSet<>(finitePositions);
+        positions.addAll(infinitePositions);
+        return positions;
     }
 }

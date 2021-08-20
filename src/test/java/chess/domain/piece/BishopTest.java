@@ -31,7 +31,7 @@ class BishopTest {
         Piece piece = new Bishop(Color.WHITE);
 
         //when
-        Set<Position> paths = piece.findPaths(source, target);
+        Set<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).extracting("file", "rank")
@@ -47,7 +47,7 @@ class BishopTest {
         Piece piece = new Bishop(Color.WHITE);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPaths(source, target));
+        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
     }
 
     @Test
@@ -68,6 +68,7 @@ class BishopTest {
 
         //then
         assertThat(availableAttackPositions)
+                .hasSize(expected.size())
                 .containsAll(expected);
     }
 

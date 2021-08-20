@@ -2,5 +2,10 @@ package chess.domain.piece;
 
 public enum Color {
     WHITE,
-    BLACK
+    BLACK;
+
+    public boolean isWhite() {
+        return this == WHITE;
+
+    }
 }

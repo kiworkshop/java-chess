@@ -2,9 +2,12 @@ package chess.domain.piece;
 
 import chess.domain.board.Position;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +26,7 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when
-        Set<Position> paths = piece.findPaths(source, target);
+        Set<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).isEmpty();
@@ -39,7 +42,7 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when
-        Set<Position> paths = piece.findPaths(source, target);
+        Set<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).containsOnly(Position.of(expected));
@@ -56,7 +59,7 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when
-        Set<Position> paths = piece.findPaths(source, target);
+        Set<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).isEmpty();
@@ -72,7 +75,7 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPaths(source, target));
+        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
     }
 
     @ParameterizedTest
@@ -86,7 +89,7 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPaths(source, target));
+        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
     }
 
     @ParameterizedTest
@@ -99,6 +102,25 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPaths(source, target));
+        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
+    }
+
+    @Test
+    @DisplayName("입력받은 위치에서 공격 가능한 위치들을 반환해준다.")
+    void find_available_attack_positions() {
+        //given
+        Position position = Position.of("d4");
+        Piece pawn = new Pawn(Color.WHITE);
+        Collection<Position> expected = Arrays.asList(
+                Position.of("c5"), Position.of("e5")
+        );
+
+        //when
+        Collection<Position> availableAttackPositions = pawn.findAvailableAttackPositions(position);
+
+        //then
+        assertThat(availableAttackPositions)
+                .hasSize(expected.size())
+                .containsAll(expected);
     }
 }

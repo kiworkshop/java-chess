@@ -5,11 +5,14 @@ import chess.domain.board.Position;
 import chess.domain.board.Rank;
 import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -29,7 +32,7 @@ class QueenTest {
         Piece piece = new Queen(Color.WHITE);
 
         //when
-        Set<Position> paths = piece.findPaths(source, target);
+        Set<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).extracting("file", "rank")
@@ -46,7 +49,7 @@ class QueenTest {
         Piece piece = new Queen(Color.WHITE);
 
         //when
-        Set<Position> paths = piece.findPaths(source, target);
+        Set<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).isEmpty();
@@ -62,7 +65,28 @@ class QueenTest {
         Piece piece = new Queen(Color.WHITE);
 
         //when //then
-        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPaths(source, target));
+        assertThatIllegalArgumentException().isThrownBy(() -> piece.findPath(source, target));
+    }
+
+    @Test
+    @DisplayName("입력받은 위치에서 공격 가능한 위치들을 반환해준다.")
+    void find_available_attack_positions() {
+        //given
+        Position position = Position.of("d4");
+        Piece queen = new Queen(Color.WHITE);
+        Collection<Position> expected = Arrays.asList(
+                Position.of("a1"), Position.of("b2"), Position.of("c3"), Position.of("e5"), Position.of("f6"), Position.of("g7"), Position.of("h8"),
+                Position.of("a7"), Position.of("b6"), Position.of("c5"), Position.of("e3"), Position.of("f2"), Position.of("g1"),
+                Position.of("d3"), Position.of("d5"), Position.of("c4"), Position.of("e4")
+        );
+
+        //when
+        Collection<Position> availableAttackPositions = queen.findAvailableAttackPositions(position);
+
+        //then
+        assertThat(availableAttackPositions)
+                .hasSize(expected.size())
+                .containsAll(expected);
     }
 
     private static Stream<Arguments> createParametersForDiagonal() {
