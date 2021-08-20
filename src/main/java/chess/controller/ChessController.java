@@ -21,6 +21,7 @@ public class ChessController {
         while (!command.equals(END)){
             command = getUserCommand();
             checkCommadMessage(chessService, command);
+            gameOverIfKingDead(chessService);
         }
     }
 
@@ -61,5 +62,16 @@ public class ChessController {
 
         outputView.printScoresOfTwoTeams(blackScore, whiteScore);
         outputView.printWinner(blackScore, whiteScore);
+    }
+
+    private void gameOverIfKingDead(ChessService chessService) {
+        if(chessService.isKingDead(Team.BLACK)) {
+            outputView.printBlackKingDeadMessage();
+            System.exit(0);
+        }
+        if(chessService.isKingDead(Team.WHITE)) {
+            outputView.printWhiteKingDeadMessage();
+            System.exit(0);
+        }
     }
 }

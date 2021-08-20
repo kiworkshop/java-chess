@@ -6,6 +6,7 @@ import chess.domain.piece.PiecePosition;
 import chess.domain.piece.Rank;
 import chess.domain.piece.Team;
 import chess.domain.plate.ChessPlate;
+import chess.service.ChessService;
 
 import java.util.Arrays;
 
@@ -59,6 +60,14 @@ public class OutputView {
         }
 
         System.out.println("무승부");
+    }
+
+    public void printBlackKingDeadMessage() {
+        System.out.println("Black King이 잡혔습니다. White 팀 승리");
+    }
+
+    public void printWhiteKingDeadMessage() {
+        System.out.println("White King이 잡혔습니다. Black 팀 승리");
     }
 
 }

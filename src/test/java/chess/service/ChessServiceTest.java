@@ -87,5 +87,4 @@ class ChessServiceTest {
         assertThat(service.isKingDead(Team.BLACK)).isFalse();
         assertThat(service.isKingDead(Team.WHITE)).isTrue();
     }
-
 }
