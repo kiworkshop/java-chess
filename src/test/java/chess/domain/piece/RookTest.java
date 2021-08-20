@@ -16,8 +16,8 @@ public class RookTest {
         Rook rook = new Rook(Team.BLACK, new PiecePosition(File.A, Rank.EIGHT));
 
         //when//then
-        assertThat(rook.movable(new PiecePosition(File.A, Rank.THREE))).isTrue();
-        assertThat(rook.movable(new PiecePosition(File.B, Rank.EIGHT))).isTrue();
-        assertThat(rook.movable(new PiecePosition(File.C, Rank.SEVEN))).isFalse();
+        assertThat(rook.canMoveTo(new PiecePosition(File.A, Rank.THREE))).isTrue();
+        assertThat(rook.canMoveTo(new PiecePosition(File.B, Rank.EIGHT))).isTrue();
+        assertThat(rook.canMoveTo(new PiecePosition(File.C, Rank.SEVEN))).isFalse();
     }
 }

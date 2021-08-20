@@ -16,19 +16,19 @@ public class QueenTest {
         Queen queen = new Queen(Team.BLACK, new PiecePosition(File.D, Rank.FOUR));
 
         //when//then
-        assertThat(queen.movable(new PiecePosition(File.D, Rank.THREE))).isTrue();
-        assertThat(queen.movable(new PiecePosition(File.D, Rank.FIVE))).isTrue();
-        assertThat(queen.movable(new PiecePosition(File.C, Rank.FOUR))).isTrue();
-        assertThat(queen.movable(new PiecePosition(File.E, Rank.FOUR))).isTrue();
-        assertThat(queen.movable(new PiecePosition(File.C, Rank.FIVE))).isTrue();
-        assertThat(queen.movable(new PiecePosition(File.C, Rank.THREE))).isTrue();
-        assertThat(queen.movable(new PiecePosition(File.E, Rank.FIVE))).isTrue();
-        assertThat(queen.movable(new PiecePosition(File.E, Rank.THREE))).isTrue();
+        assertThat(queen.canMoveTo(new PiecePosition(File.D, Rank.THREE))).isTrue();
+        assertThat(queen.canMoveTo(new PiecePosition(File.D, Rank.FIVE))).isTrue();
+        assertThat(queen.canMoveTo(new PiecePosition(File.C, Rank.FOUR))).isTrue();
+        assertThat(queen.canMoveTo(new PiecePosition(File.E, Rank.FOUR))).isTrue();
+        assertThat(queen.canMoveTo(new PiecePosition(File.C, Rank.FIVE))).isTrue();
+        assertThat(queen.canMoveTo(new PiecePosition(File.C, Rank.THREE))).isTrue();
+        assertThat(queen.canMoveTo(new PiecePosition(File.E, Rank.FIVE))).isTrue();
+        assertThat(queen.canMoveTo(new PiecePosition(File.E, Rank.THREE))).isTrue();
 
-        assertThat(queen.movable(new PiecePosition(File.B, Rank.FIVE))).isFalse();
-        assertThat(queen.movable(new PiecePosition(File.F, Rank.FIVE))).isFalse();
-        assertThat(queen.movable(new PiecePosition(File.C, Rank.TWO))).isFalse();
-        assertThat(queen.movable(new PiecePosition(File.C, Rank.SIX))).isFalse();
+        assertThat(queen.canMoveTo(new PiecePosition(File.B, Rank.FIVE))).isFalse();
+        assertThat(queen.canMoveTo(new PiecePosition(File.F, Rank.FIVE))).isFalse();
+        assertThat(queen.canMoveTo(new PiecePosition(File.C, Rank.TWO))).isFalse();
+        assertThat(queen.canMoveTo(new PiecePosition(File.C, Rank.SIX))).isFalse();
 
     }
 }

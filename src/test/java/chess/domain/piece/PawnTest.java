@@ -18,7 +18,7 @@ public class PawnTest {
         //when
 
         //then
-        assertThat(pawn.movable(new PiecePosition(File.C, Rank.FIVE))).isTrue();
+        assertThat(pawn.canMoveTo(new PiecePosition(File.C, Rank.FIVE))).isTrue();
     }
 
     @Test
@@ -30,8 +30,8 @@ public class PawnTest {
         //when
 
         //then
-        assertThat(pawn.movable(new PiecePosition(File.C, Rank.FOUR))).isTrue();
-        assertThat(pawn.movable(new PiecePosition(File.C, Rank.SIX))).isFalse();
+        assertThat(pawn.canMoveTo(new PiecePosition(File.C, Rank.FOUR))).isTrue();
+        assertThat(pawn.canMoveTo(new PiecePosition(File.C, Rank.SIX))).isFalse();
     }
 
     @Test
@@ -44,9 +44,9 @@ public class PawnTest {
         //when
 
         //then
-        assertThat(blackPawn.movable(new PiecePosition(File.D, Rank.SIX))).isTrue();
-        assertThat(blackPawn.movable(new PiecePosition(File.B, Rank.SIX))).isTrue();
-        assertThat(whitePawn.movable(new PiecePosition(File.C, Rank.THREE))).isTrue();
-        assertThat(whitePawn.movable(new PiecePosition(File.E, Rank.THREE))).isTrue();
+        assertThat(blackPawn.canMoveTo(new PiecePosition(File.D, Rank.SIX))).isTrue();
+        assertThat(blackPawn.canMoveTo(new PiecePosition(File.B, Rank.SIX))).isTrue();
+        assertThat(whitePawn.canMoveTo(new PiecePosition(File.C, Rank.THREE))).isTrue();
+        assertThat(whitePawn.canMoveTo(new PiecePosition(File.E, Rank.THREE))).isTrue();
     }
 }

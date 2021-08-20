@@ -19,9 +19,9 @@ public abstract class Piece {
         this.score = score;
     }
 
-    public abstract boolean movable(PiecePosition targetPosition);
+    public abstract boolean canMoveTo(PiecePosition targetPosition);
 
-    public void move(PiecePosition targetPosition){
+    public void move(PiecePosition targetPosition) {
         piecePosition = targetPosition;
     }
 

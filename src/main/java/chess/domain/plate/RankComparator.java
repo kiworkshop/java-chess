@@ -1,4 +1,4 @@
-package chess.domain;
+package chess.domain.plate;
 
 import chess.domain.plate.Rank;
 
@@ -8,7 +8,7 @@ public class RankComparator implements Comparator {
 
     @Override
     public int compare(Object o1, Object o2) {
-        if(o1 instanceof Rank && o2 instanceof Rank) {
+        if (o1 instanceof Rank && o2 instanceof Rank) {
             Rank r1 = (Rank) o1;
             Rank r2 = (Rank) o2;
 

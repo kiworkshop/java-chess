@@ -1,6 +1,5 @@
 package chess.domain.plate;
 
-import chess.domain.MovingDirection;
 import chess.domain.piece.PiecePosition;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

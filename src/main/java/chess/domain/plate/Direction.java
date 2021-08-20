@@ -4,15 +4,15 @@ import lombok.Getter;
 
 @Getter
 public enum Direction {
-    UP(0,1),
+    UP(0, 1),
     DOWN(0, -1),
-    RIGHT(1,0),
-    LEFT(-1,0),
-    RIGHTUP(1,1),
-    LEFTUP(-1,1),
-    RIGHTDOWUN(1,-1),
-    LEFTDOWUN(-1,-1),
-    OTHERS(0,0);
+    RIGHT(1, 0),
+    LEFT(-1, 0),
+    RIGHTUP(1, 1),
+    LEFTUP(-1, 1),
+    RIGHTDOWUN(1, -1),
+    LEFTDOWUN(-1, -1),
+    OTHERS(0, 0);
 
 
     private int fileMoveCount;

@@ -1,8 +1,9 @@
 package chess.domain.plate;
 
-import chess.domain.MovingDirection;
-import chess.domain.RankComparator;
-import chess.domain.piece.*;
+import chess.domain.piece.Knight;
+import chess.domain.piece.Pawn;
+import chess.domain.piece.Piece;
+import chess.domain.piece.PiecePosition;
 import chess.domain.team.Camp;
 import chess.domain.team.Team;
 import lombok.Getter;
@@ -48,7 +49,7 @@ public class ChessPlate {
             return false;
         }
         //기물별 움직임 범위 체크
-        if (!sourcePiece.movable(targetPosition)) {
+        if (!sourcePiece.canMoveTo(targetPosition)) {
             return false;
         }
         //가는 길에 기물이 있는지 체크
@@ -79,17 +80,11 @@ public class ChessPlate {
         plate.put(sourcePiece.getPiecePosition(), sourcePiece);
     }
 
-    private boolean isDiagonalMoving(PiecePosition sourcePosition, PiecePosition targetPosition, Piece sourcePiece, Piece targetPiece) {
-        int fileGapAbs = Math.abs(sourcePosition.getFile().getFilePosition() - targetPosition.getFile().getFilePosition());
-        int rankGapAbs = Math.abs(sourcePosition.getRank().getRankPosition() - targetPosition.getRank().getRankPosition());
-        boolean isTargetEnemy = targetPiece != null && (sourcePiece.getTeam() != targetPiece.getTeam());
-        return (fileGapAbs == rankGapAbs) && (isTargetEnemy);
-    }
-
     public boolean havePieceOnPath(MovingDirection movingDirection) {
         if (plate.get(movingDirection.getSourcePosition()) instanceof Knight) {
             return false;
         }
+
         for (int i = 1; i < movingDirection.getGap(); i++) {
             Piece piece = plate.get(
                     new PiecePosition(

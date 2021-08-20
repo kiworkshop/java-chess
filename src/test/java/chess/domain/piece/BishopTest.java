@@ -16,8 +16,8 @@ public class BishopTest {
         Bishop bishop = new Bishop(Team.BLACK, new PiecePosition(File.E, Rank.EIGHT));
 
         //when//then
-        assertThat(bishop.movable(new PiecePosition(File.D, Rank.SEVEN))).isTrue();
-        assertThat(bishop.movable(new PiecePosition(File.D, Rank.EIGHT))).isFalse();
-        assertThat(bishop.movable(new PiecePosition(File.E, Rank.SEVEN))).isFalse();
+        assertThat(bishop.canMoveTo(new PiecePosition(File.D, Rank.SEVEN))).isTrue();
+        assertThat(bishop.canMoveTo(new PiecePosition(File.D, Rank.EIGHT))).isFalse();
+        assertThat(bishop.canMoveTo(new PiecePosition(File.E, Rank.SEVEN))).isFalse();
     }
 }

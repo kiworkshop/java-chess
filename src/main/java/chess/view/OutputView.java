@@ -1,10 +1,10 @@
 package chess.view;
 
-import chess.domain.RankComparator;
-import chess.domain.plate.File;
+import chess.domain.plate.RankComparator;
 import chess.domain.piece.PiecePosition;
-import chess.domain.plate.Rank;
 import chess.domain.plate.ChessPlate;
+import chess.domain.plate.File;
+import chess.domain.plate.Rank;
 
 import java.util.Arrays;
 
@@ -16,9 +16,9 @@ public class OutputView {
                 .sorted(rankComparator::compare)
                 .forEach(rank -> {
                     for (File file : File.values()) {
-                        if(chessPlate.getPlate().get(new PiecePosition(file, rank)) == null) {
+                        if (chessPlate.getPlate().get(new PiecePosition(file, rank)) == null) {
                             System.out.print(".");
-                        }else{
+                        } else {
                             System.out.print(chessPlate.getPlate().get(new PiecePosition(file, rank)).getDisplayName());
                         }
                     }
@@ -33,7 +33,7 @@ public class OutputView {
         System.out.println(">게임 이동 : move source 위치 target 위치 - 예. move b2 b3");
     }
 
-    public void printInCorrectCommandMessage(){
+    public void printInCorrectCommandMessage() {
         System.out.println("start/end/move 중 하나를 입력해주세요");
     }
 

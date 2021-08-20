@@ -32,7 +32,7 @@ public enum File {
 
     public static File findBy(int filePosition) {
         return Arrays.stream(File.values())
-                .filter(v -> v.filePosition==filePosition)
+                .filter(v -> v.filePosition == filePosition)
                 .findFirst()
                 .orElseThrow(() -> new IllegalAccessError("해당되는 위치가 없습니다."));
     }

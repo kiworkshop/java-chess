@@ -27,17 +27,15 @@ public class ChessController {
             ChessPlate chessplate = chessService.start();
             outputView.printChessPlate(chessplate);
         }
-
         if(command.startsWith(MOVE)) {
             String[] position = command.split(" ");
             boolean isMoved = chessService.move(position[1],position[2]);
-            if(isMoved) {
+            if (isMoved) {
                 outputView.printChessPlate(chessService.getChessPlate());
-            }else {
+            } else {
                 outputView.printCannotMoveMessage();
             }
         }
-
     }
 
     private static String getCommand() {

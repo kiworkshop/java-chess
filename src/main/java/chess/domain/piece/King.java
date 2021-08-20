@@ -8,7 +8,7 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean movable(PiecePosition targetPosition) {
+    public boolean canMoveTo(PiecePosition targetPosition) {
         int originFile = this.piecePosition.getFile().getFilePosition();
         int originRank = this.piecePosition.getRank().getRankPosition();
         int targetFile = targetPosition.getFile().getFilePosition();

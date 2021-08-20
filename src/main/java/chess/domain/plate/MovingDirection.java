@@ -1,7 +1,7 @@
-package chess.domain;
+package chess.domain.plate;
 
-import chess.domain.plate.Direction;
 import chess.domain.piece.PiecePosition;
+import chess.domain.plate.Direction;
 import lombok.Getter;
 
 @Getter
