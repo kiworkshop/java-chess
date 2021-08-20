@@ -24,10 +24,18 @@ class ChessServiceTest {
     @DisplayName("진영별 점수를 계산한다")
     void testGetScore() {
         //given
+        ChessService service = new ChessService();
+        service.start();
+        service.move("e2","e4");
+        service.move("e4","e5");
+        service.move("e5","e6");
+        service.move("f7","e6");
 
         //when
 
         //then
+        assertThat(service.getGameScore(Team.BLACK)).isEqualTo(37);
+        assertThat(service.getGameScore(Team.WHITE)).isEqualTo(37);
     }
 
     @Test

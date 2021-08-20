@@ -38,19 +38,13 @@ public class ChessService {
         return chessPlate.move(sourcePiecePosition, targetPiecePosition);
     }
 
-    public ArrayList<Double> getGameScore() {
-        ArrayList<Double> result = new ArrayList<>();
-        result.add(chessPlate.getPlate().values().stream()
-                .filter(piece -> piece.getTeam().equals(Team.BLACK))
-                .mapToDouble(piece -> piece.getScore())
-                .sum());
+    public double getGameScore(Team team) {
 
-        result.add(chessPlate.getPlate().values().stream()
-                .filter(piece -> piece.getTeam().equals(Team.WHITE))
+        return chessPlate.getPlate().values().stream()
+                .filter(piece -> piece != null)
+                .filter(piece -> piece.getTeam().equals(team))
                 .mapToDouble(piece -> piece.getScore())
-                .sum());
-
-        return result;
+                .sum() - calculatePawnScore(team);
     }
 
     public double calculatePawnScore(Team team){
