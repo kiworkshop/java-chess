@@ -6,8 +6,6 @@ import chess.domain.piece.PiecePosition;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import javax.naming.ldap.Control;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChessPlateTest {
@@ -54,7 +52,7 @@ public class ChessPlateTest {
     }
 
     @Test
-    @DisplayName("체스말이 이동 가능하면 이동 후 true를 리턴한다")
+    @DisplayName("체스말이 이동 후 이동가능여부를 리턴한다")
     void move() {
         //given
         ChessPlate chessPlate = new ChessPlate();
@@ -70,7 +68,7 @@ public class ChessPlateTest {
     }
 
     @Test
-    @DisplayName("폰이 이동 가능하면 이동 후 true를 리턴한다")
+    @DisplayName("폰이 이동 후 이동가능여부를 리턴한다")
     void testPawnMove() {
         //given
         ChessPlate chessPlate = new ChessPlate();
@@ -80,5 +78,21 @@ public class ChessPlateTest {
         //then
         assertThat(result).isEqualTo(ChessController.REASK);
         assertThat(result2).isEqualTo(ChessController.MOVE);
+    }
+    @Test
+    @DisplayName("왕이 잡히면 END를 리턴한다")
+    void testWhenKingDie() {
+        //given
+        ChessPlate chessPlate = new ChessPlate();
+        //when
+        String result = chessPlate.move(new PiecePosition(File.D, Rank.SEVEN), new PiecePosition(File.D, Rank.FIVE));
+        String result2 = chessPlate.move(new PiecePosition(File.E, Rank.TWO), new PiecePosition(File.E, Rank.FOUR));
+        String result3 = chessPlate.move(new PiecePosition(File.D, Rank.FIVE), new PiecePosition(File.E, Rank.FOUR));
+        String result4 = chessPlate.move(new PiecePosition(File.D, Rank.EIGHT), new PiecePosition(File.D, Rank.THREE));
+        String result5 = chessPlate.move(new PiecePosition(File.D, Rank.THREE), new PiecePosition(File.E, Rank.THREE));
+        String result6 = chessPlate.move(new PiecePosition(File.E, Rank.THREE), new PiecePosition(File.E, Rank.ONE));
+
+        //then
+        assertThat(result6).isEqualTo(ChessController.END);
     }
 }
