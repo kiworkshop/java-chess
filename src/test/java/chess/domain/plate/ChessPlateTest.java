@@ -1,5 +1,6 @@
 package chess.domain.plate;
 
+import chess.domain.MovingDirection;
 import chess.domain.piece.File;
 import chess.domain.piece.PiecePosition;
 import chess.domain.piece.Rank;
@@ -26,9 +27,9 @@ public class ChessPlateTest {
         //given
         ChessPlate chessPlate = new ChessPlate();
 
-        boolean result = chessPlate.havePieceOnStraightPath(new PiecePosition(File.E, Rank.EIGHT), new PiecePosition(File.E, Rank.SIX));
-        boolean result2 = chessPlate.havePieceOnStraightPath(new PiecePosition(File.A, Rank.ONE), new PiecePosition(File.A, Rank.THREE));
-        boolean result3 = chessPlate.havePieceOnStraightPath(new PiecePosition(File.H, Rank.SEVEN), new PiecePosition(File.H, Rank.FIVE));
+        boolean result = chessPlate.havePieceOnPath(new MovingDirection(new PiecePosition(File.E, Rank.EIGHT), new PiecePosition(File.E, Rank.SIX)));
+        boolean result2 = chessPlate.havePieceOnPath(new MovingDirection(new PiecePosition(File.A, Rank.ONE), new PiecePosition(File.A, Rank.THREE)));
+        boolean result3 = chessPlate.havePieceOnPath(new MovingDirection(new PiecePosition(File.H, Rank.SEVEN), new PiecePosition(File.H, Rank.FIVE)));
 
         //when,then
         assertThat(result).isTrue();
@@ -42,8 +43,8 @@ public class ChessPlateTest {
         //given
         ChessPlate chessPlate = new ChessPlate();
 
-        boolean result = chessPlate.havePieceOnPath(new PiecePosition(File.F, Rank.EIGHT), new PiecePosition(File.D, Rank.SIX));
-        boolean result2 = chessPlate.havePieceOnPath(new PiecePosition(File.A, Rank.TWO), new PiecePosition(File.C, Rank.FOUR));
+        boolean result = chessPlate.havePieceOnPath(new MovingDirection(new PiecePosition(File.F, Rank.EIGHT), new PiecePosition(File.D, Rank.SIX)));
+        boolean result2 = chessPlate.havePieceOnPath(new MovingDirection(new PiecePosition(File.A, Rank.TWO), new PiecePosition(File.C, Rank.FOUR)));
 
 
         //when,then
@@ -74,9 +75,9 @@ public class ChessPlateTest {
         ChessPlate chessPlate = new ChessPlate();
         //when
         boolean result = chessPlate.move(new PiecePosition(File.B, Rank.SEVEN), new PiecePosition(File.C, Rank.SIX));
-//        boolean result2 = chessPlate.move(new PiecePosition(File.G, Rank.EIGHT), new PiecePosition(File.F, Rank.SIX));
+        boolean result2 = chessPlate.move(new PiecePosition(File.G, Rank.EIGHT), new PiecePosition(File.F, Rank.SIX));
         //then
         assertThat(result).isFalse();
-//        assertThat(result2).isTrue();
+        assertThat(result2).isTrue();
     }
 }

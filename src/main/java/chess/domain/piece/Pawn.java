@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class Pawn extends Piece {
     public Pawn(Team team, PiecePosition piecePosition) {
-        super("P", team, piecePosition,1);
+        super("P", team, piecePosition, 1);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class Pawn extends Piece {
     }
 
     private boolean canMoveDiagonalAndOneBlock(int originFile, int originRank, int targetFile, int targetRank) {
-        return (originRank - targetRank == 1*this.getTeam().getPawnDirection()) && Math.abs(originFile - targetFile) <= 1;
+        return (originRank - targetRank == 1 * this.getTeam().getPawnDirection()) && Math.abs(originFile - targetFile) <= 1;
     }
 
     private boolean checkFirstMove() {

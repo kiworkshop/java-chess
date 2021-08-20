@@ -30,10 +30,7 @@ public class ChessService {
 
         PiecePosition sourcePiecePosition = new PiecePosition(sourceFile, sourceRank);
         PiecePosition targetPiecePosition = new PiecePosition(targetFile, targetRank);
-        Piece source = chessPlate.getAllPieces().stream()
-                .filter(piece -> piece.getPiecePosition().equals(sourcePiecePosition))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("해당 위치에 기물이 없습니다"));
+
 
         return chessPlate.move(sourcePiecePosition, targetPiecePosition);
     }
