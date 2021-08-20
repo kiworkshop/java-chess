@@ -9,6 +9,8 @@ import java.util.Map;
 
 public class AttackPositions {
 
+    private static final int EMPTY = 0;
+
     private final Map<Position, Integer> counts = new HashMap<>();
 
     public AttackPositions(final Map<Position, Piece> pieces) {
@@ -16,12 +18,26 @@ public class AttackPositions {
                 .forEach(position -> {
                     Piece piece = pieces.get(position);
                     Collection<Position> positions = piece.findAvailableAttackPositions(position);
-                    positions.forEach(target
-                            -> counts.put(target, counts.getOrDefault(target, 0) + 1));
+                    positions.forEach(this::increase);
                 });
     }
 
-    public void update(final Position source, final Position target) {
-//        Collection<Position> positions = source.findAvailablePositions();
+    public void update(final Position source, final Position target, final Piece piece) {
+        Collection<Position> previousAttackPositions = piece.findAvailableAttackPositions(source);
+        previousAttackPositions.forEach(this::decrease);
+        Collection<Position> currentAttackPositions = piece.findAvailableAttackPositions(target);
+        currentAttackPositions.forEach(this::increase);
+    }
+
+    private Integer increase(final Position target) {
+        return counts.put(target, counts.getOrDefault(target, 0) + 1);
+    }
+
+    private Integer decrease(final Position position) {
+        return counts.put(position, counts.get(position) - 1);
+    }
+
+    public boolean isEmpty(final Position position) {
+        return !counts.containsKey(position) || (counts.get(position) == EMPTY);
     }
 }

@@ -71,10 +71,6 @@ public class Position {
         return positions;
     }
 
-    public boolean hasSameRank(final Rank rank) {
-        return this.rank == rank;
-    }
-
     public Collection<Position> findAvailablePositions(final MoveCoordinate moveCoordinate, final boolean isFinite) {
         if (isFinite) {
             return getFinitePositions(moveCoordinate);
@@ -109,5 +105,9 @@ public class Position {
         File file = this.file.add(moveCoordinate.getFile());
         Rank rank = this.rank.add(moveCoordinate.getRank());
         return Position.from(file, rank);
+    }
+
+    public boolean hasSameRank(Rank rank) {
+        return this.rank == rank;
     }
 }

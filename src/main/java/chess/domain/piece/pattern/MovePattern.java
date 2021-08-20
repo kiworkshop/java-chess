@@ -42,8 +42,16 @@ public class MovePattern {
             WHITE_PAWN_INITIAL_NORTH, NORTH_EAST, NORTH_WEST, NORTH
     ));
 
+    private static final Collection<MoveCoordinate> WHITE_PAWN_ATTACK_COORDINATES = Collections.unmodifiableList(Arrays.asList(
+            NORTH_EAST, NORTH_WEST
+    ));
+
     private static final Collection<MoveCoordinate> BLACK_PAWN_COORDINATES = Collections.unmodifiableList(Arrays.asList(
             BLACK_PAWN_INITIAL_SOUTH, SOUTH_EAST, SOUTH_WEST, SOUTH
+    ));
+
+    private static final Collection<MoveCoordinate> BLACK_PAWN_ATTACK_COORDINATES = Collections.unmodifiableList(Arrays.asList(
+            SOUTH_EAST, SOUTH_WEST
     ));
 
     private static final Collection<MoveCoordinate> KNIGHT_COORDINATES = Collections.unmodifiableList(Arrays.asList(
@@ -83,7 +91,7 @@ public class MovePattern {
 
     public static MovePattern pawnPattern(final Color color) {
         if (color.isWhite()) {
-            new MovePattern(Collections.emptyList(), WHITE_PAWN_COORDINATES);
+            return new MovePattern(Collections.emptyList(), WHITE_PAWN_COORDINATES);
         }
         return new MovePattern(Collections.emptyList(), BLACK_PAWN_COORDINATES);
     }
@@ -114,5 +122,12 @@ public class MovePattern {
 
     public Collection<MoveCoordinate> infiniteMoveCoordinates() {
         return infiniteMoveCoordinates;
+    }
+
+    public Collection<MoveCoordinate> pawnAttackMoveCoordinates(boolean isWhite) {
+        if (isWhite) {
+            return WHITE_PAWN_ATTACK_COORDINATES;
+        }
+        return BLACK_PAWN_ATTACK_COORDINATES;
     }
 }

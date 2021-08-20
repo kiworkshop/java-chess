@@ -29,12 +29,12 @@ public class Player {
     }
 
     public void update(final Position source, final Position target) {
-        movePiece(source, target);
-        attackPositions.update(source, target);
+        Piece sourcePiece = findPieceBy(source);
+        movePiece(source, target, sourcePiece);
+        attackPositions.update(source, target, sourcePiece);
     }
 
-    private void movePiece(final Position source, final Position target) {
-        Piece sourcePiece = findPieceBy(source);
+    private void movePiece(final Position source, final Position target, final Piece sourcePiece) {
         pieces.put(target, sourcePiece);
         pieces.remove(source);
     }

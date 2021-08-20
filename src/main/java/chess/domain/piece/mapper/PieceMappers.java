@@ -28,9 +28,7 @@ public class PieceMappers {
                 .filter(mapper -> mapper.supports(piece))
                 .map(mapper -> mapper.findNameBy(piece))
                 .findAny()
-                .orElseThrow(() -> {
-                    throw new NoSuchElementException("해당 기물에 해당하는 매퍼가 존재하지 않습니다.");
-                });
+                .orElseThrow(() -> new NoSuchElementException("해당 기물에 해당하는 매퍼가 존재하지 않습니다."));
     }
 
     private PieceMappers() {
