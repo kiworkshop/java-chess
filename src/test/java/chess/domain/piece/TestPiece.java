@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
 
-public class TestPiece {
+class TestPiece {
     public static Stream<Arguments> generate() {
         return Stream.of(
                 Arguments.of(Rook.of(Team.WHITE, Position.from("a1")), Position.from("a1")),

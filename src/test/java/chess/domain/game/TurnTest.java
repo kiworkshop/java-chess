@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TurnTest {
+class TurnTest {
 
     @Test
     @DisplayName("기물을 이동하면 상대편의 턴으로 전환한다.")

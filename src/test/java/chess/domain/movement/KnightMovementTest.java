@@ -14,7 +14,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RookMovementTest {
+class KnightMovementTest {
+
     private Board board;
 
     @BeforeEach
@@ -24,20 +25,17 @@ class RookMovementTest {
     }
 
     @Test
-    @DisplayName("룩의 초기 위치에서 이동 규칙에 따라 종,횡으로 이동 가능한 모든 위치를 반환한다.")
+    @DisplayName("나이트의 초기 위치에서 이동 규칙에 따라 Y 방향으로 이동 가능한 모든 위치를 반환한다.")
     void movable_positions() {
         //given
-        Piece rook = board.from(Position.from("a1"));
-        List<Position> exceptPosition = Arrays.asList(Position.from("a2"), Position.from("a3"), Position.from("a4"),
-                Position.from("a5"), Position.from("a6"), Position.from("a7"),
-                Position.from("a8"), Position.from("b1"), Position.from("c1"),
-                Position.from("d1"), Position.from("e1"), Position.from("f1"),
-                Position.from("g1"), Position.from("h1"));
+        Piece knight = board.from(Position.from("b1"));
+        List<Position> exceptPosition = Arrays.asList(Position.from("a3"), Position.from("c3"), Position.from("d2"));
 
         //when
-        List<Position> movablePositions = rook.getMovablePositions();
+        List<Position> movablePositions = knight.getMovablePositions();
 
         //then
         movablePositions.forEach(movable -> assertThat(exceptPosition.contains(movable)).isTrue());
     }
+
 }

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-public class MovementTest {
+class MovementTest {
     private ChessGame chessGame;
     private Board board;
 

@@ -4,7 +4,7 @@ import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.stream.Stream;
 
-public class TestPositions {
+class TestPositions {
     public static Stream<Arguments> generate() {
         return Stream.of(
                 Arguments.of("a1", File.A, Rank.ONE),

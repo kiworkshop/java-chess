@@ -29,6 +29,11 @@ public abstract class Movement {
         return (Math.abs(source.fileNumber() - target.fileNumber())) - (Math.abs(source.rankNumber() - target.rankNumber())) == 0;
     }
 
+    protected boolean knightMovement(Position source, Position target) {
+        return Math.abs(source.fileNumber() - target.fileNumber()) == 2 && Math.abs(source.rankNumber() - target.rankNumber()) == 1
+                || Math.abs(source.fileNumber() - target.fileNumber()) == 1 && Math.abs(source.rankNumber() - target.rankNumber()) == 2;
+    }
+
     protected boolean isNotSelf(Position source, Position target) {
         return source != target;
     }
