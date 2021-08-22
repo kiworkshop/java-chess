@@ -3,6 +3,8 @@ package chess.domain.piece;
 import chess.domain.board.Team;
 import chess.domain.position.Position;
 
+import java.util.List;
+
 public class Queen extends Piece {
     private final String symbol = "q";
 
@@ -12,6 +14,11 @@ public class Queen extends Piece {
 
     public static Queen of(Team team, Position position) {
         return new Queen(team, position);
+    }
+
+    @Override
+    public List<Position> getMovablePositions() {
+        return null;
     }
 
     @Override

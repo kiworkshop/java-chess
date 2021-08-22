@@ -88,6 +88,17 @@ class GameStateTest {
 
     @Test
     @DisplayName("게임이 종료되면 턴을 바꿀 수 없다.")
+    void finish_state_end() {
+        //given //when
+        Finish finish = new Finish();
+
+        //then
+        Assertions.assertThrows(UnsupportedOperationException.class,
+                () -> finish.end());
+    }
+
+    @Test
+    @DisplayName("게임이 종료되면 턴을 바꿀 수 없다.")
     void finish_state_turn() {
         //given //when
         Finish finish = new Finish();

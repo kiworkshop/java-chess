@@ -27,7 +27,7 @@ public class OutputView {
     }
 
     private static void separateLine(Position position) {
-        if (position.getFileNumber() / FILE_SIZE == 1) {
+        if (position.fileNumber() / FILE_SIZE == 1) {
             System.out.println();
         }
     }

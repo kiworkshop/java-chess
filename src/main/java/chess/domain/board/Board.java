@@ -21,6 +21,7 @@ public class Board {
     public Map<Position, Piece> move(Piece source, Piece target) {
         board.put(source.position(), Blank.of(source.position()));
         board.put(target.position(), source);
+        source.move(target.position());
         return board;
     }
 

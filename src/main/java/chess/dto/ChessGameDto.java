@@ -5,8 +5,8 @@ import chess.domain.state.GameState;
 import chess.game.ChessGame;
 
 public class ChessGameDto {
-    private GameState gameState;
-    private Board board;
+    private final GameState gameState;
+    private final Board board;
 
     public ChessGameDto(ChessGame chessGame) {
         this.gameState = chessGame.state();

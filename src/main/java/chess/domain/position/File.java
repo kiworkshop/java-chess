@@ -10,16 +10,16 @@ public enum File {
     G("g", 7),
     H("h", 8);
 
-    private final String file;
+    private final String symbol;
     private final int number;
 
-    File(String file, int number) {
-        this.file = file;
+    File(String symbol, int number) {
+        this.symbol = symbol;
         this.number = number;
     }
 
-    public String value() {
-        return file;
+    public String symbol() {
+        return symbol;
     }
 
     public int number() {

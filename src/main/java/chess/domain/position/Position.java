@@ -18,12 +18,12 @@ public class Position {
         Arrays.stream(Rank.values())
                 .flatMap(rank -> Arrays.stream(File.values())
                         .map(file -> new Position(file, rank))
-                ).forEach(position -> positionMap.put(key(position), position));
+                ).forEach(position -> positionMap.put(key(position.file, position.rank), position));
         return positionMap;
     }
 
-    private static String key(Position position) {
-        return position.getFileName() + position.getRankName();
+    private static String key(File file, Rank rank) {
+        return file.symbol() + rank.number();
     }
 
     public static Collection<Position> all() {
@@ -31,18 +31,19 @@ public class Position {
     }
 
     public static Position from(String position) {
-        return POSITION_CACHE.get(position);
+        Optional<Position> foundPosition = Optional.ofNullable(POSITION_CACHE.get(position));
+        return foundPosition.orElseThrow(() -> new IllegalArgumentException("file 값은 1 ~ 8 사이 입니다."));
     }
 
-    public String getFileName() {
-        return file.value();
+    public String fileSymbol() {
+        return file.symbol();
     }
 
-    public int getFileNumber() {
+    public int fileNumber() {
         return file.number();
     }
 
-    public int getRankName() {
-        return rank.value();
+    public int rankNumber() {
+        return rank.number();
     }
 }

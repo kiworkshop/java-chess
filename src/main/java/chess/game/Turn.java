@@ -3,7 +3,7 @@ package chess.game;
 import chess.domain.board.Team;
 
 public class Turn {
-    private Team turn;
+    private final Team turn;
 
     private Turn(Team team) {
         this.turn = team;

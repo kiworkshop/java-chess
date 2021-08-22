@@ -3,6 +3,8 @@ package chess.domain.piece;
 import chess.domain.board.Team;
 import chess.domain.position.Position;
 
+import java.util.List;
+
 public class Knight extends Piece {
     private final String symbol = "n";
 
@@ -12,6 +14,11 @@ public class Knight extends Piece {
 
     public static Knight of(Team team, Position position) {
         return new Knight(team, position);
+    }
+
+    @Override
+    public List<Position> getMovablePositions() {
+        return null;
     }
 
     @Override

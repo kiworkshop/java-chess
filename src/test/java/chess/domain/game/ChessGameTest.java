@@ -2,7 +2,6 @@ package chess.domain.game;
 
 import chess.domain.board.Board;
 import chess.domain.position.Position;
-import chess.domain.state.Finish;
 import chess.domain.state.Playing;
 import chess.domain.state.Ready;
 import chess.game.ChessGame;
@@ -51,16 +50,4 @@ class ChessGameTest {
         //then
         assertThat(start.state()).isInstanceOf(Playing.class);
     }
-
-    @Test
-    @DisplayName("체스 게임을 종료한 상태는 Finish 이다.")
-    void end_game() {
-        //when
-        ChessGame startedChessGame = chessGame.start();
-        ChessGame end = startedChessGame.end();
-
-        //then
-        assertThat(end.state()).isInstanceOf(Finish.class);
-    }
-
 }

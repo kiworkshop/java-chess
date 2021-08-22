@@ -10,13 +10,13 @@ public enum Rank {
     TWO(2),
     ONE(1);
 
-    private final int rank;
+    private final int number;
 
-    Rank(int rank) {
-        this.rank = rank;
+    Rank(int number) {
+        this.number = number;
     }
 
-    public int value() {
-        return rank;
+    public int number() {
+        return number;
     }
 }
