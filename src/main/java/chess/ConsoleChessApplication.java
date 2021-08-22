@@ -15,12 +15,12 @@ public class ConsoleChessApplication {
         }
         controller.gameStart();
 
-        // move
-
-        String endInput = InputView.getUserInput();
-        if (!endInput.equals("end")) {
-            throw new IllegalArgumentException("체스 게임을 시작하려면 end를 입력해 주세요.");
+        String input = InputView.getUserInput();
+        while (!input.equals("end") || !input.equals("state")) {
+            String[] moveInput = InputView.parseMoveInput(input);
+            controller.movePiece(moveInput[0], moveInput[1]);
+            input = InputView.getUserInput();
         }
-        controller.gameEnd();
     }
+
 }

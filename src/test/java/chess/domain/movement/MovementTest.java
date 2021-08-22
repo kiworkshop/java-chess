@@ -17,8 +17,7 @@ public class MovementTest {
 
     @BeforeEach
     void before() {
-        Ready ready = new Ready();
-        chessGame = ChessGame.of(ready, board);
+        chessGame = ChessGame.of(new Ready());
         chessGame = chessGame.start();
         board = chessGame.board();
     }
@@ -40,8 +39,8 @@ public class MovementTest {
     @DisplayName("아군이 있는 칸에는 이동할 수 없다.")
     void without_same_team() {
         //given
-        Piece rook = board.from(Position.from("a1"));
-        Piece pawn = board.from(Position.from("a2"));
+        Position rook = Position.from("a1");
+        Position pawn = Position.from("a2");
 
         //when //then
         assertThatIllegalArgumentException()

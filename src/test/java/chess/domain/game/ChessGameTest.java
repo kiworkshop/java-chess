@@ -17,8 +17,7 @@ class ChessGameTest {
 
     @BeforeEach
     void before() {
-        Ready ready = new Ready();
-        chessGame = ChessGame.of(ready, ready.board());
+        chessGame = ChessGame.of(new Ready());
         board = chessGame.board();
     }
 
@@ -45,7 +44,7 @@ class ChessGameTest {
         Position targetPosition = Position.from("b4");
 
         //when
-        start.move(board.from(sourcePosition), board.from(targetPosition));
+        start.move(sourcePosition, targetPosition);
 
         //then
         assertThat(start.state()).isInstanceOf(Playing.class);

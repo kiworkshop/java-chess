@@ -1,21 +1,21 @@
 package chess.service;
 
-import chess.domain.piece.Piece;
+import chess.domain.position.Position;
 import chess.dto.ChessGameDto;
 import chess.game.ChessGame;
 
 public class ChessGameService {
-    private ChessGame chessGame;
+    private final ChessGame chessGame;
 
     public ChessGameService() {
-        this.chessGame = chessGame.ready();
+        this.chessGame = ChessGame.ready();
     }
 
     public ChessGameDto startGame() {
         return new ChessGameDto(chessGame.start());
     }
 
-    public ChessGameDto movePiece(Piece source, Piece target) {
+    public ChessGameDto movePiece(Position source, Position target) {
         ChessGame move = chessGame.move(source, target);
         return new ChessGameDto(move);
     }

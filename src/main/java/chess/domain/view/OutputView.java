@@ -19,11 +19,13 @@ public class OutputView {
 
     public static void printChessBoard(ChessGameDto chessGameDto) {
         Board board = chessGameDto.board();
+        System.out.println("------------------------");
         board.values().keySet()
                 .forEach(position -> {
                     System.out.print(board.from(position).symbol());
                     separateLine(position);
                 });
+        System.out.println("------------------------");
     }
 
     private static void separateLine(Position position) {

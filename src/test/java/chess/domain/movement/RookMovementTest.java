@@ -19,8 +19,7 @@ public class RookMovementTest {
 
     @BeforeEach
     void before() {
-        Ready ready = new Ready();
-        ChessGame chessGame = ChessGame.of(ready, ready.board());
+        ChessGame chessGame = ChessGame.of(new Ready());
         board = chessGame.board();
     }
 

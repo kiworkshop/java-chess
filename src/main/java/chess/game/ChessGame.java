@@ -1,41 +1,39 @@
 package chess.game;
 
 import chess.domain.board.Board;
-import chess.domain.piece.Piece;
+import chess.domain.position.Position;
 import chess.domain.state.GameState;
 import chess.domain.state.Ready;
 
 public class ChessGame {
-    private final GameState gameState;
-    private final Board board;
+    private GameState gameState;
 
-    private ChessGame(GameState gameState, Board board) {
+    private ChessGame(GameState gameState) {
         this.gameState = gameState;
-        this.board = board;
     }
 
-    public static ChessGame of(GameState gameState, Board board) {
-        return new ChessGame(gameState, board);
+    public static ChessGame of(GameState gameState) {
+        return new ChessGame(gameState);
     }
 
-    public ChessGame ready() {
-        Ready ready = new Ready();
-        return new ChessGame(ready, ready.board());
+    public static ChessGame ready() {
+        return ChessGame.of(new Ready());
     }
 
     public ChessGame start() {
-        GameState start = gameState.start();
-        return new ChessGame(start, start.board());
+        this.gameState = gameState.start();
+        return this;
     }
 
-    public ChessGame move(Piece source, Piece target) {
-        GameState playing = gameState.moveAndToggleTurn(source, target);
-        return new ChessGame(playing, playing.board());
+    public ChessGame move(Position source, Position target) {
+        Board board = gameState.board();
+        this.gameState = gameState.moveAndToggleTurn(board.from(source), board.from(target));
+        return this;
     }
 
     public ChessGame end() {
-        GameState end = gameState.end();
-        return new ChessGame(end, end.board());
+        this.gameState = gameState.end();
+        return this;
     }
 
     public GameState state() {
@@ -43,6 +41,6 @@ public class ChessGame {
     }
 
     public Board board() {
-        return board;
+        return gameState.board();
     }
 }
