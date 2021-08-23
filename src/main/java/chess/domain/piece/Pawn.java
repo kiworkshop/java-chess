@@ -4,6 +4,7 @@ import chess.domain.board.Team;
 import chess.domain.position.Position;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Pawn extends Piece {
     private final String symbol = "p";
@@ -18,7 +19,9 @@ public class Pawn extends Piece {
 
     @Override
     public List<Position> getMovablePositions() {
-        return null;
+        return Position.all().stream()
+                .filter(target -> isPawnMovement(position, target))
+                .collect(Collectors.toList());
     }
 
     @Override

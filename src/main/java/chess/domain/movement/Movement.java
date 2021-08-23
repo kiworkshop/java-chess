@@ -34,6 +34,24 @@ public abstract class Movement {
                 || Math.abs(source.fileNumber() - target.fileNumber()) == 1 && Math.abs(source.rankNumber() - target.rankNumber()) == 2;
     }
 
+    protected boolean isKingMovement(Position source, Position target) {
+        return ((Math.abs(source.fileNumber() - target.fileNumber())) == 1 && (Math.abs(source.rankNumber() - target.rankNumber()) == 1))
+                || ((source.fileNumber() == target.fileNumber()) && (Math.abs(source.rankNumber() - target.rankNumber()) == 1))
+                || ((Math.abs(source.fileNumber() - target.fileNumber())) == 1 && (source.rankNumber() == target.rankNumber()));
+    }
+
+    protected boolean isPawnMovement(Position source, Position target) {
+        return (source.fileNumber() == source.rankNumber()) && (target.rankNumber() - source.rankNumber() == 1);
+    }
+
+    protected boolean isPawnAttackMovement(Position source, Position target) {
+        return (Math.abs(source.fileNumber() - target.fileNumber()) == 1) && (source.fileNumber() == target.fileNumber());
+    }
+
+    protected boolean isPawnFirstMovement(Position source, Position target) {
+        return (source.fileNumber() == target.fileNumber()) && (target.rankNumber() - source.rankNumber() == 2);
+    }
+
     protected boolean isNotSelf(Position source, Position target) {
         return source != target;
     }
