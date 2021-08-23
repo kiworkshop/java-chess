@@ -20,6 +20,12 @@ public class Turn {
         return Turn.of(Team.BLACK);
     }
 
+    public void checkTurn(Team team) {
+        if (!turn.equals(team)) {
+            throw new IllegalArgumentException(turn.color() + "이 움직일 차례입니다.");
+        }
+    }
+
     public Team team() {
         return turn;
     }

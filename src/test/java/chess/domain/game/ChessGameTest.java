@@ -5,6 +5,7 @@ import chess.domain.position.Position;
 import chess.domain.state.Playing;
 import chess.domain.state.Ready;
 import chess.game.ChessGame;
+import chess.game.Turn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -65,6 +66,9 @@ class ChessGameTest {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> start.move(whitePawn, Position.from("f5")))
                 .withMessage("이동할 수 없는 위치입니다.");
+
+        start.move(whitePawn, Position.from("f4")); // 턴을 바꾸려고 추가
+
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> start.move(blackPawn, Position.from("e4")))
                 .withMessage("이동할 수 없는 위치입니다.");
@@ -117,5 +121,18 @@ class ChessGameTest {
         chessGame.move(Position.from("g1"), Position.from("h3"));
         //black
         chessGame.move(Position.from("c8"), Position.from("g4"));
+    }
+
+    @Test
+    @DisplayName("체스 말을 움직일 차례가 아닌 경우 예외가 발생한다.")
+    void can_not_move_turn() {
+        //given
+        ChessGame start = chessGame.start();
+        Turn turn = start.state().turn();
+
+        //when //then
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> chessGame.move(Position.from("g7"), Position.from("g6")))
+                .withMessage("백이 움직일 차례입니다.");
     }
 }

@@ -20,6 +20,7 @@ public class Playing implements GameState {
 
     @Override
     public GameState moveAndToggleTurn(Piece source, Piece target) {
+        turn.checkTurn(source.team());
         if (source.canMove(source, target)) {
             board.move(source, target);
             turn = turn.toggle();
