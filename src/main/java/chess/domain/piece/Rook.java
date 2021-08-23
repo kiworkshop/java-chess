@@ -24,6 +24,10 @@ public class Rook extends Piece {
                 .collect(Collectors.toList());
     }
 
+    private boolean isRookMovement(Position source, Position target) {
+        return (source.fileNumber() - target.fileNumber()) == 0 || (source.rankNumber() - target.rankNumber()) == 0;
+    }
+
     @Override
     public String symbol() {
         if (team.equals(Team.BLACK)) {

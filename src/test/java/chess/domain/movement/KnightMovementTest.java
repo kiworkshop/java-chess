@@ -15,7 +15,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class KnightMovementTest {
-
     private Board board;
 
     @BeforeEach
@@ -37,5 +36,4 @@ class KnightMovementTest {
         //then
         movablePositions.forEach(movable -> assertThat(exceptPosition.contains(movable)).isTrue());
     }
-
 }

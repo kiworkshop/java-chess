@@ -1,6 +1,7 @@
 package chess.domain.movement;
 
 import chess.domain.board.Team;
+import chess.domain.piece.Pawn;
 import chess.domain.piece.Piece;
 import chess.domain.position.Position;
 
@@ -12,7 +13,17 @@ public abstract class Movement {
     public boolean canMove(Piece source, Piece target) {
         notBlankPosition(source);
         withoutSameTeam(source.team(), target);
-        return true;
+
+        List<Position> movablePositions = source.getMovablePositions();
+        if (movablePositions.isEmpty()) {
+            if (source instanceof Pawn) {
+                boolean firstMovePosition = isPawnFirstMovement(source.position, target.position);
+                boolean attackPositions = isPawnAttackMovement(source.position, target.position);
+                return firstMovePosition || attackPositions;
+            }
+            return false;
+        }
+        return movablePositions.contains(target.position);
     }
 
     public abstract List<Position> getMovablePositions();
@@ -21,49 +32,26 @@ public abstract class Movement {
         this.position = target;
     }
 
-    protected boolean isRookMovement(Position source, Position target) {
-        return (source.fileNumber() - target.fileNumber()) == 0 || (source.rankNumber() - target.rankNumber()) == 0;
-    }
-
-    protected boolean isBishopMovement(Position source, Position target) {
-        return (Math.abs(source.fileNumber() - target.fileNumber())) - (Math.abs(source.rankNumber() - target.rankNumber())) == 0;
-    }
-
-    protected boolean isKnightMovement(Position source, Position target) {
-        return Math.abs(source.fileNumber() - target.fileNumber()) == 2 && Math.abs(source.rankNumber() - target.rankNumber()) == 1
-                || Math.abs(source.fileNumber() - target.fileNumber()) == 1 && Math.abs(source.rankNumber() - target.rankNumber()) == 2;
-    }
-
-    protected boolean isKingMovement(Position source, Position target) {
-        return ((Math.abs(source.fileNumber() - target.fileNumber())) == 1 && (Math.abs(source.rankNumber() - target.rankNumber()) == 1))
-                || ((source.fileNumber() == target.fileNumber()) && (Math.abs(source.rankNumber() - target.rankNumber()) == 1))
-                || ((Math.abs(source.fileNumber() - target.fileNumber())) == 1 && (source.rankNumber() == target.rankNumber()));
-    }
-
-    protected boolean isPawnMovement(Position source, Position target) {
-        return (source.fileNumber() == source.rankNumber()) && (target.rankNumber() - source.rankNumber() == 1);
-    }
-
-    protected boolean isPawnAttackMovement(Position source, Position target) {
+    private boolean isPawnAttackMovement(Position source, Position target) {
         return (Math.abs(source.fileNumber() - target.fileNumber()) == 1) && (source.fileNumber() == target.fileNumber());
     }
 
-    protected boolean isPawnFirstMovement(Position source, Position target) {
-        return (source.fileNumber() == target.fileNumber()) && (target.rankNumber() - source.rankNumber() == 2);
+    private boolean isPawnFirstMovement(Position source, Position target) {
+        return (source.fileNumber() == target.fileNumber()) && (Math.abs(source.rankNumber() - target.rankNumber()) == 2);
     }
 
     protected boolean isNotSelf(Position source, Position target) {
         return source != target;
     }
 
-    protected void withoutSameTeam(Team sourceTeam, Piece targetPiece) {
+    private void withoutSameTeam(Team sourceTeam, Piece targetPiece) {
         Team targetTeam = targetPiece.team();
         if (sourceTeam.equals(targetTeam)) {
             throw new IllegalArgumentException("아군이 있는 칸에는 이동할 수 없습니다.");
         }
     }
 
-    protected void notBlankPosition(Piece sourcePiece) {
+    private void notBlankPosition(Piece sourcePiece) {
         if (sourcePiece.team().equals(Team.NEUTRAL)) {
             throw new IllegalArgumentException("지정 위치에 체스말이 없습니다.");
         }

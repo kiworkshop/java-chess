@@ -24,6 +24,10 @@ public class Bishop extends Piece {
                 .collect(Collectors.toList());
     }
 
+    private boolean isBishopMovement(Position source, Position target) {
+        return (Math.abs(source.fileNumber() - target.fileNumber())) - (Math.abs(source.rankNumber() - target.rankNumber())) == 0;
+    }
+
     @Override
     public String symbol() {
         if (team.equals(Team.BLACK)) {

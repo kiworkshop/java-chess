@@ -24,6 +24,10 @@ public class Pawn extends Piece {
                 .collect(Collectors.toList());
     }
 
+    private boolean isPawnMovement(Position source, Position target) {
+        return (source.fileNumber() == source.rankNumber()) && (target.rankNumber() - source.rankNumber() == 1);
+    }
+
     @Override
     public String symbol() {
         if (team.equals(Team.BLACK)) {

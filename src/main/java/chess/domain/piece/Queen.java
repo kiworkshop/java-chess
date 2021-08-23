@@ -20,8 +20,13 @@ public class Queen extends Piece {
     @Override
     public List<Position> getMovablePositions() {
         return Position.all().stream()
-                .filter(target -> (isRookMovement(position, target) || isBishopMovement(position, target)) && isNotSelf(position, target))
+                .filter(target -> (isQueenMovement(position, target)) && isNotSelf(position, target))
                 .collect(Collectors.toList());
+    }
+
+    private boolean isQueenMovement(Position source, Position target) {
+        return ((source.fileNumber() - target.fileNumber()) == 0 || (source.rankNumber() - target.rankNumber()) == 0)
+                || ((Math.abs(source.fileNumber() - target.fileNumber())) - (Math.abs(source.rankNumber() - target.rankNumber())) == 0);
     }
 
     @Override

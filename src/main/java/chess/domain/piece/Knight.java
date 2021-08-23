@@ -24,6 +24,11 @@ public class Knight extends Piece {
                 .collect(Collectors.toList());
     }
 
+    private boolean isKnightMovement(Position source, Position target) {
+        return Math.abs(source.fileNumber() - target.fileNumber()) == 2 && Math.abs(source.rankNumber() - target.rankNumber()) == 1
+                || Math.abs(source.fileNumber() - target.fileNumber()) == 1 && Math.abs(source.rankNumber() - target.rankNumber()) == 2;
+    }
+
     @Override
     public String symbol() {
         if (team.equals(Team.BLACK)) {

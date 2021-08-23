@@ -24,6 +24,12 @@ public class King extends Piece {
                 .collect(Collectors.toList());
     }
 
+    private boolean isKingMovement(Position source, Position target) {
+        return ((Math.abs(source.fileNumber() - target.fileNumber())) == 1 && (Math.abs(source.rankNumber() - target.rankNumber()) == 1))
+                || ((source.fileNumber() == target.fileNumber()) && (Math.abs(source.rankNumber() - target.rankNumber()) == 1))
+                || ((Math.abs(source.fileNumber() - target.fileNumber())) == 1 && (source.rankNumber() == target.rankNumber()));
+    }
+
     @Override
     public String symbol() {
         if (team.equals(Team.BLACK)) {
