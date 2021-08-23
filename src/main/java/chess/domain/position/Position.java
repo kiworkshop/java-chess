@@ -32,7 +32,7 @@ public class Position {
 
     public static Position from(String position) {
         Optional<Position> foundPosition = Optional.ofNullable(POSITION_CACHE.get(position));
-        return foundPosition.orElseThrow(() -> new IllegalArgumentException("file 값은 1 ~ 8 사이 입니다."));
+        return foundPosition.orElseThrow(() -> new IllegalArgumentException("체스 판의 위치를 다시 확인해 주세요."));
     }
 
     public String fileSymbol() {

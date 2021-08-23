@@ -20,7 +20,7 @@ public class Rook extends Piece {
     @Override
     public List<Position> getMovablePositions() {
         return Position.all().stream()
-                .filter(target -> linearCrossAxis(position, target) && isNotSelf(position, target))
+                .filter(target -> isRookMovement(position, target) && isNotSelf(position, target))
                 .collect(Collectors.toList());
     }
 

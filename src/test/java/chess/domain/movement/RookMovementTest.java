@@ -24,7 +24,7 @@ class RookMovementTest {
     }
 
     @Test
-    @DisplayName("룩의 초기 위치에서 이동 규칙에 따라 종,횡으로 이동 가능한 모든 위치를 반환한다.")
+    @DisplayName("룩의 초기 위치에서 이동 규칙에 따라 이동 가능한 모든 위치를 반환한다.")
     void movable_positions() {
         //given
         Piece rook = board.from(Position.from("a1"));

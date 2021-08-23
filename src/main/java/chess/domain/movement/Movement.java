@@ -21,15 +21,15 @@ public abstract class Movement {
         this.position = target;
     }
 
-    protected boolean linearCrossAxis(Position source, Position target) {
+    protected boolean isRookMovement(Position source, Position target) {
         return (source.fileNumber() - target.fileNumber()) == 0 || (source.rankNumber() - target.rankNumber()) == 0;
     }
 
-    protected boolean diagonalAxis(Position source, Position target) {
+    protected boolean isBishopMovement(Position source, Position target) {
         return (Math.abs(source.fileNumber() - target.fileNumber())) - (Math.abs(source.rankNumber() - target.rankNumber())) == 0;
     }
 
-    protected boolean knightMovement(Position source, Position target) {
+    protected boolean isKnightMovement(Position source, Position target) {
         return Math.abs(source.fileNumber() - target.fileNumber()) == 2 && Math.abs(source.rankNumber() - target.rankNumber()) == 1
                 || Math.abs(source.fileNumber() - target.fileNumber()) == 1 && Math.abs(source.rankNumber() - target.rankNumber()) == 2;
     }

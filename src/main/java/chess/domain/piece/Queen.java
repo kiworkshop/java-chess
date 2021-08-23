@@ -4,6 +4,7 @@ import chess.domain.board.Team;
 import chess.domain.position.Position;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Queen extends Piece {
     private final String symbol = "q";
@@ -18,7 +19,9 @@ public class Queen extends Piece {
 
     @Override
     public List<Position> getMovablePositions() {
-        return null;
+        return Position.all().stream()
+                .filter(target -> (isRookMovement(position, target) || isBishopMovement(position, target)) && isNotSelf(position, target))
+                .collect(Collectors.toList());
     }
 
     @Override

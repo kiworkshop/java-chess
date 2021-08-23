@@ -20,7 +20,7 @@ public class Bishop extends Piece {
     @Override
     public List<Position> getMovablePositions() {
         return Position.all().stream()
-                .filter(target -> diagonalAxis(position, target) && isNotSelf(position, target))
+                .filter(target -> isBishopMovement(position, target) && isNotSelf(position, target))
                 .collect(Collectors.toList());
     }
 

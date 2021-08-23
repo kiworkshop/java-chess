@@ -20,7 +20,7 @@ public class Knight extends Piece {
     @Override
     public List<Position> getMovablePositions() {
         return Position.all().stream()
-                .filter(target -> knightMovement(position, target) && isNotSelf(position, target))
+                .filter(target -> isKnightMovement(position, target) && isNotSelf(position, target))
                 .collect(Collectors.toList());
     }
 
