@@ -5,7 +5,9 @@ import chess.domain.piece.Piece;
 import chess.domain.position.Position;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Board {
     private static Map<Position, Piece> board;
@@ -19,14 +21,18 @@ public class Board {
     }
 
     public Map<Position, Piece> move(Piece source, Piece target) {
-        if (source.canMove(source, target)) {
-            board.put(source.position(), Blank.of(source.position()));
-            board.put(target.position(), source);
-            source.move(target.position());
-        }
-        return board;
+        board.put(source.position(), Blank.of(source.position()));
+        board.put(target.position(), source);
+        source.move(target.position());
+        return  board;
     }
 
+    public static List<Piece> otherTeamPiece(Team team) {
+        Team otherTeam = team.equals(Team.WHITE) ? Team.BLACK : Team.WHITE;
+        return board.values().stream()
+                .filter(piece -> piece.team().equals(otherTeam))
+                .collect(Collectors.toList());
+    }
 
     public Map<Position, Piece> values() {
         return Collections.unmodifiableMap(board);

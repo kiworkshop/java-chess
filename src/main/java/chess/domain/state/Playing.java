@@ -23,8 +23,9 @@ public class Playing implements GameState {
         if (source.canMove(source, target)) {
             board.move(source, target);
             turn = turn.toggle();
+            return this;
         }
-        return this;
+        throw new IllegalArgumentException("이동할 수 없는 위치입니다.");
     }
 
     @Override

@@ -3,6 +3,7 @@ package chess.domain.piece;
 import chess.domain.board.Team;
 import chess.domain.position.Position;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Blank extends Piece {
@@ -17,8 +18,15 @@ public class Blank extends Piece {
     }
 
     @Override
+    public boolean canMove(Piece source, Piece target) {
+        notBlankPosition(source);
+        withoutSameTeam(source.team(), target);
+        return false;
+    }
+
+    @Override
     public List<Position> getMovablePositions() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

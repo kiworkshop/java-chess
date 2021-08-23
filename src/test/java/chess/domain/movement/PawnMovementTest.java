@@ -17,12 +17,14 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PawnMovementTest {
+    private ChessGame chessGame;
     private Board board;
 
     @BeforeEach
     void before() {
-        ChessGame chessGame = ChessGame.of(new Ready());
-        board = chessGame.board();
+        chessGame = ChessGame.of(new Ready());
+        ChessGame start = chessGame.start();
+        board = start.board();
     }
 
     @Test
@@ -45,41 +47,11 @@ class PawnMovementTest {
     void first_move_positions(String source, String target) {
         //given
         Piece pawn = board.from(Position.from(source));
-        List<Position> exceptPosition = Arrays.asList(Position.from(target));
 
         //when
-        List<Position> movablePositions = pawn.getMovablePositions();
+        boolean canMove = pawn.canMove(pawn, board.from(Position.from(target)));
 
         //then
-        movablePositions.forEach(movable -> assertThat(exceptPosition.contains(movable)).isTrue());
-    }
-
-    @ParameterizedTest
-    @CsvSource(value = {"f3, f5", "e6, e4"})
-    @DisplayName("첫 수가 아닌 경우 2칸을 이동할 수 없다.")
-    void not_first_move_positions(String source, String target) {
-        //given
-        Piece pawn = board.from(Position.from(source));
-
-        //when
-        List<Position> movablePositions = pawn.getMovablePositions();
-
-        //then
-        assertThat(movablePositions).isNull();
-    }
-
-    @ParameterizedTest
-    @CsvSource(value = {"f2, e3", "f2, g3", "f7, e6", "f7, g6"})
-    @DisplayName("대각선 1칸 앞에 적의 기물이 있는 경우 기물을 뺏고 그 자리로 이동할 수 있다.")
-    void attack_positions(String source, String target) {
-        //given
-        Piece pawn = board.from(Position.from(source));
-        List<Position> exceptPosition = Arrays.asList(Position.from(target));
-
-        //when
-        List<Position> movablePositions = pawn.getMovablePositions();
-
-        //then
-        movablePositions.forEach(movable -> assertThat(exceptPosition.contains(movable)).isTrue());
+        assertThat(canMove).isTrue();
     }
 }

@@ -1,9 +1,12 @@
 package chess.domain.piece;
 
+import chess.domain.board.Board;
 import chess.domain.board.Team;
 import chess.domain.position.Position;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class King extends Piece {
@@ -15,6 +18,24 @@ public class King extends Piece {
 
     public static King of(Team team, Position position) {
         return new King(team, position);
+    }
+
+    @Override
+    public boolean canMove(Piece source, Piece target) {
+        notBlankPosition(source);
+        withoutSameTeam(source.team(), target);
+        List<Position> movablePositions = source.getMovablePositions();
+
+        Set<Position> checkmatePositions = new HashSet<>();
+        List<Piece> otherPieces = Board.otherTeamPiece(source.team());
+        for (Piece otherPiece : otherPieces) {
+            checkmatePositions.addAll(otherPiece.getMovablePositions());
+        }
+
+        if (checkmatePositions.contains(target.position())) {
+            return false;
+        }
+        return movablePositions.contains(target.position());
     }
 
     @Override

@@ -18,6 +18,14 @@ public class Rook extends Piece {
     }
 
     @Override
+    public boolean canMove(Piece source, Piece target) {
+        notBlankPosition(source);
+        withoutSameTeam(source.team(), target);
+        List<Position> movablePositions = source.getMovablePositions();
+        return movablePositions.contains(target.position());
+    }
+
+    @Override
     public List<Position> getMovablePositions() {
         return Position.all().stream()
                 .filter(target -> isRookMovement(position, target) && isNotSelf(position, target))
