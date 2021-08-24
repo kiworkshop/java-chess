@@ -1,5 +1,6 @@
 package chess.domain.piece;
 
+import chess.domain.board.Board;
 import chess.domain.board.Team;
 import chess.domain.position.Position;
 
@@ -20,7 +21,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public boolean canMove(Piece source, Piece target) {
+    public boolean canMove(Board board, Piece source, Piece target) {
         notBlankPosition(source);
         withoutSameTeam(source.team(), target);
 
@@ -29,34 +30,35 @@ public class Pawn extends Piece {
             return true;
         }
 
-        if (isPawnAttackMovement(source.position(), target.position())) {
+        if (isPawnAttack(source.position(), target.position())) {
             return true;
         }
-        return  isPawnFirstMovement(source.position(), target.position());
+        return  isPawnFirstMove(source.position(), target.position());
     }
 
     @Override
     public List<Position> getMovablePositions() {
         return Position.all().stream()
-                .filter(target -> isPawnMovement(position, target))
+                .filter(target -> moveStrategy(position, target))
                 .collect(Collectors.toList());
     }
 
-    private boolean isPawnMovement(Position source, Position target) {
+    @Override
+    public boolean moveStrategy(Position source, Position target) {
         if (team.equals(Team.WHITE)) {
             return (source.fileNumber() == target.fileNumber()) && (target.rankNumber() - source.rankNumber() == 1);
         }
         return (source.fileNumber() == target.fileNumber()) && (source.rankNumber() - target.rankNumber() == 1);
     }
 
-    private boolean isPawnAttackMovement(Position source, Position target) {
+    private boolean isPawnAttack(Position source, Position target) {
         if (team.equals(Team.WHITE)) {
             return (Math.abs(source.fileNumber() - target.fileNumber()) == 1) && (target.rankNumber() - source.rankNumber() == 1);
         }
         return (Math.abs(source.fileNumber() - target.fileNumber()) == 1) && (source.rankNumber() - target.rankNumber() == 1);
     }
 
-    private boolean isPawnFirstMovement(Position source, Position target) {
+    private boolean isPawnFirstMove(Position source, Position target) {
         if (team.equals(Team.WHITE)) {
             return (source.rankNumber() == 2) && (target.rankNumber() - source.rankNumber() == 2);
         }

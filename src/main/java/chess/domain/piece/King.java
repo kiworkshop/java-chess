@@ -22,32 +22,37 @@ public class King extends Piece {
     }
 
     @Override
-    public boolean canMove(Piece source, Piece target) {
+    public boolean canMove(Board board, Piece source, Piece target) {
         notBlankPosition(source);
         withoutSameTeam(source.team(), target);
         List<Position> movablePositions = source.getMovablePositions();
 
-        Set<Position> checkmatePositions = new HashSet<>();
-        Team otherTeam = team.equals(Team.WHITE) ? Team.BLACK : Team.WHITE;
-        List<Piece> otherPieces = Board.findBy(otherTeam);
-        for (Piece otherPiece : otherPieces) {
-            checkmatePositions.addAll(otherPiece.getMovablePositions());
-        }
-
+        Set<Position> checkmatePositions = checkmatePositions(board);
         if (checkmatePositions.contains(target.position())) {
             return false;
         }
         return movablePositions.contains(target.position());
     }
 
+    private Set<Position> checkmatePositions(Board board) {
+        Set<Position> checkmatePositions = new HashSet<>();
+        Team otherTeam = team.equals(Team.WHITE) ? Team.BLACK : Team.WHITE;
+        List<Piece> otherPieces = board.findBy(otherTeam);
+        for (Piece otherPiece : otherPieces) {
+            checkmatePositions.addAll(otherPiece.getMovablePositions());
+        }
+        return checkmatePositions;
+    }
+
     @Override
     public List<Position> getMovablePositions() {
         return Position.all().stream()
-                .filter(target -> isKingMovement(position, target))
+                .filter(target -> moveStrategy(position, target))
                 .collect(Collectors.toList());
     }
 
-    private boolean isKingMovement(Position source, Position target) {
+    @Override
+    public boolean moveStrategy(Position source, Position target) {
         return ((Math.abs(source.fileNumber() - target.fileNumber())) == 1 && (Math.abs(source.rankNumber() - target.rankNumber()) == 1))
                 || ((source.fileNumber() == target.fileNumber()) && (Math.abs(source.rankNumber() - target.rankNumber()) == 1))
                 || ((Math.abs(source.fileNumber() - target.fileNumber())) == 1 && (source.rankNumber() == target.rankNumber()));

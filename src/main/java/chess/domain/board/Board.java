@@ -30,7 +30,7 @@ public class Board {
         return  board;
     }
 
-    public static List<Piece> findBy(Team team) {
+    public List<Piece> findBy(Team team) {
         return board.values().stream()
                 .filter(piece -> piece.team().equals(team))
                 .collect(Collectors.toList());

@@ -34,7 +34,7 @@ public class Finish implements GameState {
 
     @Override
     public double status(Team team) {
-        List<Piece> pieces = Board.findBy(team);
+        List<Piece> pieces = board.findBy(team);
         return Score.calculateSum(pieces);
     }
 

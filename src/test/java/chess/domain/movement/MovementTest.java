@@ -31,7 +31,7 @@ class MovementTest {
 
         //when //then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> source.canMove(target, source))
+                .isThrownBy(() -> source.canMove(board, target, source))
                 .withMessage("지정 위치에 체스말이 없습니다.");
     }
 
@@ -46,5 +46,18 @@ class MovementTest {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> chessGame.moveAndToggleTurn(rook, pawn))
                 .withMessage("아군이 있는 칸에는 이동할 수 없습니다.");
+    }
+
+    @Test
+    @DisplayName("다른 체스 말을 뛰어넘을 수 없다.")
+    void disable_jump() {
+        //given
+        Position rook = Position.from("a1");
+        Position a3 = Position.from("a3");
+
+        //when //then
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> chessGame.moveAndToggleTurn(rook, a3))
+                .withMessage("다른 체스 말을 뛰어넘을 수 없습니다.");
     }
 }

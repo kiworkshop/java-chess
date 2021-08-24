@@ -49,7 +49,7 @@ class PawnMovementTest {
         Piece pawn = board.from(Position.from(source));
 
         //when
-        boolean canMove = pawn.canMove(pawn, board.from(Position.from(target)));
+        boolean canMove = pawn.canMove(board, pawn, board.from(Position.from(target)));
 
         //then
         assertThat(canMove).isTrue();

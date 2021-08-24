@@ -25,7 +25,7 @@ public class Playing implements GameState {
     @Override
     public GameState move(Piece source, Piece target) {
         turn.checkTurn(source.team());
-        if (source.canMove(source, target)) {
+        if (source.canMove(board, source, target)) {
             board.move(source, target);
             return this;
         }
@@ -40,7 +40,7 @@ public class Playing implements GameState {
 
     @Override
     public double status(Team team) {
-        List<Piece> pieces = Board.findBy(team);
+        List<Piece> pieces = board.findBy(team);
         return Score.calculateSum(pieces);
     }
 

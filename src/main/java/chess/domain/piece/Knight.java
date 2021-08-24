@@ -1,5 +1,6 @@
 package chess.domain.piece;
 
+import chess.domain.board.Board;
 import chess.domain.board.Team;
 import chess.domain.position.Position;
 
@@ -19,7 +20,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public boolean canMove(Piece source, Piece target) {
+    public boolean canMove(Board board, Piece source, Piece target) {
         notBlankPosition(source);
         withoutSameTeam(source.team(), target);
         List<Position> movablePositions = source.getMovablePositions();
@@ -29,11 +30,12 @@ public class Knight extends Piece {
     @Override
     public List<Position> getMovablePositions() {
         return Position.all().stream()
-                .filter(target -> isKnightMovement(position, target) && isNotSelf(position, target))
+                .filter(target -> moveStrategy(position, target) && isNotSelf(position, target))
                 .collect(Collectors.toList());
     }
 
-    private boolean isKnightMovement(Position source, Position target) {
+    @Override
+    public boolean moveStrategy(Position source, Position target) {
         return Math.abs(source.fileNumber() - target.fileNumber()) == 2 && Math.abs(source.rankNumber() - target.rankNumber()) == 1
                 || Math.abs(source.fileNumber() - target.fileNumber()) == 1 && Math.abs(source.rankNumber() - target.rankNumber()) == 2;
     }

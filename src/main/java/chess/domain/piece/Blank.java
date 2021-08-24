@@ -1,5 +1,6 @@
 package chess.domain.piece;
 
+import chess.domain.board.Board;
 import chess.domain.board.Team;
 import chess.domain.position.Position;
 
@@ -19,7 +20,7 @@ public class Blank extends Piece {
     }
 
     @Override
-    public boolean canMove(Piece source, Piece target) {
+    public boolean canMove(Board board, Piece source, Piece target) {
         notBlankPosition(source);
         withoutSameTeam(source.team(), target);
         return false;
@@ -28,6 +29,11 @@ public class Blank extends Piece {
     @Override
     public List<Position> getMovablePositions() {
         return new ArrayList<>();
+    }
+
+    @Override
+    public boolean moveStrategy(Position source, Position target) {
+        return false;
     }
 
     @Override
