@@ -4,11 +4,8 @@ import chess.domain.board.Board;
 import chess.domain.board.BoardInitializer;
 import chess.domain.board.Team;
 import chess.domain.piece.Piece;
-import chess.domain.position.Position;
+import chess.game.Score;
 import chess.game.Turn;
-
-import java.util.Collections;
-import java.util.Map;
 
 public class Ready implements GameState {
     private final Board board;
@@ -35,6 +32,11 @@ public class Ready implements GameState {
     @Override
     public GameState end() {
         throw new UnsupportedOperationException("아직 게임이 시작되지 않아 종료할 수 없습니다.");
+    }
+
+    @Override
+    public String winner(Score score) {
+        throw new UnsupportedOperationException("아직 게임이 시작되지 않아 우승자를 가릴 수 없습니다.");
     }
 
     @Override

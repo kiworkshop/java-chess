@@ -32,9 +32,10 @@ public class ChessGame {
         return this;
     }
 
-    public ChessGame end() {
+    public String end() {
         this.gameState = gameState.end();
-        return this;
+        Score score = status();
+        return gameState.winner(score);
     }
 
     public Score status() {

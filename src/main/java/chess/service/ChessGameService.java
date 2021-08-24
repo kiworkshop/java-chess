@@ -32,8 +32,8 @@ public class ChessGameService {
         return chessGame.gameState() instanceof Playing;
     }
 
-    public ChessGameDto endGame() {
-        return new ChessGameDto(chessGame.end());
+    public String endGame() {
+        return chessGame.end();
     }
 
     public ScoreDto status() {

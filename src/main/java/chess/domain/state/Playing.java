@@ -40,6 +40,11 @@ public class Playing implements GameState {
     }
 
     @Override
+    public String winner(Score score) {
+        throw new UnsupportedOperationException("아직 게임 진행을 진행하고 있어 우승자를 가릴 수 없습니다.");
+    }
+
+    @Override
     public GameState end() {
         return new Finish();
     }

@@ -1,5 +1,9 @@
 package chess.domain.position;
 
+import java.util.Arrays;
+
+import static java.util.stream.Collectors.joining;
+
 public enum File {
     A("a", 1),
     B("b", 2),
@@ -16,6 +20,12 @@ public enum File {
     File(String symbol, int number) {
         this.symbol = symbol;
         this.number = number;
+    }
+
+    public static String symbols() {
+        return Arrays.stream(values())
+                .map(file -> file.symbol())
+                .collect(joining());
     }
 
     public String symbol() {

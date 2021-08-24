@@ -38,6 +38,9 @@ public class OutputView {
     public static void printScore(ScoreDto scoreDto) {
         System.out.println(scoreDto.white());
         System.out.println(scoreDto.black());
+    }
 
+    public static void printWinner(String winner) {
+        System.out.println("** 우승자 **" + System.lineSeparator() + winner);
     }
 }

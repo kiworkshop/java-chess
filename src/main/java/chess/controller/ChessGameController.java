@@ -22,6 +22,7 @@ public class ChessGameController {
                 String start = InputView.getUserInput();
                 if (start.equals("start")) {
                     gameStart();
+                    break;
                 }
                 throw new IllegalArgumentException("체스 게임을 시작하려면 start를 입력해 주세요.");
 
@@ -79,6 +80,7 @@ public class ChessGameController {
     }
 
     private void gameEnd() {
-        chessGameService.endGame();
+        String winner = chessGameService.endGame();
+        OutputView.printWinner(winner);
     }
 }
