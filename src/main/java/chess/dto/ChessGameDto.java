@@ -8,7 +8,7 @@ public class ChessGameDto {
     private final GameState gameState;
 
     public ChessGameDto(ChessGame chessGame) {
-        this.gameState = chessGame.state();
+        this.gameState = chessGame.gameState();
     }
 
     public Board board() {

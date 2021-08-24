@@ -1,6 +1,7 @@
 package chess.game;
 
 import chess.domain.board.Board;
+import chess.domain.board.Team;
 import chess.domain.position.Position;
 import chess.domain.state.GameState;
 import chess.domain.state.Ready;
@@ -36,7 +37,13 @@ public class ChessGame {
         return this;
     }
 
-    public GameState state() {
+    public Score status() {
+        double whiteScore = gameState.status(Team.WHITE);
+        double blackScore = gameState.status(Team.BLACK);
+        return Score.of(whiteScore, blackScore);
+    }
+
+    public GameState gameState() {
         return gameState;
     }
 

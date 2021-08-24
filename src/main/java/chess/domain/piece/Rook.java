@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Rook extends Piece {
-    private final String symbol = "r";
+    private static final String ROOK_SYMBOL = "r";
+    private static final int ROOK_SCORE = 5;
 
     private Rook(Team team, Position position) {
         super(team, position);
@@ -37,10 +38,15 @@ public class Rook extends Piece {
     }
 
     @Override
+    public double score() {
+        return ROOK_SCORE;
+    }
+
+    @Override
     public String symbol() {
         if (team.equals(Team.BLACK)) {
-            return symbol.toUpperCase();
+            return ROOK_SYMBOL.toUpperCase();
         }
-        return symbol;
+        return ROOK_SYMBOL;
     }
 }

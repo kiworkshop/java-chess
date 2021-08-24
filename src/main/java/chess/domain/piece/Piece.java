@@ -14,6 +14,8 @@ public abstract class Piece extends Movement {
 
     public abstract String symbol();
 
+    public abstract double score();
+
     public Team team() {
         return team;
     }

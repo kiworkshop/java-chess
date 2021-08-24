@@ -3,6 +3,7 @@ package chess.domain.view;
 import chess.domain.board.Board;
 import chess.domain.position.Position;
 import chess.dto.ChessGameDto;
+import chess.dto.ScoreDto;
 
 public class OutputView {
     private static final int FILE_SIZE = 8;
@@ -32,5 +33,11 @@ public class OutputView {
         if (position.fileNumber() / FILE_SIZE == 1) {
             System.out.println();
         }
+    }
+
+    public static void printScore(ScoreDto scoreDto) {
+        System.out.println(scoreDto.white());
+        System.out.println(scoreDto.black());
+
     }
 }

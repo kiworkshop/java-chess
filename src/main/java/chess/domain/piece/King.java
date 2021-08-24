@@ -10,7 +10,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class King extends Piece {
-    private final String symbol = "k";
+    private static final String KING_SYMBOL = "k";
+    private static final int KING_SCORE = 0;
 
     private King(Team team, Position position) {
         super(team, position);
@@ -27,7 +28,8 @@ public class King extends Piece {
         List<Position> movablePositions = source.getMovablePositions();
 
         Set<Position> checkmatePositions = new HashSet<>();
-        List<Piece> otherPieces = Board.otherTeamPiece(source.team());
+        Team otherTeam = team.equals(Team.WHITE) ? Team.BLACK : Team.WHITE;
+        List<Piece> otherPieces = Board.findBy(otherTeam);
         for (Piece otherPiece : otherPieces) {
             checkmatePositions.addAll(otherPiece.getMovablePositions());
         }
@@ -52,10 +54,15 @@ public class King extends Piece {
     }
 
     @Override
+    public double score() {
+        return KING_SCORE;
+    }
+
+    @Override
     public String symbol() {
         if (team.equals(Team.BLACK)) {
-            return symbol.toUpperCase();
+            return KING_SYMBOL.toUpperCase();
         }
-        return symbol;
+        return KING_SYMBOL;
     }
 }

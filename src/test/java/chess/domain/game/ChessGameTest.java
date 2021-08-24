@@ -5,7 +5,6 @@ import chess.domain.position.Position;
 import chess.domain.state.Playing;
 import chess.domain.state.Ready;
 import chess.game.ChessGame;
-import chess.game.Turn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,20 +13,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class ChessGameTest {
-    private ChessGame chessGame;
+    private ChessGame ready;
     private Board board;
 
     @BeforeEach
     void before() {
-        chessGame = ChessGame.of(new Ready());
-        board = chessGame.board();
+        ready = ChessGame.of(new Ready());
+        board = ready.board();
     }
 
     @Test
     @DisplayName("체스 게임을 시작하면 상태가 Ready 에서 Playing 으로 변한다.")
     void start_game() {
-        // when // then
-        assertThat(chessGame.start().state()).isInstanceOf(Playing.class);
+        //given //when
+        ChessGame start = ready.start();
+
+        //then
+        assertThat(start.gameState()).isInstanceOf(Playing.class);
     }
 
     @Test
@@ -41,7 +43,7 @@ class ChessGameTest {
     @DisplayName("체스 말을 움직이는 게임 상태는 Playing 이다.")
     void move() {
         //given
-        ChessGame start = chessGame.start();
+        ChessGame start = ready.start();
         Position sourcePosition = Position.from("b2");
         Position targetPosition = Position.from("b4");
 
@@ -49,14 +51,14 @@ class ChessGameTest {
         start.move(sourcePosition, targetPosition);
 
         //then
-        assertThat(start.state()).isInstanceOf(Playing.class);
+        assertThat(start.gameState()).isInstanceOf(Playing.class);
     }
 
     @Test
     @DisplayName("폰이 첫 수가 아닌 경우 2칸을 이동할 수 없다.")
     void not_first_move_positions() {
         //given
-        ChessGame start = chessGame.start();
+        ChessGame start = ready.start();
         start.move(Position.from("f2"), Position.from("f3"));
         start.move(Position.from("e7"), Position.from("e6"));
         Position whitePawn = Position.from("f3");
@@ -78,7 +80,7 @@ class ChessGameTest {
     @DisplayName("대각선 1칸 앞에 적의 기물이 있는 경우 기물을 뺏고 그 자리로 이동할 수 있다.")
     void attack_positions() {
         //given
-        ChessGame start = chessGame.start();
+        ChessGame start = ready.start();
         movePawnAttackPosition();
 
         //when //then
@@ -88,51 +90,50 @@ class ChessGameTest {
 
     private void movePawnAttackPosition() {
         //white
-        chessGame.move(Position.from("a2"), Position.from("a4"));
+        ready.move(Position.from("a2"), Position.from("a4"));
         //black
-        chessGame.move(Position.from("b7"), Position.from("b5"));
+        ready.move(Position.from("b7"), Position.from("b5"));
         //white
-        chessGame.move(Position.from("g2"), Position.from("g4"));
+        ready.move(Position.from("g2"), Position.from("g4"));
         //black
-        chessGame.move(Position.from("h7"), Position.from("h5"));
+        ready.move(Position.from("h7"), Position.from("h5"));
     }
 
     @Test
     @DisplayName("체크메이트 되는 위치로는 이동할 수 없다.")
     void checkmate_positions() {
         //given
-        ChessGame start = chessGame.start();
+        ChessGame start = ready.start();
         moveCheckmatePosition();
         Position king = Position.from("e1");
         Position checkmatePosition = Position.from("e2");
 
         //when //then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> chessGame.move(king, checkmatePosition))
+                .isThrownBy(() -> ready.move(king, checkmatePosition))
                 .withMessage("이동할 수 없는 위치입니다.");
     }
 
     private void moveCheckmatePosition() {
         //white
-        chessGame.move(Position.from("e2"), Position.from("e4"));
+        ready.move(Position.from("e2"), Position.from("e4"));
         //black
-        chessGame.move(Position.from("d7"), Position.from("d5"));
+        ready.move(Position.from("d7"), Position.from("d5"));
         //white
-        chessGame.move(Position.from("g1"), Position.from("h3"));
+        ready.move(Position.from("g1"), Position.from("h3"));
         //black
-        chessGame.move(Position.from("c8"), Position.from("g4"));
+        ready.move(Position.from("c8"), Position.from("g4"));
     }
 
     @Test
     @DisplayName("체스 말을 움직일 차례가 아닌 경우 예외가 발생한다.")
     void can_not_move_turn() {
         //given
-        ChessGame start = chessGame.start();
-        Turn turn = start.state().turn();
+        ChessGame start = ready.start();
 
         //when //then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> chessGame.move(Position.from("g7"), Position.from("g6")))
+                .isThrownBy(() -> ready.move(Position.from("g7"), Position.from("g6")))
                 .withMessage("백이 움직일 차례입니다.");
     }
 }

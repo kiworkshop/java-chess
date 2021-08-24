@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Queen extends Piece {
-    private final String symbol = "q";
+    private static final String QUEEN_SYMBOL = "q";
+    private static final int QUEEN_SCORE = 9;
 
     private Queen(Team team, Position position) {
         super(team, position);
@@ -38,10 +39,15 @@ public class Queen extends Piece {
     }
 
     @Override
+    public double score() {
+        return QUEEN_SCORE;
+    }
+
+    @Override
     public String symbol() {
         if (team.equals(Team.BLACK)) {
-            return symbol.toUpperCase();
+            return QUEEN_SYMBOL.toUpperCase();
         }
-        return symbol;
+        return QUEEN_SYMBOL;
     }
 }

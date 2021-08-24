@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Blank extends Piece {
-    private final String symbol = ".";
+    private static final String BLANK_SYMBOL = ".";
+    private static final float BLANK_SCORE = 0;
 
     protected Blank(Position position) {
         super(Team.NEUTRAL, position);
@@ -30,7 +31,12 @@ public class Blank extends Piece {
     }
 
     @Override
+    public double score() {
+        return BLANK_SCORE;
+    }
+
+    @Override
     public String symbol() {
-        return symbol;
+        return BLANK_SYMBOL;
     }
 }

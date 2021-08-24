@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Knight extends Piece {
-    private final String symbol = "n";
+    private static final String KNIGHT_SYMBOL = "n";
+    private static final double KNIGHT_SCORE = 2.5;
 
     private Knight(Team team, Position position) {
         super(team, position);
@@ -38,10 +39,15 @@ public class Knight extends Piece {
     }
 
     @Override
+    public double score() {
+        return KNIGHT_SCORE;
+    }
+
+    @Override
     public String symbol() {
         if (team.equals(Team.BLACK)) {
-            return symbol.toUpperCase();
+            return KNIGHT_SYMBOL.toUpperCase();
         }
-        return symbol;
+        return KNIGHT_SYMBOL;
     }
 }

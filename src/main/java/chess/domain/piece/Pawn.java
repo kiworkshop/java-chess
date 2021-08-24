@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Pawn extends Piece {
-    private final String symbol = "p";
+    private static final String PAWN_SYMBOL = "p";
+    private static final int PAWN_SCORE = 1;
+    public static final double PAWN_SAME_FILE_SCORE = 0.5;
 
     private Pawn(Team team, Position position) {
         super(team, position);
@@ -62,10 +64,15 @@ public class Pawn extends Piece {
     }
 
     @Override
+    public double score() {
+        return PAWN_SCORE;
+    }
+
+    @Override
     public String symbol() {
         if (team.equals(Team.BLACK)) {
-            return symbol.toUpperCase();
+            return PAWN_SYMBOL.toUpperCase();
         }
-        return symbol;
+        return PAWN_SYMBOL;
     }
 }

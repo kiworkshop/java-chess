@@ -27,10 +27,9 @@ public class Board {
         return  board;
     }
 
-    public static List<Piece> otherTeamPiece(Team team) {
-        Team otherTeam = team.equals(Team.WHITE) ? Team.BLACK : Team.WHITE;
+    public static List<Piece> findBy(Team team) {
         return board.values().stream()
-                .filter(piece -> piece.team().equals(otherTeam))
+                .filter(piece -> piece.team().equals(team))
                 .collect(Collectors.toList());
     }
 

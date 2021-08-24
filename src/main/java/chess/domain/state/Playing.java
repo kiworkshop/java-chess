@@ -1,8 +1,12 @@
 package chess.domain.state;
 
 import chess.domain.board.Board;
+import chess.domain.board.Team;
 import chess.domain.piece.Piece;
+import chess.game.Score;
 import chess.game.Turn;
+
+import java.util.List;
 
 public class Playing implements GameState {
     private Turn turn;
@@ -15,7 +19,7 @@ public class Playing implements GameState {
 
     @Override
     public GameState start() {
-        throw new UnsupportedOperationException("게임이 이미 시작되었습니다.");
+        throw new UnsupportedOperationException("게임이 이미 시작되어 다시 게임을 시작할 수 없었습니다.");
     }
 
     @Override
@@ -27,6 +31,12 @@ public class Playing implements GameState {
             return this;
         }
         throw new IllegalArgumentException("이동할 수 없는 위치입니다.");
+    }
+
+    @Override
+    public double status(Team team) {
+        List<Piece> pieces = Board.findBy(team);
+        return Score.calculateSum(pieces);
     }
 
     @Override
