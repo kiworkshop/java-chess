@@ -1,5 +1,6 @@
 package chess.game;
 
+import chess.domain.piece.King;
 import chess.domain.piece.Pawn;
 import chess.domain.piece.Piece;
 
@@ -26,11 +27,18 @@ public class Score {
     }
 
     public static double calculateSum(List<Piece> pieces) {
+        long kingCount = existKing(pieces);
         double sum = pieces.stream()
                 .mapToDouble(Piece::score)
                 .sum();
         int sameFileCount = isSameFile(pieces);
-        return sum - (sameFileCount * PAWN_SAME_FILE_SCORE);
+        return (sum - (sameFileCount * PAWN_SAME_FILE_SCORE)) * kingCount;
+    }
+
+    private static long existKing(List<Piece> pieces) {
+        return pieces.stream()
+                .filter(King.class::isInstance)
+                .count();
     }
 
     private static int isSameFile(List<Piece> pieces) {

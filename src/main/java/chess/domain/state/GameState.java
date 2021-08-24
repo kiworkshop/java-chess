@@ -6,17 +6,21 @@ import chess.domain.piece.Piece;
 import chess.game.Score;
 import chess.game.Turn;
 
+import java.util.List;
+
 public interface GameState {
 
     GameState start();
 
-    GameState moveAndToggleTurn(Piece source, Piece target);
+    GameState move(Piece source, Piece target);
+
+    Turn toggle();
 
     double status(Team team);
 
     GameState end();
 
-    String winner(Score score);
+    List<String> winner(Score score);
 
     Turn turn();
 

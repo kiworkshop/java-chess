@@ -37,23 +37,23 @@ class ScoreTest {
 
     private void movePosition(ChessGame start) {
         //white
-        start.move(Position.from("b2"), Position.from("b4"));
+        start.moveAndToggleTurn(Position.from("b2"), Position.from("b4"));
         //black
-        start.move(Position.from("c7"), Position.from("c5"));
+        start.moveAndToggleTurn(Position.from("c7"), Position.from("c5"));
         //white
-        start.move(Position.from("b4"), Position.from("c5")); // black pawn dead
+        start.moveAndToggleTurn(Position.from("b4"), Position.from("c5")); // black pawn dead
         //black
-        start.move(Position.from("d7"), Position.from("d5"));
+        start.moveAndToggleTurn(Position.from("d7"), Position.from("d5"));
         //white
-        start.move(Position.from("h2"), Position.from("h3"));
+        start.moveAndToggleTurn(Position.from("h2"), Position.from("h3"));
         //black
-        start.move(Position.from("c8"), Position.from("h3")); // white pawn dead
+        start.moveAndToggleTurn(Position.from("c8"), Position.from("h3")); // white pawn dead
         //white
-        start.move(Position.from("g1"), Position.from("h3")); // black bishop dead
+        start.moveAndToggleTurn(Position.from("g1"), Position.from("h3")); // black bishop dead
         //black
-        start.move(Position.from("h7"), Position.from("h5"));
+        start.moveAndToggleTurn(Position.from("h7"), Position.from("h5"));
         //white
-        start.move(Position.from("c2"), Position.from("c4")); // c2, c3 pawn same file
+        start.moveAndToggleTurn(Position.from("c2"), Position.from("c4")); // c2, c3 pawn same file
     }
 
 }

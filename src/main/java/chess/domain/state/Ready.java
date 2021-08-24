@@ -7,6 +7,8 @@ import chess.domain.piece.Piece;
 import chess.game.Score;
 import chess.game.Turn;
 
+import java.util.List;
+
 public class Ready implements GameState {
     private final Board board;
 
@@ -20,8 +22,13 @@ public class Ready implements GameState {
     }
 
     @Override
-    public GameState moveAndToggleTurn(Piece source, Piece target) {
+    public GameState move(Piece source, Piece target) {
         throw new UnsupportedOperationException("아직 게임이 시작되지 않아 체스 말을 움직일 수 없습니다.");
+    }
+
+    @Override
+    public Turn toggle() {
+        throw new UnsupportedOperationException("아직 게임이 시작되지 않아 턴을 변경할 수 없습니다.");
     }
 
     @Override
@@ -35,7 +42,7 @@ public class Ready implements GameState {
     }
 
     @Override
-    public String winner(Score score) {
+    public List<String> winner(Score score) {
         throw new UnsupportedOperationException("아직 게임이 시작되지 않아 우승자를 가릴 수 없습니다.");
     }
 

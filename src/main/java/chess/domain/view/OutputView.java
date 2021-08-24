@@ -5,6 +5,8 @@ import chess.domain.position.Position;
 import chess.dto.ChessGameDto;
 import chess.dto.ScoreDto;
 
+import java.util.List;
+
 public class OutputView {
     private static final int FILE_SIZE = 8;
 
@@ -40,7 +42,8 @@ public class OutputView {
         System.out.println(scoreDto.black());
     }
 
-    public static void printWinner(String winner) {
-        System.out.println("** 우승자 **" + System.lineSeparator() + winner);
+    public static void printWinner(List<String> winner) {
+        System.out.println("** 우승자 **");
+        winner.forEach(System.out::println);
     }
 }

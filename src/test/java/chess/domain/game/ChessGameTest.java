@@ -2,6 +2,7 @@ package chess.domain.game;
 
 import chess.domain.board.Board;
 import chess.domain.position.Position;
+import chess.domain.state.Finish;
 import chess.domain.state.Playing;
 import chess.domain.state.Ready;
 import chess.game.ChessGame;
@@ -14,12 +15,10 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 
 class ChessGameTest {
     private ChessGame ready;
-    private Board board;
 
     @BeforeEach
     void before() {
         ready = ChessGame.of(new Ready());
-        board = ready.board();
     }
 
     @Test
@@ -35,7 +34,10 @@ class ChessGameTest {
     @Test
     @DisplayName("체스 게임을 준비하면 체스 판이 초기화 된다.")
     void setup_game_board() {
-        //given //when //then
+        //given //when
+        Board board = ready.board();
+
+        // then
         assertThat(board.values()).hasSize(64);
     }
 
@@ -48,10 +50,10 @@ class ChessGameTest {
         Position targetPosition = Position.from("b4");
 
         //when
-        start.move(sourcePosition, targetPosition);
+        ChessGame playing = start.moveAndToggleTurn(sourcePosition, targetPosition);
 
         //then
-        assertThat(start.gameState()).isInstanceOf(Playing.class);
+        assertThat(playing.gameState()).isInstanceOf(Playing.class);
     }
 
     @Test
@@ -59,20 +61,20 @@ class ChessGameTest {
     void not_first_move_positions() {
         //given
         ChessGame start = ready.start();
-        start.move(Position.from("f2"), Position.from("f3"));
-        start.move(Position.from("e7"), Position.from("e6"));
+        start.moveAndToggleTurn(Position.from("f2"), Position.from("f3"));
+        start.moveAndToggleTurn(Position.from("e7"), Position.from("e6"));
         Position whitePawn = Position.from("f3");
         Position blackPawn = Position.from("e6");
 
         //when //then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> start.move(whitePawn, Position.from("f5")))
+                .isThrownBy(() -> start.moveAndToggleTurn(whitePawn, Position.from("f5")))
                 .withMessage("이동할 수 없는 위치입니다.");
 
-        start.move(whitePawn, Position.from("f4")); // 턴을 바꾸려고 추가
+        start.moveAndToggleTurn(whitePawn, Position.from("f4")); // 턴을 바꾸려고 추가
 
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> start.move(blackPawn, Position.from("e4")))
+                .isThrownBy(() -> start.moveAndToggleTurn(blackPawn, Position.from("e4")))
                 .withMessage("이동할 수 없는 위치입니다.");
     }
 
@@ -80,49 +82,49 @@ class ChessGameTest {
     @DisplayName("대각선 1칸 앞에 적의 기물이 있는 경우 기물을 뺏고 그 자리로 이동할 수 있다.")
     void attack_positions() {
         //given
-        ChessGame start = ready.start();
-        movePawnAttackPosition();
+        ChessGame start = movePawnAttackPosition(ready.start());
 
         //when //then
-        start.move(Position.from("a4"), Position.from("b5"));
-        start.move(Position.from("h5"), Position.from("g4"));
+        start.moveAndToggleTurn(Position.from("a4"), Position.from("b5"));
+        start.moveAndToggleTurn(Position.from("h5"), Position.from("g4"));
     }
 
-    private void movePawnAttackPosition() {
+    private ChessGame movePawnAttackPosition(ChessGame start) {
         //white
-        ready.move(Position.from("a2"), Position.from("a4"));
+        start.moveAndToggleTurn(Position.from("a2"), Position.from("a4"));
         //black
-        ready.move(Position.from("b7"), Position.from("b5"));
+        start.moveAndToggleTurn(Position.from("b7"), Position.from("b5"));
         //white
-        ready.move(Position.from("g2"), Position.from("g4"));
+        start.moveAndToggleTurn(Position.from("g2"), Position.from("g4"));
         //black
-        ready.move(Position.from("h7"), Position.from("h5"));
+        start.moveAndToggleTurn(Position.from("h7"), Position.from("h5"));
+        return start;
     }
 
     @Test
     @DisplayName("체크메이트 되는 위치로는 이동할 수 없다.")
     void checkmate_positions() {
         //given
-        ChessGame start = ready.start();
-        moveCheckmatePosition();
+        ChessGame start = moveCheckmatePosition(ready.start());
         Position king = Position.from("e1");
         Position checkmatePosition = Position.from("e2");
 
         //when //then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> ready.move(king, checkmatePosition))
+                .isThrownBy(() -> start.moveAndToggleTurn(king, checkmatePosition))
                 .withMessage("이동할 수 없는 위치입니다.");
     }
 
-    private void moveCheckmatePosition() {
+    private ChessGame moveCheckmatePosition(ChessGame start) {
         //white
-        ready.move(Position.from("e2"), Position.from("e4"));
+        start.moveAndToggleTurn(Position.from("e2"), Position.from("e4"));
         //black
-        ready.move(Position.from("d7"), Position.from("d5"));
+        start.moveAndToggleTurn(Position.from("d7"), Position.from("d5"));
         //white
-        ready.move(Position.from("g1"), Position.from("h3"));
+        start.moveAndToggleTurn(Position.from("g1"), Position.from("h3"));
         //black
-        ready.move(Position.from("c8"), Position.from("g4"));
+        start.moveAndToggleTurn(Position.from("c8"), Position.from("g4"));
+        return start;
     }
 
     @Test
@@ -133,7 +135,34 @@ class ChessGameTest {
 
         //when //then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> ready.move(Position.from("g7"), Position.from("g6")))
+                .isThrownBy(() -> start.moveAndToggleTurn(Position.from("g7"), Position.from("g6")))
                 .withMessage("백이 움직일 차례입니다.");
+    }
+
+    @Test
+    @DisplayName("킹이 잡히면 게임이 종료된다.")
+    void checkmate() {
+        //given
+        ChessGame start = moveCheckmate(ready.start());
+
+        //when
+        ChessGame end = start.moveAndToggleTurn(Position.from("g4"), Position.from("e2"));
+
+        // then
+        assertThat(end.gameState()).isInstanceOf(Finish.class);
+    }
+
+    private ChessGame moveCheckmate(ChessGame start) {
+        //white
+        start.moveAndToggleTurn(Position.from("e2"), Position.from("e4"));
+        //black
+        start.moveAndToggleTurn(Position.from("d7"), Position.from("d5"));
+        //white
+        start.moveAndToggleTurn(Position.from("e1"), Position.from("e2"));
+        //black
+        start.moveAndToggleTurn(Position.from("c8"), Position.from("g4"));
+        //white
+        start.moveAndToggleTurn(Position.from("g1"), Position.from("h3"));
+        return start;
     }
 }

@@ -6,6 +6,8 @@ import chess.domain.position.Position;
 import chess.domain.state.GameState;
 import chess.domain.state.Ready;
 
+import java.util.List;
+
 public class ChessGame {
     private GameState gameState;
 
@@ -26,14 +28,23 @@ public class ChessGame {
         return this;
     }
 
-    public ChessGame move(Position source, Position target) {
+    public ChessGame moveAndToggleTurn(Position source, Position target) {
         Board board = gameState.board();
-        this.gameState = gameState.moveAndToggleTurn(board.from(source), board.from(target));
+        this.gameState = gameState.move(board.from(source), board.from(target));
+
+        Turn turn = gameState.toggle();
+        if (!board.existKing(turn)) {
+            this.gameState = gameState.end();
+        }
         return this;
     }
 
-    public String end() {
+    public List<String> end() {
         this.gameState = gameState.end();
+        return winner();
+    }
+
+    public List<String> winner() {
         Score score = status();
         return gameState.winner(score);
     }

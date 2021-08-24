@@ -7,6 +7,8 @@ import chess.dto.ChessGameDto;
 import chess.dto.ScoreDto;
 import chess.service.ChessGameService;
 
+import java.util.List;
+
 public class ChessGameController {
     private final ChessGameService chessGameService;
 
@@ -38,6 +40,7 @@ public class ChessGameController {
                 if (input.contains("move")) {
                     String[] moveInput = InputView.parseMoveInput(input);
                     movePiece(moveInput[0], moveInput[1]);
+                    checkGameEnd();
                     continue;
                 }
                 if (input.equals("status")) {
@@ -53,6 +56,13 @@ public class ChessGameController {
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    private void checkGameEnd() {
+        if (isFinish()) {
+            List<String> winner = chessGameService.winner();
+            OutputView.printWinner(winner);
         }
     }
 
@@ -79,8 +89,12 @@ public class ChessGameController {
         OutputView.printScore(scoreDto);
     }
 
+    private boolean isFinish() {
+        return chessGameService.isFinish();
+    }
+
     private void gameEnd() {
-        String winner = chessGameService.endGame();
+        List<String> winner = chessGameService.endGame();
         OutputView.printWinner(winner);
     }
 }

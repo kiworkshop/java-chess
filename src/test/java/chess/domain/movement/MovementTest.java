@@ -44,7 +44,7 @@ class MovementTest {
 
         //when //then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> chessGame.move(rook, pawn))
+                .isThrownBy(() -> chessGame.moveAndToggleTurn(rook, pawn))
                 .withMessage("아군이 있는 칸에는 이동할 수 없습니다.");
     }
 }

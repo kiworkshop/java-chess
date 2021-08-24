@@ -23,14 +23,19 @@ public class Playing implements GameState {
     }
 
     @Override
-    public GameState moveAndToggleTurn(Piece source, Piece target) {
+    public GameState move(Piece source, Piece target) {
         turn.checkTurn(source.team());
         if (source.canMove(source, target)) {
             board.move(source, target);
-            turn = turn.toggle();
             return this;
         }
         throw new IllegalArgumentException("이동할 수 없는 위치입니다.");
+    }
+
+    @Override
+    public Turn toggle() {
+        this.turn = turn.toggle();
+        return turn;
     }
 
     @Override
@@ -40,13 +45,13 @@ public class Playing implements GameState {
     }
 
     @Override
-    public String winner(Score score) {
+    public List<String> winner(Score score) {
         throw new UnsupportedOperationException("아직 게임 진행을 진행하고 있어 우승자를 가릴 수 없습니다.");
     }
 
     @Override
     public GameState end() {
-        return new Finish();
+        return new Finish(board);
     }
 
     @Override
