@@ -1,18 +1,18 @@
 package chess.controller;
 
-import chess.controller.dto.BoardDto;
+import chess.dto.console.BoardDto;
 import chess.domain.ChessGame;
 import chess.domain.board.Status;
 import chess.domain.command.Command;
 import chess.view.InputView;
 import chess.view.OutputView;
 
-public class ChessController {
+public class ConsoleChessController {
 
     private final InputView inputView;
     private final OutputView outputView;
 
-    public ChessController(final InputView inputView, final OutputView outputView) {
+    public ConsoleChessController(final InputView inputView, final OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
     }

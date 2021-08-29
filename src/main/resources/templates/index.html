@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>체스</title>
+    <meta charset="UTF-8">
+    <title>Web Chess Game</title>
+    <link rel="stylesheet" href="../public/css/index.css" type="text/css">
+    <link rel="stylesheet" href="css/index.css"/>
 </head>
+
 <body>
-<h2>
-  Hello, world!
-</h2>
+
+<header>
+    <div class="main-title">Web Chess Game</div>
+    <div class="mini-title">♟️ 새로운 체스 게임 시작하기 ♟️</div>
+</header>
+
+<section>
+    <button class="start-button box-border" id="start-button">START</button>
+    <form action="/start" id="start-game" method="post"></form>
+</section>
+
+<script type="text/javascript" src="/js/start.js"></script>
 </body>
+
 </html>

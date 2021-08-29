@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Web Chess Game</title>
+    <link rel="stylesheet" href="../public/css/index.css" type="text/css">
+    <link rel="stylesheet" href="../public/css/chessBoard.css" type="text/css">
+    <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/chessBoard.css"/>
+    <script type="text/javascript" src="/js/game.js"></script>
+</head>
+
+<body>
+
+<header>
+    <div class="main-title">Web Chess Game</div>
+    <div class="mini-title">♟️ 체스 게임 ♟️</div>
+    <div class="guide" id="current-turn">{{currentTurn}}의 차례입니다.</div>
+</header>
+
+<section>
+    <div class="chess-board" id="chess-board">
+        <div class="light cell">{{board.a8}}</div>
+        <div class="dark cell">{{board.b8}}</div>
+        <div class="light cell">{{board.c8}}</div>
+        <div class="dark cell">{{board.d8}}</div>
+        <div class="light cell">{{board.e8}}</div>
+        <div class="dark cell">{{board.f8}}</div>
+        <div class="light cell">{{board.g8}}</div>
+        <div class="dark cell">{{board.h8}}</div>
+
+        <div class="dark cell">{{board.a7}}</div>
+        <div class="light cell">{{board.b7}}</div>
+        <div class="dark cell">{{board.c7}}</div>
+        <div class="light cell">{{board.d7}}</div>
+        <div class="dark cell">{{board.e7}}</div>
+        <div class="light cell">{{board.f7}}</div>
+        <div class="dark cell">{{board.g7}}</div>
+        <div class="light cell">{{board.h7}}</div>
+
+        <div class="light cell">{{board.a6}}</div>
+        <div class="dark cell">{{board.b6}}</div>
+        <div class="light cell">{{board.c6}}</div>
+        <div class="dark cell">{{board.d6}}</div>
+        <div class="light cell">{{board.e6}}</div>
+        <div class="dark cell">{{board.f6}}</div>
+        <div class="light cell">{{board.g6}}</div>
+        <div class="dark cell">{{board.h6}}</div>
+
+        <div class="dark cell">{{board.a5}}</div>
+        <div class="light cell">{{board.b5}}</div>
+        <div class="dark cell">{{board.c5}}</div>
+        <div class="light cell">{{board.d5}}</div>
+        <div class="dark cell">{{board.e5}}</div>
+        <div class="light cell">{{board.f5}}</div>
+        <div class="dark cell">{{board.g5}}</div>
+        <div class="light cell">{{board.h5}}</div>
+
+        <div class="light cell">{{board.a4}}</div>
+        <div class="dark cell">{{board.b4}}</div>
+        <div class="light cell">{{board.c4}}</div>
+        <div class="dark cell">{{board.d4}}</div>
+        <div class="light cell">{{board.e4}}</div>
+        <div class="dark cell">{{board.f4}}</div>
+        <div class="light cell">{{board.g4}}</div>
+        <div class="dark cell">{{board.h4}}</div>
+
+        <div class="dark cell">{{board.a3}}</div>
+        <div class="light cell">{{board.b3}}</div>
+        <div class="dark cell">{{board.c3}}</div>
+        <div class="light cell">{{board.d3}}</div>
+        <div class="dark cell">{{board.e3}}</div>
+        <div class="light cell">{{board.f3}}</div>
+        <div class="dark cell">{{board.g3}}</div>
+        <div class="light cell">{{board.h3}}</div>
+
+        <div class="light cell">{{board.a2}}</div>
+        <div class="dark cell">{{board.b2}}</div>
+        <div class="light cell">{{board.c2}}</div>
+        <div class="dark cell">{{board.d2}}</div>
+        <div class="light cell">{{board.e2}}</div>
+        <div class="dark cell">{{board.f2}}</div>
+        <div class="light cell">{{board.g2}}</div>
+        <div class="dark cell">{{board.h2}}</div>
+
+        <div class="dark cell">{{board.a1}}</div>
+        <div class="light cell">{{board.b1}}</div>
+        <div class="dark cell">{{board.c1}}</div>
+        <div class="light cell">{{board.d1}}</div>
+        <div class="dark cell">{{board.e1}}</div>
+        <div class="light cell">{{board.f1}}</div>
+        <div class="dark cell">{{board.g1}}</div>
+        <div class="light cell">{{board.h1}}</div>
+    </div>
+
+</section>
+
+</body>
+
+</html>

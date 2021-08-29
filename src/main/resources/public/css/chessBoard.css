@@ -1,0 +1,23 @@
+.chessboard {
+    width: 640px;
+    height: 640px;
+    border: 20px solid #1E201F;
+}
+
+.cell {
+    width: 80px;
+    height: 80px;
+    display: table-cell;
+    vertical-align: middle;
+    float: left;
+    text-align: center;
+    font-size: 60px;
+}
+
+.dark {
+    background-color: #8D6F59;
+}
+
+.light {
+    background-color: #E4CBB3;
+}

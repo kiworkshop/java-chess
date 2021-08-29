@@ -1,17 +1,17 @@
 package chess;
 
-import chess.controller.ChessController;
+import chess.controller.ConsoleChessController;
 import chess.view.ConsoleInputView;
 import chess.view.ConsoleOutputView;
 import chess.view.InputView;
 import chess.view.OutputView;
 
-public class ConsoleApplication {
+public class ConsoleChessApplication {
 
     public static void main(String[] args) {
         OutputView outputView = new ConsoleOutputView();
         InputView inputView = new ConsoleInputView();
-        ChessController chessController = new ChessController(inputView, outputView);
-        chessController.run();
+        ConsoleChessController consoleChessController = new ConsoleChessController(inputView, outputView);
+        consoleChessController.run();
     }
 }

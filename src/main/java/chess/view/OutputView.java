@@ -1,6 +1,6 @@
 package chess.view;
 
-import chess.controller.dto.BoardDto;
+import chess.dto.console.BoardDto;
 import chess.domain.board.Status;
 
 public interface OutputView {

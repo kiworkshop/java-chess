@@ -6,6 +6,7 @@ import chess.domain.board.Rank;
 import java.util.*;
 
 public class Position {
+
     private static final Map<String, Position> POSITIONS = createPositions();
 
     private static Map<String, Position> createPositions() {
@@ -30,7 +31,12 @@ public class Position {
         return of(createKey(file, rank));
     }
 
+    public static Collection<String> names() {
+        return POSITIONS.keySet();
+    }
+
     private final File file;
+
     private final Rank rank;
 
     private Position(final File file, final Rank rank) {

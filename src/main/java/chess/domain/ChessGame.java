@@ -18,7 +18,7 @@ public class ChessGame {
         isWhiteTurn = !isWhiteTurn;
 
         if (board.isEnd()) {
-            isRunning = false;
+            end();
         }
     }
 
