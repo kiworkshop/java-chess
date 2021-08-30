@@ -5,14 +5,10 @@ body {
     text-align: center;
 }
 
-header {
-    padding-top: 1em;
-}
-
 .main-title {
-    height: 3em;
-    line-height: 3em;
-    font-size: 1.7em;
+    height: 2em;
+    line-height: 2em;
+    font-size: 1.3em;
     font-weight: bolder;
     color: snow;
     background-color: #333333;
@@ -20,30 +16,25 @@ header {
 
 .mini-title {
     font-size: 1.5em;
-    padding-top: 2em;
+    padding-top: 1em;
     color: #333333;
 }
 
 .guide {
-    font-size: 1.1em;
-    padding-top: 1.5em;
+    font-size: 0.8em;
+    padding-top: 0.4em;
     color: #333333;
 }
 
 section {
-    padding: 35px;
-    width: 640px;
-    height: 640px;
-    display: flex;
-    margin: auto;
-    place-content: center;
+    margin-top: 20px;
 }
 
-.start-button {
-    width: 150px;
+.button {
+    width: 120px;
     height: 2.5em;
     line-height: 2.5em;
-    font-size: 1.3em;
+    font-size: 1.0em;
     font-family: "배달의민족 한나는 열한살", system-ui;
 }
 
@@ -51,4 +42,9 @@ section {
     border: 2px solid;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0);
+}
+
+footer {
+    padding-bottom: 30px;
+    place-content: center;
 }

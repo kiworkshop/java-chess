@@ -7,7 +7,7 @@ import chess.domain.command.MoveParameters;
 public class ChessGame {
 
     private final Board board = new Board();
-    private boolean isRunning = true;
+    private boolean isFinished = false;
     private boolean isWhiteTurn = true;
 
     public ChessGame() {
@@ -23,15 +23,11 @@ public class ChessGame {
     }
 
     public void end() {
-        isRunning = false;
+        isFinished = true;
     }
 
     public Status getStatus() {
         return board.getStatus();
-    }
-
-    public boolean isRunning() {
-        return isRunning;
     }
 
     public Board getBoard() {
@@ -40,5 +36,13 @@ public class ChessGame {
 
     public boolean isWhiteTurn() {
         return isWhiteTurn;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public boolean isRunning() {
+        return !isFinished;
     }
 }

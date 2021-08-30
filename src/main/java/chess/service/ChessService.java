@@ -2,6 +2,8 @@ package chess.service;
 
 import chess.domain.ChessGame;
 import chess.domain.board.Board;
+import chess.domain.board.Status;
+import chess.domain.command.MoveParameters;
 import chess.dto.web.BoardDto;
 import chess.dto.web.TurnDto;
 
@@ -22,5 +24,17 @@ public class ChessService {
 
     public String getCurrentTurn() {
         return TurnDto.of(chessGame);
+    }
+
+    public Status getStatus() {
+        return chessGame.getStatus();
+    }
+
+    public boolean isGameFinished() {
+        return chessGame.isFinished();
+    }
+
+    public void movePiece(MoveParameters moveParameters) {
+        chessGame.move(moveParameters);
     }
 }

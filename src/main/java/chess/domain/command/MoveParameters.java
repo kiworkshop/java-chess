@@ -16,6 +16,10 @@ public class MoveParameters {
         this(Position.of(parameters.get(SOURCE_INDEX)), Position.of(parameters.get(TARGET_INDEX)));
     }
 
+    public MoveParameters(String source, String target) {
+        this(Position.of(source), Position.of(target));
+    }
+
     public MoveParameters(final Position source, final Position target) {
         this.source = source;
         this.target = target;

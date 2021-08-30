@@ -23,7 +23,13 @@ public class Position {
         return file.name() + rank.getIndex();
     }
 
-    public static Position of(final String key) {
+    public static Position of(String key) {
+        key = key.toLowerCase();
+
+        if (!POSITIONS.containsKey(key)) {
+            throw new IllegalArgumentException("위치 입력값이 잘못되었습니다.");
+        }
+
         return POSITIONS.get(key);
     }
 

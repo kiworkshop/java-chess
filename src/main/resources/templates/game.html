@@ -6,96 +6,135 @@
     <title>Web Chess Game</title>
     <link rel="stylesheet" href="../public/css/index.css" type="text/css">
     <link rel="stylesheet" href="../public/css/chessBoard.css" type="text/css">
+    <link rel="stylesheet" href="../public/css/menu.css" type="text/css">
     <link rel="stylesheet" href="css/index.css"/>
     <link rel="stylesheet" href="css/chessBoard.css"/>
+    <link rel="stylesheet" href="css/menu.css"/>
     <script type="text/javascript" src="/js/game.js"></script>
 </head>
 
 <body>
 
 <header>
-    <div class="main-title">Web Chess Game</div>
-    <div class="mini-title">♟️ 체스 게임 ♟️</div>
-    <div class="guide" id="current-turn">{{currentTurn}}의 차례입니다.</div>
+    <div class="main-title">♟️ 체스 게임이 진행 중입니다 ♟️</div>
 </header>
 
 <section>
-    <div class="chess-board" id="chess-board">
-        <div class="light cell">{{board.a8}}</div>
-        <div class="dark cell">{{board.b8}}</div>
-        <div class="light cell">{{board.c8}}</div>
-        <div class="dark cell">{{board.d8}}</div>
-        <div class="light cell">{{board.e8}}</div>
-        <div class="dark cell">{{board.f8}}</div>
-        <div class="light cell">{{board.g8}}</div>
-        <div class="dark cell">{{board.h8}}</div>
+    <div class="game-wrapper">
 
-        <div class="dark cell">{{board.a7}}</div>
-        <div class="light cell">{{board.b7}}</div>
-        <div class="dark cell">{{board.c7}}</div>
-        <div class="light cell">{{board.d7}}</div>
-        <div class="dark cell">{{board.e7}}</div>
-        <div class="light cell">{{board.f7}}</div>
-        <div class="dark cell">{{board.g7}}</div>
-        <div class="light cell">{{board.h7}}</div>
+        <div class="chess-board-wrapper">
+            <div class="chess-board" id="chess-board">
+                <div class="light cell">{{board.a8}}</div>
+                <div class="dark cell">{{board.b8}}</div>
+                <div class="light cell">{{board.c8}}</div>
+                <div class="dark cell">{{board.d8}}</div>
+                <div class="light cell">{{board.e8}}</div>
+                <div class="dark cell">{{board.f8}}</div>
+                <div class="light cell">{{board.g8}}</div>
+                <div class="dark cell">{{board.h8}}</div>
+                <div class="dark cell">{{board.a7}}</div>
+                <div class="light cell">{{board.b7}}</div>
+                <div class="dark cell">{{board.c7}}</div>
+                <div class="light cell">{{board.d7}}</div>
+                <div class="dark cell">{{board.e7}}</div>
+                <div class="light cell">{{board.f7}}</div>
+                <div class="dark cell">{{board.g7}}</div>
+                <div class="light cell">{{board.h7}}</div>
+                <div class="light cell">{{board.a6}}</div>
+                <div class="dark cell">{{board.b6}}</div>
+                <div class="light cell">{{board.c6}}</div>
+                <div class="dark cell">{{board.d6}}</div>
+                <div class="light cell">{{board.e6}}</div>
+                <div class="dark cell">{{board.f6}}</div>
+                <div class="light cell">{{board.g6}}</div>
+                <div class="dark cell">{{board.h6}}</div>
+                <div class="dark cell">{{board.a5}}</div>
+                <div class="light cell">{{board.b5}}</div>
+                <div class="dark cell">{{board.c5}}</div>
+                <div class="light cell">{{board.d5}}</div>
+                <div class="dark cell">{{board.e5}}</div>
+                <div class="light cell">{{board.f5}}</div>
+                <div class="dark cell">{{board.g5}}</div>
+                <div class="light cell">{{board.h5}}</div>
+                <div class="light cell">{{board.a4}}</div>
+                <div class="dark cell">{{board.b4}}</div>
+                <div class="light cell">{{board.c4}}</div>
+                <div class="dark cell">{{board.d4}}</div>
+                <div class="light cell">{{board.e4}}</div>
+                <div class="dark cell">{{board.f4}}</div>
+                <div class="light cell">{{board.g4}}</div>
+                <div class="dark cell">{{board.h4}}</div>
+                <div class="dark cell">{{board.a3}}</div>
+                <div class="light cell">{{board.b3}}</div>
+                <div class="dark cell">{{board.c3}}</div>
+                <div class="light cell">{{board.d3}}</div>
+                <div class="dark cell">{{board.e3}}</div>
+                <div class="light cell">{{board.f3}}</div>
+                <div class="dark cell">{{board.g3}}</div>
+                <div class="light cell">{{board.h3}}</div>
+                <div class="light cell">{{board.a2}}</div>
+                <div class="dark cell">{{board.b2}}</div>
+                <div class="light cell">{{board.c2}}</div>
+                <div class="dark cell">{{board.d2}}</div>
+                <div class="light cell">{{board.e2}}</div>
+                <div class="dark cell">{{board.f2}}</div>
+                <div class="light cell">{{board.g2}}</div>
+                <div class="dark cell">{{board.h2}}</div>
+                <div class="dark cell">{{board.a1}}</div>
+                <div class="light cell">{{board.b1}}</div>
+                <div class="dark cell">{{board.c1}}</div>
+                <div class="light cell">{{board.d1}}</div>
+                <div class="dark cell">{{board.e1}}</div>
+                <div class="light cell">{{board.f1}}</div>
+                <div class="dark cell">{{board.g1}}</div>
+                <div class="light cell">{{board.h1}}</div>
+            </div>
+        </div>
 
-        <div class="light cell">{{board.a6}}</div>
-        <div class="dark cell">{{board.b6}}</div>
-        <div class="light cell">{{board.c6}}</div>
-        <div class="dark cell">{{board.d6}}</div>
-        <div class="light cell">{{board.e6}}</div>
-        <div class="dark cell">{{board.f6}}</div>
-        <div class="light cell">{{board.g6}}</div>
-        <div class="dark cell">{{board.h6}}</div>
+        <div class="menu-wrapper">
+            <div class="move-form-wrapper">
+                <form action="/move" id="move-piece" method="post">
+                    <label class="input-label">SOURCE
+                        <input class="input-box box-border" type="text" name="source" required="required"/>
+                    </label>
+                    <br>
+                    <label class="input-label">TARGET
+                        <input class="input-box box-border" type="text" name="target" required="required">
+                    </label>
+                    <br>
+                    <input type="submit" class="move-button box-border" value="MOVE">
+                </form>
+            </div>
 
-        <div class="dark cell">{{board.a5}}</div>
-        <div class="light cell">{{board.b5}}</div>
-        <div class="dark cell">{{board.c5}}</div>
-        <div class="light cell">{{board.d5}}</div>
-        <div class="dark cell">{{board.e5}}</div>
-        <div class="light cell">{{board.f5}}</div>
-        <div class="dark cell">{{board.g5}}</div>
-        <div class="light cell">{{board.h5}}</div>
+            <div class="message-wrapper">
+                <div class="message-content">
+                    {{#status}}
+                    WHITE: {{status.whiteScore}}점<br>
+                    BLACK: {{status.blackScore}}점
+                    {{/status}}
+                    {{^status}}
+                        {{#message}}
+                        {{message}}
+                        {{/message}}
+                        {{^message}}
+                        {{currentTurn}} 차례입니다.
+                        {{/message}}
+                    {{/status}}
+                </div>
+            </div>
 
-        <div class="light cell">{{board.a4}}</div>
-        <div class="dark cell">{{board.b4}}</div>
-        <div class="light cell">{{board.c4}}</div>
-        <div class="dark cell">{{board.d4}}</div>
-        <div class="light cell">{{board.e4}}</div>
-        <div class="dark cell">{{board.f4}}</div>
-        <div class="light cell">{{board.g4}}</div>
-        <div class="dark cell">{{board.h4}}</div>
+            <form action="/status" id="status" method="post">
+                <input type="submit" class="menu-button" id="status-button" value="STATUS">
+            </form>
 
-        <div class="dark cell">{{board.a3}}</div>
-        <div class="light cell">{{board.b3}}</div>
-        <div class="dark cell">{{board.c3}}</div>
-        <div class="light cell">{{board.d3}}</div>
-        <div class="dark cell">{{board.e3}}</div>
-        <div class="light cell">{{board.f3}}</div>
-        <div class="dark cell">{{board.g3}}</div>
-        <div class="light cell">{{board.h3}}</div>
-
-        <div class="light cell">{{board.a2}}</div>
-        <div class="dark cell">{{board.b2}}</div>
-        <div class="light cell">{{board.c2}}</div>
-        <div class="dark cell">{{board.d2}}</div>
-        <div class="light cell">{{board.e2}}</div>
-        <div class="dark cell">{{board.f2}}</div>
-        <div class="light cell">{{board.g2}}</div>
-        <div class="dark cell">{{board.h2}}</div>
-
-        <div class="dark cell">{{board.a1}}</div>
-        <div class="light cell">{{board.b1}}</div>
-        <div class="dark cell">{{board.c1}}</div>
-        <div class="light cell">{{board.d1}}</div>
-        <div class="dark cell">{{board.e1}}</div>
-        <div class="light cell">{{board.f1}}</div>
-        <div class="dark cell">{{board.g1}}</div>
-        <div class="light cell">{{board.h1}}</div>
+            <form action="/result" id="end-game" method="post">
+                <input type="submit" class="menu-button" id="end-button" value="END">
+            </form>
+        </div>
     </div>
-
 </section>
-
+<footer>
+</footer>
+<script type="text/javascript" src="/js/end.js"></script>
 </body>
-
 </html>

@@ -19,8 +19,8 @@ const nameSymbolMap = new Map(
 );
 
 window.onload = function () {
-    document.querySelectorAll(".cell")
-        .forEach(element => {
-            element.innerText = nameSymbolMap.get(element.innerText);
-        });
+        document.querySelectorAll(".cell")
+            .forEach(element => {
+                    element.innerText = nameSymbolMap.get(element.innerText);
+            });
 }
