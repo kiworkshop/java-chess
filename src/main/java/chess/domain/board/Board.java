@@ -8,18 +8,21 @@ import chess.domain.player.Position;
 
 import java.util.Set;
 
+import static chess.domain.piece.Color.BLACK;
+import static chess.domain.piece.Color.WHITE;
+
 public class Board {
     private final Player white;
     private final Player black;
 
     public Board() {
         this.white = new Player(Color.WHITE);
-        this.black = new Player(Color.BLACK);
+        this.black = new Player(BLACK);
     }
 
-    public void move(final MoveParameters moveParameters, final boolean isWhiteTurn) {
-        Player player = currentPlayer(isWhiteTurn);
-        Player enemy = currentPlayer(!isWhiteTurn);
+    public void move(final MoveParameters moveParameters, final Color currentTurn) {
+        Player player = currentPlayer(currentTurn);
+        Player enemy = enemyPlayer(currentTurn);
         Position source = moveParameters.getSource();
         Position target = moveParameters.getTarget();
 
@@ -32,11 +35,18 @@ public class Board {
         movePiece(player, source, target);
     }
 
-    private Player currentPlayer(final boolean isWhiteTurn) {
-        if (isWhiteTurn) {
+    private Player currentPlayer(final Color currentTurn) {
+        if (currentTurn == Color.WHITE) {
             return white;
         }
         return black;
+    }
+
+    private Player enemyPlayer(final Color currentTurn) {
+        if (currentTurn == Color.WHITE) {
+            return black;
+        }
+        return white;
     }
 
     private void validateSourceOwner(final Player enemy, final Position source) {
@@ -100,7 +110,14 @@ public class Board {
         return new Status(whiteScore, blackScore, white.isKingDead(), black.isKingDead());
     }
 
-    public boolean isEnd() {
+    public boolean isKingDead() {
         return white.isKingDead() || black.isKingDead();
+    }
+
+    public Color getWinner() {
+        if (white.isKingDead()) {
+            return BLACK;
+        }
+        return WHITE;
     }
 }

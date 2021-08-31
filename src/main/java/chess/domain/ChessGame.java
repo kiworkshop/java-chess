@@ -3,22 +3,37 @@ package chess.domain;
 import chess.domain.board.Board;
 import chess.domain.board.Status;
 import chess.domain.command.MoveParameters;
+import chess.domain.piece.Color;
+
+import static chess.domain.piece.Color.BLACK;
+import static chess.domain.piece.Color.WHITE;
 
 public class ChessGame {
 
     private final Board board = new Board();
+    private Color currentTurn = WHITE;
     private boolean isFinished = false;
-    private boolean isWhiteTurn = true;
 
     public ChessGame() {
     }
 
     public void move(final MoveParameters moveParameters) {
-        board.move(moveParameters, isWhiteTurn);
-        isWhiteTurn = !isWhiteTurn;
+        board.move(moveParameters, currentTurn);
+        changeTurn();
 
-        if (board.isEnd()) {
+        if (board.isKingDead()) {
             end();
+        }
+    }
+
+    private void changeTurn() {
+        if (currentTurn == WHITE) {
+            currentTurn = BLACK;
+            return;
+        }
+
+        if (currentTurn == BLACK) {
+            currentTurn = WHITE;
         }
     }
 
@@ -35,11 +50,7 @@ public class ChessGame {
     }
 
     public boolean isWhiteTurn() {
-        return isWhiteTurn;
-    }
-
-    public boolean isFinished() {
-        return isFinished;
+        return currentTurn.isWhite();
     }
 
     public boolean isRunning() {

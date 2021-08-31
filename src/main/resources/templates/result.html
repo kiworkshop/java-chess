@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <title>Web Chess Game</title>
     <link rel="stylesheet" href="../public/css/index.css" type="text/css">
+    <link rel="stylesheet" href="../public/css/result.css" type="text/css">
     <link rel="stylesheet" href="css/index.css"/>
+    <link rel="stylesheet" href="css/result.css"/>
 </head>
 
 <body>
@@ -16,8 +18,27 @@
 </header>
 
 <section>
-    <button class="button box-border" id="return-button">돌아가기</button>
-    <form action="/" id="return-to-main" method="get"></form>
+    <div class="result-wrapper">
+        <div class="result-content">
+            {{#winner}}
+            {{winner}}가 승리했습니다.<br>축하합니다!
+            {{/winner}}
+            {{^winner}}
+            {{#message}}
+            {{message}}
+            {{#status}}
+            <br><br>
+            WHITE: {{status.whiteScore}}점<br>
+            BLACK: {{status.blackScore}}점
+            {{/status}}
+            {{/message}}
+            {{/winner}}
+        </div>
+    </div>
+
+    <form action="/" id="return-to-main" method="get">
+        <input type="submit" class="button box-border" id="return-button" value="RETURN TO MAIN">
+    </form>
 </section>
 
 <script type="text/javascript" src="/js/result.js"></script>

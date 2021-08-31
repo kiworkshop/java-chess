@@ -108,16 +108,18 @@
 
             <div class="message-wrapper">
                 <div class="message-content">
+                    {{currentTurn}} 차례입니다.
                     {{#status}}
-                    WHITE: {{status.whiteScore}}점<br>
+                    <br><br>
+                    WHITE: {{status.whiteScore}}점
                     BLACK: {{status.blackScore}}점
                     {{/status}}
                     {{^status}}
                         {{#message}}
+                        <br><br>
                         {{message}}
                         {{/message}}
                         {{^message}}
-                        {{currentTurn}} 차례입니다.
                         {{/message}}
                     {{/status}}
                 </div>

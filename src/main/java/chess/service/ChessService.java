@@ -1,40 +1,73 @@
 package chess.service;
 
-import chess.domain.ChessGame;
 import chess.domain.board.Board;
 import chess.domain.board.Status;
 import chess.domain.command.MoveParameters;
+import chess.domain.piece.Color;
 import chess.dto.web.BoardDto;
-import chess.dto.web.TurnDto;
 
 import java.util.Map;
 
+import static chess.domain.piece.Color.BLACK;
+import static chess.domain.piece.Color.WHITE;
+
 public class ChessService {
 
-    private final ChessGame chessGame;
+    private final Board board;
+    private Color currentTurn;
+    private boolean isFinished;
 
     public ChessService() {
-        this.chessGame = new ChessGame();
+        this.board = new Board();
+        this.currentTurn = WHITE;
+        this.isFinished = false;
+    }
+
+    public boolean isGameFinished() {
+        return isFinished;
     }
 
     public Map<String, String> getBoardView() {
-        Board board = chessGame.getBoard();
         return BoardDto.of(board);
     }
 
     public String getCurrentTurn() {
-        return TurnDto.of(chessGame);
+        return currentTurn.name();
     }
 
     public Status getStatus() {
-        return chessGame.getStatus();
-    }
-
-    public boolean isGameFinished() {
-        return chessGame.isFinished();
+        return board.getStatus();
     }
 
     public void movePiece(MoveParameters moveParameters) {
-        chessGame.move(moveParameters);
+        board.move(moveParameters, currentTurn);
+        changeTurn();
+
+        if (board.isKingDead()) {
+            finish();
+        }
+    }
+
+    private void changeTurn() {
+        if (currentTurn == WHITE) {
+            currentTurn = BLACK;
+            return;
+        }
+
+        if (currentTurn == BLACK) {
+            currentTurn = WHITE;
+        }
+    }
+
+    private void finish() {
+        isFinished = true;
+    }
+
+    public String getWinner() {
+        if (isFinished) {
+            Color color = board.getWinner();
+            return color.name();
+        }
+        throw new IllegalStateException("King이 잡히지 않아 승자가 없습니다.");
     }
 }

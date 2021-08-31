@@ -31,9 +31,9 @@ section {
 }
 
 .button {
-    width: 120px;
-    height: 2.5em;
-    line-height: 2.5em;
+    width: 160px;
+    height: 3em;
+    line-height: 3em;
     font-size: 1.0em;
     font-family: "배달의민족 한나는 열한살", system-ui;
 }

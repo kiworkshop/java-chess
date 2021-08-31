@@ -89,7 +89,7 @@ public class MovePattern {
                 .ifPresent(result::add);
 
         if (result.isEmpty()) {
-            throw new IllegalArgumentException("매칭되는 방향이 없습니다.");
+            throw new IllegalArgumentException("해당 방향으로 이동할 수 없습니다.");
         }
 
         return result.get(0);
