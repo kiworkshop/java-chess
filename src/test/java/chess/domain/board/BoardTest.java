@@ -130,11 +130,11 @@ public class BoardTest {
         Board board = setBoardToGetStatus();
 
         //when
-        Status status = board.getStatus();
+        Scores scores = board.getScores();
 
         //then
-        assertThat(status.getWhiteScore()).isEqualTo(37);
-        assertThat(status.getBlackScore()).isEqualTo(37);
+        assertThat(scores.getWhiteScore()).isEqualTo(37);
+        assertThat(scores.getBlackScore()).isEqualTo(37);
     }
 
     private Board setBoardToGetStatus() {

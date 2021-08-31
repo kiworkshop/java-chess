@@ -30,7 +30,7 @@ public class WebChessController {
 
         post("/start", this::startGame);
 
-        post("/status", this::getStatus);
+        post("/scores", this::getScores);
 
         post("/move", this::movePiece);
 
@@ -46,7 +46,7 @@ public class WebChessController {
         return render(getGameInfo(), GAME_PAGE);
     }
 
-    private String getStatus(Request request, Response response) {
+    private String getScores(Request request, Response response) {
         return render(getGameInfoWithStatus(), GAME_PAGE);
     }
 
@@ -75,13 +75,13 @@ public class WebChessController {
     private Map<String, Object> getGameInfo() {
         Map<String, Object> model = new HashMap<>();
         model.put("board", chessService.getBoardWebView());
-        model.put("currentTurn", chessService.getCurrentTurn());
+        model.put("currentTurn", chessService.getCurrentTurnView());
         return model;
     }
 
     private Map<String, Object> getGameInfoWithStatus() {
         Map<String, Object> model = getGameInfo();
-        model.put("status", chessService.getStatus());
+        model.put("scores", chessService.getScores());
         return model;
     }
 
@@ -93,9 +93,9 @@ public class WebChessController {
 
     private Map<String, Object> getGameResult() {
         Map<String, Object> model = new HashMap<>();
-        model.put("status", chessService.getStatus());
+        model.put("scores", chessService.getScores());
         try {
-            model.put("winner", chessService.getWinner());
+            model.put("winner", chessService.getWinnerView());
         } catch (IllegalStateException e) {
             model.put("message", e.getMessage());
         }

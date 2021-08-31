@@ -56,6 +56,11 @@ public class Player {
                 .noneMatch(PieceType::isKing);
     }
 
+    public boolean isKingAlive() {
+        return pieces.values().stream()
+                .anyMatch(PieceType::isKing);
+    }
+
     public boolean canAttack(Position position) {
         return attackPositions.contains(position);
     }
@@ -69,7 +74,7 @@ public class Player {
         pieces.remove(target);
     }
 
-    public double sumScores() {
+    public double calculateScores() {
         List<Position> pawnPositions = findPawnPositions();
 
         double pawnScores = calculatePawnScores(pawnPositions);

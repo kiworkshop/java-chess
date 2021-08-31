@@ -116,7 +116,7 @@ public class PlayerTest {
         Player player = new Player(Color.WHITE);
 
         //when
-        double sum = player.sumScores();
+        double sum = player.calculateScores();
 
         //then
         assertThat(sum).isEqualTo(38);

@@ -103,15 +103,19 @@ public class Board {
         return !white.hasPieceOn(position) && !black.hasPieceOn(position);
     }
 
-    public Status getStatus() {
-        double whiteScore = white.sumScores();
-        double blackScore = black.sumScores();
+    public Scores getScores() {
+        double whiteScore = white.calculateScores();
+        double blackScore = black.calculateScores();
 
-        return new Status(whiteScore, blackScore, white.isKingDead(), black.isKingDead());
+        return new Scores(whiteScore, blackScore);
     }
 
-    public boolean isKingDead() {
+    public boolean isAnyKingDead() {
         return white.isKingDead() || black.isKingDead();
+    }
+
+    public boolean isBothKingAlive() {
+        return white.isKingAlive() && black.isKingAlive();
     }
 
     public Color getWinner() {

@@ -109,24 +109,24 @@
             <div class="message-wrapper">
                 <div class="message-content">
                     {{currentTurn}} 차례입니다.
-                    {{#status}}
+                    {{#scores}}
                     <br><br>
-                    WHITE: {{status.whiteScore}}점
-                    BLACK: {{status.blackScore}}점
-                    {{/status}}
-                    {{^status}}
+                    WHITE: {{scores.whiteScore}}점
+                    BLACK: {{scores.blackScore}}점
+                    {{/scores}}
+                    {{^scores}}
                         {{#message}}
                         <br><br>
                         {{message}}
                         {{/message}}
                         {{^message}}
                         {{/message}}
-                    {{/status}}
+                    {{/scores}}
                 </div>
             </div>
 
-            <form action="/status" id="status" method="post">
-                <input type="submit" class="menu-button" id="status-button" value="STATUS">
+            <form action="/scores" id="scores" method="post">
+                <input type="submit" class="menu-button" id="scores-button" value="SCORES">
             </form>
 
             <form action="/result" id="end-game" method="post">

@@ -1,7 +1,7 @@
 package chess.view;
 
+import chess.domain.board.Scores;
 import chess.dto.console.BoardConsoleDto;
-import chess.domain.board.Status;
 
 public class ConsoleOutputView implements OutputView {
 
@@ -30,23 +30,24 @@ public class ConsoleOutputView implements OutputView {
     }
 
     @Override
-    public void printStatus(final Status status) {
-        if (status.isWhiteKingDead()) {
-            System.out.printf(WINNER_FORMAT, "BLACK");
-            return;
-        }
-
-        if (status.isBlackKingDead()) {
-            System.out.printf(WINNER_FORMAT, "WHITE");
-            return;
-        }
-
-        System.out.println(HEADER + "WHITE 점수: " + status.getWhiteScore());
-        System.out.println(HEADER + "BLACK 점수: " + status.getBlackScore());
+    public void printScores(final Scores scores) {
+        System.out.println(HEADER + "WHITE 점수: " + scores.getWhiteScore());
+        System.out.println(HEADER + "BLACK 점수: " + scores.getBlackScore());
     }
 
     @Override
     public void printTurn(String currentTurn) {
         System.out.printf(TURN_FORMAT, currentTurn);
+    }
+
+    @Override
+    public void printWinner(String winnerName) {
+        System.out.printf(WINNER_FORMAT, winnerName);
+    }
+
+    @Override
+    public void printMessage(String message) {
+        System.out.println(HEADER + message);
+        System.out.println();
     }
 }

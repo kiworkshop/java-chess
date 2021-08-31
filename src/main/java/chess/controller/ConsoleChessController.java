@@ -1,9 +1,10 @@
 package chess.controller;
 
-import chess.domain.board.Status;
+import chess.domain.board.Scores;
 import chess.domain.command.Command;
 import chess.domain.command.MoveParameters;
 import chess.dto.console.BoardConsoleDto;
+import chess.exception.ForcedTerminationException;
 import chess.service.ChessService;
 import chess.view.InputView;
 import chess.view.OutputView;
@@ -25,17 +26,19 @@ public class ConsoleChessController {
 
         while (chessService.isGameRunning()) {
             try {
-                outputView.printTurn(chessService.getCurrentTurn());
+                outputView.printTurn(chessService.getCurrentTurnView());
                 Command command = new Command(inputView.getCommand());
                 run(command);
                 printBoard();
             } catch (UnsupportedOperationException e) {
-                System.out.println(e.getMessage());
+                outputView.printMessage(e.getMessage());
+            } catch (ForcedTerminationException e) {
+                outputView.printMessage(e.getMessage());
+                break;
             }
         }
 
-        printBoard();
-        printStatus();
+        printFinalResult();
     }
 
     private void run(final Command command) {
@@ -45,8 +48,7 @@ public class ConsoleChessController {
             }
 
             if (command.isEnd()) {
-                chessService.finish();
-                return;
+                throw new ForcedTerminationException();
             }
 
             if (command.isMove()) {
@@ -56,11 +58,11 @@ public class ConsoleChessController {
             }
 
             if (command.isStatus()) {
-                printStatus();
+                printScores();
                 return;
             }
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            outputView.printMessage(e.getMessage());
             return;
         }
 
@@ -72,8 +74,22 @@ public class ConsoleChessController {
         outputView.printBoard(boardConsoleDto);
     }
 
-    private void printStatus() {
-        Status status = chessService.getStatus();
-        outputView.printStatus(status);
+    private void printScores() {
+        Scores scores = chessService.getScores();
+        outputView.printScores(scores);
+    }
+
+    private void printWinner() {
+        try {
+            outputView.printWinner(chessService.getWinnerView());
+        } catch (IllegalStateException e) {
+            outputView.printMessage(e.getMessage());
+        }
+    }
+
+    private void printFinalResult() {
+        printBoard();
+        printScores();
+        printWinner();
     }
 }

@@ -1,7 +1,7 @@
 package chess.service;
 
 import chess.domain.board.Board;
-import chess.domain.board.Status;
+import chess.domain.board.Scores;
 import chess.domain.command.MoveParameters;
 import chess.domain.piece.Color;
 import chess.dto.console.BoardConsoleDto;
@@ -16,45 +16,23 @@ public class ChessService {
 
     private final Board board;
     private Color currentTurn;
-    private boolean isFinished;
 
     public ChessService() {
         this.board = new Board();
         this.currentTurn = WHITE;
-        this.isFinished = false;
-    }
-
-    public boolean isGameFinished() {
-        return isFinished;
     }
 
     public boolean isGameRunning() {
-        return !isFinished;
+        return board.isBothKingAlive();
     }
 
-    public BoardConsoleDto getBoardConsoleView() {
-        return new BoardConsoleDto(board);
-    }
-
-    public Map<String, String> getBoardWebView() {
-        return BoardWebDto.of(board);
-    }
-
-    public String getCurrentTurn() {
-        return currentTurn.name();
-    }
-
-    public Status getStatus() {
-        return board.getStatus();
+    public boolean isGameFinished() {
+        return board.isAnyKingDead();
     }
 
     public void movePiece(MoveParameters parameters) {
         board.move(parameters, currentTurn);
         changeTurn();
-
-        if (board.isKingDead()) {
-            finish();
-        }
     }
 
     private void changeTurn() {
@@ -68,15 +46,28 @@ public class ChessService {
         }
     }
 
-    public void finish() {
-        isFinished = true;
+    public Scores getScores() {
+        return board.getScores();
     }
 
-    public String getWinner() {
-        if (isFinished) {
-            Color color = board.getWinner();
-            return color.name();
+    public BoardConsoleDto getBoardConsoleView() {
+        return BoardConsoleDto.of(board);
+    }
+
+    public Map<String, String> getBoardWebView() {
+        return BoardWebDto.of(board);
+    }
+
+    public String getCurrentTurnView() {
+        return currentTurn.name();
+    }
+
+    public String getWinnerView() {
+        if (board.isBothKingAlive()) {
+            throw new IllegalStateException("King이 잡히지 않아 승자가 없습니다.");
         }
-        throw new IllegalStateException("King이 잡히지 않아 승자가 없습니다.");
+
+        Color color = board.getWinner();
+        return color.name();
     }
 }
