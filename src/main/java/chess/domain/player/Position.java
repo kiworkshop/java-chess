@@ -62,11 +62,11 @@ public class Position {
         return rank.calculateGap(position.getRank());
     }
 
-    public Set<Position> findPassingPositions(Position target, MoveCoordinate moveCoordinate) {
+    public Set<Position> findPassingPositions(final Position target, final MoveCoordinate moveCoordinate) {
         Set<Position> positions = new HashSet<>();
         Position current = this;
 
-        while (!target.equals(current)) {
+        while (target.isDifferent(current)) {
             current = current.move(moveCoordinate);
             positions.add(current);
         }
@@ -75,24 +75,30 @@ public class Position {
         return positions;
     }
 
+    private boolean isDifferent(final Position current) {
+        return !this.equals(current);
+    }
+
     public Collection<Position> findAvailablePositions(final MoveCoordinate moveCoordinate, final boolean isFinite) {
         if (isFinite) {
             return getFinitePositions(moveCoordinate);
         }
+
         return getInfinitePositions(moveCoordinate);
     }
 
-    private Collection<Position> getFinitePositions(MoveCoordinate moveCoordinate) {
+    private Collection<Position> getFinitePositions(final MoveCoordinate moveCoordinate) {
         if (isMovable(moveCoordinate)) {
             return Collections.singleton(move(moveCoordinate));
         }
+
         return Collections.emptySet();
     }
 
-    private Collection<Position> getInfinitePositions(MoveCoordinate moveCoordinate) {
+    private Collection<Position> getInfinitePositions(final MoveCoordinate moveCoordinate) {
         Collection<Position> positions = new HashSet<>();
-
         Position current = this;
+
         while (current.isMovable(moveCoordinate)) {
             current = current.move(moveCoordinate);
             positions.add(current);
@@ -106,12 +112,12 @@ public class Position {
     }
 
     private Position move(final MoveCoordinate moveCoordinate) {
-        File file = this.file.add(moveCoordinate.getFile());
-        Rank rank = this.rank.add(moveCoordinate.getRank());
-        return Position.from(file, rank);
+        File movedFile = this.file.add(moveCoordinate.getFile());
+        Rank movedRank = this.rank.add(moveCoordinate.getRank());
+        return Position.from(movedFile, movedRank);
     }
 
-    public boolean hasSameRank(Rank rank) {
+    public boolean hasSameRank(final Rank rank) {
         return this.rank == rank;
     }
 
