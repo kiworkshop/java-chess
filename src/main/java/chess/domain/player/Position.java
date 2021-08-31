@@ -3,13 +3,19 @@ package chess.domain.player;
 import chess.domain.board.File;
 import chess.domain.board.Rank;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Position {
     private static final Map<String, Position> POSITIONS = createPositions();
 
     private static Map<String, Position> createPositions() {
-        Map<String, Position> positions = new LinkedHashMap<>();
+        Map<String, Position> positions = new HashMap<>();
 
         Arrays.stream(File.values())
                 .forEach(file -> Arrays.stream(Rank.values())
