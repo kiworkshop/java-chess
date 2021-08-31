@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public class Position {
     private static final Map<String, Position> POSITIONS = createPositions();
@@ -18,10 +19,19 @@ public class Position {
         Map<String, Position> positions = new HashMap<>();
 
         Arrays.stream(File.values())
-                .forEach(file -> Arrays.stream(Rank.values())
-                        .forEach(rank -> positions.put(createKey(file, rank), new Position(file, rank))));
+                .forEach(put(positions));
 
         return positions;
+    }
+
+    private static Consumer<File> put(final Map<String, Position> positions) {
+        return file -> Arrays.stream(Rank.values())
+                .map(rank -> new Position(file, rank))
+                .forEach(position -> positions.put(createKey(position), position));
+    }
+
+    private static String createKey(final Position position) {
+        return createKey(position.file, position.rank);
     }
 
     private static String createKey(final File file, final Rank rank) {
