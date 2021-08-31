@@ -8,9 +8,9 @@ import chess.domain.player.Position;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BoardDto {
+public class BoardWebDto {
 
-    private BoardDto() {
+    private BoardWebDto() {
     }
 
     private static final String EMPTY_PIECE = ".";

@@ -12,10 +12,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class BoardDto {
+public class BoardConsoleDto {
+
     private List<PositionDto> positionDtos = new ArrayList<>();
 
-    public BoardDto(final Board board) {
+    public BoardConsoleDto(final Board board) {
         Arrays.stream(Rank.values()).forEach(rank -> Arrays.stream(
                 File.values()).forEach(file -> addPositionDto(file, rank, board)));
     }

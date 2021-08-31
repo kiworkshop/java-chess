@@ -1,6 +1,6 @@
 package chess.view;
 
-import chess.dto.console.BoardDto;
+import chess.dto.console.BoardConsoleDto;
 import chess.domain.board.Status;
 
 public class ConsoleOutputView implements OutputView {
@@ -18,8 +18,8 @@ public class ConsoleOutputView implements OutputView {
     }
 
     @Override
-    public void printBoard(final BoardDto boardDto) {
-        boardDto.getPositionDtos()
+    public void printBoard(final BoardConsoleDto boardConsoleDto) {
+        boardConsoleDto.getPositionDtos()
                 .forEach(positionDto -> {
                     System.out.print(positionDto.getName());
                     if (positionDto.isLastFile()) {
@@ -46,12 +46,7 @@ public class ConsoleOutputView implements OutputView {
     }
 
     @Override
-    public void printTurn(boolean isWhiteTurn) {
-        if (isWhiteTurn) {
-            System.out.printf(TURN_FORMAT, "WHITE");
-            return;
-        }
-
-        System.out.printf(TURN_FORMAT, "BLACK");
+    public void printTurn(String currentTurn) {
+        System.out.printf(TURN_FORMAT, currentTurn);
     }
 }

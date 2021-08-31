@@ -74,7 +74,7 @@ public class WebChessController {
 
     private Map<String, Object> getGameInfo() {
         Map<String, Object> model = new HashMap<>();
-        model.put("board", chessService.getBoardView());
+        model.put("board", chessService.getBoardWebView());
         model.put("currentTurn", chessService.getCurrentTurn());
         return model;
     }

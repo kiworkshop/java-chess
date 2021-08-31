@@ -1,14 +1,14 @@
 package chess.view;
 
-import chess.dto.console.BoardDto;
+import chess.dto.console.BoardConsoleDto;
 import chess.domain.board.Status;
 
 public interface OutputView {
     void printGuide();
 
-    void printBoard(BoardDto boardDto);
+    void printBoard(BoardConsoleDto boardConsoleDto);
 
     void printStatus(Status status);
 
-    void printTurn(boolean isWhiteTurn);
+    void printTurn(String currentTurn);
 }
