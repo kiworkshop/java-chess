@@ -20,13 +20,13 @@ public enum Rank {
 
     public static Rank of(final int rankIndex) {
         return Arrays.stream(Rank.values())
-                .filter(rank -> hasSameIndex(rankIndex, rank))
+                .filter(rank -> rank.hasSameIndex(rankIndex))
                 .findAny()
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 랭크가 존재하지 않습니다."));
     }
 
-    private static boolean hasSameIndex(final int rankIndex, final Rank rank) {
-        return rank.index == rankIndex;
+    private boolean hasSameIndex(final int rankIndex) {
+        return this.index == rankIndex;
     }
 
     public int getIndex() {
@@ -37,12 +37,17 @@ public enum Rank {
         return this.index - rank.index;
     }
 
-    public Rank add(final int amount) {
+    public Rank move(final int amount) {
         return Rank.of(this.index + amount);
     }
 
     public boolean canMove(final int amount) {
         int rankIndex = index + amount;
+
+        return isInRange(rankIndex);
+    }
+
+    private boolean isInRange(final int rankIndex) {
         return rankIndex >= R1.index && rankIndex <= R8.index;
     }
 }
