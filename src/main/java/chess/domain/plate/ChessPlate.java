@@ -69,7 +69,7 @@ public class ChessPlate {
     }
 
     private boolean isStraightMoving(PiecePosition sourcePosition, PiecePosition targetPosition) {
-        return sourcePosition.getFile().equals(targetPosition.getFile());
+        return sourcePosition.getFile().equals(targetPosition.getFile()) || sourcePosition.getRank().equals(targetPosition.getRank());
     }
 
     private boolean isDiagonalMoving(PiecePosition sourcePosition, PiecePosition targetPosition, Piece sourcePiece, Piece targetPiece) {

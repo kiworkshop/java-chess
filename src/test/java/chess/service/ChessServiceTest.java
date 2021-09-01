@@ -43,7 +43,9 @@ class ChessServiceTest {
     void testCalculatePawnScore() {
         //given
         ChessService service = new ChessService();
+        service.start();
         ChessService service2 = new ChessService();
+        service2.start();
         service2.move("e2","e4");
         service2.move("e4","e5");
         service2.move("e5","e6");
@@ -54,7 +56,7 @@ class ChessServiceTest {
         double score2 = service2.calculatePawnScore(Team.BLACK);
 
         //then
-        assertThat(score).isEqualTo(0);
+        assertThat(score).isZero();
         assertThat(score2).isEqualTo(1);
     }
 
