@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class AttackPositionsTest {
+class AttackRangeTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"a3", "b3", "c3", "d3", "e3", "f3", "g3", "h3"})
@@ -21,14 +21,14 @@ class AttackPositionsTest {
     void create(String key) {
         //given
         Map<Position, Piece> pieces = PieceFactory.createPieces(Color.WHITE);
-        AttackPositions attackPositions = new AttackPositions(pieces);
+        AttackRange attackRange = new AttackRange(pieces);
         Position position = Position.of(key);
 
         //when
-        boolean isEmpty = attackPositions.isEmpty(position);
+        boolean contains = attackRange.contains(position);
 
         //then
-        assertThat(isEmpty).isFalse();
+        assertThat(contains).isTrue();
     }
 
     @Test
@@ -36,18 +36,18 @@ class AttackPositionsTest {
     void update() {
         //given
         Map<Position, Piece> pieces = PieceFactory.createPieces(Color.WHITE);
-        AttackPositions attackPositions = new AttackPositions(pieces);
+        AttackRange attackRange = new AttackRange(pieces);
         Position before = Position.of("b1");
         Position current = Position.of("c3");
 
         //when
-        attackPositions.update(before, current, new Knight(Color.WHITE));
+        attackRange.update(before, current, new Knight(Color.WHITE));
 
         //then
-        assertThat(attackPositions.isEmpty(Position.of("a3"))).isFalse();
-        assertThat(attackPositions.isEmpty(Position.of("b1"))).isFalse();
-        assertThat(attackPositions.isEmpty(Position.of("c3"))).isFalse();
-        assertThat(attackPositions.isEmpty(Position.of("b5"))).isFalse();
-        assertThat(attackPositions.isEmpty(Position.of("d5"))).isFalse();
+        assertThat(attackRange.contains(Position.of("a3"))).isTrue();
+        assertThat(attackRange.contains(Position.of("b1"))).isTrue();
+        assertThat(attackRange.contains(Position.of("c3"))).isTrue();
+        assertThat(attackRange.contains(Position.of("b5"))).isTrue();
+        assertThat(attackRange.contains(Position.of("d5"))).isTrue();
     }
 }
