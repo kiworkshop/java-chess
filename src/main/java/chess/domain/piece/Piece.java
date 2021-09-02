@@ -1,11 +1,9 @@
 package chess.domain.piece;
 
-import chess.domain.piece.type.MovePattern;
-import chess.domain.player.MoveCoordinate;
+import chess.domain.player.Direction;
 import chess.domain.player.Position;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,10 +11,12 @@ public abstract class Piece {
 
     protected final MovePattern movePattern;
     private final Color color;
+    private final boolean canMoveInfinitely;
 
-    Piece(final MovePattern movePattern, final Color color) {
+    Piece(final MovePattern movePattern, final Color color, final boolean canMoveInfinitely) {
         this.movePattern = movePattern;
         this.color = color;
+        this.canMoveInfinitely = canMoveInfinitely;
     }
 
     public boolean isWhite() {
@@ -27,24 +27,27 @@ public abstract class Piece {
         int fileGap = target.calculateFileGap(source);
         int rankGap = target.calculateRankGap(source);
 
-        MoveCoordinate moveCoordinate = movePattern.findMoveCoordinate(fileGap, rankGap);
-        return source.findPassingPositions(target, moveCoordinate);
+        Direction direction = movePattern.findDirection(fileGap, rankGap);
+        return source.findPassingPositions(target, direction);
     }
 
     public Collection<Position> findAvailableAttackPositions(final Position position) {
-        Set<Position> finitePositions = movePattern.finiteMoveCoordinates().stream()
-                .map(moveCoordinate -> position.findAvailablePositions(moveCoordinate, true))
+        return movePattern.getCoordinates().stream()
+                .map(direction -> position.findAvailablePositions(direction, canMoveInfinitely))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
+    }
 
-        Set<Position> infinitePositions = movePattern.infiniteMoveCoordinates().stream()
-                .map(moveCoordinate -> position.findAvailablePositions(moveCoordinate, false))
-                .flatMap(Collection::stream)
-                .collect(Collectors.toSet());
+    public boolean isKing() {
+        return false;
+    }
 
-        Collection<Position> positions = new HashSet<>(finitePositions);
-        positions.addAll(infinitePositions);
-        return positions;
+    public boolean isPawn() {
+        return false;
+    }
+
+    public boolean isNotPawn() {
+        return true;
     }
 }
 

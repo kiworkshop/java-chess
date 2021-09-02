@@ -73,10 +73,10 @@ public class RookTest {
 
     private static Stream<Arguments> createParameters() {
         return Stream.of(
-                Arguments.of("d2", tuple(File.d, Rank.R3)),
-                Arguments.of("d6", tuple(File.d, Rank.R5)),
-                Arguments.of("b4", tuple(File.c, Rank.R4)),
-                Arguments.of("f4", tuple(File.e, Rank.R4))
+                Arguments.of("d2", tuple(File.D, Rank.R3)),
+                Arguments.of("d6", tuple(File.D, Rank.R5)),
+                Arguments.of("b4", tuple(File.C, Rank.R4)),
+                Arguments.of("f4", tuple(File.E, Rank.R4))
         );
     }
 }

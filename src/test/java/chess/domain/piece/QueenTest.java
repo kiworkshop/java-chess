@@ -40,9 +40,9 @@ class QueenTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"d5", "c4", "e4", "d3"})
+    @MethodSource("createParametersForCardinal")
     @DisplayName("출발과 도착 위치가 주어지면 지나가는 경로를 반환한다.")
-    void find_paths_success_cardinal(String targetPosition) {
+    void find_paths_success_cardinal(String targetPosition, Tuple expected) {
         //given
         Position source = Position.of("d4");
         Position target = Position.of(targetPosition);
@@ -52,11 +52,14 @@ class QueenTest {
         Set<Position> paths = piece.findPath(source, target);
 
         //then
-        assertThat(paths).isEmpty();
+        //then
+        assertThat(paths).extracting("file", "rank")
+                .containsOnly(expected);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"d6", "d2", "b4", "f4", "f5"})
+    @ValueSource(strings = {"c2", "e2", "c6", "e6",
+            "b3", "b5", "f3", "f5"})
     @DisplayName("도착 위치가 이동할 수 없는 경로일 경우 예외가 발생한다.")
     void find_paths_invalid_target(String invalidTarget) {
         //given
@@ -76,9 +79,10 @@ class QueenTest {
         Position position = Position.of("d4");
         Piece queen = new Queen(Color.WHITE);
         Collection<Position> expected = Arrays.asList(
+                Position.of("a4"), Position.of("b4"), Position.of("c4"), Position.of("e4"), Position.of("f4"), Position.of("g4"), Position.of("h4"),
+                Position.of("d1"), Position.of("d2"), Position.of("d3"), Position.of("d5"), Position.of("d6"), Position.of("d7"), Position.of("d8"),
                 Position.of("a1"), Position.of("b2"), Position.of("c3"), Position.of("e5"), Position.of("f6"), Position.of("g7"), Position.of("h8"),
-                Position.of("a7"), Position.of("b6"), Position.of("c5"), Position.of("e3"), Position.of("f2"), Position.of("g1"),
-                Position.of("d3"), Position.of("d5"), Position.of("c4"), Position.of("e4")
+                Position.of("a7"), Position.of("b6"), Position.of("c5"), Position.of("e3"), Position.of("f2"), Position.of("g1")
         );
 
         //when
@@ -92,10 +96,19 @@ class QueenTest {
 
     private static Stream<Arguments> createParametersForDiagonal() {
         return Stream.of(
-                Arguments.of("b6", tuple(File.c, Rank.R5)),
-                Arguments.of("b2", tuple(File.c, Rank.R3)),
-                Arguments.of("f2", tuple(File.e, Rank.R3)),
-                Arguments.of("f6", tuple(File.e, Rank.R5))
+                Arguments.of("b6", tuple(File.C, Rank.R5)),
+                Arguments.of("b2", tuple(File.C, Rank.R3)),
+                Arguments.of("f2", tuple(File.E, Rank.R3)),
+                Arguments.of("f6", tuple(File.E, Rank.R5))
+        );
+    }
+
+    private static Stream<Arguments> createParametersForCardinal() {
+        return Stream.of(
+                Arguments.of("d6", tuple(File.D, Rank.R5)),
+                Arguments.of("d2", tuple(File.D, Rank.R3)),
+                Arguments.of("b4", tuple(File.C, Rank.R4)),
+                Arguments.of("f4", tuple(File.E, Rank.R4))
         );
     }
 }

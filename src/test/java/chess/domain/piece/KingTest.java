@@ -32,7 +32,8 @@ class KingTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"c2", "d2", "e2", "f2", "b3", "b4", "b5"})
+    @ValueSource(strings = {"b2", "b3", "b4", "b5", "b6", "c6", "d6", "e6",
+            "f6", "f5", "f4", "f3", "f2", "c2", "d2", "e2"})
     @DisplayName("도착 위치가 이동할 수 없는 경로일 경우 예외가 발생한다.")
     void find_paths_invalid_target(String invalidTarget) {
         //given
@@ -64,5 +65,17 @@ class KingTest {
         assertThat(availableAttackPositions)
                 .hasSize(expected.size())
                 .containsAll(expected);
+    }
+
+    @Test
+    @DisplayName("킹인지 확인한다.")
+    void is_king() {
+        // given
+        Piece king = new King(Color.WHITE);
+        Piece queen = new Queen(Color.WHITE);
+
+        // when, then
+        assertThat(king.isKing()).isTrue();
+        assertThat(queen.isKing()).isFalse();
     }
 }

@@ -74,10 +74,10 @@ class BishopTest {
 
     private static Stream<Arguments> createParameters() {
         return Stream.of(
-                Arguments.of("b6", tuple(File.c, Rank.R5)),
-                Arguments.of("b2", tuple(File.c, Rank.R3)),
-                Arguments.of("f2", tuple(File.e, Rank.R3)),
-                Arguments.of("f6", tuple(File.e, Rank.R5))
+                Arguments.of("b6", tuple(File.C, Rank.R5)),
+                Arguments.of("b2", tuple(File.C, Rank.R3)),
+                Arguments.of("f2", tuple(File.E, Rank.R3)),
+                Arguments.of("f6", tuple(File.E, Rank.R5))
         );
     }
 }

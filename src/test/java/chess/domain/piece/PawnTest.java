@@ -124,4 +124,16 @@ class PawnTest {
                 .hasSize(expected.size())
                 .containsAll(expected);
     }
+
+    @Test
+    @DisplayName("폰인지 확인한다.")
+    void is_pawn() {
+        // given
+        Piece pawn = new Pawn(Color.WHITE);
+        Piece queen = new Queen(Color.WHITE);
+
+        // when, then
+        assertThat(pawn.isPawn()).isTrue();
+        assertThat(queen.isPawn()).isFalse();
+    }
 }
