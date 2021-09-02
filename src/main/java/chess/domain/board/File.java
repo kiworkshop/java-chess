@@ -1,6 +1,9 @@
 package chess.domain.board;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum File {
     A(1),
@@ -12,21 +15,31 @@ public enum File {
     G(7),
     H(8);
 
+    private static final Map<Integer, File> FILES = createFiles();
+
     private final int index;
 
     File(final int index) {
         this.index = index;
     }
 
-    public static File of(final int fileIndex) {
-        return Arrays.stream(File.values())
-                .filter(file -> hasSameIndex(fileIndex, file))
-                .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("일치하는 파일이 존재하지 않습니다."));
+    private static Map<Integer, File> createFiles() {
+        HashMap<Integer, File> files = new HashMap<>();
+
+        Arrays.stream(values())
+                .forEach(file -> files.put(file.index, file));
+
+        return Collections.unmodifiableMap(files);
     }
 
-    private static boolean hasSameIndex(final int fileIndex, final File file) {
-        return file.index == fileIndex;
+    public static File of(final int fileIndex) {
+        File file = FILES.get(fileIndex);
+
+        if (file == null) {
+            throw new IllegalArgumentException("일치하는 파일이 존재하지 않습니다.");
+        }
+
+        return file;
     }
 
     public int calculateGap(final File file) {

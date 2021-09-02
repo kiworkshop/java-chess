@@ -10,7 +10,7 @@ public class PositionDto {
     private final String name;
 
     public PositionDto(final File file, final String name) {
-        this.isLastFile = (file == File.h);
+        this.isLastFile = (file == File.H);
         this.name = name;
     }
 

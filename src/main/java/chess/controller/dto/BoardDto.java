@@ -4,7 +4,7 @@ import chess.domain.board.Board;
 import chess.domain.board.File;
 import chess.domain.board.Rank;
 import chess.domain.piece.Piece;
-import chess.domain.piece.type.PieceType;
+import chess.domain.piece.PieceResolver;
 import chess.domain.player.Position;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class BoardDto {
         }
 
         Piece piece = board.findBy(position);
-        String name = PieceType.findNameBy(piece);
+        String name = PieceResolver.findNameBy(piece);
         PositionDto positionDto = new PositionDto(position.getFile(), name);
         positionDtos.add(positionDto);
     }

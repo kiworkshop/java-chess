@@ -1,6 +1,9 @@
 package chess.domain.board;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum Rank {
     R8(8),
@@ -12,21 +15,31 @@ public enum Rank {
     R2(2),
     R1(1);
 
+    private static final Map<Integer, Rank> RANKS = createRanks();
+
     private final int index;
 
     Rank(final int index) {
         this.index = index;
     }
 
-    public static Rank of(final int rankIndex) {
-        return Arrays.stream(Rank.values())
-                .filter(rank -> rank.hasSameIndex(rankIndex))
-                .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("일치하는 랭크가 존재하지 않습니다."));
+    private static Map<Integer, Rank> createRanks() {
+        Map<Integer, Rank> ranks = new HashMap<>();
+
+        Arrays.stream(values())
+                .forEach(rank -> ranks.put(rank.index, rank));
+
+        return Collections.unmodifiableMap(ranks);
     }
 
-    private boolean hasSameIndex(final int rankIndex) {
-        return this.index == rankIndex;
+    public static Rank of(final int rankIndex) {
+        Rank rank = RANKS.get(rankIndex);
+
+        if (rank == null) {
+            throw new IllegalArgumentException("일치하는 랭크가 존재하지 않습니다.");
+        }
+
+        return rank;
     }
 
     public int getIndex() {

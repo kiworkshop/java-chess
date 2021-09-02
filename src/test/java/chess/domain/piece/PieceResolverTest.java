@@ -1,6 +1,5 @@
-package chess.domain.piece.type;
+package chess.domain.piece;
 
-import chess.domain.piece.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,7 +10,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PieceTypeTest {
+public class PieceResolverTest {
 
     @Test
     @DisplayName("피스에 해당하는 피스 타입을 반환한다.")
@@ -20,10 +19,10 @@ public class PieceTypeTest {
         Piece piece = new Pawn(Color.WHITE);
 
         // when
-        PieceType pieceType = PieceType.of(piece);
+        PieceResolver pieceResolver = PieceResolver.of(piece);
 
         // then
-        assertThat(pieceType).isSameAs(PieceType.PAWN);
+        assertThat(pieceResolver).isSameAs(PieceResolver.PAWN);
     }
 
     @ParameterizedTest
@@ -31,7 +30,7 @@ public class PieceTypeTest {
     @DisplayName("피스가 주어지면 해당 피스와 색상에 맞는 이름을 반환한다.")
     void find_name_by(Piece piece, String expected) {
         //given, when
-        String name = PieceType.findNameBy(piece);
+        String name = PieceResolver.findNameBy(piece);
 
         //then
         assertThat(name).isEqualTo(expected);
@@ -40,36 +39,12 @@ public class PieceTypeTest {
     @ParameterizedTest
     @MethodSource("createParamsForScore")
     @DisplayName("피스가 주어지면 해당 피스의 점수를 반환한다.")
-    void get_score(Piece piece, double expected) {
+    void find_score_by(Piece piece, double expected) {
         //given, when
-        double score = PieceType.findScoreBy(piece);
+        double score = PieceResolver.findScoreBy(piece);
 
         //then
         assertThat(score).isEqualTo(expected);
-    }
-
-    @Test
-    @DisplayName("킹인지 확인한다.")
-    void is_king() {
-        // given
-        Piece king = new King(Color.WHITE);
-        Piece queen = new Queen(Color.WHITE);
-
-        // when, then
-        assertThat(PieceType.isKing(king)).isTrue();
-        assertThat(PieceType.isKing(queen)).isFalse();
-    }
-
-    @Test
-    @DisplayName("폰인지 확인한다.")
-    void is_pawn() {
-        // given
-        Piece pawn = new Pawn(Color.WHITE);
-        Piece queen = new Queen(Color.WHITE);
-
-        // when, then
-        assertThat(PieceType.isPawn(pawn)).isTrue();
-        assertThat(PieceType.isPawn(queen)).isFalse();
     }
 
     private static Stream<Arguments> createParamsForName() {
