@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.Set;
+import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -71,7 +71,7 @@ public class PlayerTest {
         Position path = Position.of(expected);
 
         //when
-        Set<Position> paths = player.findPaths(source, target);
+        Collection<Position> paths = player.findPaths(source, target);
 
         //then
         assertThat(paths).containsOnly(path);
@@ -127,7 +127,7 @@ public class PlayerTest {
     void is_king_dead() {
         //given
         Player player = new Player(Color.WHITE);
-        player.attacked(Position.of("e1"));
+        player.removePieceOn(Position.of("e1"));
 
         //when
         boolean kingDead = player.isKingDead();

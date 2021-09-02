@@ -4,27 +4,40 @@ import chess.domain.board.File;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceFactory;
-import chess.domain.piece.type.PieceType;
+import chess.domain.piece.PieceResolver;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Player {
 
     private final Map<Position, Piece> pieces;
-    private final AttackPositions attackPositions;
+    private final AttackRange attackRange;
 
     public Player(final Color color) {
         pieces = new HashMap<>(PieceFactory.createPieces(color));
-        attackPositions = new AttackPositions(pieces);
+        attackRange = new AttackRange(pieces);
     }
 
     public double sumScores() {
-        List<Position> pawnPositions = findPawnPositions();
-
-        double pawnScores = calculatePawnScores(pawnPositions);
+        double pawnScores = calculatePawnScores();
         double scoresExceptPawn = calculateScoresExceptPawn();
+
         return pawnScores + scoresExceptPawn;
+    }
+
+    private double calculatePawnScores() {
+        List<Position> pawnPositions = findPawnPositions();
+        Map<File, Integer> pawnCountsOnSameFile = extractPawnCountsOnSameFile(pawnPositions);
+
+        return pawnCountsOnSameFile.values()
+                .stream()
+                .mapToDouble(PieceResolver::sumPawnScores)
+                .sum();
     }
 
     private List<Position> findPawnPositions() {
@@ -32,44 +45,51 @@ public class Player {
                 .stream()
                 .filter(position -> {
                     Piece piece = pieces.get(position);
-                    return PieceType.isPawn(piece);
+                    return piece.isPawn();
                 })
                 .collect(Collectors.toList());
     }
 
-    private double calculatePawnScores(final List<Position> pawnPositions) {
-        Map<File, Integer> pawnCount = new EnumMap<>(File.class);
+    private Map<File, Integer> extractPawnCountsOnSameFile(final List<Position> pawnPositions) {
+        Map<File, Integer> pawnCountOnSameFile = new EnumMap<>(File.class);
+
         pawnPositions.stream()
                 .map(Position::getFile)
-                .forEach(file -> pawnCount.put(file, pawnCount.getOrDefault(file, 0) + 1));
+                .forEach(file -> pawnCountOnSameFile.put(file, pawnCountOnSameFile.getOrDefault(file, 0) + 1));
 
-        return pawnCount.values()
-                .stream()
-                .mapToDouble(PieceType::sumPawnScores)
-                .sum();
+        return pawnCountOnSameFile;
     }
 
     private double calculateScoresExceptPawn() {
         return pieces.values()
                 .stream()
-                .filter(piece -> !PieceType.isPawn(piece))
-                .mapToDouble(PieceType::findScoreBy)
+                .filter(Piece::isNotPawn)
+                .mapToDouble(PieceResolver::findScoreBy)
                 .sum();
     }
 
-    public boolean hasPieceOn(final Position position) {
-        return pieces.containsKey(position);
+    public Collection<Position> findPaths(final Position source, final Position target) {
+        Piece sourcePiece = findPieceBy(source);
+
+        return sourcePiece.findPath(source, target);
     }
 
-    public Set<Position> findPaths(final Position source, final Position target) {
-        Piece sourcePiece = findPieceBy(source);
-        return sourcePiece.findPath(source, target);
+    public Piece findPieceBy(final Position position) {
+        if (isEmptyOn(position)) {
+            throw new IllegalArgumentException("해당 위치에 기물이 존재하지 않습니다.");
+        }
+
+        return pieces.get(position);
+    }
+
+    private boolean isEmptyOn(final Position position) {
+        return !pieces.containsKey(position);
     }
 
     public void update(final Position source, final Position target) {
         Piece sourcePiece = findPieceBy(source);
         movePiece(source, target, sourcePiece);
-        attackPositions.update(source, target, sourcePiece);
+        attackRange.update(source, target, sourcePiece);
     }
 
     private void movePiece(final Position source, final Position target, final Piece sourcePiece) {
@@ -77,33 +97,31 @@ public class Player {
         pieces.remove(source);
     }
 
-    public Piece findPieceBy(final Position position) {
-        if (!hasPieceOn(position)) {
-            throw new IllegalArgumentException("해당 위치에 기물이 존재하지 않습니다.");
-        }
+    public boolean hasKingOn(final Position position) {
+        Piece piece = findPieceBy(position);
 
-        return pieces.get(position);
-    }
-
-    public boolean hasKingOn(Position position) {
-        return PieceType.isKing(findPieceBy(position));
+        return piece.isKing();
     }
 
     public boolean isKingDead() {
         return pieces.values().stream()
-                .noneMatch(PieceType::isKing);
+                .noneMatch(Piece::isKing);
     }
 
-    public boolean canAttack(Position position) {
-        return attackPositions.contains(position);
+    public boolean canAttack(final Position position) {
+        return attackRange.contains(position);
     }
 
-    public void attacked(final Position target) {
-        if (!hasPieceOn(target)) {
+    public void removePieceOn(final Position position) {
+        if (isEmptyOn(position)) {
             return;
         }
 
-        attackPositions.remove(target, pieces.get(target));
-        pieces.remove(target);
+        attackRange.remove(position, pieces.get(position));
+        pieces.remove(position);
+    }
+
+    public boolean hasPieceOn(final Position position) {
+        return pieces.containsKey(position);
     }
 }

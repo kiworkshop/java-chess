@@ -6,7 +6,7 @@ import chess.domain.piece.Piece;
 import chess.domain.player.Player;
 import chess.domain.player.Position;
 
-import java.util.Set;
+import java.util.Collection;
 
 public class Board {
     private final Player white;
@@ -28,7 +28,7 @@ public class Board {
         validateTarget(player, target);
         validateKingMovable(player, enemy, source, target);
 
-        enemy.attacked(target);
+        enemy.removePieceOn(target);
         movePiece(player, source, target);
     }
 
@@ -64,13 +64,12 @@ public class Board {
     }
 
     private void movePiece(final Player player, final Position source, final Position target) {
-        Set<Position> paths = player.findPaths(source, target);
+        Collection<Position> paths = player.findPaths(source, target);
         validatePathsEmpty(paths);
-
         player.update(source, target);
     }
 
-    private void validatePathsEmpty(final Set<Position> paths) {
+    private void validatePathsEmpty(final Collection<Position> paths) {
         boolean isWhiteBlocked = paths.stream()
                 .anyMatch(white::hasPieceOn);
         boolean isBlackBlocked = paths.stream()
