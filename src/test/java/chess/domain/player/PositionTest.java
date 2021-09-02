@@ -22,7 +22,7 @@ class PositionTest {
     @DisplayName("가로, 세로 인자에 해당하는 위치를 반환한다.")
     void from_file_and_rank() {
         //given
-        File file = File.a;
+        File file = File.A;
         Rank rank = Rank.R1;
 
         //when
@@ -37,7 +37,7 @@ class PositionTest {
     @DisplayName("문자열 키에 해당하는 위치를 반환한다.")
     void from_key() {
         //given
-        File file = File.a;
+        File file = File.A;
         Rank rank = Rank.R1;
         String key = file.name() + rank.getIndex();
 
@@ -55,10 +55,10 @@ class PositionTest {
         // given
         Position source = Position.of("d4");
         Position target = Position.of("d7");
-        MoveCoordinate moveCoordinate = MoveCoordinate.NORTH;
+        Direction direction = Direction.NORTH;
 
         // when
-        Set<Position> positions = source.findPassingPositions(target, moveCoordinate);
+        Set<Position> positions = source.findPassingPositions(target, direction);
 
         // then
         assertThat(positions)
@@ -67,15 +67,15 @@ class PositionTest {
     }
 
     @ParameterizedTest
-    @MethodSource("createParams")
+    @MethodSource("createParametersForAvailablePositions")
     @DisplayName("이동 가능한 위치를 반환한다.")
-    void find_available_positions(boolean isFinite, Collection<Position> expected) {
+    void find_available_positions(boolean canMoveInfinitely, Collection<Position> expected) {
         // given
         Position position = Position.of("d4");
-        MoveCoordinate moveCoordinate = MoveCoordinate.EAST;
+        Direction direction = Direction.EAST;
 
         // when
-        Collection<Position> positions = position.findAvailablePositions(moveCoordinate, isFinite);
+        Collection<Position> positions = position.findAvailablePositions(direction, canMoveInfinitely);
 
         // then
         assertThat(positions)
@@ -97,10 +97,10 @@ class PositionTest {
         assertThat(hasSameRank).isTrue();
     }
 
-    private static Stream<Arguments> createParams() {
+    private static Stream<Arguments> createParametersForAvailablePositions() {
         return Stream.of(
-                Arguments.of(false, Arrays.asList(Position.of("e4"), Position.of("f4"), Position.of("g4"), Position.of("h4"))),
-                Arguments.of(true, Collections.singletonList(Position.of("e4")))
+                Arguments.of(true, Arrays.asList(Position.of("e4"), Position.of("f4"), Position.of("g4"), Position.of("h4"))),
+                Arguments.of(false, Collections.singletonList(Position.of("e4")))
         );
     }
 }

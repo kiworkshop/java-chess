@@ -39,7 +39,13 @@ public class Position {
     }
 
     public static Position of(final String key) {
-        return POSITIONS.get(key);
+        Position position = POSITIONS.get(key.toUpperCase());
+
+        if (position == null) {
+            throw new IllegalArgumentException("해당 파일과 랭크에 대한 위치가 존재하지 않습니다.");
+        }
+
+        return position;
     }
 
     public static Position from(final File file, final Rank rank) {
@@ -62,12 +68,12 @@ public class Position {
         return rank.calculateGap(position.getRank());
     }
 
-    public Set<Position> findPassingPositions(final Position target, final MoveCoordinate moveCoordinate) {
+    public Set<Position> findPassingPositions(final Position target, final Direction direction) {
         Set<Position> positions = new HashSet<>();
         Position current = this;
 
         while (target.isDifferent(current)) {
-            current = current.move(moveCoordinate);
+            current = current.move(direction);
             positions.add(current);
         }
 
@@ -79,41 +85,41 @@ public class Position {
         return !this.equals(current);
     }
 
-    public Collection<Position> findAvailablePositions(final MoveCoordinate moveCoordinate, final boolean isFinite) {
-        if (isFinite) {
-            return getFinitePositions(moveCoordinate);
+    public Collection<Position> findAvailablePositions(final Direction direction, final boolean canMoveInfinitely) {
+        if (canMoveInfinitely) {
+            return findInfinitePositions(direction);
         }
 
-        return getInfinitePositions(moveCoordinate);
+        return findFinitePositions(direction);
     }
 
-    private Collection<Position> getFinitePositions(final MoveCoordinate moveCoordinate) {
-        if (isMovable(moveCoordinate)) {
-            return Collections.singleton(move(moveCoordinate));
-        }
-
-        return Collections.emptySet();
-    }
-
-    private Collection<Position> getInfinitePositions(final MoveCoordinate moveCoordinate) {
+    private Collection<Position> findInfinitePositions(final Direction direction) {
         Collection<Position> positions = new HashSet<>();
         Position current = this;
 
-        while (current.isMovable(moveCoordinate)) {
-            current = current.move(moveCoordinate);
+        while (current.isMovable(direction)) {
+            current = current.move(direction);
             positions.add(current);
         }
 
         return positions;
     }
 
-    private boolean isMovable(final MoveCoordinate moveCoordinate) {
-        return rank.canMove(moveCoordinate.getRank()) && file.canMove(moveCoordinate.getFile());
+    private Collection<Position> findFinitePositions(final Direction direction) {
+        if (isMovable(direction)) {
+            return Collections.singleton(move(direction));
+        }
+
+        return Collections.emptySet();
     }
 
-    private Position move(final MoveCoordinate moveCoordinate) {
-        File movedFile = this.file.add(moveCoordinate.getFile());
-        Rank movedRank = this.rank.add(moveCoordinate.getRank());
+    private boolean isMovable(final Direction direction) {
+        return rank.canMove(direction.getY()) && file.canMove(direction.getX());
+    }
+
+    private Position move(final Direction direction) {
+        File movedFile = this.file.move(direction.getX());
+        Rank movedRank = this.rank.move(direction.getY());
         return Position.from(movedFile, movedRank);
     }
 
