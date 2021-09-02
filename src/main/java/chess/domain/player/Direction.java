@@ -31,6 +31,10 @@ public enum Direction {
         this.y = y;
     }
 
+    public boolean isDiagonal() {
+        return this.x != CARDINAL_STANDARD && this.y != CARDINAL_STANDARD;
+    }
+
     public boolean matches(final int x, final int y) {
         if (isNorthOrSouth()) {
             return this.x == x && isYDivisible(y) && hasSameSign(x, y);

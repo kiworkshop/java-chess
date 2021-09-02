@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -25,7 +24,7 @@ class KnightTest {
         Piece piece = new Knight(Color.WHITE);
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Collection<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).isEmpty();

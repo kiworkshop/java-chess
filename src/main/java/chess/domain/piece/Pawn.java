@@ -21,7 +21,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public Set<Position> findPath(final Position source, final Position target) {
+    public Collection<Position> findPath(final Position source, final Position target) {
         int fileGap = target.calculateFileGap(source);
         int rankGap = target.calculateRankGap(source);
         boolean initialMove = isInitialMove(source);
@@ -31,7 +31,7 @@ public class Pawn extends Piece {
         validateFollowingMoveThreshold(absoluteRankGap, initialMove);
 
         Direction direction = movePattern.findDirection(fileGap, rankGap);
-        return source.findPassingPositions(target, direction);
+        return findPassingPositions(source, target, direction);
     }
 
     private boolean isInitialMove(final Position source) {
@@ -59,10 +59,10 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public Set<Position> findAvailableAttackPositions(final Position position) {
-        return movePattern.getCoordinates().stream()
-                .filter(direction -> abs(direction.getX()) > 0)
-                .map(direction -> position.findAvailablePositions(direction, false))
+    public Set<Position> findAvailableAttackPositions(final Position source) {
+        return movePattern.getDirections().stream()
+                .filter(Direction::isDiagonal)
+                .map(direction -> findAvailablePositions(source, direction, false))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
     }

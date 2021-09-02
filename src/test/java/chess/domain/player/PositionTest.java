@@ -4,15 +4,6 @@ import chess.domain.board.File;
 import chess.domain.board.Rank;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,40 +41,6 @@ class PositionTest {
     }
 
     @Test
-    @DisplayName("거쳐가는 모든 위치를 반환한다.")
-    void find_passing_positions() {
-        // given
-        Position source = Position.of("d4");
-        Position target = Position.of("d7");
-        Direction direction = Direction.NORTH;
-
-        // when
-        Set<Position> positions = source.findPassingPositions(target, direction);
-
-        // then
-        assertThat(positions)
-                .hasSize(2)
-                .containsExactlyInAnyOrder(Position.of("d5"), Position.of("d6"));
-    }
-
-    @ParameterizedTest
-    @MethodSource("createParametersForAvailablePositions")
-    @DisplayName("이동 가능한 위치를 반환한다.")
-    void find_available_positions(boolean canMoveInfinitely, Collection<Position> expected) {
-        // given
-        Position position = Position.of("d4");
-        Direction direction = Direction.EAST;
-
-        // when
-        Collection<Position> positions = position.findAvailablePositions(direction, canMoveInfinitely);
-
-        // then
-        assertThat(positions)
-                .hasSize(expected.size())
-                .containsAll(expected);
-    }
-
-    @Test
     @DisplayName("랭크가 동일한지 확인한다.")
     void has_same_rank() {
         // given
@@ -95,12 +52,5 @@ class PositionTest {
 
         // then
         assertThat(hasSameRank).isTrue();
-    }
-
-    private static Stream<Arguments> createParametersForAvailablePositions() {
-        return Stream.of(
-                Arguments.of(true, Arrays.asList(Position.of("e4"), Position.of("f4"), Position.of("g4"), Position.of("h4"))),
-                Arguments.of(false, Collections.singletonList(Position.of("e4")))
-        );
     }
 }

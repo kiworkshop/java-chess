@@ -12,7 +12,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,7 +30,7 @@ class BishopTest {
         Piece piece = new Bishop(Color.WHITE);
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Collection<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).extracting("file", "rank")

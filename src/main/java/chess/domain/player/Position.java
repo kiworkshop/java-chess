@@ -4,12 +4,8 @@ import chess.domain.board.File;
 import chess.domain.board.Rank;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
 
 public class Position {
@@ -68,56 +64,15 @@ public class Position {
         return rank.calculateGap(position.getRank());
     }
 
-    public Set<Position> findPassingPositions(final Position target, final Direction direction) {
-        Set<Position> positions = new HashSet<>();
-        Position current = this;
-
-        while (target.isDifferent(current)) {
-            current = current.move(direction);
-            positions.add(current);
-        }
-
-        positions.remove(target);
-        return positions;
-    }
-
-    private boolean isDifferent(final Position current) {
+    public boolean isDifferent(final Position current) {
         return !this.equals(current);
     }
 
-    public Collection<Position> findAvailablePositions(final Direction direction, final boolean canMoveInfinitely) {
-        if (canMoveInfinitely) {
-            return findInfinitePositions(direction);
-        }
-
-        return findFinitePositions(direction);
-    }
-
-    private Collection<Position> findInfinitePositions(final Direction direction) {
-        Collection<Position> positions = new HashSet<>();
-        Position current = this;
-
-        while (current.isMovable(direction)) {
-            current = current.move(direction);
-            positions.add(current);
-        }
-
-        return positions;
-    }
-
-    private Collection<Position> findFinitePositions(final Direction direction) {
-        if (isMovable(direction)) {
-            return Collections.singleton(move(direction));
-        }
-
-        return Collections.emptySet();
-    }
-
-    private boolean isMovable(final Direction direction) {
+    public boolean isMovable(final Direction direction) {
         return rank.canMove(direction.getY()) && file.canMove(direction.getX());
     }
 
-    private Position move(final Direction direction) {
+    public Position move(final Direction direction) {
         File movedFile = this.file.move(direction.getX());
         Rank movedRank = this.rank.move(direction.getY());
         return Position.from(movedFile, movedRank);

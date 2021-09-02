@@ -24,7 +24,7 @@ class MovePatternTest {
         MovePattern movePattern = MovePattern.findPawnMovePattern(color);
 
         // when
-        Collection<Direction> directions = movePattern.getCoordinates();
+        Collection<Direction> directions = movePattern.getDirections();
 
         // then
         assertThat(directions)
@@ -39,7 +39,7 @@ class MovePatternTest {
         MovePattern movePattern = MovePattern.findPawnMovePattern(color);
 
         // when
-        Collection<Direction> directions = movePattern.getCoordinates();
+        Collection<Direction> directions = movePattern.getDirections();
 
         // then
         assertThat(directions)

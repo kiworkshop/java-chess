@@ -8,7 +8,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -25,7 +24,7 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Collection<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).isEmpty();
@@ -41,7 +40,7 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Collection<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).containsOnly(Position.of(expected));
@@ -58,7 +57,7 @@ class PawnTest {
         Piece piece = new Pawn(color);
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Collection<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).isEmpty();

@@ -13,7 +13,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +31,7 @@ class QueenTest {
         Piece piece = new Queen(Color.WHITE);
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Collection<Position> paths = piece.findPath(source, target);
 
         //then
         assertThat(paths).extracting("file", "rank")
@@ -49,7 +48,7 @@ class QueenTest {
         Piece piece = new Queen(Color.WHITE);
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Collection<Position> paths = piece.findPath(source, target);
 
         //then
         //then
