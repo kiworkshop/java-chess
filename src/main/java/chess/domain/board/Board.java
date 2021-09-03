@@ -23,10 +23,7 @@ public class Board {
         Position source = moveOptions.getSource();
         Position target = moveOptions.getTarget();
 
-        validateSourceOwner(enemy, source);
-        validateSamePosition(source, target);
-        validateTarget(player, target);
-        validateKingMovable(player, enemy, source, target);
+        validate(player, enemy, source, target);
 
         enemy.removePieceOn(target);
         movePiece(player, source, target);
@@ -37,6 +34,13 @@ public class Board {
             return white;
         }
         return black;
+    }
+
+    private void validate(final Player player, final Player enemy, final Position source, final Position target) {
+        validateSourceOwner(enemy, source);
+        validateSamePosition(source, target);
+        validateTarget(player, target);
+        validateKingMovable(player, enemy, source, target);
     }
 
     private void validateSourceOwner(final Player enemy, final Position source) {
