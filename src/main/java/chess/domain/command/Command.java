@@ -7,14 +7,9 @@ import java.util.stream.Collectors;
 public class Command {
 
     private static final String DELIMITER = " ";
-    private static final int COMMAND_INDEX = 0;
+    private static final int OPERATION_INDEX = 0;
 
-    private static final String START = "start";
-    private static final String END = "end";
-    private static final String MOVE = "move";
-    private static final String STATUS = "status";
-
-    private final String command;
+    private final Operation operation;
     private final List<String> parameters;
 
     public Command(final String commandLine) {
@@ -24,34 +19,34 @@ public class Command {
                 .collect(Collectors.toList());
 
         if (chunks.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("명령어를 입력해주세요.");
         }
 
-        this.command = chunks.get(COMMAND_INDEX);
-        this.parameters = chunks.subList(COMMAND_INDEX + 1, chunks.size());
-    }
-
-    public boolean isStart() {
-        return command.equals(START);
-    }
-
-    public boolean isEnd() {
-        return command.equals(END);
-    }
-
-    public boolean isMove() {
-        return command.equals(MOVE);
-    }
-
-    public boolean isStatus() {
-        return command.equals(STATUS);
+        this.operation = Operation.of(chunks.get(OPERATION_INDEX));
+        this.parameters = chunks.subList(OPERATION_INDEX + 1, chunks.size());
     }
 
     public MoveParameters getMoveParameters() {
         if (parameters.size() != 2) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("기물 이동 위치를 정확하게 입력해주세요.");
         }
 
         return new MoveParameters(parameters);
+    }
+
+    public boolean isStart() {
+        return operation.isStart();
+    }
+
+    public boolean isEnd() {
+        return operation.isEnd();
+    }
+
+    public boolean isMove() {
+        return operation.isMove();
+    }
+
+    public boolean isStatus() {
+        return operation.isStatus();
     }
 }

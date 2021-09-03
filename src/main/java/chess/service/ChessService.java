@@ -2,9 +2,12 @@ package chess.service;
 
 import chess.domain.board.Board;
 import chess.domain.board.Scores;
+import chess.domain.command.Command;
 import chess.domain.command.MoveParameters;
 import chess.domain.piece.Color;
 import chess.dto.BoardDto;
+import chess.exception.ForcedTerminationException;
+import chess.exception.ScoresRequestedException;
 
 import java.util.Map;
 
@@ -19,6 +22,25 @@ public class ChessService {
     public ChessService() {
         this.board = new Board();
         this.currentTurn = WHITE;
+    }
+
+    public void run(Command command) {
+        if (command.isStart()) {
+            return;
+        }
+
+        if (command.isEnd()) {
+            throw new ForcedTerminationException();
+        }
+
+        if (command.isStatus()) {
+            throw new ScoresRequestedException();
+        }
+
+        if (command.isMove()) {
+            MoveParameters parameters = command.getMoveParameters();
+            movePiece(parameters);
+        }
     }
 
     public boolean isGameRunning() {
@@ -49,11 +71,11 @@ public class ChessService {
         return BoardDto.of(board);
     }
 
-    public String getCurrentTurnView() {
+    public String getCurrentTurnDto() {
         return currentTurn.name();
     }
 
-    public String getWinnerView() {
+    public String getWinnerDto() {
         if (board.isBothKingAlive()) {
             throw new IllegalStateException("King이 잡히지 않아 승자가 없습니다.");
         }

@@ -2,8 +2,8 @@ package chess.controller;
 
 import chess.domain.board.Scores;
 import chess.domain.command.Command;
-import chess.domain.command.MoveParameters;
 import chess.exception.ForcedTerminationException;
+import chess.exception.ScoresRequestedException;
 import chess.service.ChessService;
 import chess.view.InputView;
 import chess.view.OutputView;
@@ -27,12 +27,7 @@ public class ConsoleChessController {
 
         while (chessService.isGameRunning()) {
             try {
-                outputView.printTurn(chessService.getCurrentTurnView());
-                Command command = new Command(inputView.getCommand());
-                run(command);
-                printBoard();
-            } catch (UnsupportedOperationException e) {
-                outputView.printMessage(e.getMessage());
+                runOneTurn();
             } catch (ForcedTerminationException e) {
                 outputView.printMessage(e.getMessage());
                 break;
@@ -42,32 +37,25 @@ public class ConsoleChessController {
         printFinalResult();
     }
 
-    private void run(final Command command) {
+    private void runOneTurn() {
         try {
-            if (command.isStart()) {
-                return;
-            }
+            String currentTurn = chessService.getCurrentTurnDto();
+            outputView.printTurn(currentTurn);
 
-            if (command.isEnd()) {
-                throw new ForcedTerminationException();
-            }
+            Command command = new Command(inputView.getCommand());
+            chessService.run(command);
 
-            if (command.isMove()) {
-                MoveParameters parameters = command.getMoveParameters();
-                chessService.movePiece(parameters);
-                return;
-            }
-
-            if (command.isStatus()) {
-                printScores();
-                return;
-            }
-        } catch (IllegalArgumentException e) {
+        } catch (UnsupportedOperationException | IllegalArgumentException e) {
             outputView.printMessage(e.getMessage());
-            return;
+        } catch (ScoresRequestedException e) {
+            Scores scores = chessService.getScores();
+            outputView.printScores(scores);
         }
+    }
 
-        throw new UnsupportedOperationException("유효하지 않은 명령어입니다.");
+    private void printFinalResult() {
+        printBoard();
+        printWinner();
     }
 
     private void printBoard() {
@@ -75,22 +63,12 @@ public class ConsoleChessController {
         outputView.printBoard(boardDto);
     }
 
-    private void printScores() {
-        Scores scores = chessService.getScores();
-        outputView.printScores(scores);
-    }
-
     private void printWinner() {
         try {
-            outputView.printWinner(chessService.getWinnerView());
+            String winner = chessService.getWinnerDto();
+            outputView.printWinner(winner);
         } catch (IllegalStateException e) {
             outputView.printMessage(e.getMessage());
         }
-    }
-
-    private void printFinalResult() {
-        printBoard();
-        printScores();
-        printWinner();
     }
 }
