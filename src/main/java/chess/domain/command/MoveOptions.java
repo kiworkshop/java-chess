@@ -4,7 +4,7 @@ import chess.domain.player.Position;
 
 import java.util.List;
 
-public class MoveParameters {
+public class MoveOptions {
 
     private static final int SOURCE_INDEX = 0;
     private static final int TARGET_INDEX = 1;
@@ -12,11 +12,11 @@ public class MoveParameters {
     private final Position source;
     private final Position target;
 
-    public MoveParameters(final List<String> parameters) {
-        this(Position.of(parameters.get(SOURCE_INDEX)), Position.of(parameters.get(TARGET_INDEX)));
+    public MoveOptions(final List<String> options) {
+        this(Position.of(options.get(SOURCE_INDEX)), Position.of(options.get(TARGET_INDEX)));
     }
 
-    public MoveParameters(final Position source, final Position target) {
+    public MoveOptions(final Position source, final Position target) {
         this.source = source;
         this.target = target;
     }

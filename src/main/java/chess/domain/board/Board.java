@@ -1,6 +1,6 @@
 package chess.domain.board;
 
-import chess.domain.command.MoveParameters;
+import chess.domain.command.MoveOptions;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.player.Player;
@@ -17,11 +17,11 @@ public class Board {
         this.black = new Player(Color.BLACK);
     }
 
-    public void move(final MoveParameters moveParameters, final boolean isWhiteTurn) {
+    public void move(final MoveOptions moveOptions, final boolean isWhiteTurn) {
         Player player = currentPlayer(isWhiteTurn);
         Player enemy = currentPlayer(!isWhiteTurn);
-        Position source = moveParameters.getSource();
-        Position target = moveParameters.getTarget();
+        Position source = moveOptions.getSource();
+        Position target = moveOptions.getTarget();
 
         validateSourceOwner(enemy, source);
         validateSamePosition(source, target);

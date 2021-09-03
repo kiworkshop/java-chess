@@ -1,6 +1,6 @@
 package chess.domain.board;
 
-import chess.domain.command.MoveParameters;
+import chess.domain.command.MoveOptions;
 import chess.domain.player.Position;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,11 +34,11 @@ public class BoardTest {
         Board board = new Board();
         Position source = Position.of("b3");
         Position target = Position.of("b4");
-        MoveParameters moveParameters = new MoveParameters(source, target);
+        MoveOptions moveOptions = new MoveOptions(source, target);
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> board.move(moveParameters, true))
+                .isThrownBy(() -> board.move(moveOptions, true))
                 .withMessage("해당 위치에 기물이 존재하지 않습니다.");
     }
 
@@ -50,11 +50,11 @@ public class BoardTest {
         Board board = new Board();
         Position source = Position.of(sourcePosition);
         Position target = Position.of(targetPosition);
-        MoveParameters moveParameters = new MoveParameters(source, target);
+        MoveOptions moveOptions = new MoveOptions(source, target);
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> board.move(moveParameters, isWhiteTurn))
+                .isThrownBy(() -> board.move(moveOptions, isWhiteTurn))
                 .withMessage("자신의 기물만 움직일 수 있습니다.");
     }
 
@@ -66,11 +66,11 @@ public class BoardTest {
         Board board = new Board();
         Position source = Position.of(sourcePosition);
         Position target = Position.of(targetPosition);
-        MoveParameters moveParameters = new MoveParameters(source, target);
+        MoveOptions moveOptions = new MoveOptions(source, target);
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> board.move(moveParameters, isWhiteTurn))
+                .isThrownBy(() -> board.move(moveOptions, isWhiteTurn))
                 .withMessage("같은 색상의 기물은 공격할 수 없습니다.");
     }
 
@@ -82,11 +82,11 @@ public class BoardTest {
         Board board = new Board();
         Position source = Position.of(sourcePosition);
         Position target = Position.of(targetPosition);
-        MoveParameters moveParameters = new MoveParameters(source, target);
+        MoveOptions moveOptions = new MoveOptions(source, target);
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> board.move(moveParameters, isWhiteTurn))
+                .isThrownBy(() -> board.move(moveOptions, isWhiteTurn))
                 .withMessage("출발 위치와 도착 위치가 같을 수 없습니다.");
     }
 
@@ -98,11 +98,11 @@ public class BoardTest {
         Board board = new Board();
         Position source = Position.of(sourcePosition);
         Position target = Position.of(targetPosition);
-        MoveParameters moveParameters = new MoveParameters(source, target);
+        MoveOptions moveOptions = new MoveOptions(source, target);
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> board.move(moveParameters, isWhiteTurn))
+                .isThrownBy(() -> board.move(moveOptions, isWhiteTurn))
                 .withMessage("기물을 통과하여 이동할 수 없습니다.");
     }
 
@@ -112,11 +112,11 @@ public class BoardTest {
     void move_king_invalid_target(String source, String target) {
         //given
         Board board = setBoardToAttackKing();
-        MoveParameters moveParameters = new MoveParameters(Position.of(source), Position.of(target));
+        MoveOptions moveOptions = new MoveOptions(Position.of(source), Position.of(target));
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> board.move(moveParameters, true))
+                .isThrownBy(() -> board.move(moveOptions, true))
                 .withMessage("킹은 상대방이 공격 가능한 위치로 이동할 수 없습니다.");
     }
 
@@ -136,20 +136,20 @@ public class BoardTest {
 
     private Board setBoardToGetStatus() {
         Board board = new Board();
-        board.move(new MoveParameters(Position.of("e7"), Position.of("e5")), false);
-        board.move(new MoveParameters(Position.of("e5"), Position.of("e4")), false);
-        board.move(new MoveParameters(Position.of("e4"), Position.of("e3")), false);
-        board.move(new MoveParameters(Position.of("d2"), Position.of("e3")), true);
+        board.move(new MoveOptions(Position.of("e7"), Position.of("e5")), false);
+        board.move(new MoveOptions(Position.of("e5"), Position.of("e4")), false);
+        board.move(new MoveOptions(Position.of("e4"), Position.of("e3")), false);
+        board.move(new MoveOptions(Position.of("d2"), Position.of("e3")), true);
         return board;
     }
 
     private Board setBoardToAttackKing() {
         Board board = new Board();
-        board.move(new MoveParameters(Position.of("e2"), Position.of("e4")), true);
-        board.move(new MoveParameters(Position.of("d2"), Position.of("d4")), true);
-        board.move(new MoveParameters(Position.of("e1"), Position.of("e2")), true);
-        board.move(new MoveParameters(Position.of("c7"), Position.of("c5")), false);
-        board.move(new MoveParameters(Position.of("d8"), Position.of("a5")), false);
+        board.move(new MoveOptions(Position.of("e2"), Position.of("e4")), true);
+        board.move(new MoveOptions(Position.of("d2"), Position.of("d4")), true);
+        board.move(new MoveOptions(Position.of("e1"), Position.of("e2")), true);
+        board.move(new MoveOptions(Position.of("c7"), Position.of("c5")), false);
+        board.move(new MoveOptions(Position.of("d8"), Position.of("a5")), false);
         return board;
     }
 }

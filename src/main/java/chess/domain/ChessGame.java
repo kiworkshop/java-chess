@@ -2,7 +2,7 @@ package chess.domain;
 
 import chess.domain.board.Board;
 import chess.domain.board.Status;
-import chess.domain.command.MoveParameters;
+import chess.domain.command.MoveOptions;
 
 public class ChessGame {
 
@@ -13,8 +13,8 @@ public class ChessGame {
     public ChessGame() {
     }
 
-    public void move(final MoveParameters moveParameters) {
-        board.move(moveParameters, isWhiteTurn);
+    public void move(final MoveOptions moveOptions) {
+        board.move(moveOptions, isWhiteTurn);
         isWhiteTurn = !isWhiteTurn;
 
         if (board.isEnd()) {
