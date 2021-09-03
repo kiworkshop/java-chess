@@ -56,7 +56,7 @@ class QueenTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"d6", "d2", "b4", "f4", "f5"})
+    @ValueSource(strings = {"f5", "e6", "b3", "c2"})
     @DisplayName("도착 위치가 이동할 수 없는 경로일 경우 예외가 발생한다.")
     void find_paths_invalid_target(String invalidTarget) {
         //given
@@ -78,7 +78,8 @@ class QueenTest {
         Collection<Position> expected = Arrays.asList(
                 Position.of("a1"), Position.of("b2"), Position.of("c3"), Position.of("e5"), Position.of("f6"), Position.of("g7"), Position.of("h8"),
                 Position.of("a7"), Position.of("b6"), Position.of("c5"), Position.of("e3"), Position.of("f2"), Position.of("g1"),
-                Position.of("d3"), Position.of("d5"), Position.of("c4"), Position.of("e4")
+                Position.of("d1"), Position.of("d2"), Position.of("d3"), Position.of("d5"), Position.of("d6"), Position.of("d7"), Position.of("d8"),
+                Position.of("a4"), Position.of("b4"), Position.of("c4"), Position.of("e4"), Position.of("f4"), Position.of("g4"), Position.of("h4")
         );
 
         //when

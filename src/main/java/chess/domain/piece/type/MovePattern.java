@@ -47,7 +47,9 @@ public class MovePattern {
     }
 
     public static MovePattern queenPattern() {
-        return new MovePattern(DIAGONAL_COORDINATES, CARDINAL_COORDINATES);
+        List<MoveCoordinate> infiniteMoveCoordinates = new ArrayList<>(CARDINAL_COORDINATES);
+        infiniteMoveCoordinates.addAll(DIAGONAL_COORDINATES);
+        return new MovePattern(infiniteMoveCoordinates, Collections.emptyList());
     }
 
     public static MovePattern kingPattern() {
