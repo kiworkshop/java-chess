@@ -1,8 +1,8 @@
 package chess.domain.piece;
 
+import chess.domain.board.Position;
 import chess.domain.piece.type.MovePattern;
-import chess.domain.player.MoveCoordinate;
-import chess.domain.player.Position;
+import chess.domain.piece.type.MoveUnit;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,18 +27,18 @@ public abstract class Piece {
         int fileGap = target.calculateFileGap(source);
         int rankGap = target.calculateRankGap(source);
 
-        MoveCoordinate moveCoordinate = movePattern.findMoveCoordinate(fileGap, rankGap);
-        return source.findPassingPositions(target, moveCoordinate);
+        MoveUnit moveUnit = movePattern.findMoveUnit(fileGap, rankGap);
+        return source.findPassingPositions(target, moveUnit);
     }
 
     public Collection<Position> findAvailableAttackPositions(final Position position) {
-        Set<Position> finitePositions = movePattern.finiteMoveCoordinates().stream()
-                .map(moveCoordinate -> position.findAvailablePositions(moveCoordinate, true))
+        Set<Position> finitePositions = movePattern.finiteMoveUnits().stream()
+                .map(moveUnit -> position.findAvailablePositions(moveUnit, true))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
 
-        Set<Position> infinitePositions = movePattern.infiniteMoveCoordinates().stream()
-                .map(moveCoordinate -> position.findAvailablePositions(moveCoordinate, false))
+        Set<Position> infinitePositions = movePattern.infiniteMoveUnits().stream()
+                .map(moveUnit -> position.findAvailablePositions(moveUnit, false))
                 .flatMap(Collection::stream)
                 .collect(Collectors.toSet());
 

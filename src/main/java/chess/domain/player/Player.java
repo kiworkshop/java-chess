@@ -1,6 +1,7 @@
 package chess.domain.player;
 
 import chess.domain.board.File;
+import chess.domain.board.Position;
 import chess.domain.piece.Color;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceFactory;
@@ -23,12 +24,16 @@ public class Player {
         return pieces.containsKey(position);
     }
 
+    public boolean hasNoPieceOn(final Position position) {
+        return !hasPieceOn(position);
+    }
+
     public Set<Position> findPaths(final Position source, final Position target) {
         Piece sourcePiece = findPieceBy(source);
         return sourcePiece.findPath(source, target);
     }
 
-    public void update(final Position source, final Position target) {
+    public void move(final Position source, final Position target) {
         Piece sourcePiece = findPieceBy(source);
         movePiece(source, target, sourcePiece);
         attackPositions.update(source, target, sourcePiece);
@@ -40,14 +45,14 @@ public class Player {
     }
 
     public Piece findPieceBy(final Position position) {
-        if (!hasPieceOn(position)) {
+        if (hasNoPieceOn(position)) {
             throw new IllegalArgumentException("해당 위치에 기물이 존재하지 않습니다.");
         }
 
         return pieces.get(position);
     }
 
-    public boolean hasKingOn(Position position) {
+    public boolean hasKingOn(final Position position) {
         return PieceType.isKing(findPieceBy(position));
     }
 
@@ -61,17 +66,17 @@ public class Player {
                 .anyMatch(PieceType::isKing);
     }
 
-    public boolean canAttack(Position position) {
+    public boolean canAttack(final Position position) {
         return attackPositions.contains(position);
     }
 
-    public void attacked(final Position target) {
-        if (!hasPieceOn(target)) {
+    public void isUnderAttack(final Position position) {
+        if (hasNoPieceOn(position)) {
             return;
         }
 
-        attackPositions.remove(target, pieces.get(target));
-        pieces.remove(target);
+        attackPositions.remove(position, pieces.get(position));
+        pieces.remove(position);
     }
 
     public double calculateScores() {

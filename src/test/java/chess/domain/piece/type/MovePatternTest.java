@@ -1,13 +1,12 @@
 package chess.domain.piece.type;
 
 import chess.domain.piece.Color;
-import chess.domain.player.MoveCoordinate;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 
-import static chess.domain.player.MoveCoordinate.*;
+import static chess.domain.piece.type.MoveUnit.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MovePatternTest {
@@ -20,10 +19,10 @@ class MovePatternTest {
 
         // when
         MovePattern movePattern = MovePattern.pawnPattern(color);
-        Collection<MoveCoordinate> moveCoordinates = movePattern.finiteMoveCoordinates();
+        Collection<MoveUnit> moveUnits = movePattern.finiteMoveUnits();
 
         // then
-        assertThat(moveCoordinates)
+        assertThat(moveUnits)
                 .containsExactlyInAnyOrder(BLACK_PAWN_INITIAL_SOUTH, SOUTH_EAST, SOUTH_WEST, SOUTH);
     }
 
@@ -35,10 +34,10 @@ class MovePatternTest {
 
         // when
         MovePattern movePattern = MovePattern.pawnPattern(color);
-        Collection<MoveCoordinate> moveCoordinates = movePattern.finiteMoveCoordinates();
+        Collection<MoveUnit> moveUnits = movePattern.finiteMoveUnits();
 
         // then
-        assertThat(moveCoordinates)
+        assertThat(moveUnits)
                 .containsExactlyInAnyOrder(WHITE_PAWN_INITIAL_NORTH, NORTH_EAST, NORTH_WEST, NORTH);
     }
 }

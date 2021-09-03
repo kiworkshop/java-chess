@@ -1,7 +1,7 @@
 package chess.service;
 
 import chess.domain.board.Board;
-import chess.domain.board.Scores;
+import chess.domain.player.Scores;
 import chess.domain.command.Command;
 import chess.domain.command.MoveParameters;
 import chess.domain.piece.Color;
@@ -11,17 +11,12 @@ import chess.exception.ScoresRequestedException;
 
 import java.util.Map;
 
-import static chess.domain.piece.Color.BLACK;
-import static chess.domain.piece.Color.WHITE;
-
 public class ChessService {
 
     private final Board board;
-    private Color currentTurn;
 
     public ChessService() {
         this.board = new Board();
-        this.currentTurn = WHITE;
     }
 
     public void run(Command command) {
@@ -48,19 +43,7 @@ public class ChessService {
     }
 
     public void movePiece(MoveParameters parameters) {
-        board.move(parameters, currentTurn);
-        changeTurn();
-    }
-
-    private void changeTurn() {
-        if (currentTurn == WHITE) {
-            currentTurn = BLACK;
-            return;
-        }
-
-        if (currentTurn == BLACK) {
-            currentTurn = WHITE;
-        }
+        board.move(parameters);
     }
 
     public Scores getScores() {
@@ -72,14 +55,10 @@ public class ChessService {
     }
 
     public String getCurrentTurnDto() {
-        return currentTurn.name();
+        return board.getCurrentTurn().name();
     }
 
     public String getWinnerDto() {
-        if (board.isBothKingAlive()) {
-            throw new IllegalStateException("King이 잡히지 않아 승자가 없습니다.");
-        }
-
         Color color = board.getWinner();
         return color.name();
     }

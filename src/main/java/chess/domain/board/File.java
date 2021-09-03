@@ -3,6 +3,7 @@ package chess.domain.board;
 import java.util.Arrays;
 
 public enum File {
+
     a(1),
     b(2),
     c(3),

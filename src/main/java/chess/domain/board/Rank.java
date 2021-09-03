@@ -3,6 +3,7 @@ package chess.domain.board;
 import java.util.Arrays;
 
 public enum Rank {
+
     R8(8),
     R7(7),
     R6(6),

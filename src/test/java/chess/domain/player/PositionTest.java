@@ -1,12 +1,15 @@
 package chess.domain.player;
 
 import chess.domain.board.File;
+import chess.domain.board.Position;
 import chess.domain.board.Rank;
+import chess.domain.piece.type.MoveUnit;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,6 +18,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PositionTest {
 
@@ -35,7 +39,7 @@ class PositionTest {
 
     @Test
     @DisplayName("문자열 키에 해당하는 위치를 반환한다.")
-    void from_key() {
+    void of_valid_key() {
         //given
         File file = File.a;
         Rank rank = Rank.R1;
@@ -49,16 +53,27 @@ class PositionTest {
                 .containsOnly(file, rank);
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"a0", "j1"})
+    @DisplayName("유효하지 않은 키로 검색하면 예외를 던진다.")
+    void of_invalid_key(String key) {
+        //given, when, then
+        assertThrows(IllegalArgumentException.class, () -> {
+            Position.of(key);
+        });
+    }
+
+
     @Test
     @DisplayName("거쳐가는 모든 위치를 반환한다.")
     void find_passing_positions() {
         // given
         Position source = Position.of("d4");
         Position target = Position.of("d7");
-        MoveCoordinate moveCoordinate = MoveCoordinate.NORTH;
+        MoveUnit moveUnit = MoveUnit.NORTH;
 
         // when
-        Set<Position> positions = source.findPassingPositions(target, moveCoordinate);
+        Set<Position> positions = source.findPassingPositions(target, moveUnit);
 
         // then
         assertThat(positions)
@@ -72,10 +87,10 @@ class PositionTest {
     void find_available_positions(boolean isFinite, Collection<Position> expected) {
         // given
         Position position = Position.of("d4");
-        MoveCoordinate moveCoordinate = MoveCoordinate.EAST;
+        MoveUnit moveUnit = MoveUnit.EAST;
 
         // when
-        Collection<Position> positions = position.findAvailablePositions(moveCoordinate, isFinite);
+        Collection<Position> positions = position.findAvailablePositions(moveUnit, isFinite);
 
         // then
         assertThat(positions)

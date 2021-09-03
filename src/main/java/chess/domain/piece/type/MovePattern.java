@@ -1,92 +1,91 @@
 package chess.domain.piece.type;
 
 import chess.domain.piece.Color;
-import chess.domain.player.MoveCoordinate;
 
 import java.util.*;
 
-import static chess.domain.player.MoveCoordinate.*;
+import static chess.domain.piece.type.MoveUnit.*;
 
 public class MovePattern {
 
-    private static final Collection<MoveCoordinate> CARDINAL_COORDINATES = Collections.unmodifiableList(Arrays.asList(
+    private static final Collection<MoveUnit> CARDINAL_UNITS = Collections.unmodifiableList(Arrays.asList(
             NORTH, SOUTH, WEST, EAST
     ));
 
-    private static final Collection<MoveCoordinate> DIAGONAL_COORDINATES = Collections.unmodifiableList(Arrays.asList(
+    private static final Collection<MoveUnit> DIAGONAL_UNITS = Collections.unmodifiableList(Arrays.asList(
             NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST
     ));
 
-    private static final Collection<MoveCoordinate> WHITE_PAWN_COORDINATES = Collections.unmodifiableList(Arrays.asList(
+    private static final Collection<MoveUnit> WHITE_PAWN_UNITS = Collections.unmodifiableList(Arrays.asList(
             WHITE_PAWN_INITIAL_NORTH, NORTH_EAST, NORTH_WEST, NORTH
     ));
 
-    private static final Collection<MoveCoordinate> WHITE_PAWN_ATTACK_COORDINATES = Collections.unmodifiableList(Arrays.asList(
+    private static final Collection<MoveUnit> WHITE_PAWN_ATTACK_UNITS = Collections.unmodifiableList(Arrays.asList(
             NORTH_EAST, NORTH_WEST
     ));
 
-    private static final Collection<MoveCoordinate> BLACK_PAWN_COORDINATES = Collections.unmodifiableList(Arrays.asList(
+    private static final Collection<MoveUnit> BLACK_PAWN_UNITS = Collections.unmodifiableList(Arrays.asList(
             BLACK_PAWN_INITIAL_SOUTH, SOUTH_EAST, SOUTH_WEST, SOUTH
     ));
 
-    private static final Collection<MoveCoordinate> BLACK_PAWN_ATTACK_COORDINATES = Collections.unmodifiableList(Arrays.asList(
+    private static final Collection<MoveUnit> BLACK_PAWN_ATTACK_UNITS = Collections.unmodifiableList(Arrays.asList(
             SOUTH_EAST, SOUTH_WEST
     ));
 
-    private static final Collection<MoveCoordinate> KNIGHT_COORDINATES = Collections.unmodifiableList(Arrays.asList(
+    private static final Collection<MoveUnit> KNIGHT_UNITS = Collections.unmodifiableList(Arrays.asList(
             NORTH_EAST_LEFT, NORTH_EAST_RIGHT, NORTH_WEST_LEFT, NORTH_WEST_RIGHT,
             SOUTH_EAST_LEFT, SOUTH_EAST_RIGHT, SOUTH_WEST_LEFT, SOUTH_WEST_RIGHT
     ));
 
-    private final Collection<MoveCoordinate> infiniteMoveCoordinates;
-    private final Collection<MoveCoordinate> finiteMoveCoordinates;
+    private final Collection<MoveUnit> infiniteMoveUnits;
+    private final Collection<MoveUnit> finiteMoveUnits;
 
-    private MovePattern(final Collection<MoveCoordinate> infiniteMoveCoordinates, final Collection<MoveCoordinate> finiteMoveCoordinates) {
-        this.infiniteMoveCoordinates = Collections.unmodifiableCollection(infiniteMoveCoordinates);
-        this.finiteMoveCoordinates = Collections.unmodifiableCollection(finiteMoveCoordinates);
+    private MovePattern(final Collection<MoveUnit> infiniteMoveUnits, final Collection<MoveUnit> finiteMoveUnits) {
+        this.infiniteMoveUnits = Collections.unmodifiableCollection(infiniteMoveUnits);
+        this.finiteMoveUnits = Collections.unmodifiableCollection(finiteMoveUnits);
     }
 
     public static MovePattern queenPattern() {
-        List<MoveCoordinate> infiniteMoveCoordinates = new ArrayList<>(CARDINAL_COORDINATES);
-        infiniteMoveCoordinates.addAll(DIAGONAL_COORDINATES);
-        return new MovePattern(infiniteMoveCoordinates, Collections.emptyList());
+        List<MoveUnit> infiniteMoveUnits = new ArrayList<>(CARDINAL_UNITS);
+        infiniteMoveUnits.addAll(DIAGONAL_UNITS);
+        return new MovePattern(infiniteMoveUnits, Collections.emptyList());
     }
 
     public static MovePattern kingPattern() {
-        List<MoveCoordinate> finiteMoveCoordinates = new ArrayList<>(CARDINAL_COORDINATES);
-        finiteMoveCoordinates.addAll(DIAGONAL_COORDINATES);
-        return new MovePattern(Collections.emptyList(), finiteMoveCoordinates);
+        List<MoveUnit> finiteMoveUnits = new ArrayList<>(CARDINAL_UNITS);
+        finiteMoveUnits.addAll(DIAGONAL_UNITS);
+        return new MovePattern(Collections.emptyList(), finiteMoveUnits);
     }
 
     public static MovePattern knightPattern() {
-        return new MovePattern(Collections.emptyList(), KNIGHT_COORDINATES);
+        return new MovePattern(Collections.emptyList(), KNIGHT_UNITS);
     }
 
     public static MovePattern rookPattern() {
-        return new MovePattern(CARDINAL_COORDINATES, Collections.emptyList());
+        return new MovePattern(CARDINAL_UNITS, Collections.emptyList());
     }
 
     public static MovePattern bishopPattern() {
-        return new MovePattern(DIAGONAL_COORDINATES, Collections.emptyList());
+        return new MovePattern(DIAGONAL_UNITS, Collections.emptyList());
     }
 
     public static MovePattern pawnPattern(final Color color) {
         if (color.isWhite()) {
-            return new MovePattern(Collections.emptyList(), WHITE_PAWN_COORDINATES);
+            return new MovePattern(Collections.emptyList(), WHITE_PAWN_UNITS);
         }
-        return new MovePattern(Collections.emptyList(), BLACK_PAWN_COORDINATES);
+        return new MovePattern(Collections.emptyList(), BLACK_PAWN_UNITS);
     }
 
-    public MoveCoordinate findMoveCoordinate(int fileGap, int rankGap) {
-        List<MoveCoordinate> result = new ArrayList<>();
+    public MoveUnit findMoveUnit(int fileGap, int rankGap) {
+        List<MoveUnit> result = new ArrayList<>();
 
-        infiniteMoveCoordinates.stream()
-                .filter(moveCoordinate -> moveCoordinate.matches(fileGap, rankGap, false))
+        infiniteMoveUnits.stream()
+                .filter(moveUnit -> moveUnit.matches(fileGap, rankGap, false))
                 .findAny()
                 .ifPresent(result::add);
 
-        finiteMoveCoordinates.stream()
-                .filter(moveCoordinate -> moveCoordinate.matches(fileGap, rankGap, true))
+        finiteMoveUnits.stream()
+                .filter(moveUnit -> moveUnit.matches(fileGap, rankGap, true))
                 .findAny()
                 .ifPresent(result::add);
 
@@ -97,18 +96,18 @@ public class MovePattern {
         return result.get(0);
     }
 
-    public Collection<MoveCoordinate> finiteMoveCoordinates() {
-        return finiteMoveCoordinates;
+    public Collection<MoveUnit> finiteMoveUnits() {
+        return finiteMoveUnits;
     }
 
-    public Collection<MoveCoordinate> infiniteMoveCoordinates() {
-        return infiniteMoveCoordinates;
+    public Collection<MoveUnit> infiniteMoveUnits() {
+        return infiniteMoveUnits;
     }
 
-    public Collection<MoveCoordinate> pawnAttackMoveCoordinates(boolean isWhite) {
+    public Collection<MoveUnit> pawnAttackMoveUnits(boolean isWhite) {
         if (isWhite) {
-            return WHITE_PAWN_ATTACK_COORDINATES;
+            return WHITE_PAWN_ATTACK_UNITS;
         }
-        return BLACK_PAWN_ATTACK_COORDINATES;
+        return BLACK_PAWN_ATTACK_UNITS;
     }
 }

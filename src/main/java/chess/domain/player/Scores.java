@@ -1,6 +1,7 @@
-package chess.domain.board;
+package chess.domain.player;
 
 public class Scores {
+
     private final double whiteScore;
     private final double blackScore;
 

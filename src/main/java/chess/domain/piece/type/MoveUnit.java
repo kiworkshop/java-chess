@@ -1,6 +1,7 @@
-package chess.domain.player;
+package chess.domain.piece.type;
 
-public enum MoveCoordinate {
+public enum MoveUnit {
+
     NORTH_EAST(1, 1),
     SOUTH_EAST(1, -1),
     NORTH_WEST(-1, 1),
@@ -25,7 +26,7 @@ public enum MoveCoordinate {
     private final int file;
     private final int rank;
 
-    MoveCoordinate(final int file, final int rank) {
+    MoveUnit(final int file, final int rank) {
         this.file = file;
         this.rank = rank;
     }

@@ -1,5 +1,6 @@
 package chess.domain.player;
 
+import chess.domain.board.Position;
 import chess.domain.piece.Color;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,7 @@ public class PlayerTest {
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> player.update(source, target))
+                .isThrownBy(() -> player.move(source, target))
                 .withMessage("해당 위치에 기물이 존재하지 않습니다.");
     }
 
@@ -53,7 +54,7 @@ public class PlayerTest {
         Position target = Position.of(targetPosition);
 
         //when
-        player.update(source, target);
+        player.move(source, target);
 
         //then
         assertThat(player.hasPieceOn(source)).isFalse();
@@ -127,7 +128,7 @@ public class PlayerTest {
     void is_king_dead() {
         //given
         Player player = new Player(Color.WHITE);
-        player.attacked(Position.of("e1"));
+        player.isUnderAttack(Position.of("e1"));
 
         //when
         boolean kingDead = player.isKingDead();

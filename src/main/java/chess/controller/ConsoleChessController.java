@@ -1,6 +1,6 @@
 package chess.controller;
 
-import chess.domain.board.Scores;
+import chess.domain.player.Scores;
 import chess.domain.command.Command;
 import chess.exception.ForcedTerminationException;
 import chess.exception.ScoresRequestedException;
@@ -28,6 +28,7 @@ public class ConsoleChessController {
         while (chessService.isGameRunning()) {
             try {
                 runOneTurn();
+                printBoard();
             } catch (ForcedTerminationException e) {
                 outputView.printMessage(e.getMessage());
                 break;

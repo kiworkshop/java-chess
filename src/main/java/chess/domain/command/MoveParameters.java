@@ -1,6 +1,6 @@
 package chess.domain.command;
 
-import chess.domain.player.Position;
+import chess.domain.board.Position;
 
 import java.util.List;
 
