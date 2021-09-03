@@ -1,57 +1,58 @@
 package chess.domain.command;
 
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Command {
+public enum Command {
 
-    private static final String DELIMITER = " ";
-    private static final int COMMAND_INDEX = 0;
+    START("start"),
+    END("end"),
+    MOVE("move"),
+    STATUS("status");
 
-    private static final String START = "start";
-    private static final String END = "end";
-    private static final String MOVE = "move";
-    private static final String STATUS = "status";
+    private static final Map<String, Command> COMMANDS = createCommands();
 
-    private final String command;
-    private final List<String> parameters;
+    private static Map<String, Command> createCommands() {
+        Map<String, Command> commands = new HashMap<>();
 
-    public Command(final String commandLine) {
-        List<String> chunks = Arrays.stream(commandLine.split(DELIMITER))
-                .map(String::trim)
-                .map(String::toLowerCase)
-                .collect(Collectors.toList());
+        Arrays.stream(values())
+                .forEach(command -> commands.put(command.command, command));
 
-        if (chunks.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
-
-        this.command = chunks.get(COMMAND_INDEX);
-        this.parameters = chunks.subList(COMMAND_INDEX + 1, chunks.size());
+        return commands;
     }
 
-    public boolean isStart() {
-        return command.equals(START);
+    private final String command;
+
+    Command(final String command) {
+        this.command = command;
+    }
+
+    public static Command of(final String command) {
+        Command foundCommand = COMMANDS.get(command);
+
+        if (foundCommand == null) {
+            throw new IllegalArgumentException("유효하지 않은 명령어입니다.");
+        }
+
+        return foundCommand;
+    }
+
+    public void validateInitialCommand() {
+        if (isStatus() || isMove()) {
+            throw new IllegalArgumentException(String.format("%s 또는 %s를 입력해주세요.", START.command, END.command));
+        }
     }
 
     public boolean isEnd() {
-        return command.equals(END);
+        return this.equals(END);
     }
 
     public boolean isMove() {
-        return command.equals(MOVE);
+        return this.equals(MOVE);
     }
 
     public boolean isStatus() {
-        return command.equals(STATUS);
-    }
-
-    public MoveParameters getMoveParameters() {
-        if (parameters.size() != 2) {
-            throw new IllegalArgumentException();
-        }
-
-        return new MoveParameters(parameters);
+        return this.equals(STATUS);
     }
 }

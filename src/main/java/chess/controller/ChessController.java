@@ -3,9 +3,12 @@ package chess.controller;
 import chess.controller.dto.BoardDto;
 import chess.domain.ChessGame;
 import chess.domain.board.Status;
-import chess.domain.command.Command;
+import chess.domain.command.CommandOptions;
+import chess.domain.command.MoveOptions;
 import chess.view.InputView;
 import chess.view.OutputView;
+
+import java.util.List;
 
 public class ChessController {
 
@@ -18,50 +21,57 @@ public class ChessController {
     }
 
     public void run() {
-        outputView.printGuide();
-        ChessGame chessGame = new ChessGame();
+        ChessGame chessGame = initialize();
 
         while (chessGame.isRunning()) {
-            try {
-                outputView.printTurn(chessGame.isWhiteTurn());
-                Command command = new Command(inputView.getCommand());
-                runCommand(chessGame, command);
-                printBoard(chessGame);
-            } catch (UnsupportedOperationException e) {
-                System.out.println(e.getMessage());
-            }
+            play(chessGame);
         }
 
-        printBoard(chessGame);
-        printStatus(chessGame);
+        printResult(chessGame);
     }
 
-    private void runCommand(final ChessGame chessGame, final Command command) {
+    private ChessGame initialize() {
+        outputView.printGuide();
+        ChessGame chessGame = new ChessGame();
+        CommandOptions initialCommandOptions = CommandOptions.of(inputView.getCommand());
+        executeInitialCommand(initialCommandOptions, chessGame);
+
+        return chessGame;
+    }
+
+    private void executeInitialCommand(final CommandOptions commandOptions, final ChessGame chessGame) {
+        commandOptions.validateInitialCommand();
+
+        if (commandOptions.isEnd()) {
+            chessGame.end();
+        }
+    }
+
+    private void play(final ChessGame chessGame) {
         try {
-            if (command.isStart()) {
-                return;
-            }
-
-            if (command.isEnd()) {
-                chessGame.end();
-                return;
-            }
-
-            if (command.isMove()) {
-                chessGame.move(command.getMoveParameters());
-                return;
-            }
-
-            if (command.isStatus()) {
-                printStatus(chessGame);
-                return;
-            }
+            outputView.printTurn(chessGame.isWhiteTurn());
+            CommandOptions commandOptions = CommandOptions.of(inputView.getCommand());
+            executeCommand(chessGame, commandOptions);
+            printBoard(chessGame);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return;
+        }
+    }
+
+    private void executeCommand(final ChessGame chessGame, final CommandOptions commandOptions) {
+        if (commandOptions.isEnd()) {
+            chessGame.end();
         }
 
-        throw new UnsupportedOperationException("유효하지 않은 명령어입니다.");
+        if (commandOptions.isMove()) {
+            List<String> options = commandOptions.getOptions();
+            MoveOptions moveOptions = new MoveOptions(options);
+            chessGame.move(moveOptions);
+        }
+
+        if (commandOptions.isStatus()) {
+            printStatus(chessGame);
+        }
     }
 
     private void printBoard(final ChessGame chessGame) {
@@ -72,5 +82,10 @@ public class ChessController {
     private void printStatus(final ChessGame chessGame) {
         Status status = chessGame.getStatus();
         outputView.printStatus(status);
+    }
+
+    private void printResult(final ChessGame chessGame) {
+        printBoard(chessGame);
+        printStatus(chessGame);
     }
 }
