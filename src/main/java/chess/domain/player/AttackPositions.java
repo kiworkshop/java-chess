@@ -10,9 +10,11 @@ public class AttackPositions {
 
     private static final int EMPTY = 0;
 
-    private final Map<Position, Integer> counts = new HashMap<>();
+    private final Map<Position, Integer> counts;
 
     public AttackPositions(final Map<Position, Piece> pieces) {
+        this.counts = new HashMap<>();
+
         pieces.keySet()
                 .forEach(position -> {
                     Piece piece = pieces.get(position);

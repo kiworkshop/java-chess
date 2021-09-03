@@ -1,13 +1,18 @@
 package chess.view;
 
 import chess.domain.board.Scores;
-import chess.dto.console.BoardConsoleDto;
+
+import java.util.Map;
 
 public class ConsoleOutputView implements OutputView {
 
     private static final String HEADER = "> ";
     private static final String TURN_FORMAT = HEADER + "%s의 차례입니다.%n";
     private static final String WINNER_FORMAT = HEADER + "%s의 승리입니다. 축하합니다.%n";
+
+    private static final int FILE = 0;
+    private static final int RANK = 1;
+    private static final String NEW_LINE = "\n";
 
     @Override
     public void printGuide() {
@@ -18,15 +23,36 @@ public class ConsoleOutputView implements OutputView {
     }
 
     @Override
-    public void printBoard(final BoardConsoleDto boardConsoleDto) {
-        boardConsoleDto.getPositionDtos()
-                .forEach(positionDto -> {
-                    System.out.print(positionDto.getName());
-                    if (positionDto.isLastFile()) {
-                        System.out.println();
-                    }
+    public void printBoard(final Map<String, String> boardDto) {
+        StringBuilder sb = new StringBuilder();
+
+        boardDto.keySet().stream()
+                .sorted(this::comparePositionName)
+                .forEach(positionName -> {
+                    String pieceName = boardDto.get(positionName);
+                    sb.append(pieceName);
                 });
-        System.out.println();
+
+        insertNewLineAtTheEndOfEachRank(sb);
+
+        System.out.println(sb);
+    }
+
+    private int comparePositionName(String o1, String o2) {
+        if (o1.charAt(RANK) == o2.charAt(RANK)) {
+            return Character.compare(o1.charAt(FILE), o2.charAt(FILE));
+        }
+        return Character.compare(o2.charAt(RANK), o1.charAt(RANK));
+    }
+
+    private void insertNewLineAtTheEndOfEachRank(StringBuilder sb) {
+        for (int rank = 1; rank <= 7; rank++) {
+            sb.insert(endOf(rank), NEW_LINE);
+        }
+    }
+
+    private int endOf(int rank) {
+        return rank * 8 + rank - 1;
     }
 
     @Override

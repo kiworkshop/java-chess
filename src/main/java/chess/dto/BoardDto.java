@@ -1,4 +1,4 @@
-package chess.dto.web;
+package chess.dto;
 
 import chess.domain.board.Board;
 import chess.domain.piece.Piece;
@@ -8,9 +8,9 @@ import chess.domain.player.Position;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BoardWebDto {
+public class BoardDto {
 
-    private BoardWebDto() {
+    private BoardDto() {
     }
 
     private static final String EMPTY_PIECE = ".";

@@ -1,12 +1,13 @@
 package chess.view;
 
 import chess.domain.board.Scores;
-import chess.dto.console.BoardConsoleDto;
+
+import java.util.Map;
 
 public interface OutputView {
     void printGuide();
 
-    void printBoard(BoardConsoleDto boardConsoleDto);
+    void printBoard(Map<String, String> boardDto);
 
     void printScores(Scores scores);
 

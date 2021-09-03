@@ -3,11 +3,12 @@ package chess.controller;
 import chess.domain.board.Scores;
 import chess.domain.command.Command;
 import chess.domain.command.MoveParameters;
-import chess.dto.console.BoardConsoleDto;
 import chess.exception.ForcedTerminationException;
 import chess.service.ChessService;
 import chess.view.InputView;
 import chess.view.OutputView;
+
+import java.util.Map;
 
 public class ConsoleChessController {
 
@@ -70,8 +71,8 @@ public class ConsoleChessController {
     }
 
     private void printBoard() {
-        BoardConsoleDto boardConsoleDto = chessService.getBoardConsoleView();
-        outputView.printBoard(boardConsoleDto);
+        Map<String, String> boardDto = chessService.getBoardDto();
+        outputView.printBoard(boardDto);
     }
 
     private void printScores() {

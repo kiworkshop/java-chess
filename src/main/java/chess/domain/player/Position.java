@@ -7,10 +7,10 @@ import java.util.*;
 
 public class Position {
 
-    private static final Map<String, Position> POSITIONS = createPositions();
+    private static final Map<String, Position> POSITIONS = Collections.unmodifiableMap(createPositions());
 
     private static Map<String, Position> createPositions() {
-        Map<String, Position> positions = new LinkedHashMap<>();
+        Map<String, Position> positions = new HashMap<>();
 
         Arrays.stream(File.values())
                 .forEach(file -> Arrays.stream(Rank.values())

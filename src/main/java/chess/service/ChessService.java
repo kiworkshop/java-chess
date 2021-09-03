@@ -4,8 +4,7 @@ import chess.domain.board.Board;
 import chess.domain.board.Scores;
 import chess.domain.command.MoveParameters;
 import chess.domain.piece.Color;
-import chess.dto.console.BoardConsoleDto;
-import chess.dto.web.BoardWebDto;
+import chess.dto.BoardDto;
 
 import java.util.Map;
 
@@ -24,10 +23,6 @@ public class ChessService {
 
     public boolean isGameRunning() {
         return board.isBothKingAlive();
-    }
-
-    public boolean isGameFinished() {
-        return board.isAnyKingDead();
     }
 
     public void movePiece(MoveParameters parameters) {
@@ -50,12 +45,8 @@ public class ChessService {
         return board.getScores();
     }
 
-    public BoardConsoleDto getBoardConsoleView() {
-        return BoardConsoleDto.of(board);
-    }
-
-    public Map<String, String> getBoardWebView() {
-        return BoardWebDto.of(board);
+    public Map<String, String> getBoardDto() {
+        return BoardDto.of(board);
     }
 
     public String getCurrentTurnView() {
