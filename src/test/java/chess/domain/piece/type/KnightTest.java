@@ -52,15 +52,15 @@ class KnightTest {
     @DisplayName("입력받은 위치에서 공격 가능한 위치들을 반환해준다.")
     void find_available_attack_positions() {
         //given
-        Position position = Position.of("d4");
+        Position source = Position.of("d4");
         Piece knight = new Knight(Color.WHITE);
         Collection<Path> expected = Arrays.asList(
-                new Path(Position.of("c6")), new Path(Position.of("c2")), new Path(Position.of("e6")), new Path(Position.of("e2")),
-                new Path(Position.of("b5")), new Path(Position.of("b3")), new Path(Position.of("f5")), new Path(Position.of("f3"))
+                new Path(source, Position.of("c6")), new Path(source, Position.of("c2")), new Path(source, Position.of("e6")), new Path(source, Position.of("e2")),
+                new Path(source, Position.of("b5")), new Path(source, Position.of("b3")), new Path(source, Position.of("f5")), new Path(source, Position.of("f3"))
         );
 
         //when
-        Collection<Path> availableAttackPositions = knight.findAttackPaths(position);
+        Collection<Path> availableAttackPositions = knight.findAttackPaths(source);
 
         //then
         assertThat(availableAttackPositions)

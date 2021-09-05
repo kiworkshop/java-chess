@@ -49,7 +49,7 @@ public class RookTest {
     @DisplayName("입력받은 위치에서 공격 가능한 위치들을 반환해준다.")
     void find_available_attack_positions() {
         //given
-        Position position = Position.of("d4");
+        Position source = Position.of("d4");
         Piece rook = new Rook(Color.WHITE);
         Collection<Path> expected = Arrays.asList(
                 new Path(Position.of("d3"), Position.of("d2"), Position.of("d1")),
@@ -59,7 +59,7 @@ public class RookTest {
         );
 
         //when
-        Collection<Path> availableAttackPaths = rook.findAttackPaths(position);
+        Collection<Path> availableAttackPaths = rook.findAttackPaths(source);
 
         //then
         assertThat(availableAttackPaths)

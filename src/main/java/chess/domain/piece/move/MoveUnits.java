@@ -42,15 +42,17 @@ public enum MoveUnits {
 
         moveUnits.stream()
                 .filter(source::isMovable)
-                .forEach(moveUnit -> addNewPath(source, moveUnit, paths));
+                .forEach(moveUnit -> {
+                    Path path = buildPath(source, moveUnit);
+                    paths.add(path);
+                });
 
         return paths;
     }
 
-    private void addNewPath(Position source, MoveUnit moveUnit, Collection<Path> paths) {
+    private Path buildPath(Position source, MoveUnit moveUnit) {
         Position target = source.move(moveUnit);
-        Path path = new Path(source, target);
-        paths.add(path);
+        return new Path(source, target);
     }
 
     public Collection<Path> findReachableInfinitePaths(final Position source) {

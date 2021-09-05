@@ -115,14 +115,14 @@ class PawnTest {
     @DisplayName("입력받은 위치에서 공격 가능한 위치들을 반환해준다.")
     void find_available_attack_positions() {
         //given
-        Position position = Position.of("d4");
+        Position source = Position.of("d4");
         Piece pawn = new Pawn(Color.WHITE);
         Collection<Path> expected = Arrays.asList(
-                new Path(Position.of("c5")), new Path(Position.of("e5"))
+                new Path(source, Position.of("c5")), new Path(source, Position.of("e5"))
         );
 
         //when
-        Collection<Path> availableAttackPaths = pawn.findAttackPaths(position);
+        Collection<Path> availableAttackPaths = pawn.findAttackPaths(source);
 
         //then
         assertThat(availableAttackPaths)

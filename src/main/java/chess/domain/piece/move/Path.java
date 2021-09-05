@@ -9,41 +9,41 @@ public class Path {
 
     private final List<Position> positions;
 
-    public Path(Position position) {
+    public Path(final Position position) {
         this(Collections.singletonList(position));
     }
 
-    public Path(Position... positions) {
+    public Path(final Position... positions) {
         this(Arrays.asList(positions));
     }
 
-    public Path(List<Position> positions) {
+    public Path(final List<Position> positions) {
         this.positions = Collections.unmodifiableList(new ArrayList<>(positions));
     }
 
-    public boolean contains(Position position) {
+    public boolean contains(final Position position) {
         return positions.contains(position);
     }
 
-    public Path getPositionsUntilTarget(Position target) {
+    public Path getPositionsUntilTarget(final Position target) {
         List<Position> positionsBeforeTarget = new ArrayList<>();
 
         for (Position position : positions) {
             if (position.isSame(target)) {
                 break;
             }
-                positionsBeforeTarget.add(position);
+            positionsBeforeTarget.add(position);
         }
 
         return new Path(positionsBeforeTarget);
     }
 
-    public boolean isNotBlockedBy(Player player) {
+    public boolean isNotBlockedBy(final Player player) {
         return positions.stream()
                 .noneMatch(player::hasPieceOn);
     }
 
-    public boolean isBlockedBy(Player player) {
+    public boolean isBlockedBy(final Player player) {
         return positions.stream()
                 .anyMatch(player::hasPieceOn);
     }

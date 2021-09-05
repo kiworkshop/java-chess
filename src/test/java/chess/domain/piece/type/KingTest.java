@@ -52,16 +52,18 @@ class KingTest {
     @DisplayName("입력받은 위치에서 공격 가능한 위치들을 반환해준다.")
     void find_available_attack_positions() {
         //given
-        Position position = Position.of("d4");
+        Position source = Position.of("d4");
         Piece king = new King(Color.WHITE);
         Collection<Path> expected = Arrays.asList(
-                new Path(Position.of("d3")), new Path(Position.of("d5")),
-                new Path(Position.of("c3")), new Path(Position.of("c4")), new Path(Position.of("c5")),
-                new Path(Position.of("e3")), new Path(Position.of("e4")), new Path(Position.of("e5"))
+                new Path(source, Position.of("d3")), new Path(source, Position.of("d5")),
+                new Path(source, Position.of("c3")), new Path(source, Position.of("c4")), new Path(source, Position.of("c5")),
+                new Path(source, Position.of("e3")), new Path(source, Position.of("e4")), new Path(source, Position.of("e5"))
         );
 
         //when
-        Collection<Path> availableAttackPaths = king.findAttackPaths(position);
+        Collection<Path> availableAttackPaths = king.findAttackPaths(source);
+
+
 
         //then
         assertThat(availableAttackPaths)

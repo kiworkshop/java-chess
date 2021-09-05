@@ -49,7 +49,7 @@ class BishopTest {
     @DisplayName("입력받은 위치에서 공격 가능한 위치들을 반환해준다.")
     void find_available_attack_positions() {
         //given
-        Position position = Position.of("d4");
+        Position source = Position.of("d4");
         Piece bishop = new Bishop(Color.WHITE);
         Collection<Path> expected = Arrays.asList(
                 new Path(Position.of("c3"), Position.of("b2"), Position.of("a1")),
@@ -59,7 +59,7 @@ class BishopTest {
         );
 
         //when
-        Collection<Path> availableAttackPaths = bishop.findAttackPaths(position);
+        Collection<Path> availableAttackPaths = bishop.findAttackPaths(source);
 
         //then
         assertThat(availableAttackPaths)
