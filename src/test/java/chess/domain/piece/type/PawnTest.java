@@ -1,6 +1,8 @@
-package chess.domain.piece;
+package chess.domain.piece.type;
 
 import chess.domain.board.Position;
+import chess.domain.piece.move.Path;
+import chess.domain.player.Color;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,7 +10,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -23,28 +25,30 @@ class PawnTest {
         Position source = Position.of(sourcePosition);
         Position target = Position.of(targetPosition);
         Piece piece = new Pawn(color);
+        Path expected = new Path(Collections.emptyList());
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Path path = piece.findMovePath(source, target);
 
         //then
-        assertThat(paths).isEmpty();
+        assertThat(path).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @CsvSource({"b2, b4, WHITE, b3", "b7, b5, BLACK, b6"})
     @DisplayName("최초 이동시 2칸 전진하면 지나가는 경로를 반환한다.")
-    void find_paths_success_move_count_two_on_initial_move(String sourcePosition, String targetPosition, Color color, String expected) {
+    void find_paths_success_move_count_two_on_initial_move(String sourcePosition, String targetPosition, Color color, String expectedPosition) {
         //given
         Position source = Position.of(sourcePosition);
         Position target = Position.of(targetPosition);
         Piece piece = new Pawn(color);
+        Path expected = new Path(Position.of(expectedPosition));
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Path path = piece.findMovePath(source, target);
 
         //then
-        assertThat(paths).containsOnly(Position.of(expected));
+        assertThat(path).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -56,12 +60,13 @@ class PawnTest {
         Position source = Position.of(sourcePosition);
         Position target = Position.of(targetPosition);
         Piece piece = new Pawn(color);
+        Path expected = new Path(Collections.emptyList());
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Path path = piece.findMovePath(source, target);
 
         //then
-        assertThat(paths).isEmpty();
+        assertThat(path).isEqualTo(expected);
     }
 
     @ParameterizedTest
@@ -73,9 +78,9 @@ class PawnTest {
         Position target = Position.of(targetPosition);
         Piece piece = new Pawn(color);
 
-        //when //then
+        //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> piece.findPath(source, target));
+                .isThrownBy(() -> piece.findMovePath(source, target));
     }
 
     @ParameterizedTest
@@ -87,9 +92,9 @@ class PawnTest {
         Position target = Position.of(targetPosition);
         Piece piece = new Pawn(color);
 
-        //when //then
+        //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> piece.findPath(source, target));
+                .isThrownBy(() -> piece.findMovePath(source, target));
     }
 
     @ParameterizedTest
@@ -103,7 +108,7 @@ class PawnTest {
 
         //when //then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> piece.findPath(source, target));
+                .isThrownBy(() -> piece.findMovePath(source, target));
     }
 
     @Test
@@ -112,15 +117,15 @@ class PawnTest {
         //given
         Position position = Position.of("d4");
         Piece pawn = new Pawn(Color.WHITE);
-        Collection<Position> expected = Arrays.asList(
-                Position.of("c5"), Position.of("e5")
+        Collection<Path> expected = Arrays.asList(
+                new Path(Position.of("c5")), new Path(Position.of("e5"))
         );
 
         //when
-        Collection<Position> availableAttackPositions = pawn.findAvailableAttackPositions(position);
+        Collection<Path> availableAttackPaths = pawn.findAttackPaths(position);
 
         //then
-        assertThat(availableAttackPositions)
+        assertThat(availableAttackPaths)
                 .hasSize(expected.size())
                 .containsAll(expected);
     }

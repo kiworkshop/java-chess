@@ -1,7 +1,7 @@
 package chess.controller;
 
-import chess.domain.player.Scores;
 import chess.domain.command.Command;
+import chess.domain.player.Scores;
 import chess.exception.ForcedTerminationException;
 import chess.exception.ScoresRequestedException;
 import chess.service.ChessService;
@@ -45,7 +45,6 @@ public class ConsoleChessController {
 
             Command command = new Command(inputView.getCommand());
             chessService.run(command);
-
         } catch (UnsupportedOperationException | IllegalArgumentException e) {
             outputView.printMessage(e.getMessage());
         } catch (ScoresRequestedException e) {

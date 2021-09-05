@@ -1,23 +1,24 @@
-package chess.domain.piece;
+package chess.domain.piece.type;
 
 import chess.domain.board.File;
-import chess.domain.board.Rank;
 import chess.domain.board.Position;
+import chess.domain.board.Rank;
+import chess.domain.player.Color;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static chess.domain.piece.Color.BLACK;
-import static chess.domain.piece.Color.WHITE;
+import static chess.domain.player.Color.BLACK;
+import static chess.domain.player.Color.WHITE;
 
 public class PieceFactory {
 
     private PieceFactory() {
     }
 
-    public static Map<Position, Piece> createPieces(Color color) {
-        if (color == WHITE) {
+    public static Map<Position, Piece> initialPieces(Color color) {
+        if (color.isWhite()) {
             return whitePieces();
         }
         return blackPieces();

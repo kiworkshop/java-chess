@@ -13,6 +13,9 @@ public enum Rank {
     R2(2),
     R1(1);
 
+    private static final Rank WHITE_INITIAL_RANK = R2;
+    private static final Rank BLACK_INITIAL_RANK = R7;
+
     private final int index;
 
     Rank(final int index) {
@@ -45,6 +48,14 @@ public enum Rank {
     public boolean canMove(final int amount) {
         int rankIndex = index + amount;
         return rankIndex >= R1.index && rankIndex <= R8.index;
+    }
+
+    public boolean isWhiteInitialRank() {
+        return this == WHITE_INITIAL_RANK;
+    }
+
+    public boolean isBlackInitialRank() {
+        return this == BLACK_INITIAL_RANK;
     }
 }
 

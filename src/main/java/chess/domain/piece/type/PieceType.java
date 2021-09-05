@@ -1,7 +1,5 @@
 package chess.domain.piece.type;
 
-import chess.domain.piece.*;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +16,7 @@ public enum PieceType {
     private static final Map<Class<? extends Piece>, PieceType> PIECE_TYPE_MAP = createPieceTypeMap();
     private static final int DUPLICATION_THRESHOLD = 1;
     private static final double PAWN_SCORE_ON_DUPLICATION = 0.5;
+
     private final String name;
     private final double score;
 
@@ -37,38 +36,40 @@ public enum PieceType {
         return Collections.unmodifiableMap(map);
     }
 
-    public static PieceType of(Piece piece) {
+    public static PieceType of(final Piece piece) {
         return PIECE_TYPE_MAP.get(piece.getClass());
     }
 
-    public static String findNameBy(Piece piece) {
+    public static String findNameBy(final Piece piece) {
         PieceType pieceType = PieceType.of(piece);
 
         if (piece.isWhite()) {
-            return pieceType.name;
+            return pieceType.name.toLowerCase();
         }
-
         return pieceType.name.toUpperCase();
     }
 
-    public static double findScoreBy(Piece piece) {
+    public static double findScoreBy(final Piece piece) {
         PieceType pieceType = PieceType.of(piece);
         return pieceType.score;
     }
 
-    public static boolean isKing(Piece piece) {
+    public static boolean isKing(final Piece piece) {
         return PieceType.of(piece) == KING;
     }
 
-    public static boolean isPawn(Piece piece) {
+    public static boolean isPawn(final Piece piece) {
         return PieceType.of(piece) == PAWN;
+    }
+
+    public static boolean isNotPawn(final Piece piece) {
+        return !isPawn(piece);
     }
 
     public static double sumPawnScores(final int count) {
         if (count > DUPLICATION_THRESHOLD) {
             return count * PAWN_SCORE_ON_DUPLICATION;
         }
-
         return PAWN.score;
     }
 }

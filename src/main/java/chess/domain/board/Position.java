@@ -1,6 +1,7 @@
 package chess.domain.board;
 
-import chess.domain.piece.type.MoveUnit;
+import chess.domain.piece.move.Gap;
+import chess.domain.piece.move.MoveUnit;
 
 import java.util.*;
 
@@ -22,6 +23,14 @@ public class Position {
         return file.name() + rank.getIndex();
     }
 
+    public static Collection<String> names() {
+        return POSITIONS.keySet();
+    }
+
+    public static Position from(final File file, final Rank rank) {
+        return of(createKey(file, rank));
+    }
+
     public static Position of(String key) {
         key = key.toLowerCase();
 
@@ -32,16 +41,7 @@ public class Position {
         return POSITIONS.get(key);
     }
 
-    public static Position from(final File file, final Rank rank) {
-        return of(createKey(file, rank));
-    }
-
-    public static Collection<String> names() {
-        return POSITIONS.keySet();
-    }
-
     private final File file;
-
     private final Rank rank;
 
     private Position(final File file, final Rank rank) {
@@ -49,18 +49,25 @@ public class Position {
         this.rank = rank;
     }
 
-    public int calculateFileGap(final Position position) {
+    public Gap calculateGap(final Position position) {
+        int fileGap = calculateFileGap(position);
+        int rankGap = calculateRankGap(position);
+
+        return new Gap(fileGap, rankGap);
+    }
+
+    private int calculateFileGap(final Position position) {
         return file.calculateGap(position.getFile());
     }
 
-    public int calculateRankGap(final Position position) {
+    private int calculateRankGap(final Position position) {
         return rank.calculateGap(position.getRank());
     }
 
-    public Set<Position> findPassingPositions(Position target, MoveUnit moveUnit) {
-        Set<Position> positions = new HashSet<>();
-        Position current = this;
+    public List<Position> findPassingPositions(final Position target, final MoveUnit moveUnit) {
+        List<Position> positions = new ArrayList<>();
 
+        Position current = this;
         while (!target.equals(current)) {
             current = current.move(moveUnit);
             positions.add(current);
@@ -70,22 +77,8 @@ public class Position {
         return positions;
     }
 
-    public Collection<Position> findAvailablePositions(final MoveUnit moveUnit, final boolean isFinite) {
-        if (isFinite) {
-            return getFinitePositions(moveUnit);
-        }
-        return getInfinitePositions(moveUnit);
-    }
-
-    private Collection<Position> getFinitePositions(MoveUnit moveUnit) {
-        if (isMovable(moveUnit)) {
-            return Collections.singleton(move(moveUnit));
-        }
-        return Collections.emptySet();
-    }
-
-    private Collection<Position> getInfinitePositions(MoveUnit moveUnit) {
-        Collection<Position> positions = new HashSet<>();
+    public List<Position> findReachablePositions(final MoveUnit moveUnit) {
+        List<Position> positions = new ArrayList<>();
 
         Position current = this;
         while (current.isMovable(moveUnit)) {
@@ -96,18 +89,19 @@ public class Position {
         return positions;
     }
 
-    private boolean isMovable(final MoveUnit moveUnit) {
+    public boolean isMovable(final MoveUnit moveUnit) {
         return rank.canMove(moveUnit.getRank()) && file.canMove(moveUnit.getFile());
     }
 
-    private Position move(final MoveUnit moveUnit) {
-        File file = this.file.add(moveUnit.getFile());
-        Rank rank = this.rank.add(moveUnit.getRank());
-        return Position.from(file, rank);
+    public Position move(final MoveUnit moveUnit) {
+        File nextFile = this.file.add(moveUnit.getFile());
+        Rank nextRank = this.rank.add(moveUnit.getRank());
+
+        return Position.from(nextFile, nextRank);
     }
 
-    public boolean hasSameRank(Rank rank) {
-        return this.rank == rank;
+    public boolean isSame(Position position) {
+        return this == position;
     }
 
     public File getFile() {
@@ -116,5 +110,13 @@ public class Position {
 
     public Rank getRank() {
         return rank;
+    }
+
+    public boolean isWhitePawnInitialRank() {
+        return this.rank.isWhiteInitialRank();
+    }
+
+    public boolean isBlackPawnInitialRank() {
+        return this.rank.isBlackInitialRank();
     }
 }

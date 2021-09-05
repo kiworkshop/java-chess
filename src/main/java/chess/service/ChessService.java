@@ -1,10 +1,10 @@
 package chess.service;
 
 import chess.domain.board.Board;
-import chess.domain.player.Scores;
 import chess.domain.command.Command;
 import chess.domain.command.MoveParameters;
-import chess.domain.piece.Color;
+import chess.domain.player.Color;
+import chess.domain.player.Scores;
 import chess.dto.BoardDto;
 import chess.exception.ForcedTerminationException;
 import chess.exception.ScoresRequestedException;
@@ -40,6 +40,10 @@ public class ChessService {
 
     public boolean isGameRunning() {
         return board.isBothKingAlive();
+    }
+
+    public boolean isGameFinished() {
+        return !isGameRunning();
     }
 
     public void movePiece(MoveParameters parameters) {

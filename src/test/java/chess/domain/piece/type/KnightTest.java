@@ -1,6 +1,8 @@
-package chess.domain.piece;
+package chess.domain.piece.type;
 
 import chess.domain.board.Position;
+import chess.domain.piece.move.Path;
+import chess.domain.player.Color;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -8,41 +10,42 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-class KingTest {
+class KnightTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"c3", "c4", "c5", "e3", "e4", "e5", "d3", "d5"})
+    @ValueSource(strings = {"c6", "e6", "c2", "e2", "f5", "f3", "b5", "b3"})
     @DisplayName("출발과 도착 위치가 주어지면 지나가는 경로를 반환한다.")
     void find_paths_success(String targetPosition) {
         //given
         Position source = Position.of("d4");
         Position target = Position.of(targetPosition);
-        Piece piece = new King(Color.WHITE);
+        Piece piece = new Knight(Color.WHITE);
+        Path expected = new Path(Collections.emptyList());
 
         //when
-        Set<Position> paths = piece.findPath(source, target);
+        Path path = piece.findMovePath(source, target);
 
         //then
-        assertThat(paths).isEmpty();
+        assertThat(path).isEqualTo(expected);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"c2", "d2", "e2", "f2", "b3", "b4", "b5"})
+    @ValueSource(strings = {"c3", "c4", "c5", "e3", "e4", "e5", "d3", "d5"})
     @DisplayName("도착 위치가 이동할 수 없는 경로일 경우 예외가 발생한다.")
     void find_paths_invalid_target(String invalidTarget) {
         //given
         Position source = Position.of("d4");
         Position target = Position.of(invalidTarget);
-        Piece piece = new King(Color.WHITE);
+        Piece piece = new Knight(Color.WHITE);
 
         //when //then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> piece.findPath(source, target));
+                .isThrownBy(() -> piece.findMovePath(source, target));
     }
 
     @Test
@@ -50,15 +53,14 @@ class KingTest {
     void find_available_attack_positions() {
         //given
         Position position = Position.of("d4");
-        Piece king = new King(Color.WHITE);
-        Collection<Position> expected = Arrays.asList(
-                Position.of("d3"), Position.of("d5"),
-                Position.of("c3"), Position.of("c4"), Position.of("c5"),
-                Position.of("e3"), Position.of("e4"), Position.of("e5")
+        Piece knight = new Knight(Color.WHITE);
+        Collection<Path> expected = Arrays.asList(
+                new Path(Position.of("c6")), new Path(Position.of("c2")), new Path(Position.of("e6")), new Path(Position.of("e2")),
+                new Path(Position.of("b5")), new Path(Position.of("b3")), new Path(Position.of("f5")), new Path(Position.of("f3"))
         );
 
         //when
-        Collection<Position> availableAttackPositions = king.findAvailableAttackPositions(position);
+        Collection<Path> availableAttackPositions = knight.findAttackPaths(position);
 
         //then
         assertThat(availableAttackPositions)

@@ -1,4 +1,4 @@
-package chess.domain.piece;
+package chess.domain.player;
 
 public enum Color {
 
@@ -9,7 +9,11 @@ public enum Color {
         return this == WHITE;
     }
 
-    public Color nextTurn() {
+    public boolean isBlack() {
+        return this == BLACK;
+    }
+
+    public Color flip() {
         if (isWhite()) {
             return BLACK;
         }
