@@ -4,11 +4,8 @@ import chess.controller.dto.BoardDto;
 import chess.domain.ChessGame;
 import chess.domain.board.Status;
 import chess.domain.command.CommandOptions;
-import chess.domain.command.MoveOptions;
 import chess.view.InputView;
 import chess.view.OutputView;
-
-import java.util.List;
 
 public class ChessController {
 
@@ -61,12 +58,12 @@ public class ChessController {
     private void executeCommand(final ChessGame chessGame, final CommandOptions commandOptions) {
         if (commandOptions.isEnd()) {
             chessGame.end();
+            return;
         }
 
         if (commandOptions.isMove()) {
-            List<String> options = commandOptions.getOptions();
-            MoveOptions moveOptions = new MoveOptions(options);
-            chessGame.move(moveOptions);
+            chessGame.move(commandOptions.getMoveOptions());
+            return;
         }
 
         if (commandOptions.isStatus()) {

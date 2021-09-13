@@ -70,7 +70,7 @@ public class CommandOptions {
         return command.isStatus();
     }
 
-    public List<String> getOptions() {
-        return Collections.unmodifiableList(options);
+    public MoveOptions getMoveOptions() {
+        return new MoveOptions(options);
     }
 }

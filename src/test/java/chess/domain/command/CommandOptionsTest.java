@@ -1,9 +1,11 @@
 package chess.domain.command;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.NullSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -11,14 +13,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class CommandOptionsTest {
 
     @ParameterizedTest
-    @CsvSource(value = {"start, 0", "end, 0", "move b2 b3, 2", "status, 0"})
+    @CsvSource(value = {"start", "end", "move b2 b3", "status"})
     @DisplayName("옵션이 담긴 명령어를 반환한다.")
-    void of(String text, int expected) {
+    void of(String text) {
         //when
         CommandOptions commandOptions = CommandOptions.of(text);
 
         //then
-        assertThat(commandOptions.getOptions()).hasSize(expected);
+        assertThat(commandOptions).isNotNull();
     }
 
     @ParameterizedTest
@@ -84,5 +86,30 @@ class CommandOptionsTest {
 
         //then
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    @DisplayName("이동 명령 관련 옵션을 반환한다.")
+    void getMoveOptions() {
+        //given
+        CommandOptions commandOptions = CommandOptions.of("move b2 b3");
+
+        //when
+        MoveOptions moveOptions = commandOptions.getMoveOptions();
+
+        //then
+        assertThat(moveOptions).isNotNull();
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"start", "end", "status"})
+    @DisplayName("이동 명령이 아닌 다른 명령이 이동 관련 옵션을 반환하려고 할 경우 예외가 발생한다.")
+    void getMoveOptions_fail(String text) {
+        //given
+        CommandOptions commandOptions = CommandOptions.of(text);
+
+        //when //then
+        assertThatThrownBy(commandOptions::getMoveOptions)
+                .isInstanceOf(IndexOutOfBoundsException.class);
     }
 }
