@@ -4,8 +4,6 @@ import chess.domain.board.Position;
 import chess.domain.piece.move.Path;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -15,30 +13,43 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 
 public class TeamTest {
 
-    @ParameterizedTest
-    @CsvSource({"WHITE, a1, a8", "BLACK, a8, a1"})
-    @DisplayName("색상에 따라 팀 객체를 생성한다.")
-    void create_with_color(Color color, String presentPosition, String notPresentPosition) {
+    @Test
+    @DisplayName("WHITE 팀 객체를 생성한다.")
+    void create_with_color() {
         //given
-        Position present = Position.of(presentPosition);
-        Position notPresent = Position.of(notPresentPosition);
+        Position present = Position.of("a1");
+        Position notPresent = Position.of("a8");
 
         // when
-        Team team = new Team(color);
+        Team team = Team.white();
 
         //then
         assertThat(team.hasPieceOn(present)).isTrue();
         assertThat(team.hasNoPieceOn(notPresent)).isTrue();
     }
 
-    @ParameterizedTest
-    @CsvSource({"WHITE, b2, b3", "BLACK, d7, d6"})
-    @DisplayName("기물을 움직인다.")
-    void update_board(Color color, String sourcePosition, String targetPosition) {
+    @Test
+    @DisplayName("BLACK 팀 객체를 생성한다.")
+    void create_black_team() {
         //given
-        Team team = new Team(color);
-        Position source = Position.of(sourcePosition);
-        Position target = Position.of(targetPosition);
+        Position present = Position.of("a8");
+        Position notPresent = Position.of("a1");
+
+        // when
+        Team team = Team.black();
+
+        //then
+        assertThat(team.hasPieceOn(present)).isTrue();
+        assertThat(team.hasNoPieceOn(notPresent)).isTrue();
+    }
+
+    @Test
+    @DisplayName("기물을 움직인다.")
+    void update_board() {
+        //given
+        Team team = Team.white();
+        Position source = Position.of("b2");
+        Position target = Position.of("b3");
 
         //when
         team.move(source, target);
@@ -48,14 +59,13 @@ public class TeamTest {
         assertThat(team.hasPieceOn(target)).isTrue();
     }
 
-    @ParameterizedTest
-    @CsvSource({"WHITE, b3, b4", "BLACK, b6, b5"})
+    @Test
     @DisplayName("이동시킬 기물이 존재하지 않을 경우 예외가 발생한다.")
-    void update_source_position_empty(Color color, String sourcePosition, String targetPosition) {
+    void update_source_position_empty() {
         //given
-        Team team = new Team(color);
-        Position source = Position.of(sourcePosition);
-        Position target = Position.of(targetPosition);
+        Team team = Team.white();
+        Position source = Position.of("b3");
+        Position target = Position.of("b4");
 
         //when, then
         assertThatIllegalArgumentException()
@@ -63,15 +73,14 @@ public class TeamTest {
                 .withMessage("해당 위치에 기물이 존재하지 않습니다.");
     }
 
-    @ParameterizedTest
-    @CsvSource({"WHITE, b2, b4, b3", "BLACK, d7, d5, d6"})
+    @Test
     @DisplayName("기물 이동 경로를 반환한다.")
-    void find_paths(Color color, String sourcePosition, String targetPosition, String expectedPosition) {
+    void find_paths() {
         //given
-        Team team = new Team(color);
-        Position source = Position.of(sourcePosition);
-        Position target = Position.of(targetPosition);
-        Path expected = new Path(Position.of(expectedPosition));
+        Team team = Team.white();
+        Position source = Position.of("b2");
+        Position target = Position.of("b4");
+        Path expected = new Path(Position.of("b3"));
 
         //when
         Path path = team.findMovePath(source, target);
@@ -80,18 +89,17 @@ public class TeamTest {
         assertThat(path).isEqualTo(expected);
     }
 
-    @ParameterizedTest
-    @CsvSource({"WHITE, c3, b2, d2, b1", "BLACK, c6, b7, d7, b8"})
+    @Test
     @DisplayName("공격 가능한 모든 경로를 반환한다.")
-    void find_attack_paths(Color color, String targetPosition, String leftPath, String rightPath, String blocked) {
+    void find_attack_paths() {
         // given
-        Team team = new Team(color);
-        Position target = Position.of(targetPosition);
+        Team team = Team.white();
+        Position target = Position.of("c3");
         Collection<Path> expected = Arrays.asList(
-                new Path(Position.of(leftPath)),
-                new Path(Position.of(rightPath))
+                new Path(Position.of("b2")),
+                new Path(Position.of("d2"))
         );
-        team.wasAttackedBy(Position.of(blocked));
+        team.wasAttackedBy(Position.of("b1"));
 
         // when
         Collection<Path> attackPaths = team.findAttackPaths(target);
@@ -102,13 +110,12 @@ public class TeamTest {
                 .containsAll(expected);
     }
 
-    @ParameterizedTest
-    @CsvSource({"WHITE, e2", "BLACK, e7"})
+    @Test
     @DisplayName("적에게 공격받은 경우 기물을 제거한다.")
-    void was_attacked_by(Color color, String targetPosition) {
+    void was_attacked_by() {
         // given
-        Team team = new Team(color);
-        Position target = Position.of(targetPosition);
+        Team team = Team.white();
+        Position target = Position.of("e2");
 
         // when
         team.wasAttackedBy(target);
@@ -117,16 +124,15 @@ public class TeamTest {
         assertThat(team.hasNoPieceOn(target)).isTrue();
     }
 
-    @ParameterizedTest
-    @CsvSource({"WHITE, e1, e2", "BLACK, e8, e7"})
+    @Test
     @DisplayName("주어진 위치에 킹이 있는지 확인한다.")
-    void has_king_on(Color color, String kingPosition, String notKingPosition) {
+    void has_king_on() {
         // given
-        Team team = new Team(color);
+        Team team = Team.white();
 
         // when
-        boolean isKing = team.hasKingOn(Position.of(kingPosition));
-        boolean isNotKing = team.hasKingOn(Position.of(notKingPosition));
+        boolean isKing = team.hasKingOn(Position.of("e1"));
+        boolean isNotKing = team.hasKingOn(Position.of("e2"));
 
         // then
         assertThat(isKing).isTrue();
@@ -137,7 +143,7 @@ public class TeamTest {
     @DisplayName("킹이 존재하는지 반환한다.")
     void is_king_dead() {
         //given
-        Team team = new Team(Color.WHITE);
+        Team team = Team.white();
         team.wasAttackedBy(Position.of("e1"));
 
         //when
@@ -151,7 +157,7 @@ public class TeamTest {
     @DisplayName("현재 남아있는 피스의 점수 합을 구한다.")
     void sum_scores() {
         //given
-        Team team = new Team(Color.WHITE);
+        Team team = Team.white();
 
         //when
         double sum = team.calculateScores();

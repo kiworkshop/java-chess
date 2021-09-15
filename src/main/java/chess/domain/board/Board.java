@@ -18,8 +18,8 @@ public class Board {
     private Color currentTurn;
 
     public Board() {
-        this.whiteTeam = new Team(WHITE);
-        this.blackTeam = new Team(BLACK);
+        this.whiteTeam = Team.white();
+        this.blackTeam = Team.black();
         this.currentTurn = WHITE;
     }
 

@@ -1,7 +1,6 @@
 package chess.domain.piece.move;
 
 import chess.domain.board.Position;
-import chess.domain.team.Color;
 import chess.domain.team.Team;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,7 +29,7 @@ class PathTest {
     void is_blocked_by() {
         // given
         Path path = new Path(Position.of("c4"), Position.of("c3"), Position.of("c2"));
-        Team team = new Team(Color.WHITE);
+        Team team = Team.white();
 
         // when
         boolean blockedBy = path.isBlockedBy(team);

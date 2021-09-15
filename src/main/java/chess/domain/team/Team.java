@@ -18,7 +18,15 @@ public class Team {
 
     private final Map<Position, Piece> pieces;
 
-    public Team(final Color color) {
+    public static Team white() {
+        return new Team(Color.WHITE);
+    }
+
+    public static Team black() {
+        return new Team(Color.BLACK);
+    }
+
+    private Team(final Color color) {
         pieces = new HashMap<>(PieceFactory.initialPieces(color));
     }
 
