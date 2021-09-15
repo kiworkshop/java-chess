@@ -3,23 +3,23 @@ package chess.domain.board;
 import chess.domain.command.MoveParameters;
 import chess.domain.piece.move.Path;
 import chess.domain.piece.type.Piece;
-import chess.domain.player.Color;
-import chess.domain.player.Player;
-import chess.domain.player.Scores;
+import chess.domain.team.Color;
+import chess.domain.team.Scores;
+import chess.domain.team.Team;
 import chess.exception.EmptyPositionException;
 
-import static chess.domain.player.Color.BLACK;
-import static chess.domain.player.Color.WHITE;
+import static chess.domain.team.Color.BLACK;
+import static chess.domain.team.Color.WHITE;
 
 public class Board {
 
-    private final Player whitePlayer;
-    private final Player blackPlayer;
+    private final Team whiteTeam;
+    private final Team blackTeam;
     private Color currentTurn;
 
     public Board() {
-        this.whitePlayer = new Player(WHITE);
-        this.blackPlayer = new Player(BLACK);
+        this.whiteTeam = new Team(WHITE);
+        this.blackTeam = new Team(BLACK);
         this.currentTurn = WHITE;
     }
 
@@ -40,7 +40,7 @@ public class Board {
     }
 
     private void validateSourceOwner(final Position source) {
-        if (currentPlayer().hasNoPieceOn(source)) {
+        if (currentTeam().hasNoPieceOn(source)) {
             throw new IllegalArgumentException("자신의 기물만 움직일 수 있습니다.");
         }
     }
@@ -52,36 +52,36 @@ public class Board {
     }
 
     private void validateTargetOwner(final Position target) {
-        if (currentPlayer().hasPieceOn(target)) {
+        if (currentTeam().hasPieceOn(target)) {
             throw new IllegalArgumentException("자신의 기물이 있는 곳으로 이동할 수 없습니다.");
         }
     }
 
     private void validateKingMovable(final Position source, final Position target) {
-        if (currentPlayer().hasKingOn(source) && canEnemyAttack(target)) {
+        if (currentTeam().hasKingOn(source) && canEnemyAttack(target)) {
             throw new IllegalArgumentException("킹은 상대방이 공격 가능한 위치로 이동할 수 없습니다.");
         }
     }
 
     private boolean canEnemyAttack(final Position target) {
-        return enemyPlayer().findAttackPaths(target).stream()
-                .anyMatch(path -> path.isNotBlockedBy(whitePlayer) && path.isNotBlockedBy(blackPlayer));
+        return enemyTeam().findAttackPaths(target).stream()
+                .anyMatch(path -> path.isNotBlockedBy(whiteTeam) && path.isNotBlockedBy(blackTeam));
     }
 
     private void movePiece(final Position source, final Position target) {
-        if (currentPlayer().isPawnAttacking(source, target) && enemyPlayer().hasNoPieceOn(target)) {
+        if (currentTeam().isPawnAttacking(source, target) && enemyTeam().hasNoPieceOn(target)) {
             throw new IllegalArgumentException("폰은 공격 대상이 있는 경우에만 대각선으로 이동할 수 있습니다.");
         }
 
-        Path path = currentPlayer().findMovePath(source, target);
+        Path path = currentTeam().findMovePath(source, target);
         validatePathNotBlocked(path);
 
-        enemyPlayer().wasAttackedBy(target);
-        currentPlayer().move(source, target);
+        enemyTeam().wasAttackedBy(target);
+        currentTeam().move(source, target);
     }
 
     private void validatePathNotBlocked(final Path path) {
-        if (path.isBlockedBy(whitePlayer) || path.isBlockedBy(blackPlayer)) {
+        if (path.isBlockedBy(whiteTeam) || path.isBlockedBy(blackTeam)) {
             throw new IllegalArgumentException("다른 기물을 통과하여 이동할 수 없습니다.");
         }
     }
@@ -91,19 +91,19 @@ public class Board {
             throw new EmptyPositionException();
         }
 
-        if (whitePlayer.hasPieceOn(position)) {
-            return whitePlayer.findPieceBy(position);
+        if (whiteTeam.hasPieceOn(position)) {
+            return whiteTeam.findPieceBy(position);
         }
-        return blackPlayer.findPieceBy(position);
+        return blackTeam.findPieceBy(position);
     }
 
     private boolean isEmpty(Position position) {
-        return whitePlayer.hasNoPieceOn(position) && blackPlayer.hasNoPieceOn(position);
+        return whiteTeam.hasNoPieceOn(position) && blackTeam.hasNoPieceOn(position);
     }
 
     public Scores getScores() {
-        double whiteScore = whitePlayer.calculateScores();
-        double blackScore = blackPlayer.calculateScores();
+        double whiteScore = whiteTeam.calculateScores();
+        double blackScore = blackTeam.calculateScores();
 
         return new Scores(whiteScore, blackScore);
     }
@@ -113,31 +113,31 @@ public class Board {
             throw new IllegalStateException("King이 잡히지 않아 승자가 없습니다.");
         }
 
-        if (whitePlayer.isKingDead()) {
+        if (whiteTeam.isKingDead()) {
             return BLACK;
         }
         return WHITE;
     }
 
     public boolean isBothKingAlive() {
-        return whitePlayer.isKingAlive() && blackPlayer.isKingAlive();
+        return whiteTeam.isKingAlive() && blackTeam.isKingAlive();
     }
 
     public Color getCurrentTurn() {
         return currentTurn;
     }
 
-    private Player currentPlayer() {
+    private Team currentTeam() {
         if (currentTurn.isWhite()) {
-            return whitePlayer;
+            return whiteTeam;
         }
-        return blackPlayer;
+        return blackTeam;
     }
 
-    private Player enemyPlayer() {
+    private Team enemyTeam() {
         if (currentTurn.isWhite()) {
-            return blackPlayer;
+            return blackTeam;
         }
-        return whitePlayer;
+        return whiteTeam;
     }
 }

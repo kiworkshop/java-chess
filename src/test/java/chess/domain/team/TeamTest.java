@@ -1,4 +1,4 @@
-package chess.domain.player;
+package chess.domain.team;
 
 import chess.domain.board.Position;
 import chess.domain.piece.move.Path;
@@ -13,22 +13,22 @@ import java.util.Collection;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-public class PlayerTest {
+public class TeamTest {
 
     @ParameterizedTest
     @CsvSource({"WHITE, a1, a8", "BLACK, a8, a1"})
-    @DisplayName("색상에 따라 플레이어 객체를 생성한다.")
+    @DisplayName("색상에 따라 팀 객체를 생성한다.")
     void create_with_color(Color color, String presentPosition, String notPresentPosition) {
         //given
         Position present = Position.of(presentPosition);
         Position notPresent = Position.of(notPresentPosition);
 
         // when
-        Player player = new Player(color);
+        Team team = new Team(color);
 
         //then
-        assertThat(player.hasPieceOn(present)).isTrue();
-        assertThat(player.hasNoPieceOn(notPresent)).isTrue();
+        assertThat(team.hasPieceOn(present)).isTrue();
+        assertThat(team.hasNoPieceOn(notPresent)).isTrue();
     }
 
     @ParameterizedTest
@@ -36,16 +36,16 @@ public class PlayerTest {
     @DisplayName("기물을 움직인다.")
     void update_board(Color color, String sourcePosition, String targetPosition) {
         //given
-        Player player = new Player(color);
+        Team team = new Team(color);
         Position source = Position.of(sourcePosition);
         Position target = Position.of(targetPosition);
 
         //when
-        player.move(source, target);
+        team.move(source, target);
 
         //then
-        assertThat(player.hasNoPieceOn(source)).isTrue();
-        assertThat(player.hasPieceOn(target)).isTrue();
+        assertThat(team.hasNoPieceOn(source)).isTrue();
+        assertThat(team.hasPieceOn(target)).isTrue();
     }
 
     @ParameterizedTest
@@ -53,13 +53,13 @@ public class PlayerTest {
     @DisplayName("이동시킬 기물이 존재하지 않을 경우 예외가 발생한다.")
     void update_source_position_empty(Color color, String sourcePosition, String targetPosition) {
         //given
-        Player player = new Player(color);
+        Team team = new Team(color);
         Position source = Position.of(sourcePosition);
         Position target = Position.of(targetPosition);
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> player.move(source, target))
+                .isThrownBy(() -> team.move(source, target))
                 .withMessage("해당 위치에 기물이 존재하지 않습니다.");
     }
 
@@ -68,13 +68,13 @@ public class PlayerTest {
     @DisplayName("기물 이동 경로를 반환한다.")
     void find_paths(Color color, String sourcePosition, String targetPosition, String expectedPosition) {
         //given
-        Player player = new Player(color);
+        Team team = new Team(color);
         Position source = Position.of(sourcePosition);
         Position target = Position.of(targetPosition);
         Path expected = new Path(Position.of(expectedPosition));
 
         //when
-        Path path = player.findMovePath(source, target);
+        Path path = team.findMovePath(source, target);
 
         //then
         assertThat(path).isEqualTo(expected);
@@ -85,16 +85,16 @@ public class PlayerTest {
     @DisplayName("공격 가능한 모든 경로를 반환한다.")
     void find_attack_paths(Color color, String targetPosition, String leftPath, String rightPath, String blocked) {
         // given
-        Player player = new Player(color);
+        Team team = new Team(color);
         Position target = Position.of(targetPosition);
         Collection<Path> expected = Arrays.asList(
                 new Path(Position.of(leftPath)),
                 new Path(Position.of(rightPath))
         );
-        player.wasAttackedBy(Position.of(blocked));
+        team.wasAttackedBy(Position.of(blocked));
 
         // when
-        Collection<Path> attackPaths = player.findAttackPaths(target);
+        Collection<Path> attackPaths = team.findAttackPaths(target);
 
         // then
         assertThat(attackPaths)
@@ -107,14 +107,14 @@ public class PlayerTest {
     @DisplayName("적에게 공격받은 경우 기물을 제거한다.")
     void was_attacked_by(Color color, String targetPosition) {
         // given
-        Player player = new Player(color);
+        Team team = new Team(color);
         Position target = Position.of(targetPosition);
 
         // when
-        player.wasAttackedBy(target);
+        team.wasAttackedBy(target);
 
         // then
-        assertThat(player.hasNoPieceOn(target)).isTrue();
+        assertThat(team.hasNoPieceOn(target)).isTrue();
     }
 
     @ParameterizedTest
@@ -122,11 +122,11 @@ public class PlayerTest {
     @DisplayName("주어진 위치에 킹이 있는지 확인한다.")
     void has_king_on(Color color, String kingPosition, String notKingPosition) {
         // given
-        Player player = new Player(color);
+        Team team = new Team(color);
 
         // when
-        boolean isKing = player.hasKingOn(Position.of(kingPosition));
-        boolean isNotKing = player.hasKingOn(Position.of(notKingPosition));
+        boolean isKing = team.hasKingOn(Position.of(kingPosition));
+        boolean isNotKing = team.hasKingOn(Position.of(notKingPosition));
 
         // then
         assertThat(isKing).isTrue();
@@ -137,11 +137,11 @@ public class PlayerTest {
     @DisplayName("킹이 존재하는지 반환한다.")
     void is_king_dead() {
         //given
-        Player player = new Player(Color.WHITE);
-        player.wasAttackedBy(Position.of("e1"));
+        Team team = new Team(Color.WHITE);
+        team.wasAttackedBy(Position.of("e1"));
 
         //when
-        boolean kingDead = player.isKingDead();
+        boolean kingDead = team.isKingDead();
 
         //then
         assertThat(kingDead).isTrue();
@@ -151,10 +151,10 @@ public class PlayerTest {
     @DisplayName("현재 남아있는 피스의 점수 합을 구한다.")
     void sum_scores() {
         //given
-        Player player = new Player(Color.WHITE);
+        Team team = new Team(Color.WHITE);
 
         //when
-        double sum = player.calculateScores();
+        double sum = team.calculateScores();
 
         //then
         assertThat(sum).isEqualTo(38);

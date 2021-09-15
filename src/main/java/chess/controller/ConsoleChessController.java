@@ -1,7 +1,7 @@
 package chess.controller;
 
 import chess.domain.command.Command;
-import chess.domain.player.Scores;
+import chess.domain.team.Scores;
 import chess.exception.ForcedTerminationException;
 import chess.exception.ScoresRequestedException;
 import chess.service.ChessService;

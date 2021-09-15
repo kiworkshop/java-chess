@@ -1,8 +1,8 @@
 package chess.domain.piece.move;
 
 import chess.domain.board.Position;
-import chess.domain.player.Color;
-import chess.domain.player.Player;
+import chess.domain.team.Color;
+import chess.domain.team.Team;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -26,15 +26,15 @@ class PathTest {
     }
 
     @Test
-    @DisplayName("경로가 플레이어의 기물로 막혀있는지 확인한다.")
+    @DisplayName("경로가 기물로 막혀있는지 확인한다.")
     void is_blocked_by() {
         // given
         Path path = new Path(Position.of("c4"), Position.of("c3"), Position.of("c2"));
-        Player player = new Player(Color.WHITE);
+        Team team = new Team(Color.WHITE);
 
         // when
-        boolean blockedBy = path.isBlockedBy(player);
-        boolean notBlockedBy = path.isNotBlockedBy(player);
+        boolean blockedBy = path.isBlockedBy(team);
+        boolean notBlockedBy = path.isNotBlockedBy(team);
 
         // then
         assertThat(blockedBy).isTrue();

@@ -5,7 +5,7 @@ import chess.domain.piece.move.Gap;
 import chess.domain.piece.move.MovePattern;
 import chess.domain.piece.move.MoveUnit;
 import chess.domain.piece.move.Path;
-import chess.domain.player.Color;
+import chess.domain.team.Color;
 
 import java.util.Collection;
 import java.util.List;

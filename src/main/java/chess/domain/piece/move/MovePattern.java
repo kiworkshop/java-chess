@@ -1,7 +1,7 @@
 package chess.domain.piece.move;
 
 import chess.domain.board.Position;
-import chess.domain.player.Color;
+import chess.domain.team.Color;
 
 import java.util.Collection;
 

@@ -3,14 +3,14 @@ package chess.domain.piece.type;
 import chess.domain.board.File;
 import chess.domain.board.Position;
 import chess.domain.board.Rank;
-import chess.domain.player.Color;
+import chess.domain.team.Color;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static chess.domain.player.Color.BLACK;
-import static chess.domain.player.Color.WHITE;
+import static chess.domain.team.Color.BLACK;
+import static chess.domain.team.Color.WHITE;
 
 public class PieceFactory {
 

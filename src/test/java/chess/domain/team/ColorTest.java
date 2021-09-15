@@ -1,4 +1,4 @@
-package chess.domain.player;
+package chess.domain.team;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

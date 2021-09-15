@@ -1,7 +1,7 @@
 package chess.domain.piece.type;
 
 import chess.domain.piece.move.MovePattern;
-import chess.domain.player.Color;
+import chess.domain.team.Color;
 
 public class Rook extends Piece {
 

@@ -4,8 +4,8 @@ import chess.domain.command.MoveParameters;
 import chess.domain.piece.type.Pawn;
 import chess.domain.piece.type.Piece;
 import chess.domain.piece.type.Rook;
-import chess.domain.player.Color;
-import chess.domain.player.Scores;
+import chess.domain.team.Color;
+import chess.domain.team.Scores;
 import chess.exception.EmptyPositionException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -89,7 +89,7 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("각 플레이어의 점수를 계산한다.")
+    @DisplayName("각 팀의 점수를 계산한다.")
     void get_scores() {
         //given
         Board board = new Board();

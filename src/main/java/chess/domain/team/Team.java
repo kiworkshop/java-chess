@@ -1,4 +1,4 @@
-package chess.domain.player;
+package chess.domain.team;
 
 import chess.domain.board.File;
 import chess.domain.board.Position;
@@ -14,11 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Player {
+public class Team {
 
     private final Map<Position, Piece> pieces;
 
-    public Player(final Color color) {
+    public Team(final Color color) {
         pieces = new HashMap<>(PieceFactory.initialPieces(color));
     }
 

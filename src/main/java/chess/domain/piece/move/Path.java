@@ -1,7 +1,7 @@
 package chess.domain.piece.move;
 
 import chess.domain.board.Position;
-import chess.domain.player.Player;
+import chess.domain.team.Team;
 
 import java.util.*;
 
@@ -38,14 +38,14 @@ public class Path {
         return new Path(positionsBeforeTarget);
     }
 
-    public boolean isNotBlockedBy(final Player player) {
+    public boolean isNotBlockedBy(final Team team) {
         return positions.stream()
-                .noneMatch(player::hasPieceOn);
+                .noneMatch(team::hasPieceOn);
     }
 
-    public boolean isBlockedBy(final Player player) {
+    public boolean isBlockedBy(final Team team) {
         return positions.stream()
-                .anyMatch(player::hasPieceOn);
+                .anyMatch(team::hasPieceOn);
     }
 
     public boolean isNotEmpty() {

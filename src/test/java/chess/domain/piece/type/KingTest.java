@@ -2,7 +2,7 @@ package chess.domain.piece.type;
 
 import chess.domain.board.Position;
 import chess.domain.piece.move.Path;
-import chess.domain.player.Color;
+import chess.domain.team.Color;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

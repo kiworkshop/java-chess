@@ -1,6 +1,6 @@
 package chess.view;
 
-import chess.domain.player.Scores;
+import chess.domain.team.Scores;
 
 import java.util.Map;
 
