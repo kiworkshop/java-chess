@@ -30,7 +30,7 @@ public class Team {
         pieces = new HashMap<>(PieceFactory.initialPieces(color));
     }
 
-    public void move(final Position source, final Position target) {
+    public void movePiece(final Position source, final Position target) {
         Piece sourcePiece = findPieceBy(source);
         pieces.remove(source);
         pieces.put(target, sourcePiece);
@@ -51,7 +51,7 @@ public class Team {
                 .collect(Collectors.toList());
     }
 
-    public void wasAttackedBy(final Position position) {
+    public void removePiece(final Position position) {
         if (hasNoPieceOn(position)) {
             return;
         }

@@ -52,7 +52,7 @@ public class TeamTest {
         Position target = Position.of("b3");
 
         //when
-        team.move(source, target);
+        team.movePiece(source, target);
 
         //then
         assertThat(team.hasNoPieceOn(source)).isTrue();
@@ -69,7 +69,7 @@ public class TeamTest {
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> team.move(source, target))
+                .isThrownBy(() -> team.movePiece(source, target))
                 .withMessage("해당 위치에 기물이 존재하지 않습니다.");
     }
 
@@ -99,7 +99,7 @@ public class TeamTest {
                 new Path(Position.of("b2")),
                 new Path(Position.of("d2"))
         );
-        team.wasAttackedBy(Position.of("b1"));
+        team.removePiece(Position.of("b1"));
 
         // when
         Collection<Path> attackPaths = team.findAttackPaths(target);
@@ -118,7 +118,7 @@ public class TeamTest {
         Position target = Position.of("e2");
 
         // when
-        team.wasAttackedBy(target);
+        team.removePiece(target);
 
         // then
         assertThat(team.hasNoPieceOn(target)).isTrue();
@@ -144,7 +144,7 @@ public class TeamTest {
     void is_king_dead() {
         //given
         Team team = Team.white();
-        team.wasAttackedBy(Position.of("e1"));
+        team.removePiece(Position.of("e1"));
 
         //when
         boolean kingDead = team.isKingDead();

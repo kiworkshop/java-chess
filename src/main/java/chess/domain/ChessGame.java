@@ -77,8 +77,8 @@ public class ChessGame {
         Path path = currentTeam().findMovePath(source, target);
         validatePathNotBlocked(path);
 
-        enemyTeam().wasAttackedBy(target);
-        currentTeam().move(source, target);
+        enemyTeam().removePiece(target);
+        currentTeam().movePiece(source, target);
     }
 
     private void validatePathNotBlocked(final Path path) {
