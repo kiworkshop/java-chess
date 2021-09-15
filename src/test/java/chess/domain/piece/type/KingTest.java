@@ -64,7 +64,6 @@ class KingTest {
         Collection<Path> availableAttackPaths = king.findAttackPaths(source);
 
 
-
         //then
         assertThat(availableAttackPaths)
                 .hasSize(expected.size())

@@ -1,5 +1,6 @@
-package chess.domain.board;
+package chess.domain;
 
+import chess.domain.board.Position;
 import chess.domain.command.MoveParameters;
 import chess.domain.piece.move.Path;
 import chess.domain.piece.type.Piece;
@@ -11,13 +12,13 @@ import chess.exception.EmptyPositionException;
 import static chess.domain.team.Color.BLACK;
 import static chess.domain.team.Color.WHITE;
 
-public class Board {
+public class ChessGame {
 
     private final Team whiteTeam;
     private final Team blackTeam;
     private Color currentTurn;
 
-    public Board() {
+    public ChessGame() {
         this.whiteTeam = Team.white();
         this.blackTeam = Team.black();
         this.currentTurn = WHITE;
@@ -86,7 +87,7 @@ public class Board {
         }
     }
 
-    public Piece findBy(final Position position) {
+    public Piece findPieceBy(final Position position) {
         if (isEmpty(position)) {
             throw new EmptyPositionException();
         }

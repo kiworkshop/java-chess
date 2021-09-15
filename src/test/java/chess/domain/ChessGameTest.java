@@ -1,5 +1,6 @@
-package chess.domain.board;
+package chess.domain;
 
+import chess.domain.board.Position;
 import chess.domain.command.MoveParameters;
 import chess.domain.piece.type.Pawn;
 import chess.domain.piece.type.Piece;
@@ -15,7 +16,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class BoardTest {
+public class ChessGameTest {
 
     @ParameterizedTest
     @CsvSource({"b3, b4, 자신의 기물만 움직일 수 있습니다.",  // 빈칸
@@ -27,12 +28,12 @@ public class BoardTest {
     @DisplayName("이동할 수 없는 경우 예외가 발생한다.")
     void move_exception(String source, String target, String exceptionMessage) {
         //given
-        Board board = new Board();
+        ChessGame chessGame = new ChessGame();
         MoveParameters moveParameters = new MoveParameters(source, target);
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> board.move(moveParameters))
+                .isThrownBy(() -> chessGame.move(moveParameters))
                 .withMessage(exceptionMessage);
     }
 
@@ -41,18 +42,18 @@ public class BoardTest {
     @DisplayName("상대방이 킹의 목적지를 공격 가능한 경우 예외가 발생한다.")
     void move_king_invalid_target(String source, String target) {
         //given
-        Board board = new Board();
-        board.move(new MoveParameters("e2", "e4"));
-        board.move(new MoveParameters("c7", "c5"));
-        board.move(new MoveParameters("d2", "d4"));
-        board.move(new MoveParameters("d8", "a5"));
-        board.move(new MoveParameters("e1", "e2"));
-        board.move(new MoveParameters("h7", "h5"));
+        ChessGame chessGame = new ChessGame();
+        chessGame.move(new MoveParameters("e2", "e4"));
+        chessGame.move(new MoveParameters("c7", "c5"));
+        chessGame.move(new MoveParameters("d2", "d4"));
+        chessGame.move(new MoveParameters("d8", "a5"));
+        chessGame.move(new MoveParameters("e1", "e2"));
+        chessGame.move(new MoveParameters("h7", "h5"));
         MoveParameters moveParameters = new MoveParameters(source, target);
 
         //when, then
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> board.move(moveParameters))
+                .isThrownBy(() -> chessGame.move(moveParameters))
                 .withMessage("킹은 상대방이 공격 가능한 위치로 이동할 수 없습니다.");
     }
 
@@ -64,9 +65,9 @@ public class BoardTest {
         Position blackRookPosition = Position.of("a8");
 
         //when
-        Board board = new Board();
-        Piece whitePawn = board.findBy(whitePawnPosition);
-        Piece blackRook = board.findBy(blackRookPosition);
+        ChessGame chessGame = new ChessGame();
+        Piece whitePawn = chessGame.findPieceBy(whitePawnPosition);
+        Piece blackRook = chessGame.findPieceBy(blackRookPosition);
 
         //then
         assertThat(whitePawn).isInstanceOf(Pawn.class);
@@ -82,28 +83,28 @@ public class BoardTest {
         Position emptyPosition = Position.of("d5");
 
         //when
-        Board board = new Board();
+        ChessGame chessGame = new ChessGame();
 
         //then
-        assertThrows(EmptyPositionException.class, () -> board.findBy(emptyPosition));
+        assertThrows(EmptyPositionException.class, () -> chessGame.findPieceBy(emptyPosition));
     }
 
     @Test
     @DisplayName("각 팀의 점수를 계산한다.")
     void get_scores() {
         //given
-        Board board = new Board();
-        board.move(new MoveParameters("a2", "a3"));
-        board.move(new MoveParameters("e7", "e5"));
-        board.move(new MoveParameters("d2", "d4"));
-        board.move(new MoveParameters("e5", "e4"));
-        board.move(new MoveParameters("b2", "b3"));
-        board.move(new MoveParameters("a7", "a6"));
-        board.move(new MoveParameters("f2", "f3"));
-        board.move(new MoveParameters("e4", "f3"));
+        ChessGame chessGame = new ChessGame();
+        chessGame.move(new MoveParameters("a2", "a3"));
+        chessGame.move(new MoveParameters("e7", "e5"));
+        chessGame.move(new MoveParameters("d2", "d4"));
+        chessGame.move(new MoveParameters("e5", "e4"));
+        chessGame.move(new MoveParameters("b2", "b3"));
+        chessGame.move(new MoveParameters("a7", "a6"));
+        chessGame.move(new MoveParameters("f2", "f3"));
+        chessGame.move(new MoveParameters("e4", "f3"));
 
         //when
-        Scores scores = board.getScores();
+        Scores scores = chessGame.getScores();
 
         //then
         assertThat(scores.getWhiteScore()).isEqualTo(37);
@@ -114,15 +115,15 @@ public class BoardTest {
     @DisplayName("흑팀 킹이 죽으면 백팀을 승자로 반환한다.")
     void get_winner_white() {
         //given
-        Board board = new Board();
-        board.move(new MoveParameters("e2", "e4"));
-        board.move(new MoveParameters("f7", "f5"));
-        board.move(new MoveParameters("d1", "h5"));
-        board.move(new MoveParameters("a7", "a5"));
-        board.move(new MoveParameters("h5", "e8"));
+        ChessGame chessGame = new ChessGame();
+        chessGame.move(new MoveParameters("e2", "e4"));
+        chessGame.move(new MoveParameters("f7", "f5"));
+        chessGame.move(new MoveParameters("d1", "h5"));
+        chessGame.move(new MoveParameters("a7", "a5"));
+        chessGame.move(new MoveParameters("h5", "e8"));
 
         //when
-        Color winner = board.getWinner();
+        Color winner = chessGame.getWinner();
 
         //then
         assertThat(winner.isWhite()).isTrue();
@@ -132,16 +133,16 @@ public class BoardTest {
     @DisplayName("백팀 킹이 죽으면 흑팀을 승자로 반환한다.")
     void get_winner_black() {
         //given
-        Board board = new Board();
-        board.move(new MoveParameters("f2", "f4"));
-        board.move(new MoveParameters("e7", "e5"));
-        board.move(new MoveParameters("a2", "a4"));
-        board.move(new MoveParameters("d8", "h4"));
-        board.move(new MoveParameters("b2", "b4"));
-        board.move(new MoveParameters("h4", "e1"));
+        ChessGame chessGame = new ChessGame();
+        chessGame.move(new MoveParameters("f2", "f4"));
+        chessGame.move(new MoveParameters("e7", "e5"));
+        chessGame.move(new MoveParameters("a2", "a4"));
+        chessGame.move(new MoveParameters("d8", "h4"));
+        chessGame.move(new MoveParameters("b2", "b4"));
+        chessGame.move(new MoveParameters("h4", "e1"));
 
         //when
-        Color winner = board.getWinner();
+        Color winner = chessGame.getWinner();
 
         //then
         assertThat(winner.isBlack()).isTrue();
@@ -151,11 +152,11 @@ public class BoardTest {
     @DisplayName("흑백 킹이 모두 살아있는 경우 승자를 요청하면 예외를 반환한다.")
     void get_winner_exception() {
         //given
-        Board board = new Board();
+        ChessGame chessGame = new ChessGame();
 
         //when, then
         assertThatIllegalStateException()
-                .isThrownBy(board::getWinner)
+                .isThrownBy(chessGame::getWinner)
                 .withMessage("King이 잡히지 않아 승자가 없습니다.");
     }
 }

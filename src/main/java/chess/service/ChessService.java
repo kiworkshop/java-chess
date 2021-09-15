@@ -1,6 +1,6 @@
 package chess.service;
 
-import chess.domain.board.Board;
+import chess.domain.ChessGame;
 import chess.domain.command.Command;
 import chess.domain.command.MoveParameters;
 import chess.domain.team.Color;
@@ -13,10 +13,10 @@ import java.util.Map;
 
 public class ChessService {
 
-    private final Board board;
+    private final ChessGame chessGame;
 
     public ChessService() {
-        this.board = new Board();
+        this.chessGame = new ChessGame();
     }
 
     public void run(Command command) {
@@ -39,7 +39,7 @@ public class ChessService {
     }
 
     public boolean isGameRunning() {
-        return board.isBothKingAlive();
+        return chessGame.isBothKingAlive();
     }
 
     public boolean isGameFinished() {
@@ -47,23 +47,23 @@ public class ChessService {
     }
 
     public void movePiece(MoveParameters parameters) {
-        board.move(parameters);
+        chessGame.move(parameters);
     }
 
     public Scores getScores() {
-        return board.getScores();
+        return chessGame.getScores();
     }
 
     public Map<String, String> getBoardDto() {
-        return BoardDto.of(board);
+        return BoardDto.of(chessGame);
     }
 
     public String getCurrentTurnDto() {
-        return board.getCurrentTurn().name();
+        return chessGame.getCurrentTurn().name();
     }
 
     public String getWinnerDto() {
-        Color color = board.getWinner();
+        Color color = chessGame.getWinner();
         return color.name();
     }
 }
