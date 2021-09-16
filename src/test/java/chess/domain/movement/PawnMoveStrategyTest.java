@@ -1,10 +1,10 @@
 package chess.domain.movement;
 
 import chess.domain.board.Board;
+import chess.domain.game.ChessGame;
 import chess.domain.piece.Piece;
 import chess.domain.position.Position;
 import chess.domain.state.Ready;
-import chess.game.ChessGame;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

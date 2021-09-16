@@ -1,10 +1,10 @@
 package chess.domain.board;
 
+import chess.domain.game.Turn;
 import chess.domain.piece.Blank;
 import chess.domain.piece.King;
 import chess.domain.piece.Piece;
 import chess.domain.position.Position;
-import chess.game.Turn;
 
 import java.util.Collections;
 import java.util.List;

@@ -1,13 +1,13 @@
 package chess.service;
 
+import chess.domain.game.ChessGame;
+import chess.domain.game.Score;
 import chess.domain.position.Position;
 import chess.domain.state.Finish;
 import chess.domain.state.Playing;
 import chess.domain.state.Ready;
 import chess.dto.ChessGameDto;
 import chess.dto.ScoreDto;
-import chess.game.ChessGame;
-import chess.game.Score;
 
 import java.util.List;
 

@@ -2,8 +2,6 @@ package chess.domain.game;
 
 import chess.domain.position.Position;
 import chess.domain.state.Ready;
-import chess.game.ChessGame;
-import chess.game.Score;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

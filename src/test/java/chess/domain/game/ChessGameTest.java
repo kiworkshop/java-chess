@@ -6,8 +6,9 @@ import chess.domain.position.Position;
 import chess.domain.state.Finish;
 import chess.domain.state.Playing;
 import chess.domain.state.Ready;
-import chess.game.ChessGame;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;

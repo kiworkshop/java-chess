@@ -1,7 +1,6 @@
 package chess.domain.game;
 
 import chess.domain.board.Team;
-import chess.game.Turn;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

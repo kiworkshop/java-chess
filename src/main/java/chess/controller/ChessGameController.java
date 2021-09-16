@@ -1,11 +1,11 @@
 package chess.controller;
 
 import chess.domain.position.Position;
-import chess.domain.view.InputView;
-import chess.domain.view.OutputView;
 import chess.dto.ChessGameDto;
 import chess.dto.ScoreDto;
 import chess.service.ChessGameService;
+import chess.view.InputView;
+import chess.view.OutputView;
 
 import java.util.List;
 
@@ -94,6 +94,7 @@ public class ChessGameController {
     }
 
     private void gameEnd() {
+        status();
         List<String> winner = chessGameService.endGame();
         OutputView.printWinner(winner);
     }

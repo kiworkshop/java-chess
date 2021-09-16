@@ -1,4 +1,4 @@
-package chess.game;
+package chess.domain.game;
 
 import chess.domain.board.Team;
 
@@ -15,9 +15,9 @@ public class Turn {
 
     public Turn toggle() {
         if (turn.equals(Team.BLACK)) {
-            return Turn.of(Team.WHITE);
+            return new Turn(Team.WHITE);
         }
-        return Turn.of(Team.BLACK);
+        return new Turn(Team.BLACK);
     }
 
     public void checkTurn(Team team) {

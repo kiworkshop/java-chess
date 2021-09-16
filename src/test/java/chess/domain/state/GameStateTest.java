@@ -3,10 +3,10 @@ package chess.domain.state;
 import chess.domain.board.Board;
 import chess.domain.board.BoardInitializer;
 import chess.domain.board.Team;
+import chess.domain.game.Turn;
 import chess.domain.piece.Knight;
 import chess.domain.piece.Pawn;
 import chess.domain.position.Position;
-import chess.game.Turn;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

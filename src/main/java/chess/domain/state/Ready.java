@@ -3,9 +3,9 @@ package chess.domain.state;
 import chess.domain.board.Board;
 import chess.domain.board.BoardInitializer;
 import chess.domain.board.Team;
+import chess.domain.game.Score;
+import chess.domain.game.Turn;
 import chess.domain.piece.Piece;
-import chess.game.Score;
-import chess.game.Turn;
 
 import java.util.List;
 

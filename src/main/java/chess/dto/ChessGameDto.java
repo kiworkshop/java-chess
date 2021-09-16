@@ -1,8 +1,8 @@
 package chess.dto;
 
 import chess.domain.board.Board;
+import chess.domain.game.ChessGame;
 import chess.domain.state.GameState;
-import chess.game.ChessGame;
 
 public class ChessGameDto {
     private final GameState gameState;
