@@ -31,7 +31,7 @@ public class Score {
         double sum = pieces.stream()
                 .mapToDouble(Piece::score)
                 .sum();
-        int sameFileCount = isSameFile(pieces);
+        int sameFileCount = pawnSameFileCount(pieces);
         return (sum - (sameFileCount * PAWN_SAME_FILE_SCORE)) * kingCount;
     }
 
@@ -41,7 +41,7 @@ public class Score {
                 .count();
     }
 
-    private static int isSameFile(List<Piece> pieces) {
+    private static int pawnSameFileCount(List<Piece> pieces) {
         Map<Integer, Long> counting = pieces.stream()
                 .filter(Score::isPawn)
                 .collect(Collectors.toList())
