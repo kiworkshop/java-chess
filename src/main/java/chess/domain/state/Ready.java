@@ -47,12 +47,12 @@ public class Ready implements GameState {
     }
 
     @Override
-    public Turn turn() {
+    public Turn getTurn() {
         throw new UnsupportedOperationException("게임이 시작되지 않았습니다.");
     }
 
     @Override
-    public Board board() {
+    public Board getBoard() {
         return board;
     }
 }

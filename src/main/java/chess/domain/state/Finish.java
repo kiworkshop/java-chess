@@ -8,28 +8,29 @@ import chess.game.Score;
 import chess.game.Turn;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Finish implements GameState {
-    private Board board;
+    private final Board board;
 
-    public Finish(Board board) {
-        this.board = board;
+    public Finish() {
+        this.board = Board.of(Collections.emptyMap());
     }
 
     @Override
     public GameState start() {
-        throw new UnsupportedOperationException("이미 게임이 종료되어 다시 게임을 시작 할 수 없습니다.");
+        throw new UnsupportedOperationException("게임이 종료되어 다시 게임을 시작 할 수 없습니다.");
     }
 
     @Override
     public GameState move(Piece source, Piece target) {
-        throw new UnsupportedOperationException("이미 게임이 종료되어 체스 말을 움직일 수 없습니다.");
+        throw new UnsupportedOperationException("게임이 종료되어 체스 말을 움직일 수 없습니다.");
     }
 
     @Override
     public Turn toggle() {
-        throw new UnsupportedOperationException("이미 게임이 종료되어 턴을 변경할 수 없습니다.");
+        throw new UnsupportedOperationException("게임이 종료되어 턴을 변경할 수 없습니다.");
     }
 
     @Override
@@ -40,7 +41,7 @@ public class Finish implements GameState {
 
     @Override
     public GameState end() {
-        throw new UnsupportedOperationException("이미 게임이 종료되었습니다.");
+        throw new UnsupportedOperationException("게임이 종료되었습니다.");
     }
 
     @Override
@@ -50,21 +51,21 @@ public class Finish implements GameState {
         double blackScore = score.black();
 
         if (whiteScore >= blackScore) {
-            result.add(File.symbols());
+            result.add(File.getSymbols());
         }
         if (whiteScore <= blackScore) {
-            result.add(File.symbols().toUpperCase());
+            result.add(File.getSymbols().toUpperCase());
         }
         return result;
     }
 
     @Override
-    public Turn turn() {
-        throw new UnsupportedOperationException("이미 게임이 종료되었습니다.");
+    public Turn getTurn() {
+        throw new UnsupportedOperationException("게임이 종료되었습니다.");
     }
 
     @Override
-    public Board board() {
+    public Board getBoard() {
         return board;
     }
 }

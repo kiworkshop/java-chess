@@ -22,7 +22,7 @@ public interface GameState {
 
     List<String> winner(Score score);
 
-    Turn turn();
+    Turn getTurn();
 
-    Board board();
+    Board getBoard();
 }

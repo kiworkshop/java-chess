@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Playing implements GameState {
     private Turn turn;
-    private Board board;
+    private final Board board;
 
     public Playing(Turn turn, Board board) {
         this.turn = turn;
@@ -19,13 +19,13 @@ public class Playing implements GameState {
 
     @Override
     public GameState start() {
-        throw new UnsupportedOperationException("게임이 이미 시작되어 다시 게임을 시작할 수 없었습니다.");
+        throw new UnsupportedOperationException("게임이 시작되어 다시 게임을 시작할 수 없었습니다.");
     }
 
     @Override
     public GameState move(Piece source, Piece target) {
-        turn.checkTurn(source.team());
-        if (source.canMove(board, source, target)) {
+        turn.checkTurn(source.getTeam());
+        if (source.canMove(board, target)) {
             board.move(source, target);
             return this;
         }
@@ -46,21 +46,21 @@ public class Playing implements GameState {
 
     @Override
     public List<String> winner(Score score) {
-        throw new UnsupportedOperationException("아직 게임 진행을 진행하고 있어 우승자를 가릴 수 없습니다.");
+        throw new UnsupportedOperationException("게임 진행을 진행하고 있어 우승자를 가릴 수 없습니다.");
     }
 
     @Override
     public GameState end() {
-        return new Finish(board);
+        return new Finish();
     }
 
     @Override
-    public Turn turn() {
+    public Turn getTurn() {
         return turn;
     }
 
     @Override
-    public Board board() {
+    public Board getBoard() {
         return board;
     }
 }

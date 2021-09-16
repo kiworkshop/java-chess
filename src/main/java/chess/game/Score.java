@@ -46,7 +46,7 @@ public class Score {
                 .filter(Score::isPawn)
                 .collect(Collectors.toList())
                 .stream()
-                .collect(groupingBy(pawn -> pawn.position().fileNumber(), counting()));
+                .collect(groupingBy(Piece::getFileNumber, counting()));
 
         return (int) counting.values().stream()
                 .filter(count -> count >= PAWN_SAME_FILE_COUNT)

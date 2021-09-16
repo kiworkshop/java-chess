@@ -13,26 +13,26 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Board {
-    private static Map<Position, Piece> board;
+    private final Map<Position, Piece> board;
 
-    private Board(Map<Position, Piece> board) {
+    private Board(final Map<Position, Piece> board) {
         this.board = board;
     }
 
-    public static Board of(Map<Position, Piece> board) {
+    public static Board of(final Map<Position, Piece> board) {
         return new Board(board);
     }
 
     public Map<Position, Piece> move(Piece source, Piece target) {
-        board.put(source.position(), Blank.of(source.position()));
-        board.put(target.position(), source);
-        source.move(target.position());
-        return  board;
+        board.put(source.getPosition(), Blank.of(source.getPosition()));
+        board.put(target.getPosition(), source);
+        source.move(target.getPosition());
+        return board;
     }
 
     public List<Piece> findBy(Team team) {
         return board.values().stream()
-                .filter(piece -> piece.team().equals(team))
+                .filter(piece -> piece.getTeam().equals(team))
                 .collect(Collectors.toList());
     }
 
@@ -48,5 +48,20 @@ public class Board {
         List<Piece> pieces = findBy(turn.team());
         Optional<Piece> existKing = pieces.stream().filter(King.class::isInstance).findFirst();
         return existKing.isPresent();
+    }
+
+    public boolean isOtherTeam(Position source, Position target) {
+        return isNotSameTeam(source, target) && !isBlank(target);
+    }
+
+    public boolean isNotSameTeam(Position source, Position target) {
+        Piece sourcePiece = from(source);
+        Piece targetPiece = from(target);
+        return !sourcePiece.getTeam().isSameTeam(targetPiece.getTeam());
+    }
+
+    public boolean isBlank(Position target) {
+        Piece targetPiece = from(target);
+        return targetPiece.getTeam().equals(Team.NEUTRAL);
     }
 }

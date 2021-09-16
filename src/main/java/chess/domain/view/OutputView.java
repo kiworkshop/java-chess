@@ -25,14 +25,14 @@ public class OutputView {
         System.out.println("------------------------");
         board.values().keySet()
                 .forEach(position -> {
-                    System.out.print(board.from(position).symbol());
+                    System.out.print(board.from(position).getSymbol());
                     separateLine(position);
                 });
         System.out.println("------------------------");
     }
 
     private static void separateLine(Position position) {
-        if (position.fileNumber() / FILE_SIZE == 1) {
+        if (position.getFileNumber() / FILE_SIZE == 1) {
             System.out.println();
         }
     }

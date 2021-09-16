@@ -29,8 +29,8 @@ class PositionTest {
         Position position = Position.from(inputPosition);
 
         //then
-        assertThat(position.fileSymbol()).isEqualTo(file.symbol());
-        assertThat(position.rankNumber()).isEqualTo(rank.number());
+        assertThat(position.getFileSymbol()).isEqualTo(file.getSymbol());
+        assertThat(position.getRankNumber()).isEqualTo(rank.getNumber());
     }
 
     @ParameterizedTest

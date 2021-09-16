@@ -12,6 +12,6 @@ public class ChessGameDto {
     }
 
     public Board board() {
-        return gameState.board();
+        return gameState.getBoard();
     }
 }

@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final Pattern pattern = Pattern.compile("move [a-h]{1}[1-8]{1} [a-h]{1}[1-8]{1}");
+    private static final Pattern MOVE_PATTERN = Pattern.compile("move [a-h][1-8] [a-h][1-8]");
 
     private InputView() {
     }
@@ -16,8 +16,7 @@ public class InputView {
     }
 
     public static String[] parseMoveInput(String input) {
-        Matcher matcher = pattern.matcher(input);
-
+        Matcher matcher = MOVE_PATTERN.matcher(input);
         if (matcher.find()) {
             return input.replace("move ", "").split(" ");
         }

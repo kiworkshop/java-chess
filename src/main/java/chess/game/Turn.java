@@ -22,7 +22,7 @@ public class Turn {
 
     public void checkTurn(Team team) {
         if (!turn.equals(team)) {
-            throw new IllegalArgumentException(turn.color() + "이 움직일 차례입니다.");
+            throw new IllegalArgumentException(turn.getColor() + "이 움직일 차례입니다.");
         }
     }
 

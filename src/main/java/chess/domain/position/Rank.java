@@ -1,5 +1,7 @@
 package chess.domain.position;
 
+import java.util.Arrays;
+
 public enum Rank {
     EIGHT(8),
     SEVEN(7),
@@ -16,7 +18,14 @@ public enum Rank {
         this.number = number;
     }
 
-    public int number() {
+    public static Rank findBy(int rankNumber) {
+        return Arrays.stream(Rank.values())
+                .filter(rank -> rank.number == rankNumber)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Rank를 찾을 수 없습니다."));
+    }
+
+    public int getNumber() {
         return number;
     }
 }

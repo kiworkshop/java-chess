@@ -22,17 +22,24 @@ public enum File {
         this.number = number;
     }
 
-    public static String symbols() {
+    public static File findBy(int fileNumber) {
+        return Arrays.stream(File.values())
+                .filter(rank -> rank.number == fileNumber)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("File을 찾을 수 없습니다."));
+    }
+
+    public static String getSymbols() {
         return Arrays.stream(values())
-                .map(file -> file.symbol())
+                .map(File::getSymbol)
                 .collect(joining());
     }
 
-    public String symbol() {
+    public String getSymbol() {
         return symbol;
     }
 
-    public int number() {
+    public int getNumber() {
         return number;
     }
 }

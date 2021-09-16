@@ -29,7 +29,7 @@ public class ChessGame {
     }
 
     public ChessGame moveAndToggleTurn(Position source, Position target) {
-        Board board = gameState.board();
+        Board board = gameState.getBoard();
         this.gameState = gameState.move(board.from(source), board.from(target));
 
         Turn turn = gameState.toggle();
@@ -59,7 +59,7 @@ public class ChessGame {
         return gameState;
     }
 
-    public Board board() {
-        return gameState.board();
+    public Board getBoard() {
+        return gameState.getBoard();
     }
 }

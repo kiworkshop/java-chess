@@ -47,7 +47,7 @@ class GameStateTest {
 
         //then
         assertThrows(UnsupportedOperationException.class,
-                () -> ready.turn());
+                () -> ready.getTurn());
     }
 
     @Test
@@ -65,7 +65,7 @@ class GameStateTest {
     @DisplayName("게임이 종료되면 게임을 시작 수 없다.")
     void finish_state_start() {
         //given //when
-        Finish finish = new Finish(Board.of(BoardInitializer.reset()));
+        Finish finish = new Finish();
 
         //then
         assertThrows(UnsupportedOperationException.class,
@@ -80,7 +80,7 @@ class GameStateTest {
         Knight knight = Knight.of(Team.BLACK, Position.from("d4"));
 
         // when
-        Finish finish = new Finish(Board.of(BoardInitializer.reset()));
+        Finish finish = new Finish();
 
         //then
         assertThrows(UnsupportedOperationException.class,
@@ -91,7 +91,7 @@ class GameStateTest {
     @DisplayName("게임이 종료되면 턴을 바꿀 수 없다.")
     void finish_state_end() {
         //given //when
-        Finish finish = new Finish(Board.of(BoardInitializer.reset()));
+        Finish finish = new Finish();
 
         //then
         assertThrows(UnsupportedOperationException.class,
@@ -102,10 +102,10 @@ class GameStateTest {
     @DisplayName("게임이 종료되면 턴을 바꿀 수 없다.")
     void finish_state_turn() {
         //given //when
-        Finish finish = new Finish(Board.of(BoardInitializer.reset()));
+        Finish finish = new Finish();
 
         //then
         assertThrows(UnsupportedOperationException.class,
-                () -> finish.turn());
+                () -> finish.getTurn());
     }
 }

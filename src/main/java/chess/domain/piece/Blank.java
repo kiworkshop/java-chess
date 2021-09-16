@@ -1,18 +1,15 @@
 package chess.domain.piece;
 
-import chess.domain.board.Board;
 import chess.domain.board.Team;
+import chess.domain.movement.BlankMoveStrategy;
 import chess.domain.position.Position;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Blank extends Piece {
     private static final String BLANK_SYMBOL = ".";
     private static final float BLANK_SCORE = 0;
 
     protected Blank(Position position) {
-        super(Team.NEUTRAL, position);
+        super(Team.NEUTRAL, position, new BlankMoveStrategy());
     }
 
     public static Blank of(Position position) {
@@ -20,29 +17,12 @@ public class Blank extends Piece {
     }
 
     @Override
-    public boolean canMove(Board board, Piece source, Piece target) {
-        notBlankPosition(source);
-        withoutSameTeam(source.team(), target);
-        return false;
-    }
-
-    @Override
-    public List<Position> getMovablePositions() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public boolean moveStrategy(Position source, Position target) {
-        return false;
+    public String symbol() {
+        return BLANK_SYMBOL;
     }
 
     @Override
     public double score() {
         return BLANK_SCORE;
-    }
-
-    @Override
-    public String symbol() {
-        return BLANK_SYMBOL;
     }
 }
