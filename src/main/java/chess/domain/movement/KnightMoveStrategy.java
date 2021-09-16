@@ -13,8 +13,7 @@ public class KnightMoveStrategy extends MoveStrategy {
 
     @Override
     public boolean canMove(Board board, Piece source, Piece target) {
-        checkBlankPosition(source);
-        checkSameTeamPosition(source.getTeam(), target.getTeam());
+        validate(source, target);
         Set<Position> movablePositions = getMovablePositions(board, source);
         return checkMovablePosition(movablePositions, target.getPosition());
     }

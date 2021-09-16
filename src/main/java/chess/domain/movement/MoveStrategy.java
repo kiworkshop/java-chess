@@ -20,15 +20,20 @@ public abstract class MoveStrategy {
 
     public abstract Set<Position> getMovablePositions(Board board, Piece source);
 
-    protected void checkSameTeamPosition(Team attackTeam, Team defenseTeam) {
-        if (attackTeam.equals(defenseTeam)) {
-            throw new IllegalArgumentException("아군이 있는 칸에는 이동할 수 없습니다.");
-        }
+    protected void validate(Piece source, Piece target) {
+        checkBlankPosition(source);
+        checkSameTeamPosition(source.getTeam(), target.getTeam());
     }
 
     protected void checkBlankPosition(Piece sourcePiece) {
         if (isBlank(sourcePiece.getTeam())) {
             throw new IllegalArgumentException("해당 위치에 체스말이 없습니다.");
+        }
+    }
+
+    private void checkSameTeamPosition(Team attackTeam, Team defenseTeam) {
+        if (attackTeam.equals(defenseTeam)) {
+            throw new IllegalArgumentException("아군이 있는 칸에는 이동할 수 없습니다.");
         }
     }
 
