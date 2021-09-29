@@ -1,7 +1,7 @@
 package chess.dto;
 
-import chess.domain.ChessGame;
 import chess.domain.board.Position;
+import chess.domain.game.ChessGame;
 import chess.domain.piece.type.Piece;
 import chess.domain.piece.type.PieceType;
 import chess.exception.EmptyPositionException;

@@ -1,12 +1,12 @@
-package chess.domain;
+package chess.domain.game;
 
 import chess.domain.board.Position;
 import chess.domain.command.MoveParameters;
 import chess.domain.piece.move.Path;
 import chess.domain.piece.type.Piece;
 import chess.domain.team.Color;
-import chess.domain.team.Scores;
 import chess.domain.team.Team;
+import chess.dto.Scores;
 import chess.exception.EmptyPositionException;
 
 import static chess.domain.team.Color.BLACK;
@@ -16,12 +16,12 @@ public class ChessGame {
 
     private final Team whiteTeam;
     private final Team blackTeam;
-    private Color currentTurn;
+    private final Turn currentTurn;
 
     public ChessGame() {
         this.whiteTeam = Team.white();
         this.blackTeam = Team.black();
-        this.currentTurn = WHITE;
+        this.currentTurn = Turn.initialTurn();
     }
 
     public void move(final MoveParameters moveParameters) {
@@ -30,7 +30,7 @@ public class ChessGame {
         validateParameters(source, target);
 
         movePiece(source, target);
-        currentTurn = currentTurn.flip();
+        currentTurn.next();
     }
 
     private void validateParameters(final Position source, final Position target) {
@@ -124,7 +124,7 @@ public class ChessGame {
         return whiteTeam.isKingAlive() && blackTeam.isKingAlive();
     }
 
-    public Color getCurrentTurn() {
+    public Turn getCurrentTurn() {
         return currentTurn;
     }
 

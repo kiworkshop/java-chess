@@ -1,4 +1,4 @@
-package chess.domain.team;
+package chess.dto;
 
 public class Scores {
 

@@ -1,7 +1,8 @@
 package chess.controller;
 
 import chess.domain.command.Command;
-import chess.domain.team.Scores;
+import chess.dto.Scores;
+import chess.dto.TurnDto;
 import chess.exception.ForcedTerminationException;
 import chess.exception.ScoresRequestedException;
 import chess.service.ChessService;
@@ -40,7 +41,7 @@ public class ConsoleChessController {
 
     private void runOneTurn() {
         try {
-            String currentTurn = chessService.getCurrentTurnDto();
+            TurnDto currentTurn = chessService.getCurrentTurnDto();
             outputView.printTurn(currentTurn);
 
             Command command = new Command(inputView.getCommand());

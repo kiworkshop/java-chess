@@ -1,13 +1,14 @@
 package chess.view;
 
-import chess.domain.team.Scores;
+import chess.dto.Scores;
+import chess.dto.TurnDto;
 
 import java.util.Map;
 
 public class ConsoleOutputView implements OutputView {
 
     private static final String HEADER = "> ";
-    private static final String TURN_FORMAT = HEADER + "%s의 차례입니다.%n";
+    private static final String TURN_FORMAT = HEADER + "%s팀의 %s 차례입니다.%n";
     private static final String WINNER_FORMAT = HEADER + "%s의 승리입니다. 축하합니다.%n";
 
     private static final int FILE = 0;
@@ -62,8 +63,10 @@ public class ConsoleOutputView implements OutputView {
     }
 
     @Override
-    public void printTurn(String currentTurn) {
-        System.out.printf(TURN_FORMAT, currentTurn);
+    public void printTurn(TurnDto currentTurn) {
+        String team = currentTurn.getTeam();
+        String playerName = currentTurn.getPlayerName();
+        System.out.printf(TURN_FORMAT, team, playerName);
     }
 
     @Override

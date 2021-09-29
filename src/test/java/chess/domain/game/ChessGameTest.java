@@ -1,4 +1,4 @@
-package chess.domain;
+package chess.domain.game;
 
 import chess.domain.board.Position;
 import chess.domain.command.MoveParameters;
@@ -6,7 +6,7 @@ import chess.domain.piece.type.Pawn;
 import chess.domain.piece.type.Piece;
 import chess.domain.piece.type.Rook;
 import chess.domain.team.Color;
-import chess.domain.team.Scores;
+import chess.dto.Scores;
 import chess.exception.EmptyPositionException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

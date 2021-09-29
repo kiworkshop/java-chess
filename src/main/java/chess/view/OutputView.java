@@ -1,6 +1,7 @@
 package chess.view;
 
-import chess.domain.team.Scores;
+import chess.dto.Scores;
+import chess.dto.TurnDto;
 
 import java.util.Map;
 
@@ -11,7 +12,7 @@ public interface OutputView {
 
     void printScores(Scores scores);
 
-    void printTurn(String currentTurn);
+    void printTurn(TurnDto currentTurn);
 
     void printWinner(String winner);
 

@@ -1,11 +1,12 @@
 package chess.service;
 
-import chess.domain.ChessGame;
 import chess.domain.command.Command;
 import chess.domain.command.MoveParameters;
+import chess.domain.game.ChessGame;
 import chess.domain.team.Color;
-import chess.domain.team.Scores;
 import chess.dto.BoardDto;
+import chess.dto.Scores;
+import chess.dto.TurnDto;
 import chess.exception.ForcedTerminationException;
 import chess.exception.ScoresRequestedException;
 
@@ -58,8 +59,8 @@ public class ChessService {
         return BoardDto.of(chessGame);
     }
 
-    public String getCurrentTurnDto() {
-        return chessGame.getCurrentTurn().name();
+    public TurnDto getCurrentTurnDto() {
+        return TurnDto.of(chessGame.getCurrentTurn());
     }
 
     public String getWinnerDto() {
