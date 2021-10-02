@@ -31,14 +31,21 @@ public abstract class MoveStrategy {
         }
     }
 
+    private boolean isBlank(Team team) {
+        return team.equals(Team.NEUTRAL);
+    }
+
     private void checkSameTeamPosition(Team attackTeam, Team defenseTeam) {
         if (attackTeam.equals(defenseTeam)) {
             throw new IllegalArgumentException("아군이 있는 칸에는 이동할 수 없습니다.");
         }
     }
 
-    private boolean isBlank(Team team) {
-        return team.equals(Team.NEUTRAL);
+    protected boolean checkMovablePosition(Set<Position> movablePositions, Position target) {
+        if (movablePositions.contains(target)) {
+            return true;
+        }
+        throw new IllegalArgumentException("체스말을 옮길 수 있는 위치가 아닙니다.");
     }
 
     protected Set<Position> onceMovablePositions(List<Direction> directions, Position source) {
@@ -69,12 +76,5 @@ public abstract class MoveStrategy {
                 .map(count -> source.findBy(direction, count))
                 .filter(Optional::isPresent)
                 .map(Optional::get);
-    }
-
-    protected boolean checkMovablePosition(Set<Position> movablePositions, Position target) {
-        if (movablePositions.contains(target)) {
-            return true;
-        }
-        throw new IllegalArgumentException("체스말을 옮길 수 있는 위치가 아닙니다.");
     }
 }
