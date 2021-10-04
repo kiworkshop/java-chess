@@ -64,8 +64,8 @@ public abstract class MoveStrategy {
 
     protected Set<Position> attackMovablePosition(Board board, Direction direction, Position source) {
         return getPositionStream(direction, source)
-                .takeWhile(target -> board.isNotSameTeam(source, target))
-                .dropWhile(target -> !board.isOtherTeam(source, target))
+                .takeWhile(target -> board.isOtherTeam(source, target) || board.isBlank(target))
+                .dropWhile(board::isBlank)
                 .limit(1)
                 .collect(Collectors.toSet());
     }
